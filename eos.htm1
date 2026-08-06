@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة مكافأة نهاية الخدمة - حاسبها</title>
+    <meta name="description" content="حاسبة مكافأة نهاية الخدمة وفق نظام العمل السعودي. احسب مستحقاتك بسهولة بناءً على الراتب ومدة الخدمة وسبب انتهاء العلاقة الوظيفية.">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .calc-wrapper{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:28px 24px;max-width:650px;margin:20px auto}
+        .calc-wrapper .subtitle{text-align:center;color:#64748b;font-size:14px;margin-bottom:28px;line-height:1.7}
+        .calc-wrapper label{display:block;font-weight:600;margin-bottom:6px;color:#1e293b;font-size:15px}
+        .calc-wrapper .hint{font-size:12px;color:#94a3b8;margin-bottom:10px}
+        .calc-wrapper .input-row{display:flex;gap:10px;margin-bottom:20px;align-items:center}
+        .calc-wrapper .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:16px;text-align:right;color:#1e293b;flex:1}
+        .calc-wrapper .input-row input:focus{outline:none;border-color:#059669}
+        .calc-wrapper .full-width{margin-bottom:20px}
+        .calc-wrapper .full-width select{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;background:#fff;color:#1e293b;cursor:pointer}
+        .calc-wrapper .full-width select:focus{outline:none;border-color:#059669}
+        .calc-btn{width:100%;background:#059669;color:#fff;border:none;padding:16px;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;margin-top:8px}
+        .calc-btn:hover{background:#047857}
+        .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:24px;margin-top:24px;display:none}
+        .result-card h4{text-align:center;color:#064e3b;font-size:16px;margin-bottom:20px}
+        .result-card .summary-table{width:100%;border-collapse:collapse}
+        .result-card .summary-table td{padding:10px 4px;border-bottom:1px solid #d1fae5;font-size:13px}
+        .result-card .summary-table td:first-child{color:#64748b;width:45%}
+        .result-card .summary-table td:last-child{color:#1e293b;font-weight:700;text-align:left}
+        .result-card .summary-table tr:last-child td{border-bottom:none;font-size:18px;color:#059669;font-weight:900;padding-top:14px}
+        .note-box{background:#fffbeb;border:1px solid #fcd34d;border-radius:12px;padding:16px;margin-top:20px;font-size:13px;color:#92400e;line-height:1.7}
+        .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;cursor:pointer;font-size:14px}
+        @media(max-width:600px){.calc-wrapper{padding:20px 16px}}
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container">
+        <div class="header-content">
+            <a href="index.html" class="logo">🧮 حاسبها <span class="logo-sub">Hasibha</span></a>
+            <a href="index.html" class="lang-btn">الرئيسية</a>
+        </div>
+    </div>
+</header>
+
+<main class="main-content">
+    <div class="container">
+        <div class="calc-wrapper">
+            <h3 style="text-align:center;color:#064e3b;font-size:22px;margin-bottom:4px">📋 حاسبة مكافأة نهاية الخدمة</h3>
+            <p class="subtitle">احسب مكافأة نهاية الخدمة بسهولة وفق نظام العمل السعودي.</p>
+            
+            <label>الراتب الإجمالي</label>
+            <p class="hint">آخر راتب إجمالي شامل الأساسي والبدلات.</p>
+            <div class="input-row"><input type="number" id="eosSalary" placeholder="أدخل الراتب الإجمالي" oninput="updateAll()"><span style="font-weight:600;color:#64748b">ريال</span></div>
+            
+            <label>تاريخ بداية العمل</label>
+            <div class="input-row"><input type="date" id="eosStartDate" onchange="updateAll()"></div>
+            
+            <label>تاريخ انتهاء العمل</label>
+            <div class="input-row"><input type="date" id="eosEndDate" onchange="updateAll()"></div>
+            
+            <label>نوع العقد</label>
+            <div class="full-width"><select id="eosContractType" onchange="updateAll()"><option value="">-- اختر نوع العقد --</option><option value="limited">محدد المدة</option><option value="unlimited">غير محدد المدة</option></select></div>
+            
+            <label>سبب انتهاء العلاقة الوظيفية</label>
+            <div class="full-width">
+                <select id="eosReason" onchange="updateAll()">
+                    <option value="">-- اختر سبب الإنهاء --</option>
+                    <option value="resign">استقالة الموظف</option>
+                    <option value="end_contract">انتهاء العقد بانتهاء مدته</option>
+                    <option value="mutual_74">اتفاق الطرفين وفقًا للمادة (74)</option>
+                    <option value="terminate_80">فسخ عقد العمل من قبل صاحب العمل وفقًا للمادة (80)</option>
+                    <option value="probation_53">فسخ العقد خلال فترة التجربة وفقًا للمادة (53)</option>
+                    <option value="activity_end_74">إنهاء النشاط الذي يعمل فيه العامل وفقًا للمادة (74)</option>
+                    <option value="close_business_74">إغلاق المنشأة نهائيًا وفقًا للمادة (74)</option>
+                    <option value="retirement_74">بلوغ العامل سن التقاعد وفقًا للمادة (74)</option>
+                    <option value="unlawful_77">إنهاء العقد دون سبب مشروع وفقًا للمادة (77)</option>
+                    <option value="worker_terminate_81">فسخ العقد من قبل العامل وفقًا للمادة (81)</option>
+                    <option value="ownership_transfer_18">انتقال ملكية المنشأة إلى مالك جديد وفقًا للمادة (18)</option>
+                    <option value="worker_death_79">وفاة العامل وفقًا للمادة (79)</option>
+                    <option value="employer_death_79">وفاة صاحب العمل وفقًا للمادة (79)</option>
+                    <option value="disability_79">عجز العامل عن العمل وفقًا للمادة (79)</option>
+                    <option value="work_injury_137">عجز العامل الناتج عن إصابة عمل وفقًا للمادة (137)</option>
+                    <option value="marriage_87">إنهاء عقد العاملة بسبب الزواج وفقًا للمادة (87)</option>
+                    <option value="childbirth_87">إنهاء عقد العاملة بسبب الوضع (الولادة) وفقًا للمادة (87)</option>
+                </select>
+            </div>
+            
+            <button class="calc-btn" onclick="updateAll()">احسب المكافأة</button>
+            
+            <div class="result-card" id="eosResult">
+                <h4>📋 ملخص حساب المكافأة</h4>
+                <table class="summary-table">
+                    <tr><td>نوع العقد</td><td id="eosContractDisplay">—</td></tr>
+                    <tr><td>سبب الإنهاء</td><td id="eosReasonDisplay">—</td></tr>
+                    <tr><td>الراتب الإجمالي</td><td id="eosSalaryDisplay">—</td></tr>
+                    <tr><td>تاريخ بداية العقد</td><td id="eosStartDisplay">—</td></tr>
+                    <tr><td>تاريخ انتهاء العقد</td><td id="eosEndDisplay">—</td></tr>
+                    <tr><td>المكافأة المحسوبة</td><td id="eosAmount">0.00 ريال</td></tr>
+                </table>
+            </div>
+            
+            <div class="note-box">
+                <strong>📝 تنبيه:</strong> هذه الحاسبة تقدم تقديرًا لمكافأة نهاية الخدمة وفق أحكام نظام العمل السعودي. قد تختلف النتيجة في بعض الحالات الخاصة. للمبلغ النهائي، يُنصح بمراجعة جهة العمل أو الجهات المختصة.
+            </div>
+            
+            <a href="index.html" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
+        </div>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="container"><p>© 2026 حاسبها | Hasibha</p></div>
+</footer>
+
+<script>
+function formatNumber(num) { return num.toLocaleString('ar-SA', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
+function formatInt(num) { return num.toLocaleString('ar-SA'); }
+
+function updateAll() {
+    let salary = parseFloat(document.getElementById('eosSalary').value) || 0;
+    let startDateVal = document.getElementById('eosStartDate').value;
+    let endDateVal = document.getElementById('eosEndDate').value;
+    let contractType = document.getElementById('eosContractType').value;
+    let reason = document.getElementById('eosReason').value;
+    let contractText = document.getElementById('eosContractType').selectedOptions[0]?.text || '—';
+    let reasonText = document.getElementById('eosReason').selectedOptions[0]?.text || '—';
+    
+    document.getElementById('eosSalaryDisplay').textContent = salary > 0 ? formatInt(salary) + ' ريال' : '—';
+    document.getElementById('eosContractDisplay').textContent = contractText;
+    document.getElementById('eosReasonDisplay').textContent = reasonText;
+    document.getElementById('eosStartDisplay').textContent = startDateVal || '—';
+    document.getElementById('eosEndDisplay').textContent = endDateVal || '—';
+    document.getElementById('eosResult').style.display = 'block';
+    
+    if (!salary || !startDateVal || !endDateVal || !contractType || !reason) {
+        document.getElementById('eosAmount').textContent = '0.00 ريال';
+        return;
+    }
+    
+    let startDate = new Date(startDateVal), endDate = new Date(endDateVal);
+    let diffMs = endDate - startDate;
+    let totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    if (totalDays < 0) totalDays = 0;
+    
+    let totalYears = totalDays / 365;
+    let firstPeriod = Math.min(totalYears, 5), secondPeriod = Math.max(totalYears - 5, 0);
+    let fullAward = (salary * 0.5 * firstPeriod) + (salary * secondPeriod);
+    let award = fullAward;
+    
+    if (reason === 'resign') {
+        if (totalYears < 2) award = 0;
+        else if (totalYears <= 5) award = fullAward * (1/3);
+        else if (totalYears <= 10) award = fullAward * (2/3);
+    }
+    if (reason === 'probation_53' || reason === 'terminate_80' || reason === 'worker_terminate_81') award = 0;
+    if (['mutual_74','activity_end_74','close_business_74','retirement_74','unlawful_77','worker_death_79','employer_death_79','disability_79','work_injury_137','ownership_transfer_18','marriage_87','childbirth_87','end_contract'].includes(reason)) {
+        if (totalYears < 1 && reason === 'end_contract') award = 0;
+        else award = fullAward;
+    }
+    
+    document.getElementById('eosAmount').textContent = formatNumber(award) + ' ريال';
+}
+</script>
+</body>
+</html>
