@@ -1,0 +1,29 @@
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+.site-header{background:#fff;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:100}
+.header-content{display:flex;justify-content:space-between;align-items:center;padding:16px 0}
+.logo{font-size:26px;font-weight:800;color:#059669;text-decoration:none}
+.logo-sub{font-size:12px;color:#64748b;font-weight:400}
+.lang-btn{background:#f1f5f9;border:1px solid #e2e8f0;padding:8px 16px;border-radius:8px;font-size:14px;color:#475569;cursor:pointer}
+.hero{background:linear-gradient(135deg,#ecfdf5,#f0fdf4);text-align:center;padding:60px 20px}
+.hero-title{font-size:44px;font-weight:900;color:#064e3b}
+.hero-sub{font-size:18px;color:#64748b;font-style:italic}
+.hero-desc{font-size:16px;color:#475569;max-width:500px;margin:12px auto 0}
+.main-content{padding:40px 0}
+.category-section{margin-bottom:48px}
+.category-title{font-size:26px;font-weight:700;margin-bottom:20px}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.calc-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:24px 18px;text-decoration:none;color:#1e293b;display:block;position:relative;transition:.25s;cursor:pointer}
+.calc-card:hover{border-color:#059669;box-shadow:0 8px 24px rgba(5,150,105,0.12);transform:translateY(-3px)}
+.card-icon{font-size:32px;display:block;margin-bottom:10px}
+.calc-card h3{font-size:16px;font-weight:700;margin-bottom:4px}
+.calc-card p{font-size:12px;color:#94a3b8}
+.soon{opacity:.7;cursor:default}
+.soon:hover{transform:none;border-color:#e2e8f0;box-shadow:none}
+.badge{position:absolute;top:12px;left:12px;background:#fef3c7;color:#92400e;font-size:10px;padding:3px 8px;border-radius:12px;font-weight:600}
+.site-footer{background:#fff;border-top:1px solid #e2e8f0;text-align:center;padding:24px 20px;color:#64748b;font-size:14px}
+.footer-links{margin-top:10px;display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.footer-links a{color:#475569;text-decoration:none}
+.footer-links a:hover{color:#059669}
+@media(max-width:600px){.hero-title{font-size:30px}.cards-grid{grid-template-columns:1fr 1fr;gap:10px}.calc-card{padding:16px 12px}.calc-card h3{font-size:14px}}
