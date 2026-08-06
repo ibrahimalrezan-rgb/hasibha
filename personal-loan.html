@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة التمويل الشخصي - حاسبها</title>
+    <meta name="description" content="حاسبة التمويل الشخصي - احسب القسط الشهري للتمويل الشخصي بسهولة. أدخل مبلغ التمويل، النسبة السنوية، ومدة السداد.">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .calc-wrapper{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:28px 24px;max-width:650px;margin:20px auto}
+        .calc-wrapper .subtitle{text-align:center;color:#64748b;font-size:14px;margin-bottom:28px}
+        .calc-wrapper label{display:block;font-weight:600;margin-bottom:6px;color:#1e293b;font-size:15px}
+        .calc-wrapper .hint{font-size:12px;color:#94a3b8;margin-bottom:10px}
+        .calc-wrapper .input-row{display:flex;gap:10px;margin-bottom:20px;align-items:center}
+        .calc-wrapper .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:16px;text-align:right;color:#1e293b;flex:1}
+        .calc-wrapper .input-row input:focus{outline:none;border-color:#059669}
+        .slider-group{margin-bottom:24px}
+        .slider-value{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+        .slider-value span{font-size:20px;font-weight:700;color:#059669}
+        input[type=range]{width:100%;height:6px;background:#e2e8f0;border-radius:3px;outline:none;-webkit-appearance:none}
+        input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;background:#059669;border-radius:50%;cursor:pointer;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.2)}
+        .labels{display:flex;justify-content:space-between;font-size:12px;color:#94a3b8;margin-top:4px}
+        .percent-input{display:flex;align-items:center;gap:8px;margin-bottom:20px}
+        .percent-input input{flex:1;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:16px;text-align:right}
+        .percent-input input:focus{outline:none;border-color:#059669}
+        .percent-input span{font-size:24px;font-weight:700;color:#64748b}
+        .calc-btn{width:100%;background:#059669;color:#fff;border:none;padding:16px;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;margin-top:8px}
+        .calc-btn:hover{background:#047857}
+        .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:24px;text-align:center;margin-top:24px}
+        .result-card .big-amount{font-size:24px;font-weight:900;color:#059669}
+        .result-card .ratio-row{display:flex;justify-content:center;margin-top:16px}
+        .result-card .ratio-badge{background:#fff;border-radius:20px;padding:8px 16px;font-size:13px}
+        .result-card .status-msg{font-weight:700;margin-top:12px}
+        .info-box{background:#fffbeb;border:1px solid #fcd34d;border-radius:12px;padding:16px;margin-top:20px;font-size:13px;color:#92400e;line-height:1.6}
+        .tips-section{margin-top:24px}
+        .tips-section h4{font-weight:700;margin-bottom:14px}
+        .tips-section ul{list-style:none;padding:0}
+        .tips-section li{padding:10px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#475569;display:flex;align-items:flex-start;gap:8px}
+        .tips-section .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px}
+        .dot.green{background:#22c55e}.dot.yellow{background:#eab308}.dot.red{background:#ef4444}
+        .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;cursor:pointer;font-size:14px}
+        @media(max-width:600px){.calc-wrapper{padding:20px 16px}}
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container">
+        <div class="header-content">
+            <a href="index.html" class="logo">🧮 حاسبها <span class="logo-sub">Hasibha</span></a>
+            <a href="index.html" class="lang-btn">الرئيسية</a>
+        </div>
+    </div>
+</header>
+
+<main class="main-content">
+    <div class="container">
+        <div class="calc-wrapper">
+            <h3 style="text-align:center;color:#064e3b;font-size:22px;margin-bottom:4px">💵 حاسبة التمويل الشخصي</h3>
+            <p class="subtitle">احسب القسط الشهري للتمويل الشخصي</p>
+            
+            <label>مبلغ التمويل الشخصي</label>
+            <p class="hint">هو المبلغ الذي تريد الحصول عليه من البنك أو شركة التمويل.</p>
+            <div class="input-row"><input type="number" id="loanAmount" placeholder="أدخل مبلغ التمويل" oninput="updateAll()"><span style="font-weight:600;color:#64748b">ريال</span></div>
+            
+            <label>النسبة السنوية (APR)</label>
+            <p class="hint">هي النسبة التي يضيفها البنك كمصاريف وعائد.</p>
+            <div class="percent-input"><input type="number" id="aprInput" placeholder="النسبة السنوية" oninput="updateAll()" step="0.1"><span>٪</span></div>
+            
+            <label>مدة السداد (بالسنوات)</label>
+            <p class="hint">عدد السنوات التي سوف تسدد فيها التمويل.</p>
+            <div class="slider-group">
+                <div class="slider-value"><span id="loanYearsVal">5</span> <span style="font-size:14px;color:#64748b">سنة</span></div>
+                <input type="range" id="loanYearsSlider" min="1" max="10" value="5" oninput="updateAll()">
+                <div class="labels"><span>1</span><span>10</span></div>
+            </div>
+            
+            <label>الدخل الشهري (اختياري)</label>
+            <p class="hint">لتوضيح إذا كان القسط مناسبًا لميزانيتك.</p>
+            <div class="input-row"><input type="number" id="incomeInput" placeholder="الدخل الشهري" oninput="updateAll()"><span style="font-weight:600;color:#64748b">ريال</span></div>
+            
+            <button class="calc-btn" onclick="updateAll()">احسب القسط الشهري</button>
+            
+            <div class="result-card">
+                <p style="color:#475569;font-size:14px">القسط الشهري: <span class="big-amount" id="monthlyDisplay">0</span> ريال</p>
+                <div class="ratio-row"><span class="ratio-badge">نسبة القسط إلى الدخل: <strong id="ratioDisplay">—</strong></span></div>
+                <p class="status-msg" id="statusMsg" style="color:#64748b">أدخل البيانات لمعرفة التقييم</p>
+            </div>
+            
+            <div class="info-box">
+                <strong>📊 معلومة مهمة:</strong> المستخدم الذي يدفع أكثر من 35% من راتبه كقسط شهري يكون أكثر عرضة للضغط المالي بنسبة عالية مقارنة بمن يحافظ على نسبة أقل من 30%.
+            </div>
+            
+            <div class="tips-section">
+                <h4>كيف تعرف إذا كان التمويل آمن؟</h4>
+                <ul>
+                    <li><span class="dot green"></span> أقل من 25% → التمويل آمن</li>
+                    <li><span class="dot yellow"></span> بين 25% و 35% → مقبول بحذر</li>
+                    <li><span class="dot red"></span> أكثر من 35% → قد يشكل ضغطًا ماليًا</li>
+                </ul>
+            </div>
+            
+            <a href="index.html" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
+        </div>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="container"><p>© 2026 حاسبها | Hasibha</p></div>
+</footer>
+
+<script>
+function formatNumber(num) { return num.toLocaleString('ar-SA', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
+function updateAll() {
+    let amount = parseFloat(document.getElementById('loanAmount').value) || 0;
+    let apr = parseFloat(document.getElementById('aprInput').value) || 0;
+    let years = parseInt(document.getElementById('loanYearsSlider').value);
+    let income = parseFloat(document.getElementById('incomeInput').value) || 0;
+    document.getElementById('loanYearsVal').textContent = years;
+    if (amount <= 0 || apr <= 0) {
+        document.getElementById('monthlyDisplay').textContent = '0';
+        document.getElementById('ratioDisplay').textContent = '—';
+        document.getElementById('statusMsg').textContent = 'أدخل البيانات لمعرفة التقييم';
+        document.getElementById('statusMsg').style.color = '#64748b';
+        return;
+    }
+    let months = years * 12;
+    let monthlyRate = (apr / 100) / 12;
+    let monthly = 0;
+    if (monthlyRate > 0) { monthly = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1); }
+    else { monthly = amount / months; }
+    document.getElementById('monthlyDisplay').textContent = formatNumber(monthly);
+    if (income > 0) {
+        let ratio = (monthly / income) * 100;
+        document.getElementById('ratioDisplay').textContent = ratio.toFixed(1) + '%';
+        let s = document.getElementById('statusMsg');
+        if (ratio < 25) { s.textContent = '💚 ممتاز — التمويل مناسب جدًا.'; s.style.color = '#22c55e'; }
+        else if (ratio <= 35) { s.textContent = '💛 مقبول بحذر — راقب ميزانيتك.'; s.style.color = '#eab308'; }
+        else { s.textContent = '❤️ تحذير — التمويل قد يشكل ضغطًا ماليًا.'; s.style.color = '#ef4444'; }
+    } else {
+        document.getElementById('ratioDisplay').textContent = '—';
+        document.getElementById('statusMsg').textContent = 'أدخل الدخل لمعرفة التقييم';
+        document.getElementById('statusMsg').style.color = '#64748b';
+    }
+}
+</script>
+</body>
+</html>
