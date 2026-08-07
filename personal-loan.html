@@ -3,17 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حاسبة التمويل الشخصي - حاسبها</title>
-    <meta name="description" content="حاسبة التمويل الشخصي - احسب القسط الشهري للتمويل الشخصي بسهولة. أدخل مبلغ التمويل، النسبة السنوية، ومدة السداد.">
-    <link rel="stylesheet" href="css/style.css">
+    <title>حاسبة التمويل الشخصي - حاسبها | احسب القسط الشهري</title>
+    <meta name="description" content="حاسبة التمويل الشخصي في السعودية. احسب القسط الشهري ونسبة القسط إلى الدخل مع شرح النسبة السنوية APR ومدة السداد حسب البنك المركزي السعودي.">
+    <meta name="keywords" content="حاسبة التمويل الشخصي, قرض شخصي السعودية, حساب القسط, APR, تمويل شخصي, Personal Loan Calculator Saudi">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://hasibhaa.netlify.app/personal-loan.html">
+    <meta property="og:title" content="حاسبة التمويل الشخصي - حاسبها">
+    <meta property="og:description" content="احسب القسط الشهري للتمويل الشخصي مع شرح النسبة السنوية ونصائح الخبراء.">
     <style>
-        .calc-wrapper{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:28px 24px;max-width:650px;margin:20px auto}
-        .calc-wrapper .subtitle{text-align:center;color:#64748b;font-size:14px;margin-bottom:28px}
-        .calc-wrapper label{display:block;font-weight:600;margin-bottom:6px;color:#1e293b;font-size:15px}
-        .calc-wrapper .hint{font-size:12px;color:#94a3b8;margin-bottom:10px}
-        .calc-wrapper .input-row{display:flex;gap:10px;margin-bottom:20px;align-items:center}
-        .calc-wrapper .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:16px;text-align:right;color:#1e293b;flex:1}
-        .calc-wrapper .input-row input:focus{outline:none;border-color:#059669}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
+        .container{max-width:650px;margin:0 auto;padding:0 20px}
+        .site-header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 0}
+        .header-content{display:flex;justify-content:space-between;align-items:center}
+        .logo{font-size:26px;font-weight:800;color:#059669;text-decoration:none}
+        .calc-wrapper{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:28px 24px;margin:30px auto}
+        .calc-wrapper h3{text-align:center;color:#064e3b;font-size:22px;margin-bottom:4px}
+        .subtitle{text-align:center;color:#64748b;font-size:14px;margin-bottom:28px}
+        label{display:block;font-weight:600;margin-bottom:6px;color:#1e293b;font-size:15px}
+        .hint{font-size:12px;color:#94a3b8;margin-bottom:10px}
+        .input-row{display:flex;gap:10px;margin-bottom:20px;align-items:center}
+        .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:16px;text-align:right;color:#1e293b;flex:1}
+        .input-row input:focus{outline:none;border-color:#059669}
         .slider-group{margin-bottom:24px}
         .slider-value{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
         .slider-value span{font-size:20px;font-weight:700;color:#059669}
@@ -27,19 +38,18 @@
         .calc-btn{width:100%;background:#059669;color:#fff;border:none;padding:16px;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;margin-top:8px}
         .calc-btn:hover{background:#047857}
         .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:24px;text-align:center;margin-top:24px}
-        .result-card .big-amount{font-size:24px;font-weight:900;color:#059669}
-        .result-card .ratio-row{display:flex;justify-content:center;margin-top:16px}
-        .result-card .ratio-badge{background:#fff;border-radius:20px;padding:8px 16px;font-size:13px}
-        .result-card .status-msg{font-weight:700;margin-top:12px}
-        .info-box{background:#fffbeb;border:1px solid #fcd34d;border-radius:12px;padding:16px;margin-top:20px;font-size:13px;color:#92400e;line-height:1.6}
-        .tips-section{margin-top:24px}
-        .tips-section h4{font-weight:700;margin-bottom:14px}
-        .tips-section ul{list-style:none;padding:0}
-        .tips-section li{padding:10px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#475569;display:flex;align-items:flex-start;gap:8px}
-        .tips-section .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px}
-        .dot.green{background:#22c55e}.dot.yellow{background:#eab308}.dot.red{background:#ef4444}
-        .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;cursor:pointer;font-size:14px}
-        @media(max-width:600px){.calc-wrapper{padding:20px 16px}}
+        .big-amount{font-size:24px;font-weight:900;color:#059669}
+        .ratio-row{display:flex;justify-content:center;margin-top:16px}
+        .ratio-badge{background:#fff;border-radius:20px;padding:8px 16px;font-size:13px}
+        .status-msg{font-weight:700;margin-top:12px}
+        .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
+        .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;margin-top:24px;line-height:2.2}
+        .article-box h2{font-size:20px;color:#064e3b;margin-bottom:16px}
+        .article-box h3{font-size:16px;color:#1e293b;margin-top:20px;text-align:right}
+        .article-box p{color:#475569;font-size:14px}
+        .article-box ul{color:#475569;font-size:14px;padding-right:20px}
+        .article-box a{color:#059669;text-decoration:underline}
+        @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:16px}}
     </style>
 </head>
 <body>
@@ -47,16 +57,16 @@
 <header class="site-header">
     <div class="container">
         <div class="header-content">
-            <a href="index.html" class="logo">🧮 حاسبها <span class="logo-sub">Hasibha</span></a>
-            <a href="index.html" class="lang-btn">الرئيسية</a>
+            <a href="index.html" class="logo">🧮 حاسبها</a>
+            <a href="index.html" style="color:#059669;text-decoration:none;font-weight:600">الرئيسية</a>
         </div>
     </div>
 </header>
 
-<main class="main-content">
+<main>
     <div class="container">
         <div class="calc-wrapper">
-            <h3 style="text-align:center;color:#064e3b;font-size:22px;margin-bottom:4px">💵 حاسبة التمويل الشخصي</h3>
+            <h3>💵 حاسبة التمويل الشخصي</h3>
             <p class="subtitle">احسب القسط الشهري للتمويل الشخصي</p>
             
             <label>مبلغ التمويل الشخصي</label>
@@ -87,16 +97,37 @@
                 <p class="status-msg" id="statusMsg" style="color:#64748b">أدخل البيانات لمعرفة التقييم</p>
             </div>
             
-            <div class="info-box">
-                <strong>📊 معلومة مهمة:</strong> المستخدم الذي يدفع أكثر من 35% من راتبه كقسط شهري يكون أكثر عرضة للضغط المالي بنسبة عالية مقارنة بمن يحافظ على نسبة أقل من 30%.
-            </div>
-            
-            <div class="tips-section">
-                <h4>كيف تعرف إذا كان التمويل آمن؟</h4>
+            <div class="article-box">
+                <h2>🗂️ كل ما تحتاج معرفته عن التمويل الشخصي في السعودية</h2>
+                
+                <h3>ما هو التمويل الشخصي؟</h3>
+                <p>التمويل الشخصي هو مبلغ مالي تقدمه البنوك وشركات التمويل للأفراد لتمويل احتياجاتهم الشخصية مثل الزواج، السفر، التعليم، أو شراء سيارة. يتم سداده على أقساط شهرية ثابتة خلال فترة محددة.</p>
+                
+                <h3>النسبة السنوية (APR)</h3>
+                <p>النسبة السنوية (Annual Percentage Rate) هي التكلفة الفعلية للتمويل شاملة جميع الرسوم الإدارية وهامش الربح. يجب على البنك الإفصاح عنها حسب تعليمات البنك المركزي السعودي. قارن APR بين البنوك وليس فقط النسبة الاسمية.</p>
+                
+                <h3>نسبة القسط إلى الدخل</h3>
+                <p>القاعدة الأساسية من البنك المركزي السعودي: يجب ألا يتجاوز القسط الشهري 33.33% من الدخل الشهري (الثلث). بعض البنوك تسمح حتى 50% حسب الجدارة الائتمانية. ينصح الخبراء بألا تتجاوز 30% لراحة مالية.</p>
+                
+                <h3>رسوم التمويل الشخصي</h3>
                 <ul>
-                    <li><span class="dot green"></span> أقل من 25% → التمويل آمن</li>
-                    <li><span class="dot yellow"></span> بين 25% و 35% → مقبول بحذر</li>
-                    <li><span class="dot red"></span> أكثر من 35% → قد يشكل ضغطًا ماليًا</li>
+                    <li><strong>رسوم إدارية:</strong> تفرض مرة واحدة عند التوقيع (عادة 1% من مبلغ التمويل أو 5,000 ريال أيهما أقل).</li>
+                    <li><strong>رسوم السداد المبكر:</strong> إذا رغبت في سداد التمويل قبل انتهاء المدة، قد تفرض بعض البنوك رسوماً إضافية.</li>
+                    <li><strong>رسوم التأخر في السداد:</strong> تفرض عند عدم دفع القسط في موعده.</li>
+                </ul>
+                
+                <h3>نصائح هامة</h3>
+                <ul>
+                    <li>تأكد من أن البنك مرخص من البنك المركزي السعودي.</li>
+                    <li>اقرأ العقد كاملاً قبل التوقيع.</li>
+                    <li>احسب القسط باستخدام حاسبة التمويل الشخصي أعلاه قبل التوجه للبنك.</li>
+                    <li>قارن عروض 3 جهات تمويلية على الأقل.</li>
+                </ul>
+                
+                <h3>المراجع الرسمية</h3>
+                <ul>
+                    <li>البنك المركزي السعودي: <a href="https://www.sama.gov.sa" target="_blank">SAMA.gov.sa</a></li>
+                    <li>وزارة التجارة: <a href="https://mc.gov.sa" target="_blank">mc.gov.sa</a></li>
                 </ul>
             </div>
             
@@ -105,17 +136,13 @@
     </div>
 </main>
 
-<footer class="site-footer">
-    <div class="container"><p>© 2026 حاسبها | Hasibha</p></div>
-</footer>
-
 <script>
 function formatNumber(num) { return num.toLocaleString('ar-SA', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
 function updateAll() {
-    let amount = parseFloat(document.getElementById('loanAmount').value) || 0;
-    let apr = parseFloat(document.getElementById('aprInput').value) || 0;
-    let years = parseInt(document.getElementById('loanYearsSlider').value);
-    let income = parseFloat(document.getElementById('incomeInput').value) || 0;
+    var amount = parseFloat(document.getElementById('loanAmount').value) || 0;
+    var apr = parseFloat(document.getElementById('aprInput').value) || 0;
+    var years = parseInt(document.getElementById('loanYearsSlider').value);
+    var income = parseFloat(document.getElementById('incomeInput').value) || 0;
     document.getElementById('loanYearsVal').textContent = years;
     if (amount <= 0 || apr <= 0) {
         document.getElementById('monthlyDisplay').textContent = '0';
@@ -124,16 +151,16 @@ function updateAll() {
         document.getElementById('statusMsg').style.color = '#64748b';
         return;
     }
-    let months = years * 12;
-    let monthlyRate = (apr / 100) / 12;
-    let monthly = 0;
+    var months = years * 12;
+    var monthlyRate = (apr / 100) / 12;
+    var monthly = 0;
     if (monthlyRate > 0) { monthly = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1); }
     else { monthly = amount / months; }
     document.getElementById('monthlyDisplay').textContent = formatNumber(monthly);
     if (income > 0) {
-        let ratio = (monthly / income) * 100;
+        var ratio = (monthly / income) * 100;
         document.getElementById('ratioDisplay').textContent = ratio.toFixed(1) + '%';
-        let s = document.getElementById('statusMsg');
+        var s = document.getElementById('statusMsg');
         if (ratio < 25) { s.textContent = '💚 ممتاز — التمويل مناسب جدًا.'; s.style.color = '#22c55e'; }
         else if (ratio <= 35) { s.textContent = '💛 مقبول بحذر — راقب ميزانيتك.'; s.style.color = '#eab308'; }
         else { s.textContent = '❤️ تحذير — التمويل قد يشكل ضغطًا ماليًا.'; s.style.color = '#ef4444'; }
