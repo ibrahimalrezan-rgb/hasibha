@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حاسبة مكافأة نهاية الخدمة - حاسبها</title>
-    <meta name="description" content="حاسبة مكافأة نهاية الخدمة وفق نظام العمل السعودي. احسب مستحقاتك بسهولة بناءً على الراتب ومدة الخدمة وسبب انتهاء العلاقة الوظيفية.">
+    <title>حاسبة مكافأة نهاية الخدمة - حاسبها | نظام العمل السعودي</title>
+    <meta name="description" content="حاسبة مكافأة نهاية الخدمة وفق نظام العمل السعودي. احسب مستحقاتك بناءً على الراتب ومدة الخدمة وسبب انتهاء العلاقة الوظيفية مع شرح كامل من وزارة الموارد البشرية.">
+    <meta name="keywords" content="حاسبة نهاية الخدمة, مكافأة نهاية الخدمة السعودية, نظام العمل السعودي, End of Service Calculator Saudi, حقوق العامل">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://hasibhaa.netlify.app/eos.html">
+    <meta property="og:title" content="حاسبة مكافأة نهاية الخدمة - حاسبها">
+    <meta property="og:description" content="احسب مكافأة نهاية الخدمة وفق نظام العمل السعودي مع شرح كامل ومراجع رسمية.">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
@@ -14,7 +19,7 @@
         .logo{font-size:26px;font-weight:800;color:#059669;text-decoration:none}
         .calc-wrapper{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:28px 24px;margin:30px auto}
         .calc-wrapper h3{text-align:center;color:#064e3b;font-size:22px;margin-bottom:4px}
-        .calc-wrapper .subtitle{text-align:center;color:#64748b;font-size:14px;margin-bottom:28px}
+        .subtitle{text-align:center;color:#64748b;font-size:14px;margin-bottom:28px}
         label{display:block;font-weight:600;margin-bottom:6px;color:#1e293b;font-size:15px}
         .hint{font-size:12px;color:#94a3b8;margin-bottom:10px}
         .input-row{display:flex;gap:10px;margin-bottom:20px;align-items:center}
@@ -32,7 +37,13 @@
         .summary-table tr:last-child td{border-bottom:none;font-size:18px;color:#059669;font-weight:900;padding-top:14px}
         .note-box{background:#fffbeb;border:1px solid #fcd34d;border-radius:12px;padding:16px;margin-top:20px;font-size:13px;color:#92400e;line-height:1.7}
         .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
-        @media(max-width:600px){.calc-wrapper{padding:20px 16px}}
+        .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;margin-top:24px;line-height:2.2}
+        .article-box h2{font-size:20px;color:#064e3b;margin-bottom:16px}
+        .article-box h3{font-size:16px;color:#1e293b;margin-top:20px;text-align:right}
+        .article-box p{color:#475569;font-size:14px}
+        .article-box ul{color:#475569;font-size:14px;padding-right:20px}
+        .article-box a{color:#059669;text-decoration:underline}
+        @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:16px}}
     </style>
 </head>
 <body>
@@ -103,6 +114,46 @@
             
             <div class="note-box">
                 <strong>📝 تنبيه:</strong> هذه الحاسبة تقدم تقديرًا لمكافأة نهاية الخدمة وفق أحكام نظام العمل السعودي. قد تختلف النتيجة في بعض الحالات الخاصة.
+            </div>
+            
+            <div class="article-box">
+                <h2>🗂️ كل ما تحتاج معرفته عن مكافأة نهاية الخدمة في السعودية</h2>
+                
+                <h3>ما هي مكافأة نهاية الخدمة؟</h3>
+                <p>مكافأة نهاية الخدمة هي حق مالي للعامل عند انتهاء علاقته الوظيفية، يصرفها صاحب العمل وفق أحكام نظام العمل السعودي الصادر بالمرسوم الملكي رقم (م/51). تحسب على أساس آخر راتب أساسي ومدة الخدمة وسبب انتهاء العلاقة.</p>
+                
+                <h3>كيف تُحسب المكافأة؟</h3>
+                <p><strong>أول 5 سنوات:</strong> نصف شهر عن كل سنة خدمة.</p>
+                <p><strong>بعد 5 سنوات:</strong> شهر كامل عن كل سنة إضافية.</p>
+                <p>تحسب كسور السنة (الأشهر والأيام) بنسبة من السنة الكاملة.</p>
+                
+                <h3>حالات الاستقالة والاستحقاق</h3>
+                <p>إذا استقال الموظف، تختلف نسبة الاستحقاق حسب مدة الخدمة:</p>
+                <ul>
+                    <li><strong>أقل من سنتين:</strong> لا يستحق مكافأة.</li>
+                    <li><strong>من 2 إلى 5 سنوات:</strong> يستحق ثلث المكافأة.</li>
+                    <li><strong>من 5 إلى 10 سنوات:</strong> يستحق ثلثي المكافأة.</li>
+                    <li><strong>أكثر من 10 سنوات:</strong> يستحق كامل المكافأة.</li>
+                </ul>
+                
+                <h3>حالات لا تستحق فيها المكافأة</h3>
+                <p>إذا تم فسخ العقد من قبل صاحب العمل لأحد الأسباب الواردة في المادة (80) من نظام العمل، أو فسخ العامل للعقد دون سبب مشروع (المادة 81)، أو خلال فترة التجربة (المادة 53).</p>
+                
+                <h3>نصائح هامة</h3>
+                <ul>
+                    <li>تأكد من أن عقد العمل موثق في منصة قوى أو وزارة الموارد البشرية.</li>
+                    <li>احتفظ بسجل الرواتب وكشوف الحضور.</li>
+                    <li>استخدم حاسبة مكافأة نهاية الخدمة أعلاه للتأكد من استحقاقك قبل التوجه للموارد البشرية.</li>
+                    <li>لأي نزاع عمالي، يمكنك رفع دعوى عبر منصة "ودي" التابعة لوزارة العدل.</li>
+                </ul>
+                
+                <h3>المراجع الرسمية</h3>
+                <ul>
+                    <li>وزارة الموارد البشرية والتنمية الاجتماعية: <a href="https://www.hrsd.gov.sa" target="_blank">HRSD.gov.sa</a></li>
+                    <li>نظام العمل السعودي: <a href="https://laws.boe.gov.sa" target="_blank">laws.boe.gov.sa</a></li>
+                    <li>منصة قوى: <a href="https://www.qiwa.sa" target="_blank">Qiwa.sa</a></li>
+                    <li>منصة ودي (تسوية النزاعات العمالية): <a href="https://www.moj.gov.sa" target="_blank">moj.gov.sa</a></li>
+                </ul>
             </div>
             
             <a href="index.html" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
