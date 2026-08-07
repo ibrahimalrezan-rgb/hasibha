@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة مكافأة نهاية الخدمة - حاسبها | نظام العمل السعودي</title>
+    <meta name="description" content="حاسبة مكافأة نهاية الخدمة وفق نظام العمل السعودي. احسب مستحقاتك بناءً على الراتب ومدة الخدمة وسبب انتهاء العلاقة الوظيفية مع شرح كامل.">
+    <meta name="keywords" content="حاسبة نهاية الخدمة, مكافأة نهاية الخدمة السعودية, نظام العمل السعودي, End of Service Calculator Saudi">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://hasibhaa.netlify.app/eos.html">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
+        .container{max-width:650px;margin:0 auto;padding:0 20px}
+        .site-header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 0}
+        .header-content{display:flex;justify-content:space-between;align-items:center}
+        .logo{font-size:26px;font-weight:800;color:#059669;text-decoration:none}
+        .calc-wrapper{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:28px 24px;margin:30px auto}
+        .calc-wrapper h3{text-align:center;color:#064e3b;font-size:22px;margin-bottom:4px}
+        .subtitle{text-align:center;color:#64748b;font-size:14px;margin-bottom:28px}
+        label{display:block;font-weight:600;margin-bottom:6px;color:#1e293b;font-size:15px}
+        .hint{font-size:12px;color:#94a3b8;margin-bottom:10px}
+        .input-row{display:flex;gap:10px;margin-bottom:20px;align-items:center}
+        .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:16px;text-align:right;color:#1e293b;flex:1}
+        .input-row input:focus{outline:none;border-color:#059669}
+        .full-width{margin-bottom:20px}
+        .full-width select{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;background:#fff;color:#1e293b;cursor:pointer}
+        .calc-btn{width:100%;background:#059669;color:#fff;border:none;padding:16px;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;margin-top:8px}
+        .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:24px;margin-top:24px;display:none}
+        .result-card h4{text-align:center;color:#064e3b;font-size:16px;margin-bottom:20px}
+        .summary-table{width:100%;border-collapse:collapse}
+        .summary-table td{padding:10px 4px;border-bottom:1px solid #d1fae5;font-size:13px}
+        .summary-table td:first-child{color:#64748b;width:45%}
+        .summary-table td:last-child{color:#1e293b;font-weight:700;text-align:left}
+        .summary-table tr:last-child td{border-bottom:none;font-size:18px;color:#059669;font-weight:900;padding-top:14px}
+        .note-box{background:#fffbeb;border:1px solid #fcd34d;border-radius:12px;padding:16px;margin-top:20px;font-size:13px;color:#92400e;line-height:1.7}
+        .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
+        .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;margin-top:24px;text-align:right;line-height:2.2}
+        .article-box h2{font-size:20px;color:#064e3b;margin-bottom:20px}
+        .article-box p{color:#475569;font-size:14px;margin-bottom:12px}
+        .article-box .ref{color:#94a3b8;font-size:12px;margin-top:20px;padding-top:16px;border-top:1px solid #e2e8f0}
+        @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:20px 16px}}
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container">
+        <div class="header-content">
+            <a href="index.html" class="logo">🧮 حاسبها</a>
+            <a href="index.html" style="color:#059669;text-decoration:none;font-weight:600">الرئيسية</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <div class="calc-wrapper">
+            <h3>📋 حاسبة مكافأة نهاية الخدمة</h3>
+            <p class="subtitle">احسب مكافأة نهاية الخدمة بسهولة وفق نظام العمل السعودي.</p>
+            
+            <label>الراتب الإجمالي</label>
+            <p class="hint">آخر راتب إجمالي شامل الأساسي والبدلات.</p>
+            <div class="input-row"><input type="number" id="eosSalary" placeholder="أدخل الراتب الإجمالي" oninput="updateAll()"><span style="font-weight:600;color:#64748b">ريال</span></div>
+            
+            <label>تاريخ بداية العمل</label>
+            <div class="input-row"><input type="date" id="eosStartDate" onchange="updateAll()"></div>
+            
+            <label>تاريخ انتهاء العمل</label>
+            <div class="input-row"><
