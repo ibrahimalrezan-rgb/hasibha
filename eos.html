@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حاسبة مكافأة نهاية الخدمة - حاسبها | نظام العمل السعودي</title>
     <meta name="description" content="حاسبة مكافأة نهاية الخدمة وفق نظام العمل السعودي. احسب مستحقاتك بناءً على الراتب ومدة الخدمة وسبب انتهاء العلاقة الوظيفية مع شرح كامل.">
-    <meta name="keywords" content="حاسبة نهاية الخدمة, مكافأة نهاية الخدمة السعودية, نظام العمل السعودي, End of Service Calculator Saudi">
+    <meta name="keywords" content="حاسبة نهاية الخدمة, مكافأة نهاية الخدمة السعودية, نظام العمل السعودي">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://hasibhaa.netlify.app/eos.html">
     <style>
@@ -67,4 +67,115 @@
             <div class="input-row"><input type="date" id="eosStartDate" onchange="updateAll()"></div>
             
             <label>تاريخ انتهاء العمل</label>
-            <div class="input-row"><
+            <div class="input-row"><input type="date" id="eosEndDate" onchange="updateAll()"></div>
+            
+            <label>نوع العقد</label>
+            <div class="full-width"><select id="eosContractType" onchange="updateAll()"><option value="">-- اختر نوع العقد --</option><option value="limited">محدد المدة</option><option value="unlimited">غير محدد المدة</option></select></div>
+            
+            <label>سبب انتهاء العلاقة الوظيفية</label>
+            <div class="full-width">
+                <select id="eosReason" onchange="updateAll()">
+                    <option value="">-- اختر سبب الإنهاء --</option>
+                    <option value="resign">استقالة الموظف</option>
+                    <option value="end_contract">انتهاء العقد بانتهاء مدته</option>
+                    <option value="mutual_74">اتفاق الطرفين - المادة (74)</option>
+                    <option value="terminate_80">فسخ العقد من صاحب العمل - المادة (80)</option>
+                    <option value="probation_53">فسخ العقد خلال التجربة - المادة (53)</option>
+                    <option value="activity_end_74">إنهاء النشاط - المادة (74)</option>
+                    <option value="close_business_74">إغلاق المنشأة - المادة (74)</option>
+                    <option value="retirement_74">بلوغ سن التقاعد - المادة (74)</option>
+                    <option value="unlawful_77">إنهاء دون سبب مشروع - المادة (77)</option>
+                    <option value="worker_terminate_81">فسخ العقد من العامل - المادة (81)</option>
+                    <option value="worker_death_79">وفاة العامل - المادة (79)</option>
+                    <option value="disability_79">عجز العامل - المادة (79)</option>
+                    <option value="work_injury_137">عجز بسبب إصابة عمل - المادة (137)</option>
+                    <option value="marriage_87">إنهاء العقد بسبب الزواج - المادة (87)</option>
+                    <option value="childbirth_87">إنهاء العقد بسبب الولادة - المادة (87)</option>
+                </select>
+            </div>
+            
+            <button class="calc-btn" onclick="updateAll()">احسب المكافأة</button>
+            
+            <div class="result-card" id="eosResult">
+                <h4>📋 ملخص حساب المكافأة</h4>
+                <table class="summary-table">
+                    <tr><td>نوع العقد</td><td id="eosContractDisplay">—</td></tr>
+                    <tr><td>سبب الإنهاء</td><td id="eosReasonDisplay">—</td></tr>
+                    <tr><td>الراتب الإجمالي</td><td id="eosSalaryDisplay">—</td></tr>
+                    <tr><td>تاريخ بداية العقد</td><td id="eosStartDisplay">—</td></tr>
+                    <tr><td>تاريخ انتهاء العقد</td><td id="eosEndDisplay">—</td></tr>
+                    <tr><td>المكافأة المحسوبة</td><td id="eosAmount">0.00 ريال</td></tr>
+                </table>
+            </div>
+            
+            <div class="note-box">
+                <strong>📝 تنبيه:</strong> هذه الحاسبة تقدم تقديرًا لمكافأة نهاية الخدمة وفق أحكام نظام العمل السعودي. قد تختلف النتيجة في بعض الحالات الخاصة.
+            </div>
+            
+            <a href="index.html" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
+        </div>
+
+        <div class="article-box">
+            <h2>🗂️ دليل مكافأة نهاية الخدمة في السعودية</h2>
+            
+            <p><strong>ما هي مكافأة نهاية الخدمة؟</strong><br>مكافأة نهاية الخدمة هي حق مالي للعامل عند انتهاء علاقته الوظيفية، يصرفها صاحب العمل وفق أحكام نظام العمل السعودي الصادر بالمرسوم الملكي رقم (م/51). تحسب على أساس الراتب ومدة الخدمة وسبب انتهاء العلاقة.</p>
+            
+            <p><strong>كيف تُحسب المكافأة؟</strong><br>• أول 5 سنوات: نصف شهر عن كل سنة خدمة<br>• بعد 5 سنوات: شهر كامل عن كل سنة إضافية<br>• كسور السنة (الأشهر والأيام) تحسب بنسبة من السنة</p>
+            
+            <p><strong>حالات الاستقالة والاستحقاق</strong><br>• أقل من سنتين: لا يستحق مكافأة<br>• من 2 إلى 5 سنوات: يستحق ثلث المكافأة<br>• من 5 إلى 10 سنوات: يستحق ثلثي المكافأة<br>• أكثر من 10 سنوات: يستحق كامل المكافأة</p>
+            
+            <p><strong>حالات لا تستحق فيها المكافأة</strong><br>• إذا تم فسخ العقد من قبل صاحب العمل لأحد الأسباب الواردة في المادة (80)<br>• فسخ العامل للعقد دون سبب مشروع (المادة 81)<br>• خلال فترة التجربة (المادة 53)</p>
+            
+            <p><strong>نصائح هامة</strong><br>• تأكد من توثيق عقد العمل في منصة قوى أو وزارة الموارد البشرية<br>• احتفظ بسجل الرواتب وكشوف الحضور<br>• استخدم الحاسبة أعلاه للتأكد من استحقاقك<br>• لأي نزاع عمالي، ارفع دعوى عبر منصة "ودي" التابعة لوزارة العدل</p>
+            
+            <p class="ref"><strong>المراجع الرسمية:</strong> وزارة الموارد البشرية والتنمية الاجتماعية (HRSD.gov.sa) | نظام العمل السعودي | منصة قوى (Qiwa.sa) | منصة ودي (moj.gov.sa)</p>
+        </div>
+    </div>
+</main>
+
+<script>
+function formatNumber(num) { return num.toLocaleString('ar-SA', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
+function formatInt(num) { return num.toLocaleString('ar-SA'); }
+
+function updateAll() {
+    var salary = parseFloat(document.getElementById('eosSalary').value) || 0;
+    var startDateVal = document.getElementById('eosStartDate').value;
+    var endDateVal = document.getElementById('eosEndDate').value;
+    var contractType = document.getElementById('eosContractType').value;
+    var reason = document.getElementById('eosReason').value;
+    var contractText = document.getElementById('eosContractType').selectedOptions[0]?.text || '—';
+    var reasonText = document.getElementById('eosReason').selectedOptions[0]?.text || '—';
+    
+    document.getElementById('eosSalaryDisplay').textContent = salary > 0 ? formatInt(salary) + ' ريال' : '—';
+    document.getElementById('eosContractDisplay').textContent = contractText;
+    document.getElementById('eosReasonDisplay').textContent = reasonText;
+    document.getElementById('eosStartDisplay').textContent = startDateVal || '—';
+    document.getElementById('eosEndDisplay').textContent = endDateVal || '—';
+    document.getElementById('eosResult').style.display = 'block';
+    
+    if (!salary || !startDateVal || !endDateVal || !contractType || !reason) {
+        document.getElementById('eosAmount').textContent = '0.00 ريال';
+        return;
+    }
+    
+    var startDate = new Date(startDateVal), endDate = new Date(endDateVal);
+    var totalDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
+    if (totalDays < 0) totalDays = 0;
+    
+    var totalYears = totalDays / 365;
+    var firstPeriod = Math.min(totalYears, 5), secondPeriod = Math.max(totalYears - 5, 0);
+    var fullAward = (salary * 0.5 * firstPeriod) + (salary * secondPeriod);
+    var award = fullAward;
+    
+    if (reason === 'resign') {
+        if (totalYears < 2) award = 0;
+        else if (totalYears <= 5) award = fullAward * (1/3);
+        else if (totalYears <= 10) award = fullAward * (2/3);
+    }
+    if (reason === 'probation_53' || reason === 'terminate_80' || reason === 'worker_terminate_81') award = 0;
+    
+    document.getElementById('eosAmount').textContent = formatNumber(award) + ' ريال';
+}
+</script>
+</body>
+</html>
