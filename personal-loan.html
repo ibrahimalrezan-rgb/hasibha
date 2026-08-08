@@ -3,25 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حاسبة التمويل الشخصي - حاسبها | احسب القسط الشهري</title>
-    <meta name="description" content="حاسبة التمويل الشخصي في السعودية. احسب القسط الشهري ونسبة القسط إلى الدخل مع شرح النسبة السنوية APR ومدة السداد حسب البنك المركزي السعودي.">
-    <meta name="keywords" content="حاسبة التمويل الشخصي, قرض شخصي السعودية, حساب القسط, APR, تمويل شخصي">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://hasibhaa.netlify.app/personal-loan.html">
+    <title>حاسبة التمويل الشخصي 2026 - احسب قسطك ونسبة الاستقطاع | حاسبها</title>
+    <meta name="description" content="حاسبة التمويل الشخصي في السعودية. تعرف على النسبة السنوية APR، رسوم التمويل، نسبة القسط إلى الدخل، ونصائح ذهبية للحصول على أفضل تمويل شخصي بدون ضغط مالي.">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
-        .container{max-width:650px;margin:0 auto;padding:0 20px}
+        .container{max-width:700px;margin:0 auto;padding:0 20px}
         .site-header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 0}
         .header-content{display:flex;justify-content:space-between;align-items:center}
         .logo{font-size:26px;font-weight:800;color:#059669;text-decoration:none}
         .calc-wrapper{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:28px 24px;margin:30px auto}
-        .calc-wrapper h3{text-align:center;color:#064e3b;font-size:22px;margin-bottom:4px}
+        .calc-wrapper h1{text-align:center;color:#064e3b;font-size:22px;margin-bottom:4px}
         .subtitle{text-align:center;color:#64748b;font-size:14px;margin-bottom:28px}
-        label{display:block;font-weight:600;margin-bottom:6px;color:#1e293b;font-size:15px}
+        label{display:block;font-weight:600;margin-bottom:6px;font-size:15px}
         .hint{font-size:12px;color:#94a3b8;margin-bottom:10px}
         .input-row{display:flex;gap:10px;margin-bottom:20px;align-items:center}
-        .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:16px;text-align:right;color:#1e293b;flex:1}
+        .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:16px;text-align:right;flex:1}
         .input-row input:focus{outline:none;border-color:#059669}
         .slider-group{margin-bottom:24px}
         .slider-value{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
@@ -34,120 +31,128 @@
         .percent-input input:focus{outline:none;border-color:#059669}
         .percent-input span{font-size:24px;font-weight:700;color:#64748b}
         .calc-btn{width:100%;background:#059669;color:#fff;border:none;padding:16px;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;margin-top:8px}
-        .calc-btn:hover{background:#047857}
         .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:24px;text-align:center;margin-top:24px}
         .big-amount{font-size:24px;font-weight:900;color:#059669}
         .ratio-row{display:flex;justify-content:center;margin-top:16px}
         .ratio-badge{background:#fff;border-radius:20px;padding:8px 16px;font-size:13px}
         .status-msg{font-weight:700;margin-top:12px}
+        .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin-top:32px;text-align:right;line-height:2.3}
+        .article-box h2{font-size:22px;color:#064e3b;margin-bottom:24px;border-bottom:3px solid #059669;padding-bottom:12px}
+        .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
+        .article-box p{color:#475569;font-size:15px;margin-bottom:14px}
+        .article-box ul{color:#475569;font-size:14px;padding-right:20px;margin-bottom:14px}
+        .article-box ul li{margin-bottom:8px}
+        .article-box .tip{background:#f0fdf4;border-right:4px solid #059669;padding:16px;margin:16px 0;border-radius:8px}
+        .article-box .warning{background:#fef3c7;border-right:4px solid #eab308;padding:16px;margin:16px 0;border-radius:8px}
+        .article-box .ref{color:#64748b;font-size:13px;margin-top:24px;padding-top:16px;border-top:1px solid #e2e8f0}
         .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
-        .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;margin-top:24px;text-align:right;line-height:2.2}
-        .article-box h2{font-size:20px;color:#064e3b;margin-bottom:20px}
-        .article-box p{color:#475569;font-size:14px;margin-bottom:12px}
-        .article-box .ref{color:#94a3b8;font-size:12px;margin-top:20px;padding-top:16px;border-top:1px solid #e2e8f0}
         @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:20px 16px}}
     </style>
 </head>
 <body>
-
-<header class="site-header">
-    <div class="container">
-        <div class="header-content">
-            <a href="index.html" class="logo">🧮 حاسبها</a>
-            <a href="index.html" style="color:#059669;text-decoration:none;font-weight:600">الرئيسية</a>
-        </div>
-    </div>
-</header>
-
+<header class="site-header"><div class="container"><div class="header-content"><a href="index.html" class="logo">🧮 حاسبها</a><a href="index.html" style="color:#059669;text-decoration:none;font-weight:600">الرئيسية</a></div></div></header>
 <main>
-    <div class="container">
-        <div class="calc-wrapper">
-            <h3>💵 حاسبة التمويل الشخصي</h3>
-            <p class="subtitle">احسب القسط الشهري للتمويل الشخصي</p>
-            
-            <label>مبلغ التمويل الشخصي</label>
-            <p class="hint">هو المبلغ الذي تريد الحصول عليه من البنك أو شركة التمويل.</p>
-            <div class="input-row"><input type="number" id="loanAmount" placeholder="أدخل مبلغ التمويل" oninput="updateAll()"><span style="font-weight:600;color:#64748b">ريال</span></div>
-            
-            <label>النسبة السنوية (APR)</label>
-            <p class="hint">هي النسبة التي يضيفها البنك كمصاريف وعائد.</p>
-            <div class="percent-input"><input type="number" id="aprInput" placeholder="النسبة السنوية" oninput="updateAll()" step="0.1"><span>٪</span></div>
-            
-            <label>مدة السداد (بالسنوات)</label>
-            <p class="hint">عدد السنوات التي سوف تسدد فيها التمويل.</p>
-            <div class="slider-group">
-                <div class="slider-value"><span id="loanYearsVal">5</span> <span style="font-size:14px;color:#64748b">سنة</span></div>
-                <input type="range" id="loanYearsSlider" min="1" max="10" value="5" oninput="updateAll()">
-                <div class="labels"><span>1</span><span>10</span></div>
-            </div>
-            
-            <label>الدخل الشهري (اختياري)</label>
-            <p class="hint">لتوضيح إذا كان القسط مناسبًا لميزانيتك.</p>
-            <div class="input-row"><input type="number" id="incomeInput" placeholder="الدخل الشهري" oninput="updateAll()"><span style="font-weight:600;color:#64748b">ريال</span></div>
-            
-            <button class="calc-btn" onclick="updateAll()">احسب القسط الشهري</button>
-            
-            <div class="result-card">
-                <p style="color:#475569;font-size:14px">القسط الشهري: <span class="big-amount" id="monthlyDisplay">0</span> ريال</p>
-                <div class="ratio-row"><span class="ratio-badge">نسبة القسط إلى الدخل: <strong id="ratioDisplay">—</strong></span></div>
-                <p class="status-msg" id="statusMsg" style="color:#64748b">أدخل البيانات لمعرفة التقييم</p>
-            </div>
-            
-            <a href="index.html" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
-        </div>
+<div class="container">
+<div class="calc-wrapper">
+<h1>💵 حاسبة التمويل الشخصي</h1>
+<p class="subtitle">احسب القسط الشهري ونسبة الاستقطاع من الراتب</p>
+<label>مبلغ التمويل الشخصي</label><p class="hint">المبلغ الذي تريد الحصول عليه من البنك.</p>
+<div class="input-row"><input type="number" id="loanAmount" placeholder="أدخل مبلغ التمويل" oninput="updateAll()"><span style="font-weight:600;color:#64748b">ريال</span></div>
+<label>النسبة السنوية (APR)</label><p class="hint">النسبة التي يضيفها البنك شاملة الرسوم.</p>
+<div class="percent-input"><input type="number" id="aprInput" placeholder="النسبة السنوية" oninput="updateAll()" step="0.1"><span>٪</span></div>
+<label>مدة السداد (بالسنوات)</label><p class="hint">عدد السنوات التي ستسدد فيها التمويل.</p>
+<div class="slider-group"><div class="slider-value"><span id="loanYearsVal">5</span> <span style="font-size:14px;color:#64748b">سنة</span></div><input type="range" id="loanYearsSlider" min="1" max="10" value="5" oninput="updateAll()"><div class="labels"><span>1</span><span>10</span></div></div>
+<label>الدخل الشهري (اختياري)</label><p class="hint">لمعرفة إذا كان القسط مناسباً لميزانيتك.</p>
+<div class="input-row"><input type="number" id="incomeInput" placeholder="الدخل الشهري" oninput="updateAll()"><span style="font-weight:600;color:#64748b">ريال</span></div>
+<button class="calc-btn" onclick="updateAll()">احسب القسط الشهري</button>
+<div class="result-card"><p style="color:#475569;font-size:14px">القسط الشهري: <span class="big-amount" id="monthlyDisplay">0</span> ريال</p><div class="ratio-row"><span class="ratio-badge">نسبة القسط إلى الدخل: <strong id="ratioDisplay">—</strong></span></div><p class="status-msg" id="statusMsg" style="color:#64748b">أدخل البيانات لمعرفة التقييم</p></div>
+<a href="index.html" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
+</div>
 
-        <div class="article-box">
-            <h2>🗂️ دليل التمويل الشخصي في السعودية</h2>
-            
-            <p><strong>ما هو التمويل الشخصي؟</strong><br>التمويل الشخصي هو مبلغ مالي تقدمه البنوك وشركات التمويل للأفراد لتمويل احتياجاتهم الشخصية مثل الزواج، السفر، التعليم، أو شراء سيارة. يتم سداده على أقساط شهرية ثابتة خلال فترة محددة.</p>
-            
-            <p><strong>النسبة السنوية (APR)</strong><br>النسبة السنوية (Annual Percentage Rate) هي التكلفة الفعلية للتمويل شاملة جميع الرسوم الإدارية وهامش الربح. يجب على البنك الإفصاح عنها حسب تعليمات البنك المركزي السعودي. قارن APR بين البنوك وليس فقط النسبة الاسمية.</p>
-            
-            <p><strong>نسبة القسط إلى الدخل</strong><br>القاعدة الأساسية من البنك المركزي السعودي: يجب ألا يتجاوز القسط الشهري 33.33% من الدخل الشهري (الثلث). بعض البنوك تسمح حتى 50% حسب الجدارة الائتمانية. ينصح الخبراء بألا تتجاوز 30% لراحة مالية.</p>
-            
-            <p><strong>رسوم التمويل الشخصي</strong><br>• رسوم إدارية: 1% من مبلغ التمويل أو 5,000 ريال أيهما أقل<br>• رسوم السداد المبكر: تفرض عند السداد قبل انتهاء المدة<br>• رسوم التأخر في السداد: عند عدم دفع القسط في موعده</p>
-            
-            <p><strong>نصائح هامة</strong><br>• تأكد من أن البنك مرخص من البنك المركزي السعودي<br>• اقرأ العقد كاملاً قبل التوقيع<br>• احسب القسط باستخدام الحاسبة أعلاه قبل التوجه للبنك<br>• قارن عروض 3 جهات تمويلية على الأقل</p>
-            
-            <p class="ref"><strong>المراجع الرسمية:</strong> البنك المركزي السعودي (SAMA.gov.sa) | وزارة التجارة (mc.gov.sa)</p>
-        </div>
-    </div>
+<div class="article-box">
+<h2>🗂️ الدليل الشامل للتمويل الشخصي في السعودية 2026</h2>
+
+<h3>ما هو التمويل الشخصي؟</h3>
+<p>التمويل الشخصي هو عقد تمويل بين العميل والبنك أو شركة التمويل، يمنح بموجبه البنك مبلغاً مالياً للعميل لاستخدامه في أغراضه الشخصية (زواج، سفر، تعليم، علاج، شراء سيارة، أو أي احتياج آخر)، مقابل سداد المبلغ على أقساط شهرية ثابتة تشمل المبلغ الأصلي مضافاً إليه هامش ربح متفق عليه مسبقاً.</p>
+<p>وفقاً لإحصائيات البنك المركزي السعودي، بلغ إجمالي التمويل الشخصي للأفراد في المملكة أكثر من 400 مليار ريال، مما يعكس أهمية هذا المنتج المالي في حياة المواطن السعودي. حاسبة التمويل الشخصي من حاسبها تساعدك على تقدير القسط الشهري ونسبة الاستقطاع قبل التوجه للبنك.</p>
+
+<h3>النسبة السنوية (APR) – المفتاح لفهم التكلفة الحقيقية</h3>
+<p>النسبة السنوية المئوية (Annual Percentage Rate) هي أهم رقم يجب أن تنظر إليه عند مقارنة عروض التمويل. فهي تشمل:</p>
+<ul>
+<li>هامش الربح الأساسي.</li>
+<li>جميع الرسوم الإدارية.</li>
+<li>تكلفة التأمين (إن وجد).</li>
+<li>أي مصاريف إضافية يفرضها البنك.</li>
+</ul>
+<p>مثال: قد يقول لك البنك "نسبة الفائدة 4% فقط"، لكن عند حساب APR تجدها 6.5% بسبب الرسوم الإدارية ورسوم التأمين. لهذا السبب، البنك المركزي السعودي يلزم جميع البنوك بالإفصاح عن APR بوضوح في عروض التمويل. قارن دائماً الـ APR بين البنوك، وليس النسبة الاسمية!</p>
+
+<div class="tip">💡 <strong>معلومة مهمة:</strong> النسبة الاسمية قد تكون 3.9% لكن APR الفعلية 6.2%. الفرق هنا تمثله الرسوم. لذلك اسأل دائماً: "كم النسبة السنوية APR شاملة كل الرسوم؟"</div>
+
+<h3>نسبة القسط إلى الدخل – القاعدة الذهبية</h3>
+<p>بحسب تعليمات البنك المركزي السعودي (ساما)، يجب ألا يتجاوز القسط الشهري 33.33% من الدخل الشهري الصافي (أي الثلث). هذه القاعدة وضعت لحماية العميل من الوقوع في ضائقة مالية.</p>
+<ul>
+<li><strong>أقل من 25%:</strong> وضع مالي مريح وآمن.</li>
+<li><strong>بين 25% و 33%:</strong> مقبول، لكن راقب ميزانيتك الشهرية.</li>
+<li><strong>بين 33% و 50%:</strong> بعض البنوك توافق لكن بضمانات إضافية. هذا المستوى يعتبر مرتفعاً وقد يسبب ضغطاً مالياً.</li>
+<li><strong>أكثر من 50%:</strong> مرفوض من معظم البنوك، وغير مستحسن مالياً على الإطلاق.</li>
+</ul>
+
+<div class="warning">⚠️ <strong>تحذير:</strong> الأفراد الذين تتجاوز نسبة أقساطهم 35% من دخلهم الشهري هم أكثر عرضة للتخلف عن السداد بمقدار 3 أضعاف مقارنة بمن يحافظون على نسبة أقل من 25%، وفق دراسات الائتمان المصرفي.</div>
+
+<h3>رسوم التمويل الشخصي – اعرف كل شي قبل التوقيع</h3>
+<ul>
+<li><strong>الرسوم الإدارية:</strong> تفرض مرة واحدة عند توقيع العقد. حسب نظام التمويل السعودي، لا تتجاوز 1% من مبلغ التمويل الأصلي، أو 5,000 ريال كحد أقصى أيهما أقل.</li>
+<li><strong>رسوم السداد المبكر:</strong> إذا أردت سداد كامل المبلغ قبل نهاية المدة. بعض البنوك تفرض رسوماً تعادل 3 أشهر من هامش الربح، وبعضها لا يفرض أي رسوم. اسأل عنها قبل التوقيع.</li>
+<li><strong>رسوم التأخر في السداد:</strong> غرامة تفرض عند عدم دفع القسط في موعده. قد تؤثر سلباً على سجلك الائتماني لدى شركة سمة.</li>
+<li><strong>رسوم إعادة الجدولة:</strong> إذا طلبت تعديل مدة التمويل أو مبلغ القسط لاحقاً.</li>
+</ul>
+
+<h3>شروط الحصول على التمويل الشخصي</h3>
+<ul>
+<li>أن يكون المتقدم سعودي الجنسية (بعض البنوك تمنح المقيمين تمويلاً بشروط خاصة).</li>
+<li>العمر بين 21 و60 سنة عند آخر قسط.</li>
+<li>تحويل الراتب للبنك الممول (في الغالب).</li>
+<li>ألا يقل الدخل الشهري عن 3,000 إلى 5,000 ريال (حسب البنك).</li>
+<li>سجل ائتماني سليم (يمكنك التحقق مجاناً من تقرير سمة).</li>
+<li>إثبات جهة العمل ومدة الخدمة (عادة 3 أشهر على الأقل في الوظيفة الحالية للقطاع الخاص).</li>
+</ul>
+
+<h3>مقارنة التمويل الشخصي ببطاقات الائتمان</h3>
+<p>كثير من الناس يخلط بين التمويل الشخصي وبطاقات الائتمان. الفرق الجوهري:</p>
+<ul>
+<li><strong>التمويل الشخصي:</strong> مبلغ ثابت، أقساط شهرية ثابتة، نسبة فائدة أقل، مدة محددة (1-5 سنوات). مناسب للاحتياجات الكبيرة والمخططة.</li>
+<li><strong>بطاقة الائتمان:</strong> حد ائتماني دوار، نسبة فائدة مرتفعة جداً (قد تصل إلى 30% سنوياً)، مرونة في السداد لكن خطيرة إذا تراكمت الديون. مناسبة للطوارئ قصيرة الأجل فقط.</li>
+</ul>
+
+<h3>نصائح ذهبية للحصول على أفضل تمويل شخصي</h3>
+<ul>
+<li><strong>لا تستلم إلا المبلغ الذي تحتاجه فعلاً:</strong> كلما زاد المبلغ، زاد القسط وزادت الفوائد. لا تأخذ 100,000 ريال إذا كنت تحتاج 50,000 فقط.</li>
+<li><strong>اقرأ العقد كاملاً:</strong> خاصة البنود المكتوبة بخط صغير. اسأل عن أي بند لا تفهمه.</li>
+<li><strong>تجنب التمويلات المتعددة:</strong> وجود أكثر من تمويل في نفس الوقت يزيد من نسبة الاستقطاع وقد يوقعك في دوامة الديون.</li>
+<li><strong>استخدم الحاسبة أعلاه:</strong> جرب إدخال مبالغ ومدد مختلفة لتجد القسط الذي يناسب راتبك قبل أن تذهب للبنك.</li>
+<li><strong>خطط للسداد المبكر:</strong> كلما سددت مبكراً، كلما وفرت من هامش الربح. بعض البنوك لا تفرض رسوماً على السداد المبكر.</li>
+</ul>
+
+<h3>الأسئلة الشائعة عن التمويل الشخصي</h3>
+<p><strong>هل يمكن الحصول على تمويل شخصي بدون تحويل الراتب؟</strong><br>نعم، بعض شركات التمويل تقدم هذه الخدمة ولكن بنسبة فائدة أعلى.</p>
+<p><strong>كم المدة التي يستغرقها الحصول على التمويل؟</strong><br>عادة من يوم إلى 5 أيام عمل بعد تقديم جميع المستندات المطلوبة.</p>
+<p><strong>هل يمكن سداد التمويل الشخصي مبكراً؟</strong><br>نعم، يحق لك ذلك نظاماً. تحسب الفوائد فقط عن المدة الفعلية، وقد تفرض بعض البنوك رسوماً بسيطة.</p>
+<p><strong>ماذا يحدث إذا تعثرت في السداد؟</strong><br>يسجل تعثر في سجلك الائتماني لدى سمة، وقد تصل إلى إجراءات قانونية وحجز على الراتب.</p>
+
+<p class="ref"><strong>المراجع الرسمية:</strong> البنك المركزي السعودي (SAMA.gov.sa) | وزارة التجارة (mc.gov.sa) | شركة سمة للائتمان (simah.com) | نظام مراقبة شركات التمويل</p>
+</div>
+</div>
 </main>
-
 <script>
-function formatNumber(num) { return num.toLocaleString('ar-SA', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
-function updateAll() {
-    var amount = parseFloat(document.getElementById('loanAmount').value) || 0;
-    var apr = parseFloat(document.getElementById('aprInput').value) || 0;
-    var years = parseInt(document.getElementById('loanYearsSlider').value);
-    var income = parseFloat(document.getElementById('incomeInput').value) || 0;
-    document.getElementById('loanYearsVal').textContent = years;
-    if (amount <= 0 || apr <= 0) {
-        document.getElementById('monthlyDisplay').textContent = '0';
-        document.getElementById('ratioDisplay').textContent = '—';
-        document.getElementById('statusMsg').textContent = 'أدخل البيانات لمعرفة التقييم';
-        document.getElementById('statusMsg').style.color = '#64748b';
-        return;
-    }
-    var months = years * 12;
-    var monthlyRate = (apr / 100) / 12;
-    var monthly = 0;
-    if (monthlyRate > 0) { monthly = amount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1); }
-    else { monthly = amount / months; }
-    document.getElementById('monthlyDisplay').textContent = formatNumber(monthly);
-    if (income > 0) {
-        var ratio = (monthly / income) * 100;
-        document.getElementById('ratioDisplay').textContent = ratio.toFixed(1) + '%';
-        var s = document.getElementById('statusMsg');
-        if (ratio < 25) { s.textContent = '💚 ممتاز — التمويل مناسب جدًا.'; s.style.color = '#22c55e'; }
-        else if (ratio <= 35) { s.textContent = '💛 مقبول بحذر — راقب ميزانيتك.'; s.style.color = '#eab308'; }
-        else { s.textContent = '❤️ تحذير — التمويل قد يشكل ضغطًا ماليًا.'; s.style.color = '#ef4444'; }
-    } else {
-        document.getElementById('ratioDisplay').textContent = '—';
-        document.getElementById('statusMsg').textContent = 'أدخل الدخل لمعرفة التقييم';
-        document.getElementById('statusMsg').style.color = '#64748b';
-    }
-}
+function formatNumber(n){return n.toLocaleString('ar-SA',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function updateAll(){
+var a=parseFloat(document.getElementById('loanAmount').value)||0,r=parseFloat(document.getElementById('aprInput').value)||0,y=parseInt(document.getElementById('loanYearsSlider').value),inc=parseFloat(document.getElementById('incomeInput').value)||0;
+document.getElementById('loanYearsVal').textContent=y;
+if(a<=0||r<=0){document.getElementById('monthlyDisplay').textContent='0';document.getElementById('ratioDisplay').textContent='—';document.getElementById('statusMsg').textContent='أدخل البيانات لمعرفة التقييم';document.getElementById('statusMsg').style.color='#64748b';return}
+var m=y*12,mr=(r/100)/12,mo=0;if(mr>0)mo=a*mr*Math.pow(1+mr,m)/(Math.pow(1+mr,m)-1);else mo=a/m;
+document.getElementById('monthlyDisplay').textContent=formatNumber(mo);
+if(inc>0){var rt=(mo/inc)*100;document.getElementById('ratioDisplay').textContent=rt.toFixed(1)+'%';var s=document.getElementById('statusMsg');
+if(rt<25){s.textContent='💚 ممتاز — التمويل مناسب جداً.';s.style.color='#22c55e'}else if(rt<=35){s.textContent='💛 مقبول بحذر — راقب ميزانيتك.';s.style.color='#eab308'}else{s.textContent='❤️ تحذير — التمويل قد يشكل ضغطاً مالياً.';s.style.color='#ef4444'}}}
 </script>
 </body>
 </html>
