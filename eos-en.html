@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>End of Service Calculator 2026 Saudi Arabia | Hasibha</title>
+    <meta name="description" content="Free End of Service Benefit calculator based on Saudi Labor Law. Calculate gratuity based on salary, service period, and termination reason.">
+    <link rel="canonical" href="https://hasibha.com/eos-en">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-NZLXJFVCDW');
+    </script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
+        .container{max-width:700px;margin:0 auto;padding:0 20px}
+        .site-header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 0}
+        .header-content{display:flex;justify-content:space-between;align-items:center}
+        .logo{font-size:26px;font-weight:800;color:#059669;text-decoration:none}
+        .logo img{height:35px;vertical-align:middle;margin-right:8px}
+        .calc-wrapper{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:28px 24px;margin:30px auto}
+        .calc-wrapper h1{text-align:center;color:#064e3b;font-size:22px;margin-bottom:4px}
+        .subtitle{text-align:center;color:#64748b;font-size:14px;margin-bottom:28px}
+        label{display:block;font-weight:600;margin-bottom:6px;font-size:15px}
+        .hint{font-size:12px;color:#94a3b8;margin-bottom:10px}
+        .input-row{display:flex;gap:10px;margin-bottom:20px;align-items:center}
+        .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:16px;text-align:left;flex:1}
+        .full-width{margin-bottom:20px}
+        .full-width select{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;background:#fff;color:#1e293b;cursor:pointer}
+        .calc-btn{width:100%;background:#059669;color:#fff;border:none;padding:16px;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;margin-top:8px}
+        .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:24px;margin-top:24px;display:none}
+        .result-card h4{text-align:center;color:#064e3b;font-size:16px;margin-bottom:20px}
+        .summary-table{width:100%;border-collapse:collapse}
+        .summary-table td{padding:10px 4px;border-bottom:1px solid #d1fae5;font-size:13px}
+        .summary-table td:first-child{color:#64748b;width:45%}
+        .summary-table td:last-child{color:#1e293b;font-weight:700;text-align:left}
+        .summary-table tr:last-child td{border-bottom:none;font-size:18px;color:#059669;font-weight:900;padding-top:14px}
+        .note-box{background:#fffbeb;border:1px solid #fcd34d;border-radius:12px;padding:16px;margin-top:20px;font-size:13px;color:#92400e}
+        .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin-top:32px;text-align:left;line-height:2.3}
+        .article-box h2{font-size:22px;color:#064e3b;margin-bottom:24px;border-bottom:3px solid #059669;padding-bottom:12px}
+        .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
+        .article-box p{color:#475569;font-size:15px;margin-bottom:14px}
+        .article-box ul{color:#475569;font-size:14px;padding-left:20px;margin-bottom:14px}
+        .article-box .tip{background:#f0fdf4;border-left:4px solid #059669;padding:16px;margin:16px 0;border-radius:8px}
+        .article-box .warning{background:#fef3c7;border-left:4px solid #eab308;padding:16px;margin:16px 0;border-radius:8px}
+        .article-box .ref{color:#64748b;font-size:13px;margin-top:24px;padding-top:16px;border-top:1px solid #e2e8f0}
+        .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
+        @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:20px 16px}}
+    </style>
+</head>
+<body>
+<header class="site-header"><div class="container"><div class="header-content">
+    <a href="/" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha"> Hasibha</a>
+    <div style="display:flex;gap:12px;align-items:center">
+        <a href="/eos" style="color:#059669;text-decoration:none;font-weight:600">عربي</a>
+        <a href="/" style="color:#64748b;text-decoration:none;font-weight:600">Home</a>
+    </div>
+</div></div></header>
+<main>
+<div class="container">
+<div class="calc-wrapper">
+<h1>📋 End of Service Benefit Calculator</h1>
+<p class="subtitle">Calculate your benefit according to Saudi Labor Law</p>
+<label>Total Salary</label><p class="hint">Last total salary including basic and allowances.</p>
+<div class="input-row"><input type="number" id="eosSalary" placeholder="Enter total salary" oninput="updateAll()"><span style="font-weight:600;color:#64748b">SAR</span></div>
+<label>Start Date</label><div class="input-row"><input type="date" id="eosStartDate" onchange="updateAll()"></div>
+<label>End Date</label><div class="input-row"><input type="date" id="eosEndDate" onchange="updateAll()"></div>
+<label>Contract Type</label><div class="full-width"><select id="eosContractType" onchange="updateAll()"><option value="">-- Select --</option><option value="limited">Fixed Term</option><option value="unlimited">Indefinite Term</option></select></div>
+<label>Termination Reason</label>
+<div class="full-width"><select id="eosReason" onchange="updateAll()"><option value="">-- Select --</option><option value="resign">Resignation</option><option value="end_contract">Contract Expiry</option><option value="mutual_74">Mutual Agreement - Art. 74</option><option value="terminate_80">Employer Termination - Art. 80</option><option value="probation_53">Probation - Art. 53</option><option value="close_business_74">Business Closure - Art. 74</option><option value="retirement_74">Retirement - Art. 74</option><option value="unlawful_77">Unlawful Termination - Art. 77</option><option value="worker_death_79">Worker Death - Art. 79</option><option value="disability_79">Disability - Art. 79</option><option value="work_injury_137">Work Injury - Art. 137</option><option value="marriage_87">Marriage - Art. 87</option><option value="childbirth_87">Childbirth - Art. 87</option></select></div>
+<button class="calc-btn" onclick="updateAll()">Calculate Benefit</button>
+<div class="result-card" id="eosResult"><h4>📋 Calculation Summary</h4><table class="summary-table"><tr><td>Contract Type</td><td id="eosContractDisplay">—</td></tr><tr><td>Reason</td><td id="eosReasonDisplay">—</td></tr><tr><td>Total Salary</td><td id="eosSalaryDisplay">—</td></tr><tr><td>Start Date</td><td id="eosStartDisplay">—</td></tr><tr><td>End Date</td><td id="eosEndDisplay">—</td></tr><tr><td>Benefit</td><td id="eosAmount">0.00 SAR</td></tr></table></div>
+<div class="note-box"><strong>📝 Note:</strong> Estimate based on Saudi Labor Law.</div>
+<a href="/" class="back-link">↩ Back to Home</a>
+</div>
+
+<div class="article-box">
+<h2>🗂️ End of Service Benefit Guide - Saudi Labor Law 2026</h2>
+<h3>What is the End of Service Benefit?</h3>
+<p>A fundamental financial right under Saudi Labor Law (Royal Decree M/51), calculated on last basic salary, service period, and termination reason.</p>
+<h3>How is it Calculated?</h3>
+<ul>
+<li><strong>First 5 years:</strong> Half month per year.</li>
+<li><strong>After 5 years:</strong> Full month per additional year.</li>
+</ul>
+<div class="tip">💡 <strong>Example:</strong> Salary 10,000 SAR, 8 years = 55,000 SAR.</div>
+<h3>Resignation – Article 85</h3>
+<ul>
+<li><strong>Under 2 years:</strong> No benefit.</li>
+<li><strong>2-5 years:</strong> 1/3 of benefit.</li>
+<li><strong>5-10 years:</strong> 2/3 of benefit.</li>
+<li><strong>Over 10 years:</strong> Full benefit.</li>
+</ul>
+<h3>Tips to Protect Your Rights</h3>
+<ul>
+<li>Document your contract on Qiwa.</li>
+<li>Keep salary slips.</li>
+<li>Use the calculator above.</li>
+</ul>
+<p class="ref"><strong>References:</strong> HRSD (HRSD.gov.sa) | Qiwa (Qiwa.sa) | Wedi (moj.gov.sa)</p>
+</div>
+</div>
+</main>
+<script>
+function formatNumber(n){return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function formatInt(n){return n.toLocaleString('en-US')}
+function updateAll(){
+var s=parseFloat(document.getElementById('eosSalary').value)||0,sd=document.getElementById('eosStartDate').value,ed=document.getElementById('eosEndDate').value,ct=document.getElementById('eosContractType').value,r=document.getElementById('eosReason').value,ctt=document.getElementById('eosContractType').selectedOptions[0]?.text||'—',rt=document.getElementById('eosReason').selectedOptions[0]?.text||'—';
+document.getElementById('eosSalaryDisplay').textContent=s>0?formatInt(s)+' SAR':'—';document.getElementById('eosContractDisplay').textContent=ctt;document.getElementById('eosReasonDisplay').textContent=rt;document.getElementById('eosStartDisplay').textContent=sd||'—';document.getElementById('eosEndDisplay').textContent=ed||'—';document.getElementById('eosResult').style.display='block';
+if(!s||!sd||!ed||!ct||!r){document.getElementById('eosAmount').textContent='0.00 SAR';return}
+var st=new Date(sd),en=new Date(ed),td=Math.floor((en-st)/(1000*60*60*24));if(td<0)td=0;
+var ty=td/365,fp=Math.min(ty,5),sp=Math.max(ty-5,0),fa=(s*0.5*fp)+(s*sp),a=fa;
+if(r==='resign'){if(ty<2)a=0;else if(ty<=5)a=fa*(1/3);else if(ty<=10)a=fa*(2/3)}
+if(r==='probation_53'||r==='terminate_80'||r==='worker_terminate_81')a=0;
+document.getElementById('eosAmount').textContent=formatNumber(a)+' SAR'}
+</script>
+</body>
+</html>
