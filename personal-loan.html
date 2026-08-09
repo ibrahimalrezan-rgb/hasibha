@@ -72,4 +72,52 @@
 <h1>💵 حاسبة التمويل الشخصي</h1>
 <p class="subtitle">احسب القسط الشهري ونسبة الاستقطاع من الراتب</p>
 <label>مبلغ التمويل الشخصي</label><p class="hint">المبلغ الذي تريد الحصول عليه من البنك.</p>
-<div class="input-row"><input type="number" id="loanAmount" placeholder="أدخل مبلغ التمويل" oninput="updateAll()"><span style="
+<div class="input-row"><input type="number" id="loanAmount" placeholder="أدخل مبلغ التمويل" oninput="updateAll()"><span style="font-weight:600;color:#64748b">ريال</span></div>
+<label>النسبة السنوية (APR)</label><p class="hint">النسبة التي يضيفها البنك شاملة الرسوم.</p>
+<div class="percent-input"><input type="number" id="aprInput" placeholder="النسبة السنوية" oninput="updateAll()" step="0.1"><span>٪</span></div>
+<label>مدة السداد (بالسنوات)</label>
+<div class="slider-group"><div class="slider-value"><span id="loanYearsVal">5</span> <span style="font-size:14px;color:#64748b">سنة</span></div><input type="range" id="loanYearsSlider" min="1" max="10" value="5" oninput="updateAll()"><div class="labels"><span>1</span><span>10</span></div></div>
+<label>الدخل الشهري (اختياري)</label>
+<div class="input-row"><input type="number" id="incomeInput" placeholder="الدخل الشهري" oninput="updateAll()"><span style="font-weight:600;color:#64748b">ريال</span></div>
+<button class="calc-btn" onclick="updateAll()">احسب القسط الشهري</button>
+<div class="result-card"><p style="color:#475569;font-size:14px">القسط الشهري: <span class="big-amount" id="monthlyDisplay">0</span> ريال</p><div class="ratio-row"><span class="ratio-badge">نسبة القسط إلى الدخل: <strong id="ratioDisplay">—</strong></span></div><p class="status-msg" id="statusMsg" style="color:#64748b">أدخل البيانات لمعرفة التقييم</p></div>
+<a href="/" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
+</div>
+
+<div class="article-box">
+<h2>🗂️ الدليل الشامل للتمويل الشخصي في السعودية 2026</h2>
+<h3>ما هو التمويل الشخصي؟</h3>
+<p>التمويل الشخصي هو عقد بين العميل والبنك يمنح بموجبه مبلغاً مالياً لاستخدامه في أغراضه الشخصية، مقابل سداده على أقساط شهرية تشمل المبلغ الأصلي مضافاً إليه هامش ربح.</p>
+<h3>النسبة السنوية (APR) – المفتاح لفهم التكلفة الحقيقية</h3>
+<p>النسبة السنوية تشمل هامش الربح + جميع الرسوم الإدارية + تكلفة التأمين. البنك المركزي السعودي يلزم البنوك بالإفصاح عن APR بوضوح.</p>
+<div class="tip">💡 <strong>معلومة مهمة:</strong> اسأل دائماً: "كم النسبة السنوية APR شاملة كل الرسوم؟"</div>
+<h3>نسبة القسط إلى الدخل</h3>
+<ul>
+<li><strong>أقل من 25%:</strong> وضع مالي مريح وآمن.</li>
+<li><strong>بين 25% و 33%:</strong> مقبول، لكن راقب ميزانيتك.</li>
+<li><strong>أكثر من 35%:</strong> قد يسبب ضغطاً مالياً.</li>
+</ul>
+<div class="warning">⚠️ <strong>تحذير:</strong> الأفراد الذين تتجاوز أقساطهم 35% من دخلهم أكثر عرضة للتخلف عن السداد 3 أضعاف.</div>
+<h3>نصائح ذهبية</h3>
+<ul>
+<li>لا تستلم إلا المبلغ الذي تحتاجه فعلاً.</li>
+<li>اقرأ العقد كاملاً قبل التوقيع.</li>
+<li>تجنب التمويلات المتعددة في نفس الوقت.</li>
+</ul>
+<p class="ref"><strong>المراجع الرسمية:</strong> البنك المركزي السعودي (SAMA.gov.sa) | وزارة التجارة (mc.gov.sa) | شركة سمة (simah.com)</p>
+</div>
+</div>
+</main>
+<script>
+function formatNumber(n){return n.toLocaleString('ar-SA',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function updateAll(){
+var a=parseFloat(document.getElementById('loanAmount').value)||0,r=parseFloat(document.getElementById('aprInput').value)||0,y=parseInt(document.getElementById('loanYearsSlider').value),inc=parseFloat(document.getElementById('incomeInput').value)||0;
+document.getElementById('loanYearsVal').textContent=y;
+if(a<=0||r<=0){document.getElementById('monthlyDisplay').textContent='0';document.getElementById('ratioDisplay').textContent='—';document.getElementById('statusMsg').textContent='أدخل البيانات لمعرفة التقييم';document.getElementById('statusMsg').style.color='#64748b';return}
+var m=y*12,mr=(r/100)/12,mo=0;if(mr>0)mo=a*mr*Math.pow(1+mr,m)/(Math.pow(1+mr,m)-1);else mo=a/m;
+document.getElementById('monthlyDisplay').textContent=formatNumber(mo);
+if(inc>0){var rt=(mo/inc)*100;document.getElementById('ratioDisplay').textContent=rt.toFixed(1)+'%';var s=document.getElementById('statusMsg');
+if(rt<25){s.textContent='💚 ممتاز — التمويل مناسب جداً.';s.style.color='#22c55e'}else if(rt<=35){s.textContent='💛 مقبول بحذر — راقب ميزانيتك.';s.style.color='#eab308'}else{s.textContent='❤️ تحذير — التمويل قد يشكل ضغطاً مالياً.';s.style.color='#ef4444'}}}
+</script>
+</body>
+</html>
