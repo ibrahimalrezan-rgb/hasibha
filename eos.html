@@ -6,7 +6,6 @@
     <title>حاسبة مكافأة نهاية الخدمة 2026 - نظام العمل السعودي | حاسبها</title>
     <meta name="description" content="حاسبة مكافأة نهاية الخدمة وفق نظام العمل السعودي. تعرف على طريقة حساب المكافأة، حالات الاستقالة، حقوق العامل، المواد النظامية، ونصائح لضمان حقوقك كاملة.">
     <link rel="canonical" href="https://hasibha.com/eos">
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -56,7 +55,13 @@
     </style>
 </head>
 <body>
-<header class="site-header"><div class="container"><div class="header-content"><a href="/" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="حاسبها"> حاسبها</a><a href="/" style="color:#059669;text-decoration:none;font-weight:600">الرئيسية</a></div></div></header>
+<header class="site-header"><div class="container"><div class="header-content">
+    <a href="/" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="حاسبها"> حاسبها</a>
+    <div style="display:flex;gap:12px;align-items:center">
+        <a href="/eos-en" style="color:#64748b;text-decoration:none;font-weight:600">English</a>
+        <a href="/" style="color:#059669;text-decoration:none;font-weight:600">الرئيسية</a>
+    </div>
+</div></div></header>
 <main>
 <div class="container">
 <div class="calc-wrapper">
@@ -71,59 +76,34 @@
 <div class="full-width"><select id="eosReason" onchange="updateAll()"><option value="">-- اختر سبب الإنهاء --</option><option value="resign">استقالة الموظف</option><option value="end_contract">انتهاء العقد بانتهاء مدته</option><option value="mutual_74">اتفاق الطرفين - المادة (74)</option><option value="terminate_80">فسخ العقد من صاحب العمل - المادة (80)</option><option value="probation_53">فسخ العقد خلال التجربة - المادة (53)</option><option value="activity_end_74">إنهاء النشاط - المادة (74)</option><option value="close_business_74">إغلاق المنشأة - المادة (74)</option><option value="retirement_74">بلوغ سن التقاعد - المادة (74)</option><option value="unlawful_77">إنهاء دون سبب مشروع - المادة (77)</option><option value="worker_terminate_81">فسخ العقد من العامل - المادة (81)</option><option value="worker_death_79">وفاة العامل - المادة (79)</option><option value="disability_79">عجز العامل - المادة (79)</option><option value="work_injury_137">عجز بسبب إصابة عمل - المادة (137)</option><option value="marriage_87">إنهاء العقد بسبب الزواج - المادة (87)</option><option value="childbirth_87">إنهاء العقد بسبب الولادة - المادة (87)</option></select></div>
 <button class="calc-btn" onclick="updateAll()">احسب المكافأة</button>
 <div class="result-card" id="eosResult"><h4>📋 ملخص حساب المكافأة</h4><table class="summary-table"><tr><td>نوع العقد</td><td id="eosContractDisplay">—</td></tr><tr><td>سبب الإنهاء</td><td id="eosReasonDisplay">—</td></tr><tr><td>الراتب الإجمالي</td><td id="eosSalaryDisplay">—</td></tr><tr><td>تاريخ بداية العقد</td><td id="eosStartDisplay">—</td></tr><tr><td>تاريخ انتهاء العقد</td><td id="eosEndDisplay">—</td></tr><tr><td>المكافأة المحسوبة</td><td id="eosAmount">0.00 ريال</td></tr></table></div>
-<div class="note-box"><strong>📝 تنبيه:</strong> هذه الحاسبة تقدم تقديراً لمكافأة نهاية الخدمة وفق نظام العمل السعودي. قد تختلف النتيجة في بعض الحالات الخاصة.</div>
+<div class="note-box"><strong>📝 تنبيه:</strong> هذه الحاسبة تقدم تقديراً لمكافأة نهاية الخدمة وفق نظام العمل السعودي.</div>
 <a href="/" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
 </div>
 
 <div class="article-box">
 <h2>🗂️ الدليل الشامل لمكافأة نهاية الخدمة في نظام العمل السعودي 2026</h2>
 <h3>ما هي مكافأة نهاية الخدمة؟</h3>
-<p>مكافأة نهاية الخدمة هي حق مالي أساسي يكفله نظام العمل السعودي الصادر بالمرسوم الملكي رقم (م/51). وهي مبلغ يصرفه صاحب العمل للعامل عند انتهاء العلاقة الوظيفية، وتُحتسب بناءً على آخر راتب أساسي، ومدة الخدمة، وسبب انتهاء العلاقة الوظيفية.</p>
+<p>مكافأة نهاية الخدمة هي حق مالي أساسي يكفله نظام العمل السعودي. تُحتسب بناءً على آخر راتب أساسي، ومدة الخدمة، وسبب انتهاء العلاقة الوظيفية.</p>
 <h3>كيف تُحسب المكافأة؟</h3>
 <ul>
-<li><strong>أول خمس سنوات:</strong> نصف شهر (15 يوماً) عن كل سنة خدمة.</li>
-<li><strong>بعد الخمس سنوات:</strong> شهر كامل (30 يوماً) عن كل سنة إضافية.</li>
-<li><strong>كسور السنة:</strong> تحسب بنسبة من السنة الكاملة.</li>
+<li><strong>أول خمس سنوات:</strong> نصف شهر عن كل سنة.</li>
+<li><strong>بعد الخمس سنوات:</strong> شهر كامل عن كل سنة إضافية.</li>
 </ul>
-<div class="tip">💡 <strong>مثال:</strong> راتب أساسي 10,000 ريال، خدمة 8 سنوات. أول 5 سنوات: 5 × 5,000 = 25,000. آخر 3 سنوات: 3 × 10,000 = 30,000. الإجمالي = 55,000 ريال.</div>
+<div class="tip">💡 <strong>مثال:</strong> راتب 10,000 ريال، خدمة 8 سنوات = 55,000 ريال.</div>
 <h3>الاستقالة وتأثيرها – المادة (85)</h3>
 <ul>
-<li><strong>أقل من سنتين:</strong> لا يستحق أي مكافأة.</li>
-<li><strong>من 2 إلى 5 سنوات:</strong> يستحق ثلث المكافأة.</li>
-<li><strong>من 5 إلى 10 سنوات:</strong> يستحق ثلثي المكافأة.</li>
-<li><strong>أكثر من 10 سنوات:</strong> يستحق كامل المكافأة.</li>
-</ul>
-<h3>حالات تستحق فيها كامل المكافأة</h3>
-<ul>
-<li>انتهاء العقد بمده – المادة (74).</li>
-<li>إغلاق المنشأة – المادة (74).</li>
-<li>بلوغ سن التقاعد – المادة (74).</li>
-<li>إنهاء العقد دون سبب مشروع – المادة (77).</li>
-<li>وفاة العامل أو عجزه – المادة (79).</li>
-<li>إصابة العمل – المادة (137).</li>
-</ul>
-<h3>حالات لا تستحق فيها المكافأة</h3>
-<div class="warning">⚠️ <strong>هام:</strong> يسقط حق العامل في المكافأة في هذه الحالات:</div>
-<ul>
-<li>الفصل التأديبي – المادة (80).</li>
-<li>فسخ العامل للعقد دون سبب – المادة (81).</li>
-<li>خلال فترة التجربة – المادة (53).</li>
+<li><strong>أقل من سنتين:</strong> لا يستحق.</li>
+<li><strong>2-5 سنوات:</strong> ثلث المكافأة.</li>
+<li><strong>5-10 سنوات:</strong> ثلثا المكافأة.</li>
+<li><strong>أكثر من 10 سنوات:</strong> كامل المكافأة.</li>
 </ul>
 <h3>نصائح لضمان حقوقك</h3>
 <ul>
-<li>وثق عقدك في منصة قوى (Qiwa.sa).</li>
-<li>احتفظ بكشوف الرواتب والمراسلات.</li>
-<li>تأكد من تحديد الراتب الأساسي بوضوح في العقد.</li>
-<li>لا توقع على استقالة مسبقة أو ورقة بيضاء.</li>
+<li>وثق عقدك في منصة قوى.</li>
+<li>احتفظ بكشوف الرواتب.</li>
 <li>استخدم الحاسبة أعلاه قبل مراجعة الموارد البشرية.</li>
 </ul>
-<h3>كيف تتصرف إذا لم تصرف المكافأة؟</h3>
-<ol>
-<li>قدم طلباً ودياً لصاحب العمل كتابياً.</li>
-<li>ارفع دعوى في منصة "ودي" (moj.gov.sa).</li>
-<li>إذا تعذرت التسوية، تحال القضية للمحكمة العمالية.</li>
-</ol>
-<p class="ref"><strong>المراجع الرسمية:</strong> وزارة الموارد البشرية (HRSD.gov.sa) | نظام العمل السعودي | منصة قوى (Qiwa.sa) | منصة ودي (moj.gov.sa) | التأمينات الاجتماعية (GOSI.gov.sa)</p>
+<p class="ref"><strong>المراجع الرسمية:</strong> وزارة الموارد البشرية (HRSD.gov.sa) | منصة قوى (Qiwa.sa) | منصة ودي (moj.gov.sa)</p>
 </div>
 </div>
 </main>
