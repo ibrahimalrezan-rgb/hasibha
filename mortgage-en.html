@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mortgage Calculator 2026 Saudi Arabia - Calculate Your Monthly Payment | Hasibha</title>
-    <meta name="description" content="Free mortgage calculator for Saudi Arabia. Calculate your monthly payment, total interest, and financing amount. Learn about down payment, APR, loan types, and expert tips for the best home loan.">
+    <title>Mortgage Calculator 2026 Saudi Arabia | Hasibha</title>
+    <meta name="description" content="Free mortgage calculator for Saudi Arabia. Calculate monthly payment, total interest, and financing amount. Learn about down payment, APR, and SAMA regulations.">
     <link rel="canonical" href="https://hasibha.com/mortgage-en">
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -47,68 +46,57 @@
         .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
         .article-box p{color:#475569;font-size:15px;margin-bottom:14px}
         .article-box ul{color:#475569;font-size:14px;padding-left:20px;margin-bottom:14px}
-        .article-box ul li{margin-bottom:8px}
         .article-box .tip{background:#f0fdf4;border-left:4px solid #059669;padding:16px;margin:16px 0;border-radius:8px}
         .article-box .ref{color:#64748b;font-size:13px;margin-top:24px;padding-top:16px;border-top:1px solid #e2e8f0}
         .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
-        .lang-switch{color:#059669;text-decoration:none;font-weight:600}
         @media(max-width:600px){.calc-wrapper{padding:20px 16px}.big-amount{font-size:30px}.details{grid-template-columns:1fr}.article-box{padding:20px 16px}}
     </style>
 </head>
 <body>
-<header class="site-header"><div class="container"><div class="header-content"><a href="/" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha"> Hasibha</a><div><a href="/mortgage" class="lang-switch">عربي</a></div></div></div></header>
+<header class="site-header"><div class="container"><div class="header-content">
+    <a href="/" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha"> Hasibha</a>
+    <div style="display:flex;gap:12px;align-items:center">
+        <a href="/mortgage" style="color:#059669;text-decoration:none;font-weight:600">عربي</a>
+        <a href="/" style="color:#64748b;text-decoration:none;font-weight:600">Home</a>
+    </div>
+</div></div></header>
 <main>
 <div class="container">
 <div class="calc-wrapper">
 <h1>🏠 Mortgage Calculator</h1>
-<p class="subtitle">Calculate your estimated monthly payment before making a decision. Numbers are estimates and may vary by bank.</p>
+<p class="subtitle">Calculate your estimated monthly payment</p>
 <label>Property Price (SAR)</label>
 <div class="input-row"><input type="number" id="priceInput" placeholder="Enter property price" oninput="updateAll()"></div>
 <div class="slider-group"><div class="slider-value"><label>Down Payment — <span id="downPercent">20</span>%</label><span id="downVal">0 SAR</span></div><input type="range" id="downSlider" min="5" max="50" value="20" oninput="updateAll()"><div class="labels"><span>5%</span><span>50%</span></div></div>
 <div class="slider-group"><div class="slider-value"><label>Loan Term — <span id="yearsVal">20</span> Years</label></div><input type="range" id="yearsSlider" min="5" max="30" value="20" oninput="updateAll()"><div class="labels"><span>5</span><span>30</span></div></div>
-<div class="slider-group"><div class="slider-value"><label>Annual Interest Rate — <span id="rateVal">5.0</span>%</label></div><input type="range" id="rateSlider" min="2" max="15" step="0.1" value="5" oninput="updateAll()"><div class="labels"><span>2%</span><span>15%</span></div></div>
-<button class="calc-btn" onclick="updateAll()">Calculate Monthly Payment</button>
-<div class="result-card"><p style="color:#475569;font-size:14px">Estimated Monthly Payment</p><div class="big-amount" id="monthlyDisplay">0</div><p style="color:#475569">SAR</p><div class="details"><div><div class="val" id="financedDisplay">0</div><div class="lbl">Financed Amount</div></div><div><div class="val" id="interestDisplay">0</div><div class="lbl">Total Interest</div></div><div><div class="val" id="totalDisplay">0</div><div class="lbl">Total Payment</div></div></div></div>
-<p style="text-align:center;color:#94a3b8;font-size:11px;margin-top:16px">* Estimates for simulation only. Not a financing offer.</p>
+<div class="slider-group"><div class="slider-value"><label>Interest Rate — <span id="rateVal">5.0</span>%</label></div><input type="range" id="rateSlider" min="2" max="15" step="0.1" value="5" oninput="updateAll()"><div class="labels"><span>2%</span><span>15%</span></div></div>
+<button class="calc-btn" onclick="updateAll()">Calculate</button>
+<div class="result-card"><p style="color:#475569;font-size:14px">Estimated Monthly Payment</p><div class="big-amount" id="monthlyDisplay">0</div><p style="color:#475569">SAR</p><div class="details"><div><div class="val" id="financedDisplay">0</div><div class="lbl">Financed</div></div><div><div class="val" id="interestDisplay">0</div><div class="lbl">Total Interest</div></div><div><div class="val" id="totalDisplay">0</div><div class="lbl">Total</div></div></div></div>
+<p style="text-align:center;color:#94a3b8;font-size:11px;margin-top:16px">* Estimates only. Not a financing offer.</p>
 <a href="/" class="back-link">↩ Back to Home</a>
 </div>
 
 <div class="article-box">
-<h2>🗂️ Complete Guide to Mortgage Financing in Saudi Arabia 2026</h2>
+<h2>🗂️ Mortgage Financing Guide - Saudi Arabia 2026</h2>
 <h3>What is Mortgage Financing?</h3>
-<p>Mortgage financing is one of the most important financial products offered by banks and financing companies in Saudi Arabia. It enables citizens and residents to own their dream home without paying the full property value upfront. According to Saudi Central Bank (SAMA) statistics, the residential mortgage portfolio in the Kingdom exceeded 600 billion SAR by the end of 2025.</p>
-<p>The Hasibha mortgage calculator helps you estimate your expected monthly payment based on property price, down payment, loan term, and interest rate. All calculations are approximate and may vary by bank policy.</p>
-<h3>Types of Mortgage Financing in Saudi Arabia</h3>
+<p>Mortgage financing helps citizens and residents own their dream home without paying the full property value upfront. SAMA reports the residential mortgage portfolio exceeded 600 billion SAR by end of 2025.</p>
+<h3>Types of Mortgage Financing</h3>
 <ul>
-<li><strong>Subsidized Mortgage:</strong> Offered by the Ministry of Housing in cooperation with banks, where the government covers part of the profit margin for eligible citizens.</li>
-<li><strong>Islamic Murabaha:</strong> The bank purchases the property and sells it to the client at a higher price, payable in monthly installments. Shariah-compliant.</li>
-<li><strong>Ijarah (Lease-to-Own):</strong> The bank buys the property and leases it to the client throughout the contract period, with ownership transferring at the end.</li>
-<li><strong>Commercial Mortgage:</strong> For investors purchasing commercial or investment properties like offices and warehouses.</li>
+<li><strong>Subsidized Mortgage:</strong> Ministry of Housing with banks.</li>
+<li><strong>Islamic Murabaha:</strong> Shariah-compliant.</li>
+<li><strong>Ijarah (Lease-to-Own):</strong> Bank leases then transfers ownership.</li>
+<li><strong>Commercial Mortgage:</strong> For investment properties.</li>
 </ul>
-<h3>Down Payment: Everything You Need to Know</h3>
-<p>According to SAMA regulations:</p>
-<ul>
-<li><strong>First Home:</strong> Minimum down payment is 10% of the property value.</li>
-<li><strong>Second Home:</strong> Minimum increases to 30%.</li>
-</ul>
-<div class="tip">💡 <strong>Golden Tip:</strong> The higher your down payment, the lower the financed amount, resulting in lower monthly payments and significantly less total interest over the loan term.</div>
-<h3>Loan Term: How to Choose the Right Duration?</h3>
-<ul>
-<li><strong>Short-term (5-15 years):</strong> Higher monthly payment but much lower total interest.</li>
-<li><strong>Medium-term (15-25 years):</strong> Balance between comfortable payments and reasonable total cost. Preferred by most borrowers.</li>
-<li><strong>Long-term (25-30 years):</strong> Low monthly payment but very high total interest. May double the property cost.</li>
-</ul>
-<h3>Interest Rate and Its Impact</h3>
-<p>A small difference in rate makes a huge difference in total payment. Compare APR between banks, not just the nominal rate. Always ask: "What is the APR including all fees?"</p>
+<h3>Down Payment</h3>
+<p>First home: 10% minimum. Second home: 30% minimum.</p>
+<div class="tip">💡 <strong>Golden Tip:</strong> Higher down payment = lower monthly payments and less total interest.</div>
 <h3>Golden Tips Before Signing</h3>
 <ul>
 <li>Compare offers from at least 3 banks.</li>
-<li>Ask about all fees (valuation, administrative, insurance, early repayment).</li>
-<li>Don't let the monthly payment exceed 30% of your income.</li>
-<li>Use the calculator above to test different scenarios before visiting the bank.</li>
-<li>Verify the bank is licensed by the Saudi Central Bank (SAMA).</li>
+<li>Ask about all fees.</li>
+<li>Don't exceed 30% of your income.</li>
 </ul>
-<p class="ref"><strong>Official References:</strong> Saudi Central Bank (SAMA.gov.sa) | Ministry of Housing (housing.gov.sa) | Real Estate Development Fund (redf.gov.sa) | General Authority for Statistics (stats.gov.sa)</p>
+<p class="ref"><strong>Official References:</strong> SAMA (SAMA.gov.sa) | Ministry of Housing (housing.gov.sa) | REDF (redf.gov.sa)</p>
 </div>
 </div>
 </main>
