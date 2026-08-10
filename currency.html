@@ -3,18 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حاسبة تحويل العملات - أسعار مباشرة | حاسبها</title>
-    <meta name="description" content="حاسبة تحويل العملات بأسعار مباشرة ومحدثة. حول بين الريال السعودي، الدولار، اليورو، الجنيه الاسترليني وجميع العملات العالمية.">
-    <meta name="keywords" content="تحويل العملات, أسعار الصرف, ريال سعودي, دولار, يورو, Currency Converter SAR">
+    <title>حاسبة تحويل العملات - جميع العملات العالمية | حاسبها</title>
+    <meta name="description" content="حاسبة تحويل العملات بأسعار مباشرة. جميع العملات العالمية - الريال السعودي، الدولار، اليورو وأكثر من 160 عملة.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://hasibha.com/currency">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-NZLXJFVCDW');
-    </script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
@@ -34,174 +28,17 @@
         .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:18px;text-align:right;flex:1;font-weight:700}
         .input-row input:focus{outline:none;border-color:#059669}
         .currency-select{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;background:#fff;color:#1e293b;cursor:pointer;margin-bottom:16px}
-        .currency-select:focus{outline:none;border-color:#059669}
         .swap-btn{text-align:center;margin:12px 0}
-        .swap-btn button{background:#f1f5f9;border:2px solid #e2e8f0;border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;transition:.2s}
-        .swap-btn button:hover{background:#e2e8f0}
+        .swap-btn button{background:#f1f5f9;border:2px solid #e2e8f0;border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer}
         .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:24px;text-align:center;margin-top:20px;display:none}
-        .result-card .converted-amount{font-size:36px;font-weight:900;color:#059669}
+        .result-card .converted-amount{font-size:36px;font-weight:900;color:#059669;word-break:break-all}
         .result-card .rate-info{color:#64748b;font-size:13px;margin-top:8px}
-        .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin-top:32px;text-align:right;line-height:2.3}
-        .article-box h2{font-size:22px;color:#064e3b;margin-bottom:24px;border-bottom:3px solid #059669;padding-bottom:12px}
-        .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
-        .article-box p{color:#475569;font-size:15px;margin-bottom:14px}
-        .article-box .tip{background:#f0fdf4;border-right:4px solid #059669;padding:16px;margin:16px 0;border-radius:8px}
-        .article-box .ref{color:#64748b;font-size:13px;margin-top:24px;padding-top:16px;border-top:1px solid #e2e8f0}
         .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
         .loading{text-align:center;color:#94a3b8;font-size:14px;padding:12px}
-        @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:20px 16px}}
+        @media(max-width:600px){.calc-wrapper{padding:20px 16px}}
     </style>
 </head>
 <body>
 
-<header class="site-header">
-    <div class="container">
-        <div class="header-content">
-            <a href="/" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="حاسبها"> حاسبها</a>
-            <div style="display:flex;gap:12px;align-items:center">
-                <a href="/currency-en" class="lang-btn">English</a>
-                <a href="/" class="lang-btn">الرئيسية</a>
-            </div>
-        </div>
-    </div>
-</header>
-
-<main>
-<div class="container">
-<div class="calc-wrapper">
-    <h1>💱 حاسبة تحويل العملات</h1>
-    <p class="subtitle">أسعار صرف مباشرة ومحدثة</p>
-    
-    <div class="live-badge">
-        <span>🟢 الأسعار مباشرة</span>
-    </div>
-    
-    <label>المبلغ</label>
-    <div class="input-row">
-        <input type="number" id="amountInput" value="1" oninput="convert()" placeholder="أدخل المبلغ">
-    </div>
-    
-    <label>من عملة</label>
-    <select class="currency-select" id="fromCurrency" onchange="convert()">
-        <option value="SAR">🇸🇦 ريال سعودي (SAR)</option>
-        <option value="USD" selected>🇺🇸 دولار أمريكي (USD)</option>
-        <option value="EUR">🇪🇺 يورو (EUR)</option>
-        <option value="GBP">🇬🇧 جنيه استرليني (GBP)</option>
-        <option value="AED">🇦🇪 درهم إماراتي (AED)</option>
-        <option value="KWD">🇰🇼 دينار كويتي (KWD)</option>
-        <option value="QAR">🇶🇦 ريال قطري (QAR)</option>
-        <option value="OMR">🇴🇲 ريال عماني (OMR)</option>
-        <option value="BHD">🇧🇭 دينار بحريني (BHD)</option>
-        <option value="EGP">🇪🇬 جنيه مصري (EGP)</option>
-        <option value="JPY">🇯🇵 ين ياباني (JPY)</option>
-        <option value="CNY">🇨🇳 يوان صيني (CNY)</option>
-        <option value="INR">🇮🇳 روبية هندية (INR)</option>
-    </select>
-    
-    <div class="swap-btn">
-        <button onclick="swapCurrencies()">↕️</button>
-    </div>
-    
-    <label>إلى عملة</label>
-    <select class="currency-select" id="toCurrency" onchange="convert()">
-        <option value="SAR" selected>🇸🇦 ريال سعودي (SAR)</option>
-        <option value="USD">🇺🇸 دولار أمريكي (USD)</option>
-        <option value="EUR">🇪🇺 يورو (EUR)</option>
-        <option value="GBP">🇬🇧 جنيه استرليني (GBP)</option>
-        <option value="AED">🇦🇪 درهم إماراتي (AED)</option>
-        <option value="KWD">🇰🇼 دينار كويتي (KWD)</option>
-        <option value="QAR">🇶🇦 ريال قطري (QAR)</option>
-        <option value="OMR">🇴🇲 ريال عماني (OMR)</option>
-        <option value="BHD">🇧🇭 دينار بحريني (BHD)</option>
-        <option value="EGP">🇪🇬 جنيه مصري (EGP)</option>
-        <option value="JPY">🇯🇵 ين ياباني (JPY)</option>
-        <option value="CNY">🇨🇳 يوان صيني (CNY)</option>
-        <option value="INR">🇮🇳 روبية هندية (INR)</option>
-    </select>
-    
-    <div class="result-card" id="resultCard">
-        <div class="converted-amount" id="convertedAmount">0</div>
-        <div class="rate-info" id="rateInfo">سعر الصرف: --</div>
-    </div>
-    
-    <div class="loading" id="loading">⏳ جاري تحميل الأسعار...</div>
-    
-    <a href="/" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
-</div>
-
-<div class="article-box">
-    <h2>🗂️ دليل تحويل العملات وأسعار الصرف</h2>
-    
-    <h3>كيف يعمل محول العملات؟</h3>
-    <p>محول العملات من حاسبها يستخدم أسعار صرف مباشرة ومحدثة من مصادر موثوقة. يتم تحديث الأسعار تلقائياً كل 24 ساعة لضمان دقة التحويل. ما عليك سوى إدخال المبلغ واختيار العملتين.</p>
-    
-    <h3>العملات المدعومة</h3>
-    <p>ندعم جميع العملات العالمية الرئيسية بما فيها الريال السعودي، الدولار الأمريكي، اليورو، الجنيه الاسترليني، الدرهم الإماراتي، الدينار الكويتي، الريال القطري، الريال العماني، الدينار البحريني، والعديد من العملات الأخرى.</p>
-    
-    <div class="tip">💡 <strong>نصيحة:</strong> أسعار الصرف تتغير باستمرار. للحصول على أفضل سعر، تابع السوق قبل إجراء أي تحويل مالي كبير.</div>
-    
-    <h3>العوامل المؤثرة في أسعار الصرف</h3>
-    <ul>
-        <li>أسعار الفائدة في البنوك المركزية.</li>
-        <li>معدلات التضخم.</li>
-        <li>الاستقرار السياسي والاقتصادي.</li>
-        <li>العرض والطلب في سوق العملات.</li>
-    </ul>
-    
-    <p class="ref"><strong>مصدر الأسعار:</strong> ExchangeRate-API | البنك المركزي السعودي (SAMA.gov.sa)</p>
-</div>
-</div>
-</main>
-
-<script>
-var rates = {};
-
-// تحميل الأسعار من API
-async function loadRates(){
-    document.getElementById('loading').style.display = 'block';
-    document.getElementById('resultCard').style.display = 'none';
-    
-    try {
-        var response = await fetch('https://v6.exchangerate-api.com/v6/a75a3bb7acda2fe87fd97bf9/latest/USD');
-        var data = await response.json();
-        rates = data.conversion_rates;
-        rates['USD'] = 1;
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('resultCard').style.display = 'block';
-        convert();
-    } catch(e) {
-        document.getElementById('loading').textContent = '⚠️ خطأ في تحميل الأسعار. حاول مرة أخرى.';
-    }
-}
-
-function convert(){
-    var amount = parseFloat(document.getElementById('amountInput').value) || 0;
-    var from = document.getElementById('fromCurrency').value;
-    var to = document.getElementById('toCurrency').value;
-    
-    if(Object.keys(rates).length === 0) return;
-    
-    var fromRate = rates[from] || 1;
-    var toRate = rates[to] || 1;
-    
-    // التحويل عبر USD كعملة وسيطة
-    var amountInUSD = amount / fromRate;
-    var result = amountInUSD * toRate;
-    
-    document.getElementById('convertedAmount').textContent = result.toFixed(4) + ' ' + to;
-    document.getElementById('rateInfo').textContent = '1 ' + from + ' = ' + (toRate / fromRate).toFixed(4) + ' ' + to;
-    document.getElementById('resultCard').style.display = 'block';
-}
-
-function swapCurrencies(){
-    var from = document.getElementById('fromCurrency').value;
-    var to = document.getElementById('toCurrency').value;
-    document.getElementById('fromCurrency').value = to;
-    document.getElementById('toCurrency').value = from;
-    convert();
-}
-
-loadRates();
-</script>
-</body>
-</html>
+<header class="site-header"><div class="container"><div class="header-content">
+    <a href="/" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="
