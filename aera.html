@@ -28,7 +28,7 @@
         .unit-select{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;background:#fff;color:#1e293b;cursor:pointer;margin-bottom:16px}
         .swap-btn{text-align:center;margin:12px 0}
         .swap-btn button{background:#f1f5f9;border:2px solid #e2e8f0;border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer}
-        .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:24px;text-align:center;margin-top:20px;display:none}
+        .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:24px;text-align:center;margin-top:20px}
         .result-card .result-value{font-size:36px;font-weight:900;color:#059669;word-break:break-all}
         .result-card .result-label{color:#64748b;font-size:14px;margin-top:4px}
         .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
@@ -54,19 +54,41 @@
     
     <label>من</label>
     <select class="unit-select" id="fromUnit" onchange="convert()">
-        <option value="1">متر مربع (m²)</option><option value="0.000001">كيلومتر مربع (km²)</option><option value="10000">سنتيمتر مربع (cm²)</option><option value="1000000">مليمتر مربع (mm²)</option><option value="0.0001">هكتار (ha)</option><option value="0.000247105">فدان</option><option value="3.861e-7">ميل مربع (mi²)</option><option value="1.19599">ياردة مربعة (yd²)</option><option value="10.7639">قدم مربع (ft²)</option><option value="1550">بوصة مربعة (in²)</option><option value="0.001">دونم</option><option value="0.0395369">قصبة مربعة</option><option value="0.000137174">سهم</option><option value="0.0001">هكتومتر مربع (hm²)</option><option value="0.01">ديكامتر مربع (dam²)</option><option value="100">ديسيمتر مربع (dm²)</option><option value="0.01">آر (a)</option>
+        <option value="1">متر مربع (m²)</option>
+        <option value="0.000001">كيلومتر مربع (km²)</option>
+        <option value="10000">سنتيمتر مربع (cm²)</option>
+        <option value="1000000">مليمتر مربع (mm²)</option>
+        <option value="0.0001">هكتار (ha)</option>
+        <option value="0.000247105">فدان</option>
+        <option value="3.861e-7">ميل مربع (mi²)</option>
+        <option value="1.19599">ياردة مربعة (yd²)</option>
+        <option value="10.7639">قدم مربع (ft²)</option>
+        <option value="1550">بوصة مربعة (in²)</option>
+        <option value="0.001">دونم</option>
+        <option value="0.01">آر (a)</option>
     </select>
     
     <div class="swap-btn"><button onclick="swapUnits()">↕️</button></div>
     
     <label>إلى</label>
     <select class="unit-select" id="toUnit" onchange="convert()">
-        <option value="1">متر مربع (m²)</option><option value="0.000001">كيلومتر مربع (km²)</option><option value="10000">سنتيمتر مربع (cm²)</option><option value="1000000">مليمتر مربع (mm²)</option><option value="0.0001" selected>هكتار (ha)</option><option value="0.000247105">فدان</option><option value="3.861e-7">ميل مربع (mi²)</option><option value="1.19599">ياردة مربعة (yd²)</option><option value="10.7639">قدم مربع (ft²)</option><option value="1550">بوصة مربعة (in²)</option><option value="0.001">دونم</option><option value="0.0395369">قصبة مربعة</option><option value="0.000137174">سهم</option><option value="0.0001">هكتومتر مربع (hm²)</option><option value="0.01">ديكامتر مربع (dam²)</option><option value="100">ديسيمتر مربع (dm²)</option><option value="0.01">آر (a)</option>
+        <option value="1">متر مربع (m²)</option>
+        <option value="0.000001">كيلومتر مربع (km²)</option>
+        <option value="10000">سنتيمتر مربع (cm²)</option>
+        <option value="1000000">مليمتر مربع (mm²)</option>
+        <option value="0.0001" selected>هكتار (ha)</option>
+        <option value="0.000247105">فدان</option>
+        <option value="3.861e-7">ميل مربع (mi²)</option>
+        <option value="1.19599">ياردة مربعة (yd²)</option>
+        <option value="10.7639">قدم مربع (ft²)</option>
+        <option value="1550">بوصة مربعة (in²)</option>
+        <option value="0.001">دونم</option>
+        <option value="0.01">آر (a)</option>
     </select>
     
     <div class="result-card" id="resultCard">
-        <div class="result-value" id="resultValue">0</div>
-        <div class="result-label" id="resultLabel"></div>
+        <div class="result-value" id="resultValue">0.0001</div>
+        <div class="result-label" id="resultLabel">هكتار (ha)</div>
     </div>
     
     <a href="/" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
@@ -81,7 +103,6 @@ function convert(){
     var result = (amount / fromVal) * toVal;
     document.getElementById('resultValue').textContent = result.toFixed(10).replace(/\.?0+$/, '').replace(/(\.\d*?)0+$/, '$1');
     document.getElementById('resultLabel').textContent = toText;
-    document.getElementById('resultCard').style.display = 'block';
 }
 function swapUnits(){
     var from = document.getElementById('fromUnit').value;
@@ -90,7 +111,6 @@ function swapUnits(){
     document.getElementById('toUnit').value = from;
     convert();
 }
-convert();
 </script>
 </body>
 </html>
