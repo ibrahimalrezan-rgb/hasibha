@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة ضريبة القيمة المضافة 15% - احسب الضريبة بسهولة | حاسبها</title>
+    <meta name="description" content="حاسبة ضريبة القيمة المضافة 15% في السعودية. أضف أو أزل الضريبة على أي مبلغ مع شرح كامل لنظام الضريبة المضافة وهيئة الزكاة والضريبة والجمارك.">
+    <meta name="keywords" content="حاسبة ضريبة القيمة المضافة, VAT السعودية, ضريبة 15%, حساب الضريبة, هيئة الزكاة والضريبة">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://hasibha.com/vat">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-NZLXJFVCDW');
+    </script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
+        .container{max-width:700px;margin:0 auto;padding:0 20px}
+        .site-header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 0}
+        .header-content{display:flex;justify-content:space-between;align-items:center}
+        .logo{font-size:26px;font-weight:800;color:#059669;text-decoration:none}
+        .logo img{height:35px;vertical-align:middle;margin-left:8px}
+        .lang-btn{background:#f1f5f9;border:1px solid #e2e8f0;padding:8px 16px;border-radius:8px;font-size:14px;color:#475569;text-decoration:none}
+        .calc-wrapper{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:28px 24px;margin:30px auto}
+        .calc-wrapper h1{text-align:center;color:#064e3b;font-size:22px;margin-bottom:4px}
+        .subtitle{text-align:center;color:#64748b;font-size:14px;margin-bottom:28px}
+        .vat-badge{text-align:center;margin-bottom:24px}
+        .vat-badge span{background:#f0fdf4;color:#059669;font-weight:700;font-size:24px;padding:8px 20px;border-radius:12px;border:2px solid #059669}
+        label{display:block;font-weight:600;margin-bottom:6px;font-size:15px}
+        .hint{font-size:12px;color:#94a3b8;margin-bottom:10px}
+        .input-row{display:flex;gap:10px;margin-bottom:20px;align-items:center}
+        .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:16px;text-align:right;flex:1}
+        .input-row input:focus{outline:none;border-color:#059669}
+        .radio-group{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+        .radio-option{flex:1;min-width:140px}
+        .radio-option input{display:none}
+        .radio-option label{display:block;text-align:center;padding:14px;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;font-weight:600;font-size:14px;transition:.2s}
+        .radio-option input:checked+label{border-color:#059669;background:#ecfdf5;color:#059669}
+        .calc-btn{width:100%;background:#059669;color:#fff;border:none;padding:16px;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;margin-top:8px}
+        .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:28px;margin-top:24px;display:none}
+        .result-card .result-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #d1fae5}
+        .result-card .result-row:last-child{border-bottom:none;margin-top:8px;padding-top:16px;border-top:2px solid #059669}
+        .result-card .result-label{color:#475569;font-size:14px}
+        .result-card .result-value{font-weight:700;font-size:18px;color:#1e293b}
+        .result-card .result-value.big{font-size:24px;color:#059669}
+        .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin-top:32px;text-align:right;line-height:2.3}
+        .article-box h2{font-size:22px;color:#064e3b;margin-bottom:24px;border-bottom:3px solid #059669;padding-bottom:12px}
+        .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
+        .article-box p{color:#475569;font-size:15px;margin-bottom:14px}
+        .article-box ul{color:#475569;font-size:14px;padding-right:20px;margin-bottom:14px}
+        .article-box ul li{margin-bottom:8px}
+        .article-box .tip{background:#f0fdf4;border-right:4px solid #059669;padding:16px;margin:16px 0;border-radius:8px}
+        .article-box .example{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:16px 0}
+        .article-box .ref{color:#64748b;font-size:13px;margin-top:24px;padding-top:16px;border-top:1px solid #e2e8f0}
+        .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
+        @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:20px 16px}}
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container">
+        <div class="header-content">
+            <a href="/" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="حاسبها"> حاسبها</a>
+            <div style="display:flex;gap:12px;align-items:center">
+                <a href="/vat-en" class="lang-btn">English</a>
+                <a href="/" class="lang-btn">الرئيسية</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+<div class="container">
+<div class="calc-wrapper">
+    <h1>🧾 حاسبة ضريبة القيمة المضافة</h1>
+    <p class="subtitle">أضف أو أزل ضريبة القيمة المضافة 15% على أي مبلغ</p>
+    
+    <div class="vat-badge">
+        <span>نسبة الضريبة 15%</span>
+    </div>
+    
+    <label>نوع العملية</label>
+    <div class="radio-group">
+        <div class="radio-option">
+            <input type="radio" name="vatMode" id="modeAdd" value="add" checked onchange="updateAll()">
+            <label for="modeAdd">➕ إضافة الضريبة</label>
+        </div>
+        <div class="radio-option">
+            <input type="radio" name="vatMode" id="modeRemove" value="remove" onchange="updateAll()">
+            <label for="modeRemove">➖ إزالة الضريبة</label>
+        </div>
+    </div>
+    
+    <label id="amountLabel">المبلغ (بدون ضريبة)</label>
+    <p class="hint" id="amountHint">أدخل المبلغ بدون الضريبة</p>
+    <div class="input-row">
+        <input type="number" id="amountInput" placeholder="أدخل المبلغ" oninput="updateAll()">
+        <span style="font-weight:600;color:#64748b">ريال</span>
+    </div>
+    
+    <button class="calc-btn" onclick="updateAll()">احسب</button>
+    
+    <div class="result-card" id="resultCard">
+        <div class="result-row">
+            <span class="result-label">قيمة الضريبة 15%</span>
+            <span class="result-value" id="vatAmount">0 ريال</span>
+        </div>
+        <div class="result-row">
+            <span class="result-label" id="baseLabel">المبلغ قبل الضريبة</span>
+            <span class="result-value" id="baseAmount">0 ريال</span>
+        </div>
+        <div class="result-row">
+            <span class="result-label" id="totalLabel">المبلغ بعد الضريبة</span>
+            <span class="result-value big" id="totalAmount">0 ريال</span>
+        </div>
+    </div>
+    
+    <a href="/" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
+</div>
+
+<div class="article-box">
+    <h2>🗂️ الدليل الشامل لضريبة القيمة المضافة في السعودية</h2>
+    
+    <h3>ما هي ضريبة القيمة المضافة (VAT)؟</h3>
+    <p>ضريبة القيمة المضافة هي ضريبة غير مباشرة تُفرض على جميع السلع والخدمات التي يتم شراؤها وبيعها في المملكة العربية السعودية. تم تطبيقها في 1 يناير 2018 بنسبة 5%، ثم تم رفعها إلى 15% في 1 يوليو 2020. تدير الضريبة هيئة الزكاة والضريبة والجمارك (ZATCA).</p>
+    
+    <h3>طريقة حساب الضريبة 15%</h3>
+    
+    <h3>➕ إضافة الضريبة</h3>
+    <p>لإضافة الضريبة إلى مبلغ (بدون ضريبة):</p>
+    <p><strong>قيمة الضريبة = المبلغ × 0.15</strong></p>
+    <p><strong>المبلغ بعد الضريبة = المبلغ × 1.15</strong></p>
+    <div class="example">
+        📝 <strong>مثال:</strong> مبلغ 1,000 ريال<br>
+        قيمة الضريبة = 1,000 × 0.15 = <strong>150 ريال</strong><br>
+        المبلغ بعد الضريبة = 1,000 × 1.15 = <strong>1,150 ريال</strong>
+    </div>
+    
+    <h3>➖ إزالة الضريبة</h3>
+    <p>لإزالة الضريبة من مبلغ (شامل الضريبة):</p>
+    <p><strong>المبلغ قبل الضريبة = المبلغ ÷ 1.15</strong></p>
+    <p><strong>قيمة الضريبة = المبلغ - المبلغ قبل الضريبة</strong></p>
+    <div class="example">
+        📝 <strong>مثال:</strong> مبلغ 1,150 ريال شامل الضريبة<br>
+        المبلغ قبل الضريبة = 1,150 ÷ 1.15 = <strong>1,000 ريال</strong><br>
+        قيمة الضريبة = 1,150 - 1,000 = <strong>150 ريال</strong>
+    </div>
+    
+    <div class="tip">💡 <strong>نصيحة سريعة:</strong> لمعرفة السعر قبل الضريبة بسرعة، اقسم المبلغ الإجمالي على 1.15. ولإضافة الضريبة، اضرب المبلغ في 1.15.</div>
+    
+    <h3>لمن توجه هذه الحاسبة؟</h3>
+    <ul>
+        <li><strong>أصحاب الأعمال:</strong> لحساب الضريبة على الفواتير والمبيعات.</li>
+        <li><strong>المستهلكين:</strong> لمعرفة قيمة الضريبة في المشتريات.</li>
+        <li><strong>المحاسبين:</strong> أداة سريعة للتحقق من حسابات الضريبة.</li>
+        <li><strong>أي شخص:</strong> يريد فهم مقدار الضريبة التي يدفعها.</li>
+    </ul>
+    
+    <p class="ref"><strong>المراجع الرسمية:</strong> هيئة الزكاة والضريبة والجمارك (ZATCA.gov.sa) | وزارة المالية (mof.gov.sa)</p>
+</div>
+</div>
+</main>
+
+<script>
+function formatNumber(n){return n.toLocaleString('ar-SA',{minimumFractionDigits:2,maximumFractionDigits:2})}
+
+function updateAll(){
+    var mode = document.querySelector('input[name="vatMode"]:checked').value;
+    var rate = 15;
+    var amount = parseFloat(document.getElementById('amountInput').value) || 0;
+    
+    if(mode === 'add'){
+        document.getElementById('amountLabel').textContent = 'المبلغ (بدون ضريبة)';
+        document.getElementById('amountHint').textContent = 'أدخل المبلغ بدون الضريبة';
+        document.getElementById('baseLabel').textContent = 'المبلغ قبل الضريبة';
+        document.getElementById('totalLabel').textContent = 'المبلغ بعد الضريبة';
+    } else {
+        document.getElementById('amountLabel').textContent = 'المبلغ (شامل الضريبة)';
+        document.getElementById('amountHint').textContent = 'أدخل المبلغ شامل الضريبة';
+        document.getElementById('baseLabel').textContent = 'المبلغ قبل الضريبة';
+        document.getElementById('totalLabel').textContent = 'المبلغ شامل الضريبة';
+    }
+    
+    if(amount <= 0){
+        document.getElementById('vatAmount').textContent = '0 ريال';
+        document.getElementById('baseAmount').textContent = '0 ريال';
+        document.getElementById('totalAmount').textContent = '0 ريال';
+        document.getElementById('resultCard').style.display = 'block';
+        return;
+    }
+    
+    var vatAmount, baseAmount, totalAmount;
+    
+    if(mode === 'add'){
+        vatAmount = amount * 0.15;
+        baseAmount = amount;
+        totalAmount = amount + vatAmount;
+    } else {
+        baseAmount = amount / 1.15;
+        vatAmount = amount - baseAmount;
+        totalAmount = amount;
+    }
+    
+    document.getElementById('vatAmount').textContent = formatNumber(vatAmount) + ' ريال';
+    document.getElementById('baseAmount').textContent = formatNumber(baseAmount) + ' ريال';
+    document.getElementById('totalAmount').textContent = formatNumber(totalAmount) + ' ريال';
+    document.getElementById('resultCard').style.display = 'block';
+}
+</script>
+</body>
+</html>
