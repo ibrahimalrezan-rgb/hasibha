@@ -41,4 +41,129 @@
 <body>
 
 <header class="site-header"><div class="container"><div class="header-content">
-    <a href="/" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="
+    <a href="/" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="حاسبها"> حاسبها</a>
+    <div style="display:flex;gap:12px;align-items:center">
+        <a href="/currency-en" class="lang-btn">English</a>
+        <a href="/" class="lang-btn">الرئيسية</a>
+    </div>
+</div></div></header>
+
+<main><div class="container"><div class="calc-wrapper">
+    <h1>💱 حاسبة تحويل العملات</h1>
+    <p class="subtitle">أسعار صرف مباشرة - جميع العملات العالمية</p>
+    <div class="live-badge"><span>🟢 الأسعار مباشرة</span></div>
+    
+    <label>المبلغ</label>
+    <div class="input-row"><input type="number" id="amountInput" value="1" oninput="convert()" placeholder="أدخل المبلغ"></div>
+    
+    <label>من عملة</label>
+    <select class="currency-select" id="fromCurrency" onchange="convert()"></select>
+    
+    <div class="swap-btn"><button onclick="swapCurrencies()">↕️</button></div>
+    
+    <label>إلى عملة</label>
+    <select class="currency-select" id="toCurrency" onchange="convert()"></select>
+    
+    <div class="result-card" id="resultCard">
+        <div class="converted-amount" id="convertedAmount">0</div>
+        <div class="rate-info" id="rateInfo">سعر الصرف: --</div>
+    </div>
+    
+    <div class="loading" id="loading">⏳ جاري تحميل الأسعار...</div>
+    <a href="/" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
+</div></div></main>
+
+<script>
+var rates = {};
+var currencyNames = {
+    AED: "🇦🇪 درهم إماراتي", AFN: "🇦🇫 أفغاني", ALL: "🇦🇱 ليك ألباني", AMD: "🇦🇲 درام أرميني", ANG: "🇳🇱 جلدر أنتيل هولندي",
+    AOA: "🇦🇴 كوانزا أنجولي", ARS: "🇦🇷 بيزو أرجنتيني", AUD: "🇦🇺 دولار أسترالي", AWG: "🇦🇼 فلورن أروبي", AZN: "🇦🇿 مانات أذربيجاني",
+    BAM: "🇧🇦 مارك بوسني", BBD: "🇧🇧 دولار بربادوسي", BDT: "🇧🇩 تاكا بنجلاديشي", BGN: "🇧🇬 ليف بلغاري", BHD: "🇧🇭 دينار بحريني",
+    BIF: "🇧🇮 فرنك بوروندي", BMD: "🇧🇲 دولار برمودي", BND: "🇧🇳 دولار بروناي", BOB: "🇧🇴 بوليفيانو", BRL: "🇧🇷 ريال برازيلي",
+    BSD: "🇧🇸 دولار باهامي", BTN: "🇧🇹 نولترم بوتاني", BWP: "🇧🇼 بولا بوتسواني", BYN: "🇧🇾 روبل بيلاروسي", BZD: "🇧🇿 دولار بليزي",
+    CAD: "🇨🇦 دولار كندي", CDF: "🇨🇩 فرنك كونغولي", CHF: "🇨🇭 فرنك سويسري", CLP: "🇨🇱 بيزو تشيلي", CNY: "🇨🇳 يوان صيني",
+    COP: "🇨🇴 بيزو كولومبي", CRC: "🇨🇷 كولون كوستاريكي", CUP: "🇨🇺 بيزو كوبي", CVE: "🇨🇻 اسكودو رأس الأخضر", CZK: "🇨🇿 كرونة تشيكية",
+    DJF: "🇩🇯 فرنك جيبوتي", DKK: "🇩🇰 كرونة دنماركية", DOP: "🇩🇴 بيزو دومنيكاني", DZD: "🇩🇿 دينار جزائري", EGP: "🇪🇬 جنيه مصري",
+    ERN: "🇪🇷 ناكفا إريتري", ETB: "🇪🇹 بير إثيوبي", EUR: "🇪🇺 يورو", FJD: "🇫🇯 دولار فيجي", FKP: "🇫🇰 جنيه فوكلاند",
+    FOK: "🇫🇴 كرونة فاروية", GBP: "🇬🇧 جنيه استرليني", GEL: "🇬🇪 لاري جورجي", GGP: "🇬🇬 جنيه جيرنزي", GHS: "🇬🇭 سيدي غاني",
+    GIP: "🇬🇮 جنيه جبل طارق", GMD: "🇬🇲 دالاسي غامبي", GNF: "🇬🇳 فرنك غيني", GTQ: "🇬🇹 كتزال غواتيمالي", GYD: "🇬🇾 دولار غياني",
+    HKD: "🇭🇰 دولار هونج كونج", HNL: "🇭🇳 لمبيرا هندوراسي", HRK: "🇭🇷 كونا كرواتي", HTG: "🇭🇹 جوردة هايتي", HUF: "🇭🇺 فورنت مجري",
+    IDR: "🇮🇩 روبية إندونيسية", IMP: "🇮🇲 جنيه مانكس", INR: "🇮🇳 روبية هندية", IQD: "🇮🇶 دينار عراقي", IRR: "🇮🇷 ريال إيراني",
+    ISK: "🇮🇸 كرونة أيسلندية", JMD: "🇯🇲 دولار جامايكي", JOD: "🇯🇴 دينار أردني", JPY: "🇯🇵 ين ياباني", KES: "🇰🇪 شلن كيني",
+    KGS: "🇰🇬 سوم قيرغيزستاني", KHR: "🇰🇭 رييل كمبودي", KID: "🇰🇮 دولار كيريباتي", KMF: "🇰🇲 فرنك قمري", KRW: "🇰🇷 وون كوري جنوبي",
+    KWD: "🇰🇼 دينار كويتي", KYD: "🇰🇾 دولار جزر كايمان", KZT: "🇰🇿 تنج كازاخستاني", LAK: "🇱🇦 كيب لاوسي", LBP: "🇱🇧 ليرة لبنانية",
+    LKR: "🇱🇰 روبية سريلانكية", LRD: "🇱🇷 دولار ليبيري", LSL: "🇱🇸 لوتي ليسوتو", LYD: "🇱🇾 دينار ليبي", MAD: "🇲🇦 درهم مغربي",
+    MDL: "🇲🇩 ليو مولدوفي", MGA: "🇲🇬 أرياري مدغشقري", MKD: "🇲🇰 دينار مقدوني", MMK: "🇲🇲 كيات ميانماري", MNT: "🇲🇳 توغروغ منغولي",
+    MOP: "🇲🇴 باتاكا ماكاوي", MRU: "🇲🇷 أوقية موريتانية", MUR: "🇲🇺 روبية موريشيوسية", MVR: "🇲🇻 روفيا مالديفية", MWK: "🇲🇼 كواشا ملاوية",
+    MXN: "🇲🇽 بيزو مكسيكي", MYR: "🇲🇾 رينجيت ماليزي", MZN: "🇲🇿 ميتيكال موزمبيقي", NAD: "🇳🇦 دولار ناميبي", NGN: "🇳🇬 نايرا نيجيري",
+    NIO: "🇳🇮 كوردوبا نيكاراغوي", NOK: "🇳🇴 كرونة نرويجية", NPR: "🇳🇵 روبية نيبالية", NZD: "🇳🇿 دولار نيوزيلندي", OMR: "🇴🇲 ريال عماني",
+    PAB: "🇵🇦 بالبوا بنمي", PEN: "🇵🇪 سول بيروفي", PGK: "🇵🇬 كينا بابوا غينيا", PHP: "🇵🇭 بيزو فلبيني", PKR: "🇵🇰 روبية باكستانية",
+    PLN: "🇵🇱 زلوتي بولندي", PYG: "🇵🇾 غواراني باراغوياني", QAR: "🇶🇦 ريال قطري", RON: "🇷🇴 ليو روماني", RSD: "🇷🇸 دينار صربي",
+    RUB: "🇷🇺 روبل روسي", RWF: "🇷🇼 فرنك رواندي", SAR: "🇸🇦 ريال سعودي", SBD: "🇸🇧 دولار جزر سليمان", SCR: "🇸🇨 روبية سيشيلية",
+    SDG: "🇸🇩 جنيه سوداني", SEK: "🇸🇪 كرونة سويدية", SGD: "🇸🇬 دولار سنغافوري", SHP: "🇸🇭 جنيه سانت هيلينا", SLE: "🇸🇱 ليون سيراليوني",
+    SOS: "🇸🇴 شلن صومالي", SRD: "🇸🇷 دولار سورينامي", SSP: "🇸🇸 جنيه جنوب السودان", STN: "🇸🇹 دوبرا ساو تومي", SYP: "🇸🇾 ليرة سورية",
+    SZL: "🇸🇿 ليلانجيني سوازيلندي", THB: "🇹🇭 بات تايلندي", TJS: "🇹🇯 سوموني طاجيكي", TMT: "🇹🇲 مانات تركماني", TND: "🇹🇳 دينار تونسي",
+    TOP: "🇹🇴 بانجا تونجي", TRY: "🇹🇷 ليرة تركية", TTD: "🇹🇹 دولار ترينيدادي", TVD: "🇹🇻 دولار توفالو", TWD: "🇹🇼 دولار تايواني",
+    TZS: "🇹🇿 شلن تنزاني", UAH: "🇺🇦 هريفنيا أوكرانية", UGX: "🇺🇬 شلن أوغندي", USD: "🇺🇸 دولار أمريكي", UYU: "🇺🇾 بيزو أوروغوياني",
+    UZS: "🇺🇿 سوم أوزبكي", VES: "🇻🇪 بوليفار فنزويلي", VND: "🇻🇳 دونج فيتنامي", VUV: "🇻🇺 فاتو فانواتو", WST: "🇼🇸 تالا ساموي",
+    XAF: "🇨🇲 فرنك وسط أفريقي", XCD: "🇦🇬 دولار شرق الكاريبي", XOF: "🇧🇯 فرنك غرب أفريقي", XPF: "🇵🇫 فرنك سي إف بي",
+    YER: "🇾🇪 ريال يمني", ZAR: "🇿🇦 راند جنوب أفريقي", ZMW: "🇿🇲 كواشا زامبي", ZWL: "🇿🇼 دولار زيمبابوي"
+};
+
+function populateCurrencies(){
+    var from = document.getElementById('fromCurrency');
+    var to = document.getElementById('toCurrency');
+    var sorted = Object.keys(currencyNames).sort();
+    
+    sorted.forEach(function(code){
+        var name = currencyNames[code];
+        from.innerHTML += '<option value="'+code+'">'+name+' ('+code+')</option>';
+        to.innerHTML += '<option value="'+code+'">'+name+' ('+code+')</option>';
+    });
+    
+    from.value = 'USD';
+    to.value = 'SAR';
+}
+
+async function loadRates(){
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('resultCard').style.display = 'none';
+    try {
+        var response = await fetch('https://v6.exchangerate-api.com/v6/a75a3bb7acda2fe87fd97bf9/latest/USD');
+        var data = await response.json();
+        rates = data.conversion_rates;
+        rates['USD'] = 1;
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('resultCard').style.display = 'block';
+        convert();
+    } catch(e) {
+        document.getElementById('loading').textContent = '⚠️ خطأ في تحميل الأسعار. حاول مرة أخرى.';
+    }
+}
+
+function convert(){
+    var amount = parseFloat(document.getElementById('amountInput').value) || 0;
+    var from = document.getElementById('fromCurrency').value;
+    var to = document.getElementById('toCurrency').value;
+    if(Object.keys(rates).length === 0) return;
+    var fromRate = rates[from] || 1;
+    var toRate = rates[to] || 1;
+    var result = (amount / fromRate) * toRate;
+    document.getElementById('convertedAmount').textContent = result.toFixed(4) + ' ' + to;
+    document.getElementById('rateInfo').textContent = '1 ' + from + ' = ' + (toRate / fromRate).toFixed(4) + ' ' + to;
+    document.getElementById('resultCard').style.display = 'block';
+}
+
+function swapCurrencies(){
+    var from = document.getElementById('fromCurrency').value;
+    var to = document.getElementById('toCurrency').value;
+    document.getElementById('fromCurrency').value = to;
+    document.getElementById('toCurrency').value = from;
+    convert();
+}
+
+populateCurrencies();
+loadRates();
+</script>
+</body>
+</html>
