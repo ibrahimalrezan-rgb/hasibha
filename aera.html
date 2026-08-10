@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محول المساحة - تحويل جميع وحدات المساحة | حاسبها</title>
+    <meta name="description" content="محول المساحة الشامل. تحويل بين المتر المربع، الكيلومتر المربع، الهكتار، الفدان، الدونم، القدم المربع وجميع وحدات المساحة.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://hasibha.com/area">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
+        .container{max-width:700px;margin:0 auto;padding:0 20px}
+        .site-header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 0}
+        .header-content{display:flex;justify-content:space-between;align-items:center}
+        .logo{font-size:26px;font-weight:800;color:#059669;text-decoration:none}
+        .logo img{height:35px;vertical-align:middle;margin-left:8px}
+        .lang-btn{background:#f1f5f9;border:1px solid #e2e8f0;padding:8px 16px;border-radius:8px;font-size:14px;color:#475569;text-decoration:none}
+        .calc-wrapper{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:28px 24px;margin:30px auto}
+        .calc-wrapper h1{text-align:center;color:#064e3b;font-size:22px;margin-bottom:4px}
+        .subtitle{text-align:center;color:#64748b;font-size:14px;margin-bottom:28px}
+        label{display:block;font-weight:600;margin-bottom:6px;font-size:15px}
+        .input-row{display:flex;gap:10px;margin-bottom:16px;align-items:center}
+        .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:18px;text-align:right;flex:1;font-weight:700}
+        .input-row input:focus{outline:none;border-color:#059669}
+        .unit-select{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;background:#fff;color:#1e293b;cursor:pointer;margin-bottom:16px}
+        .swap-btn{text-align:center;margin:12px 0}
+        .swap-btn button{background:#f1f5f9;border:2px solid #e2e8f0;border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer}
+        .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:24px;text-align:center;margin-top:20px;display:none}
+        .result-card .result-value{font-size:36px;font-weight:900;color:#059669;word-break:break-all}
+        .result-card .result-label{color:#64748b;font-size:14px;margin-top:4px}
+        .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
+        @media(max-width:600px){.calc-wrapper{padding:20px 16px}}
+    </style>
+</head>
+<body>
+
+<header class="site-header"><div class="container"><div class="header-content">
+    <a href="/" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="حاسبها"> حاسبها</a>
+    <div style="display:flex;gap:12px;align-items:center">
+        <a href="/area-en" class="lang-btn">English</a>
+        <a href="/" class="lang-btn">الرئيسية</a>
+    </div>
+</div></div></header>
+
+<main><div class="container"><div class="calc-wrapper">
+    <h1>📐 محول المساحة</h1>
+    <p class="subtitle">تحويل بين جميع وحدات المساحة</p>
+    
+    <label>المبلغ</label>
+    <div class="input-row"><input type="number" id="amountInput" value="1" oninput="convert()" placeholder="أدخل القيمة"></div>
+    
+    <label>من</label>
+    <select class="unit-select" id="fromUnit" onchange="convert()">
+        <option value="1">متر مربع (m²)</option><option value="0.000001">كيلومتر مربع (km²)</option><option value="10000">سنتيمتر مربع (cm²)</option><option value="1000000">مليمتر مربع (mm²)</option><option value="0.0001">هكتار (ha)</option><option value="0.000247105">فدان</option><option value="3.861e-7">ميل مربع (mi²)</option><option value="1.19599">ياردة مربعة (yd²)</option><option value="10.7639">قدم مربع (ft²)</option><option value="1550">بوصة مربعة (in²)</option><option value="0.001">دونم</option><option value="0.0395369">قصبة مربعة</option><option value="0.000137174">سهم</option><option value="0.0001">هكتومتر مربع (hm²)</option><option value="0.01">ديكامتر مربع (dam²)</option><option value="100">ديسيمتر مربع (dm²)</option><option value="0.01">آر (a)</option>
+    </select>
+    
+    <div class="swap-btn"><button onclick="swapUnits()">↕️</button></div>
+    
+    <label>إلى</label>
+    <select class="unit-select" id="toUnit" onchange="convert()">
+        <option value="1">متر مربع (m²)</option><option value="0.000001">كيلومتر مربع (km²)</option><option value="10000">سنتيمتر مربع (cm²)</option><option value="1000000">مليمتر مربع (mm²)</option><option value="0.0001" selected>هكتار (ha)</option><option value="0.000247105">فدان</option><option value="3.861e-7">ميل مربع (mi²)</option><option value="1.19599">ياردة مربعة (yd²)</option><option value="10.7639">قدم مربع (ft²)</option><option value="1550">بوصة مربعة (in²)</option><option value="0.001">دونم</option><option value="0.0395369">قصبة مربعة</option><option value="0.000137174">سهم</option><option value="0.0001">هكتومتر مربع (hm²)</option><option value="0.01">ديكامتر مربع (dam²)</option><option value="100">ديسيمتر مربع (dm²)</option><option value="0.01">آر (a)</option>
+    </select>
+    
+    <div class="result-card" id="resultCard">
+        <div class="result-value" id="resultValue">0</div>
+        <div class="result-label" id="resultLabel"></div>
+    </div>
+    
+    <a href="/" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
+</div></div></main>
+
+<script>
+function convert(){
+    var amount = parseFloat(document.getElementById('amountInput').value) || 0;
+    var fromVal = parseFloat(document.getElementById('fromUnit').value);
+    var toVal = parseFloat(document.getElementById('toUnit').value);
+    var toText = document.getElementById('toUnit').selectedOptions[0].text;
+    var result = (amount / fromVal) * toVal;
+    document.getElementById('resultValue').textContent = result.toFixed(10).replace(/\.?0+$/, '').replace(/(\.\d*?)0+$/, '$1');
+    document.getElementById('resultLabel').textContent = toText;
+    document.getElementById('resultCard').style.display = 'block';
+}
+function swapUnits(){
+    var from = document.getElementById('fromUnit').value;
+    var to = document.getElementById('toUnit').value;
+    document.getElementById('fromUnit').value = to;
+    document.getElementById('toUnit').value = from;
+    convert();
+}
+convert();
+</script>
+</body>
+</html>
