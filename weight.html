@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>محول الوزن - تحويل جميع وحدات الوزن | حاسبها</title>
-    <meta name="description" content="محول الوزن الشامل. تحويل بين الكيلوجرام، الجرام، الطن، الرطل، الأونصة، المثقال وجميع وحدات الوزن.">
+    <title>محول الوزن - تحويل جميع وحدات الوزن والكتلة | حاسبها</title>
+    <meta name="description" content="محول الوزن الشامل لتحويل بين الكيلوجرام، الجرام، الطن، الرطل، الأونصة، المثقال، الأقة وجميع وحدات الوزن والكتلة بدقة عالية. 17 وحدة وزن مختلفة.">
+    <meta name="keywords" content="تحويل الوزن, محول الوزن, كيلوجرام, جرام, طن, رطل, أونصة, مثقال, weight converter, محول الكتلة, وحدات الوزن">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://hasibha.com/weight">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
@@ -28,11 +29,19 @@
         .unit-select{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;background:#fff;color:#1e293b;cursor:pointer;margin-bottom:16px}
         .swap-btn{text-align:center;margin:12px 0}
         .swap-btn button{background:#f1f5f9;border:2px solid #e2e8f0;border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer}
-        .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:24px;text-align:center;margin-top:20px;display:none}
+        .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:24px;text-align:center;margin-top:20px}
         .result-card .result-value{font-size:36px;font-weight:900;color:#059669;word-break:break-all}
         .result-card .result-label{color:#64748b;font-size:14px;margin-top:4px}
+        .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin-top:32px;text-align:right;line-height:2.3}
+        .article-box h2{font-size:22px;color:#064e3b;margin-bottom:24px;border-bottom:3px solid #059669;padding-bottom:12px}
+        .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
+        .article-box p{color:#475569;font-size:15px;margin-bottom:14px}
+        .article-box ul{color:#475569;font-size:14px;padding-right:20px;margin-bottom:14px}
+        .article-box ul li{margin-bottom:8px}
+        .article-box .tip{background:#f0fdf4;border-right:4px solid #059669;padding:16px;margin:16px 0;border-radius:8px}
+        .article-box .example{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:16px 0}
         .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
-        @media(max-width:600px){.calc-wrapper{padding:20px 16px}}
+        @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:20px 16px}}
     </style>
 </head>
 <body>
@@ -47,7 +56,7 @@
 
 <main><div class="container"><div class="calc-wrapper">
     <h1>⚖️ محول الوزن</h1>
-    <p class="subtitle">تحويل بين جميع وحدات الوزن والكتلة</p>
+    <p class="subtitle">تحويل بين جميع وحدات الوزن والكتلة بدقة عالية</p>
     
     <label>المبلغ</label>
     <div class="input-row"><input type="number" id="amountInput" value="1" oninput="convert()" placeholder="أدخل القيمة"></div>
@@ -65,8 +74,23 @@
     </select>
     
     <div class="result-card" id="resultCard">
-        <div class="result-value" id="resultValue">0</div>
-        <div class="result-label" id="resultLabel"></div>
+        <div class="result-value" id="resultValue">1000</div>
+        <div class="result-label" id="resultLabel">جرام (g)</div>
+    </div>
+    
+    <div class="article-box">
+        <h2>🗂️ محول الوزن - دليل شامل لتحويل وحدات الكتلة</h2>
+        <h3>ما هو محول الوزن؟</h3>
+        <p>محول الوزن من حاسبها هو أداة دقيقة تساعدك على تحويل أي قيمة بين وحدات الوزن والكتلة المختلفة. سواء كنت طباخاً، تاجراً، أو تحتاج تحويل الأوزان في حياتك اليومية.</p>
+        <h3>الوحدات المدعومة (17 وحدة)</h3>
+        <ul>
+            <li><strong>النظام المتري:</strong> كيلوجرام، جرام، مليجرام، ميكروجرام، طن متري.</li>
+            <li><strong>النظام الإمبراطوري:</strong> رطل، أونصة، طن أمريكي، طن بريطاني، ستون، درام، قنطار، حبة.</li>
+            <li><strong>الوحدات العربية:</strong> مثقال، أقة، من.</li>
+            <li><strong>أخرى:</strong> قيراط.</li>
+        </ul>
+        <div class="example">📝 <strong>مثال:</strong> 1 كيلوجرام = 1000 جرام = 2.2 رطل = 35.27 أونصة = 4.25 مثقال</div>
+        <div class="tip">💡 <strong>نصيحة:</strong> لتحويل دقيق بين الوحدات العربية والعالمية، استخدم القيم المعيارية. المثقال الواحد = 4.25 جرام تقريباً.</div>
     </div>
     
     <a href="/" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
@@ -81,7 +105,6 @@ function convert(){
     var result = (amount / fromVal) * toVal;
     document.getElementById('resultValue').textContent = result.toFixed(10).replace(/\.?0+$/, '').replace(/(\.\d*?)0+$/, '$1');
     document.getElementById('resultLabel').textContent = toText;
-    document.getElementById('resultCard').style.display = 'block';
 }
 function swapUnits(){
     var from = document.getElementById('fromUnit').value;
@@ -90,7 +113,6 @@ function swapUnits(){
     document.getElementById('toUnit').value = from;
     convert();
 }
-convert();
 </script>
 </body>
 </html>
