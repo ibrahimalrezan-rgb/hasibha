@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حاسبة تحويل العملات - جميع العملات العالمية | حاسبها</title>
-    <meta name="description" content="حاسبة تحويل العملات بأسعار مباشرة. جميع العملات العالمية - الريال السعودي، الدولار، اليورو وأكثر من 160 عملة.">
+    <title>حاسبة تحويل العملات - أسعار مباشرة لجميع العملات | حاسبها</title>
+    <meta name="description" content="حاسبة تحويل العملات بأسعار مباشرة ومحدثة. جميع العملات العالمية - الريال السعودي، الدولار، اليورو وأكثر من 160 عملة. أسعار صرف حية من مصادر موثوقة. حول بين أي عملتين بدقة عالية.">
+    <meta name="keywords" content="تحويل العملات, أسعار الصرف, ريال سعودي, دولار, يورو, عملات, Currency Converter SAR, محول العملات, أسعار العملات مباشر">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://hasibha.com/currency">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
@@ -33,9 +34,17 @@
         .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:24px;text-align:center;margin-top:20px;display:none}
         .result-card .converted-amount{font-size:36px;font-weight:900;color:#059669;word-break:break-all}
         .result-card .rate-info{color:#64748b;font-size:13px;margin-top:8px}
+        .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin-top:32px;text-align:right;line-height:2.3}
+        .article-box h2{font-size:22px;color:#064e3b;margin-bottom:24px;border-bottom:3px solid #059669;padding-bottom:12px}
+        .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
+        .article-box p{color:#475569;font-size:15px;margin-bottom:14px}
+        .article-box ul{color:#475569;font-size:14px;padding-right:20px;margin-bottom:14px}
+        .article-box ul li{margin-bottom:8px}
+        .article-box .tip{background:#f0fdf4;border-right:4px solid #059669;padding:16px;margin:16px 0;border-radius:8px}
+        .article-box .ref{color:#64748b;font-size:13px;margin-top:24px;padding-top:16px;border-top:1px solid #e2e8f0}
         .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
         .loading{text-align:center;color:#94a3b8;font-size:14px;padding:12px}
-        @media(max-width:600px){.calc-wrapper{padding:20px 16px}}
+        @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:20px 16px}}
     </style>
 </head>
 <body>
@@ -50,7 +59,7 @@
 
 <main><div class="container"><div class="calc-wrapper">
     <h1>💱 حاسبة تحويل العملات</h1>
-    <p class="subtitle">أسعار صرف مباشرة - جميع العملات العالمية</p>
+    <p class="subtitle">أسعار صرف مباشرة ومحدثة - جميع العملات العالمية</p>
     <div class="live-badge"><span>🟢 الأسعار مباشرة</span></div>
     
     <label>المبلغ</label>
@@ -70,6 +79,24 @@
     </div>
     
     <div class="loading" id="loading">⏳ جاري تحميل الأسعار...</div>
+    
+    <div class="article-box">
+        <h2>🗂️ دليل تحويل العملات وأسعار الصرف</h2>
+        <h3>كيف يعمل محول العملات؟</h3>
+        <p>محول العملات من حاسبها يستخدم أسعار صرف مباشرة ومحدثة من مصادر موثوقة. يتم تحديث الأسعار تلقائياً كل 24 ساعة لضمان دقة التحويل. ما عليك سوى إدخال المبلغ واختيار العملتين.</p>
+        <h3>العملات المدعومة</h3>
+        <p>ندعم أكثر من 160 عملة عالمية تشمل الريال السعودي، الدولار الأمريكي، اليورو، الجنيه الاسترليني، الدرهم الإماراتي، الدينار الكويتي، الريال القطري، الريال العماني، الدينار البحريني، وجميع العملات العربية والعالمية.</p>
+        <div class="tip">💡 <strong>نصيحة:</strong> أسعار الصرف تتغير باستمرار. للحصول على أفضل سعر، تابع السوق قبل إجراء أي تحويل مالي كبير. الأسعار في هذه الحاسبة للاسترشاد فقط.</div>
+        <h3>العوامل المؤثرة في أسعار الصرف</h3>
+        <ul>
+            <li>أسعار الفائدة في البنوك المركزية.</li>
+            <li>معدلات التضخم في الدول.</li>
+            <li>الاستقرار السياسي والاقتصادي.</li>
+            <li>العرض والطلب في سوق العملات العالمي.</li>
+        </ul>
+        <p class="ref"><strong>مصدر الأسعار:</strong> ExchangeRate-API | البنك المركزي السعودي (SAMA.gov.sa)</p>
+    </div>
+    
     <a href="/" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
 </div></div></main>
 
@@ -114,13 +141,11 @@ function populateCurrencies(){
     var from = document.getElementById('fromCurrency');
     var to = document.getElementById('toCurrency');
     var sorted = Object.keys(currencyNames).sort();
-    
     sorted.forEach(function(code){
         var name = currencyNames[code];
         from.innerHTML += '<option value="'+code+'">'+name+' ('+code+')</option>';
         to.innerHTML += '<option value="'+code+'">'+name+' ('+code+')</option>';
     });
-    
     from.value = 'USD';
     to.value = 'SAR';
 }
