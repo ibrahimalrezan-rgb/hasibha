@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weight Converter - Convert All Weight Units | Hasibha</title>
+    <meta name="description" content="Free weight converter. Convert between kilograms, grams, tons, pounds, ounces, mithqal and all weight units with high accuracy.">
+    <meta name="keywords" content="weight converter, kilogram, gram, ton, pound, ounce, mass converter, unit converter">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://hasibha.com/weight-en">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
+        .container{max-width:700px;margin:0 auto;padding:0 20px}
+        .site-header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 0}
+        .header-content{display:flex;justify-content:space-between;align-items:center}
+        .logo{font-size:26px;font-weight:800;color:#059669;text-decoration:none}
+        .logo img{height:35px;vertical-align:middle;margin-right:8px}
+        .lang-btn{background:#f1f5f9;border:1px solid #e2e8f0;padding:8px 16px;border-radius:8px;font-size:14px;color:#475569;text-decoration:none}
+        .calc-wrapper{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:28px 24px;margin:30px auto}
+        .calc-wrapper h1{text-align:center;color:#064e3b;font-size:22px;margin-bottom:4px}
+        .subtitle{text-align:center;color:#64748b;font-size:14px;margin-bottom:28px}
+        label{display:block;font-weight:600;margin-bottom:6px;font-size:15px}
+        .input-row{display:flex;gap:10px;margin-bottom:16px;align-items:center}
+        .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:18px;text-align:left;flex:1;font-weight:700}
+        .unit-select{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;background:#fff;color:#1e293b;cursor:pointer;margin-bottom:16px}
+        .swap-btn{text-align:center;margin:12px 0}
+        .swap-btn button{background:#f1f5f9;border:2px solid #e2e8f0;border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer}
+        .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:24px;text-align:center;margin-top:20px}
+        .result-card .result-value{font-size:36px;font-weight:900;color:#059669;word-break:break-all}
+        .result-card .result-label{color:#64748b;font-size:14px;margin-top:4px}
+        .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin-top:32px;text-align:left;line-height:2.3}
+        .article-box h2{font-size:22px;color:#064e3b;margin-bottom:24px;border-bottom:3px solid #059669;padding-bottom:12px}
+        .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
+        .article-box p{color:#475569;font-size:15px;margin-bottom:14px}
+        .article-box ul{color:#475569;font-size:14px;padding-left:20px;margin-bottom:14px}
+        .article-box .tip{background:#f0fdf4;border-left:4px solid #059669;padding:16px;margin:16px 0;border-radius:8px}
+        .article-box .example{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:16px 0}
+        .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
+        @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:20px 16px}}
+    </style>
+</head>
+<body>
+
+<header class="site-header"><div class="container"><div class="header-content">
+    <a href="/index-en" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha"> Hasibha</a>
+    <div style="display:flex;gap:12px;align-items:center">
+        <a href="/weight" class="lang-btn">عربي</a>
+        <a href="/index-en" class="lang-btn">Home</a>
+    </div>
+</div></div></header>
+
+<main><div class="container"><div class="calc-wrapper">
+    <h1>⚖️ Weight Converter</h1>
+    <p class="subtitle">Convert Between All Weight Units</p>
+    
+    <label>Amount</label>
+    <div class="input-row"><input type="number" id="amountInput" value="1" oninput="convert()" placeholder="Enter value"></div>
+    
+    <label>From</label>
+    <select class="unit-select" id="fromUnit" onchange="convert()">
+        <option value="1">Kilogram (kg)</option><option value="1000">Gram (g)</option><option value="1000000">Milligram (mg)</option><option value="1000000000">Microgram (µg)</option><option value="0.001">Metric Ton (t)</option><option value="2.20462">Pound (lb)</option><option value="35.274">Ounce (oz)</option><option value="0.00110231">US Ton</option><option value="0.000984207">UK Ton</option><option value="0.157473">Stone (st)</option><option value="5000">Carat (ct)</option><option value="15432.4">Grain (gr)</option><option value="564.383">Dram (dr)</option><option value="0.0196841">Hundredweight (cwt)</option><option value="235.3">Mithqal</option><option value="0.78">Oqqa</option><option value="0.025">Mann</option>
+    </select>
+    
+    <div class="swap-btn"><button onclick="swapUnits()">↕️</button></div>
+    
+    <label>To</label>
+    <select class="unit-select" id="toUnit" onchange="convert()">
+        <option value="1">Kilogram (kg)</option><option value="1000" selected>Gram (g)</option><option value="1000000">Milligram (mg)</option><option value="1000000000">Microgram (µg)</option><option value="0.001">Metric Ton (t)</option><option value="2.20462">Pound (lb)</option><option value="35.274">Ounce (oz)</option><option value="0.00110231">US Ton</option><option value="0.000984207">UK Ton</option><option value="0.157473">Stone (st)</option><option value="5000">Carat (ct)</option><option value="15432.4">Grain (gr)</option><option value="564.383">Dram (dr)</option><option value="0.0196841">Hundredweight (cwt)</option><option value="235.3">Mithqal</option><option value="0.78">Oqqa</option><option value="0.025">Mann</option>
+    </select>
+    
+    <div class="result-card" id="resultCard">
+        <div class="result-value" id="resultValue">1000</div>
+        <div class="result-label" id="resultLabel">Gram (g)</div>
+    </div>
+    
+    <div class="article-box">
+        <h2>🗂️ Weight Converter - Complete Guide</h2>
+        <h3>What is a Weight Converter?</h3>
+        <p>Hasibha's weight converter helps you convert any value between different weight and mass units accurately.</p>
+        <h3>Supported Units (17 Units)</h3>
+        <ul>
+            <li><strong>Metric:</strong> Kilogram, Gram, Milligram, Microgram, Metric Ton.</li>
+            <li><strong>Imperial:</strong> Pound, Ounce, US Ton, UK Ton, Stone, Dram, Hundredweight, Grain.</li>
+            <li><strong>Arabic Units:</strong> Mithqal, Oqqa, Mann.</li>
+            <li><strong>Other:</strong> Carat.</li>
+        </ul>
+        <div class="example">📝 <strong>Example:</strong> 1 kg = 1000 g = 2.2 lb = 35.27 oz</div>
+        <div class="tip">💡 <strong>Tip:</strong> 1 Mithqal = 4.25 grams approximately.</div>
+    </div>
+    
+    <a href="/index-en" class="back-link">↩ Back to Home</a>
+</div></div></main>
+
+<script>
+function convert(){
+    var amount = parseFloat(document.getElementById('amountInput').value) || 0;
+    var fromVal = parseFloat(document.getElementById('fromUnit').value);
+    var toVal = parseFloat(document.getElementById('toUnit').value);
+    var toText = document.getElementById('toUnit').selectedOptions[0].text;
+    var result = (amount / fromVal) * toVal;
+    document.getElementById('resultValue').textContent = result.toFixed(10).replace(/\.?0+$/, '').replace(/(\.\d*?)0+$/, '$1');
+    document.getElementById('resultLabel').textContent = toText;
+}
+function swapUnits(){
+    var from = document.getElementById('fromUnit').value;
+    var to = document.getElementById('toUnit').value;
+    document.getElementById('fromUnit').value = to;
+    document.getElementById('toUnit').value = from;
+    convert();
+}
+</script>
+</body>
+</html>
