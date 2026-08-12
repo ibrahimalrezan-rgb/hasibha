@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حاسبة تحويل العملات - أسعار مباشرة لجميع العملات | حاسبها</title>
-    <meta name="description" content="حاسبة تحويل العملات بأسعار مباشرة ومحدثة. جميع العملات العالمية - الريال السعودي، الدولار، اليورو وأكثر من 160 عملة. أسعار صرف حية من مصادر موثوقة. حول بين أي عملتين بدقة عالية.">
-    <meta name="keywords" content="تحويل العملات, أسعار الصرف, ريال سعودي, دولار, يورو, عملات, Currency Converter SAR, محول العملات, أسعار العملات مباشر">
+    <meta name="description" content="حاسبة تحويل العملات بأسعار مباشرة ومحدثة. جميع العملات العالمية - الريال السعودي، الدولار، اليورو وأكثر من 160 عملة. ابحث بالدولة أو اسم العملة.">
+    <meta name="keywords" content="تحويل العملات, أسعار الصرف, ريال سعودي, دولار, يورو, عملات, Currency Converter SAR, محول العملات">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://hasibha.com/currency">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
@@ -28,7 +28,10 @@
         .input-row{display:flex;gap:10px;margin-bottom:16px;align-items:center}
         .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:18px;text-align:right;flex:1;font-weight:700}
         .input-row input:focus{outline:none;border-color:#059669}
-        .currency-select{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;background:#fff;color:#1e293b;cursor:pointer;margin-bottom:16px}
+        .search-box{position:relative;margin-bottom:16px}
+        .search-box input{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;text-align:right}
+        .search-box input:focus{outline:none;border-color:#059669}
+        .currency-select{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;background:#fff;color:#1e293b;cursor:pointer;margin-bottom:16px;max-height:200px}
         .swap-btn{text-align:center;margin:12px 0}
         .swap-btn button{background:#f1f5f9;border:2px solid #e2e8f0;border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer}
         .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:24px;text-align:center;margin-top:20px;display:none}
@@ -39,7 +42,6 @@
         .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
         .article-box p{color:#475569;font-size:15px;margin-bottom:14px}
         .article-box ul{color:#475569;font-size:14px;padding-right:20px;margin-bottom:14px}
-        .article-box ul li{margin-bottom:8px}
         .article-box .tip{background:#f0fdf4;border-right:4px solid #059669;padding:16px;margin:16px 0;border-radius:8px}
         .article-box .ref{color:#64748b;font-size:13px;margin-top:24px;padding-top:16px;border-top:1px solid #e2e8f0}
         .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
@@ -59,19 +61,21 @@
 
 <main><div class="container"><div class="calc-wrapper">
     <h1>💱 حاسبة تحويل العملات</h1>
-    <p class="subtitle">أسعار صرف مباشرة ومحدثة - جميع العملات العالمية</p>
+    <p class="subtitle">أسعار صرف مباشرة - ابحث بالدولة أو العملة</p>
     <div class="live-badge"><span>🟢 الأسعار مباشرة</span></div>
     
     <label>المبلغ</label>
     <div class="input-row"><input type="number" id="amountInput" value="1" oninput="convert()" placeholder="أدخل المبلغ"></div>
     
     <label>من عملة</label>
-    <select class="currency-select" id="fromCurrency" onchange="convert()"></select>
+    <div class="search-box"><input type="text" id="searchFrom" placeholder="🔍 ابحث بالدولة أو العملة..." oninput="filterCurrencies('from')"></div>
+    <select class="currency-select" id="fromCurrency" onchange="convert()" size="5"></select>
     
     <div class="swap-btn"><button onclick="swapCurrencies()">↕️</button></div>
     
     <label>إلى عملة</label>
-    <select class="currency-select" id="toCurrency" onchange="convert()"></select>
+    <div class="search-box"><input type="text" id="searchTo" placeholder="🔍 ابحث بالدولة أو العملة..." oninput="filterCurrencies('to')"></div>
+    <select class="currency-select" id="toCurrency" onchange="convert()" size="5"></select>
     
     <div class="result-card" id="resultCard">
         <div class="converted-amount" id="convertedAmount">0</div>
@@ -83,17 +87,10 @@
     <div class="article-box">
         <h2>🗂️ دليل تحويل العملات وأسعار الصرف</h2>
         <h3>كيف يعمل محول العملات؟</h3>
-        <p>محول العملات من حاسبها يستخدم أسعار صرف مباشرة ومحدثة من مصادر موثوقة. يتم تحديث الأسعار تلقائياً كل 24 ساعة لضمان دقة التحويل. ما عليك سوى إدخال المبلغ واختيار العملتين.</p>
+        <p>محول العملات من حاسبها يستخدم أسعار صرف مباشرة من مصادر موثوقة. ابحث عن الدولة أو العملة التي تريدها في خانة البحث واخترها من القائمة.</p>
         <h3>العملات المدعومة</h3>
-        <p>ندعم أكثر من 160 عملة عالمية تشمل الريال السعودي، الدولار الأمريكي، اليورو، الجنيه الاسترليني، الدرهم الإماراتي، الدينار الكويتي، الريال القطري، الريال العماني، الدينار البحريني، وجميع العملات العربية والعالمية.</p>
-        <div class="tip">💡 <strong>نصيحة:</strong> أسعار الصرف تتغير باستمرار. للحصول على أفضل سعر، تابع السوق قبل إجراء أي تحويل مالي كبير. الأسعار في هذه الحاسبة للاسترشاد فقط.</div>
-        <h3>العوامل المؤثرة في أسعار الصرف</h3>
-        <ul>
-            <li>أسعار الفائدة في البنوك المركزية.</li>
-            <li>معدلات التضخم في الدول.</li>
-            <li>الاستقرار السياسي والاقتصادي.</li>
-            <li>العرض والطلب في سوق العملات العالمي.</li>
-        </ul>
+        <p>ندعم أكثر من 160 عملة عالمية تشمل جميع الدول العربية والعالمية. ابحث باسم الدولة مثل "السعودية" أو باسم العملة مثل "ريال".</p>
+        <div class="tip">💡 <strong>نصيحة:</strong> اكتب جزء من اسم الدولة أو العملة في خانة البحث وستظهر لك النتائج مباشرة.</div>
         <p class="ref"><strong>مصدر الأسعار:</strong> ExchangeRate-API | البنك المركزي السعودي (SAMA.gov.sa)</p>
     </div>
     
@@ -103,38 +100,38 @@
 <script>
 var rates = {};
 var currencyNames = {
-    AED: "🇦🇪 درهم إماراتي", AFN: "🇦🇫 أفغاني", ALL: "🇦🇱 ليك ألباني", AMD: "🇦🇲 درام أرميني", ANG: "🇳🇱 جلدر أنتيل هولندي",
-    AOA: "🇦🇴 كوانزا أنجولي", ARS: "🇦🇷 بيزو أرجنتيني", AUD: "🇦🇺 دولار أسترالي", AWG: "🇦🇼 فلورن أروبي", AZN: "🇦🇿 مانات أذربيجاني",
-    BAM: "🇧🇦 مارك بوسني", BBD: "🇧🇧 دولار بربادوسي", BDT: "🇧🇩 تاكا بنجلاديشي", BGN: "🇧🇬 ليف بلغاري", BHD: "🇧🇭 دينار بحريني",
-    BIF: "🇧🇮 فرنك بوروندي", BMD: "🇧🇲 دولار برمودي", BND: "🇧🇳 دولار بروناي", BOB: "🇧🇴 بوليفيانو", BRL: "🇧🇷 ريال برازيلي",
-    BSD: "🇧🇸 دولار باهامي", BTN: "🇧🇹 نولترم بوتاني", BWP: "🇧🇼 بولا بوتسواني", BYN: "🇧🇾 روبل بيلاروسي", BZD: "🇧🇿 دولار بليزي",
-    CAD: "🇨🇦 دولار كندي", CDF: "🇨🇩 فرنك كونغولي", CHF: "🇨🇭 فرنك سويسري", CLP: "🇨🇱 بيزو تشيلي", CNY: "🇨🇳 يوان صيني",
-    COP: "🇨🇴 بيزو كولومبي", CRC: "🇨🇷 كولون كوستاريكي", CUP: "🇨🇺 بيزو كوبي", CVE: "🇨🇻 اسكودو رأس الأخضر", CZK: "🇨🇿 كرونة تشيكية",
-    DJF: "🇩🇯 فرنك جيبوتي", DKK: "🇩🇰 كرونة دنماركية", DOP: "🇩🇴 بيزو دومنيكاني", DZD: "🇩🇿 دينار جزائري", EGP: "🇪🇬 جنيه مصري",
-    ERN: "🇪🇷 ناكفا إريتري", ETB: "🇪🇹 بير إثيوبي", EUR: "🇪🇺 يورو", FJD: "🇫🇯 دولار فيجي", FKP: "🇫🇰 جنيه فوكلاند",
-    FOK: "🇫🇴 كرونة فاروية", GBP: "🇬🇧 جنيه استرليني", GEL: "🇬🇪 لاري جورجي", GGP: "🇬🇬 جنيه جيرنزي", GHS: "🇬🇭 سيدي غاني",
-    GIP: "🇬🇮 جنيه جبل طارق", GMD: "🇬🇲 دالاسي غامبي", GNF: "🇬🇳 فرنك غيني", GTQ: "🇬🇹 كتزال غواتيمالي", GYD: "🇬🇾 دولار غياني",
-    HKD: "🇭🇰 دولار هونج كونج", HNL: "🇭🇳 لمبيرا هندوراسي", HRK: "🇭🇷 كونا كرواتي", HTG: "🇭🇹 جوردة هايتي", HUF: "🇭🇺 فورنت مجري",
-    IDR: "🇮🇩 روبية إندونيسية", IMP: "🇮🇲 جنيه مانكس", INR: "🇮🇳 روبية هندية", IQD: "🇮🇶 دينار عراقي", IRR: "🇮🇷 ريال إيراني",
-    ISK: "🇮🇸 كرونة أيسلندية", JMD: "🇯🇲 دولار جامايكي", JOD: "🇯🇴 دينار أردني", JPY: "🇯🇵 ين ياباني", KES: "🇰🇪 شلن كيني",
-    KGS: "🇰🇬 سوم قيرغيزستاني", KHR: "🇰🇭 رييل كمبودي", KID: "🇰🇮 دولار كيريباتي", KMF: "🇰🇲 فرنك قمري", KRW: "🇰🇷 وون كوري جنوبي",
-    KWD: "🇰🇼 دينار كويتي", KYD: "🇰🇾 دولار جزر كايمان", KZT: "🇰🇿 تنج كازاخستاني", LAK: "🇱🇦 كيب لاوسي", LBP: "🇱🇧 ليرة لبنانية",
-    LKR: "🇱🇰 روبية سريلانكية", LRD: "🇱🇷 دولار ليبيري", LSL: "🇱🇸 لوتي ليسوتو", LYD: "🇱🇾 دينار ليبي", MAD: "🇲🇦 درهم مغربي",
-    MDL: "🇲🇩 ليو مولدوفي", MGA: "🇲🇬 أرياري مدغشقري", MKD: "🇲🇰 دينار مقدوني", MMK: "🇲🇲 كيات ميانماري", MNT: "🇲🇳 توغروغ منغولي",
-    MOP: "🇲🇴 باتاكا ماكاوي", MRU: "🇲🇷 أوقية موريتانية", MUR: "🇲🇺 روبية موريشيوسية", MVR: "🇲🇻 روفيا مالديفية", MWK: "🇲🇼 كواشا ملاوية",
-    MXN: "🇲🇽 بيزو مكسيكي", MYR: "🇲🇾 رينجيت ماليزي", MZN: "🇲🇿 ميتيكال موزمبيقي", NAD: "🇳🇦 دولار ناميبي", NGN: "🇳🇬 نايرا نيجيري",
-    NIO: "🇳🇮 كوردوبا نيكاراغوي", NOK: "🇳🇴 كرونة نرويجية", NPR: "🇳🇵 روبية نيبالية", NZD: "🇳🇿 دولار نيوزيلندي", OMR: "🇴🇲 ريال عماني",
-    PAB: "🇵🇦 بالبوا بنمي", PEN: "🇵🇪 سول بيروفي", PGK: "🇵🇬 كينا بابوا غينيا", PHP: "🇵🇭 بيزو فلبيني", PKR: "🇵🇰 روبية باكستانية",
-    PLN: "🇵🇱 زلوتي بولندي", PYG: "🇵🇾 غواراني باراغوياني", QAR: "🇶🇦 ريال قطري", RON: "🇷🇴 ليو روماني", RSD: "🇷🇸 دينار صربي",
-    RUB: "🇷🇺 روبل روسي", RWF: "🇷🇼 فرنك رواندي", SAR: "🇸🇦 ريال سعودي", SBD: "🇸🇧 دولار جزر سليمان", SCR: "🇸🇨 روبية سيشيلية",
-    SDG: "🇸🇩 جنيه سوداني", SEK: "🇸🇪 كرونة سويدية", SGD: "🇸🇬 دولار سنغافوري", SHP: "🇸🇭 جنيه سانت هيلينا", SLE: "🇸🇱 ليون سيراليوني",
-    SOS: "🇸🇴 شلن صومالي", SRD: "🇸🇷 دولار سورينامي", SSP: "🇸🇸 جنيه جنوب السودان", STN: "🇸🇹 دوبرا ساو تومي", SYP: "🇸🇾 ليرة سورية",
-    SZL: "🇸🇿 ليلانجيني سوازيلندي", THB: "🇹🇭 بات تايلندي", TJS: "🇹🇯 سوموني طاجيكي", TMT: "🇹🇲 مانات تركماني", TND: "🇹🇳 دينار تونسي",
-    TOP: "🇹🇴 بانجا تونجي", TRY: "🇹🇷 ليرة تركية", TTD: "🇹🇹 دولار ترينيدادي", TVD: "🇹🇻 دولار توفالو", TWD: "🇹🇼 دولار تايواني",
-    TZS: "🇹🇿 شلن تنزاني", UAH: "🇺🇦 هريفنيا أوكرانية", UGX: "🇺🇬 شلن أوغندي", USD: "🇺🇸 دولار أمريكي", UYU: "🇺🇾 بيزو أوروغوياني",
-    UZS: "🇺🇿 سوم أوزبكي", VES: "🇻🇪 بوليفار فنزويلي", VND: "🇻🇳 دونج فيتنامي", VUV: "🇻🇺 فاتو فانواتو", WST: "🇼🇸 تالا ساموي",
-    XAF: "🇨🇲 فرنك وسط أفريقي", XCD: "🇦🇬 دولار شرق الكاريبي", XOF: "🇧🇯 فرنك غرب أفريقي", XPF: "🇵🇫 فرنك سي إف بي",
-    YER: "🇾🇪 ريال يمني", ZAR: "🇿🇦 راند جنوب أفريقي", ZMW: "🇿🇲 كواشا زامبي", ZWL: "🇿🇼 دولار زيمبابوي"
+    AED: "الإمارات - درهم إماراتي", AFN: "أفغانستان - أفغاني", ALL: "ألبانيا - ليك ألباني", AMD: "أرمينيا - درام أرميني", ANG: "أنتيل هولندي - جلدر",
+    AOA: "أنغولا - كوانزا أنجولي", ARS: "الأرجنتين - بيزو أرجنتيني", AUD: "أستراليا - دولار أسترالي", AWG: "أروبا - فلورن أروبي", AZN: "أذربيجان - مانات أذربيجاني",
+    BAM: "البوسنة - مارك بوسني", BBD: "باربادوس - دولار باربادوسي", BDT: "بنجلاديش - تاكا بنجلاديشي", BGN: "بلغاريا - ليف بلغاري", BHD: "البحرين - دينار بحريني",
+    BIF: "بوروندي - فرنك بوروندي", BMD: "برمودا - دولار برمودي", BND: "بروناي - دولار بروناي", BOB: "بوليفيا - بوليفيانو", BRL: "البرازيل - ريال برازيلي",
+    BSD: "الباهاماس - دولار باهامي", BTN: "بوتان - نولترم بوتاني", BWP: "بوتسوانا - بولا بوتسواني", BYN: "بيلاروسيا - روبل بيلاروسي", BZD: "بليز - دولار بليزي",
+    CAD: "كندا - دولار كندي", CDF: "الكونغو - فرنك كونغولي", CHF: "سويسرا - فرنك سويسري", CLP: "تشيلي - بيزو تشيلي", CNY: "الصين - يوان صيني",
+    COP: "كولومبيا - بيزو كولومبي", CRC: "كوستاريكا - كولون كوستاريكي", CUP: "كوبا - بيزو كوبي", CVE: "رأس الأخضر - اسكودو", CZK: "التشيك - كرونة تشيكية",
+    DJF: "جيبوتي - فرنك جيبوتي", DKK: "الدنمارك - كرونة دنماركية", DOP: "الدومنيكان - بيزو دومنيكاني", DZD: "الجزائر - دينار جزائري", EGP: "مصر - جنيه مصري",
+    ERN: "إريتريا - ناكفا إريتري", ETB: "إثيوبيا - بير إثيوبي", EUR: "أوروبا - يورو", FJD: "فيجي - دولار فيجي", FKP: "فوكلاند - جنيه فوكلاند",
+    FOK: "فارو - كرونة فاروية", GBP: "بريطانيا - جنيه استرليني", GEL: "جورجيا - لاري جورجي", GHS: "غانا - سيدي غاني",
+    GIP: "جبل طارق - جنيه جبل طارق", GMD: "غامبيا - دالاسي غامبي", GNF: "غينيا - فرنك غيني", GTQ: "غواتيمالا - كتزال غواتيمالي", GYD: "غيانا - دولار غياني",
+    HKD: "هونج كونج - دولار هونج كونج", HNL: "هندوراس - لمبيرا هندوراسي", HRK: "كرواتيا - كونا كرواتي", HTG: "هايتي - جوردة هايتي", HUF: "المجر - فورنت مجري",
+    IDR: "إندونيسيا - روبية إندونيسية", INR: "الهند - روبية هندية", IQD: "العراق - دينار عراقي", IRR: "إيران - ريال إيراني",
+    ISK: "أيسلندا - كرونة أيسلندية", JMD: "جامايكا - دولار جامايكي", JOD: "الأردن - دينار أردني", JPY: "اليابان - ين ياباني", KES: "كينيا - شلن كيني",
+    KGS: "قيرغيزستان - سوم قيرغيزستاني", KHR: "كمبوديا - رييل كمبودي", KMF: "جزر القمر - فرنك قمري", KRW: "كوريا الجنوبية - وون كوري",
+    KWD: "الكويت - دينار كويتي", KYD: "جزر كايمان - دولار كايمان", KZT: "كازاخستان - تنج كازاخستاني", LAK: "لاوس - كيب لاوسي", LBP: "لبنان - ليرة لبنانية",
+    LKR: "سريلانكا - روبية سريلانكية", LRD: "ليبيريا - دولار ليبيري", LSL: "ليسوتو - لوتي ليسوتو", LYD: "ليبيا - دينار ليبي", MAD: "المغرب - درهم مغربي",
+    MDL: "مولدوفا - ليو مولدوفي", MGA: "مدغشقر - أرياري مدغشقري", MKD: "مقدونيا - دينار مقدوني", MMK: "ميانمار - كيات ميانماري", MNT: "منغوليا - توغروغ منغولي",
+    MOP: "ماكاو - باتاكا ماكاوي", MRU: "موريتانيا - أوقية موريتانية", MUR: "موريشيوس - روبية موريشيوسية", MVR: "المالديف - روفيا مالديفية", MWK: "ملاوي - كواشا ملاوية",
+    MXN: "المكسيك - بيزو مكسيكي", MYR: "ماليزيا - رينجيت ماليزي", MZN: "موزمبيق - ميتيكال موزمبيقي", NAD: "ناميبيا - دولار ناميبي", NGN: "نيجيريا - نايرا نيجيري",
+    NIO: "نيكاراغوا - كوردوبا نيكاراغوي", NOK: "النرويج - كرونة نرويجية", NPR: "نيبال - روبية نيبالية", NZD: "نيوزيلندا - دولار نيوزيلندي", OMR: "عُمان - ريال عماني",
+    PAB: "بنما - بالبوا بنمي", PEN: "بيرو - سول بيروفي", PGK: "بابوا غينيا - كينا", PHP: "الفلبين - بيزو فلبيني", PKR: "باكستان - روبية باكستانية",
+    PLN: "بولندا - زلوتي بولندي", PYG: "باراغواي - غواراني باراغوياني", QAR: "قطر - ريال قطري", RON: "رومانيا - ليو روماني", RSD: "صربيا - دينار صربي",
+    RUB: "روسيا - روبل روسي", RWF: "رواندا - فرنك رواندي", SAR: "السعودية - ريال سعودي", SBD: "جزر سليمان - دولار سليماني", SCR: "سيشيل - روبية سيشيلية",
+    SDG: "السودان - جنيه سوداني", SEK: "السويد - كرونة سويدية", SGD: "سنغافورة - دولار سنغافوري", SLE: "سيراليون - ليون سيراليوني",
+    SOS: "الصومال - شلن صومالي", SRD: "سورينام - دولار سورينامي", SSP: "جنوب السودان - جنيه جنوب السودان", STN: "ساو تومي - دوبرا ساو تومي", SYP: "سوريا - ليرة سورية",
+    SZL: "سوازيلاند - ليلانجيني سوازيلندي", THB: "تايلند - بات تايلندي", TJS: "طاجيكستان - سوموني طاجيكي", TMT: "تركمانستان - مانات تركماني", TND: "تونس - دينار تونسي",
+    TOP: "تونجا - بانجا تونجي", TRY: "تركيا - ليرة تركية", TTD: "ترينيداد - دولار ترينيدادي", TWD: "تايوان - دولار تايواني",
+    TZS: "تنزانيا - شلن تنزاني", UAH: "أوكرانيا - هريفنيا أوكرانية", UGX: "أوغندا - شلن أوغندي", USD: "أمريكا - دولار أمريكي", UYU: "أوروغواي - بيزو أوروغوياني",
+    UZS: "أوزبكستان - سوم أوزبكي", VES: "فنزويلا - بوليفار فنزويلي", VND: "فيتنام - دونج فيتنامي", VUV: "فانواتو - فاتو فانواتو", WST: "ساموا - تالا ساموي",
+    XAF: "وسط أفريقيا - فرنك وسط أفريقي", XCD: "شرق الكاريبي - دولار شرق الكاريبي", XOF: "غرب أفريقيا - فرنك غرب أفريقي", XPF: "بولينيزيا - فرنك سي إف بي",
+    YER: "اليمن - ريال يمني", ZAR: "جنوب أفريقيا - راند جنوب أفريقي", ZMW: "زامبيا - كواشا زامبي", ZWL: "زيمبابوي - دولار زيمبابوي"
 };
 
 function populateCurrencies(){
@@ -142,12 +139,41 @@ function populateCurrencies(){
     var to = document.getElementById('toCurrency');
     var sorted = Object.keys(currencyNames).sort();
     sorted.forEach(function(code){
-        var name = currencyNames[code];
-        from.innerHTML += '<option value="'+code+'">'+name+' ('+code+')</option>';
-        to.innerHTML += '<option value="'+code+'">'+name+' ('+code+')</option>';
+        from.innerHTML += '<option value="'+code+'">'+currencyNames[code]+' ('+code+')</option>';
+        to.innerHTML += '<option value="'+code+'">'+currencyNames[code]+' ('+code+')</option>';
     });
     from.value = 'USD';
     to.value = 'SAR';
+}
+
+function filterCurrencies(type){
+    var searchInput = document.getElementById(type === 'from' ? 'searchFrom' : 'searchTo');
+    var select = document.getElementById(type === 'from' ? 'fromCurrency' : 'toCurrency');
+    var searchTerm = searchInput.value.toLowerCase();
+    var selectedValue = select.value;
+    
+    select.innerHTML = '';
+    var sorted = Object.keys(currencyNames).sort();
+    sorted.forEach(function(code){
+        var name = currencyNames[code];
+        if(name.toLowerCase().includes(searchTerm) || code.toLowerCase().includes(searchTerm)){
+            select.innerHTML += '<option value="'+code+'">'+name+' ('+code+')</option>';
+        }
+    });
+    
+    if(select.options.length > 0){
+        var exists = false;
+        for(var i=0; i<select.options.length; i++){
+            if(select.options[i].value === selectedValue){
+                select.value = selectedValue;
+                exists = true;
+                break;
+            }
+        }
+        if(!exists) select.selectedIndex = 0;
+    }
+    
+    convert();
 }
 
 async function loadRates(){
@@ -170,7 +196,7 @@ function convert(){
     var amount = parseFloat(document.getElementById('amountInput').value) || 0;
     var from = document.getElementById('fromCurrency').value;
     var to = document.getElementById('toCurrency').value;
-    if(Object.keys(rates).length === 0) return;
+    if(Object.keys(rates).length === 0 || !from || !to) return;
     var fromRate = rates[from] || 1;
     var toRate = rates[to] || 1;
     var result = (amount / fromRate) * toRate;
