@@ -3,18 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Currency Converter - Live Exchange Rates | Hasibha</title>
-    <meta name="description" content="Free currency converter with live exchange rates. Convert between SAR, USD, EUR, GBP and all major currencies.">
-    <meta name="keywords" content="currency converter, exchange rates, SAR, USD, EUR, live rates">
+    <title>Currency Converter - Live Exchange Rates for All Currencies | Hasibha</title>
+    <meta name="description" content="Free currency converter with live exchange rates. 160+ world currencies. Search by country or currency name. Convert between SAR, USD, EUR, GBP and all major currencies.">
+    <meta name="keywords" content="currency converter, exchange rates, SAR, USD, EUR, live rates, foreign exchange, money converter">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://hasibha.com/currency-en">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-NZLXJFVCDW');
-    </script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
@@ -33,11 +28,14 @@
         .input-row{display:flex;gap:10px;margin-bottom:16px;align-items:center}
         .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:18px;text-align:left;flex:1;font-weight:700}
         .input-row input:focus{outline:none;border-color:#059669}
-        .currency-select{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;background:#fff;color:#1e293b;cursor:pointer;margin-bottom:16px}
+        .search-box{position:relative;margin-bottom:16px}
+        .search-box input{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;text-align:left}
+        .search-box input:focus{outline:none;border-color:#059669}
+        .currency-select{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;background:#fff;color:#1e293b;cursor:pointer;margin-bottom:16px;max-height:200px}
         .swap-btn{text-align:center;margin:12px 0}
         .swap-btn button{background:#f1f5f9;border:2px solid #e2e8f0;border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer}
         .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:24px;text-align:center;margin-top:20px;display:none}
-        .result-card .converted-amount{font-size:36px;font-weight:900;color:#059669}
+        .result-card .converted-amount{font-size:36px;font-weight:900;color:#059669;word-break:break-all}
         .result-card .rate-info{color:#64748b;font-size:13px;margin-top:8px}
         .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin-top:32px;text-align:left;line-height:2.3}
         .article-box h2{font-size:22px;color:#064e3b;margin-bottom:24px;border-bottom:3px solid #059669;padding-bottom:12px}
@@ -52,70 +50,31 @@
 </head>
 <body>
 
-<header class="site-header">
-    <div class="container">
-        <div class="header-content">
-            <a href="/index-en" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha"> Hasibha</a>
-            <div style="display:flex;gap:12px;align-items:center">
-                <a href="/currency" class="lang-btn">عربي</a>
-                <a href="/index-en" class="lang-btn">Home</a>
-            </div>
-        </div>
+<header class="site-header"><div class="container"><div class="header-content">
+    <a href="/index-en" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha"> Hasibha</a>
+    <div style="display:flex;gap:12px;align-items:center">
+        <a href="/currency" class="lang-btn">عربي</a>
+        <a href="/index-en" class="lang-btn">Home</a>
     </div>
-</header>
+</div></div></header>
 
-<main>
-<div class="container">
-<div class="calc-wrapper">
+<main><div class="container"><div class="calc-wrapper">
     <h1>💱 Currency Converter</h1>
-    <p class="subtitle">Live & Updated Exchange Rates</p>
-    
-    <div class="live-badge">
-        <span>🟢 Live Rates</span>
-    </div>
+    <p class="subtitle">Live Exchange Rates - Search by Country or Currency</p>
+    <div class="live-badge"><span>🟢 Live Rates</span></div>
     
     <label>Amount</label>
-    <div class="input-row">
-        <input type="number" id="amountInput" value="1" oninput="convert()" placeholder="Enter amount">
-    </div>
+    <div class="input-row"><input type="number" id="amountInput" value="1" oninput="convert()" placeholder="Enter amount"></div>
     
-    <label>From</label>
-    <select class="currency-select" id="fromCurrency" onchange="convert()">
-        <option value="USD" selected>🇺🇸 US Dollar (USD)</option>
-        <option value="SAR">🇸🇦 Saudi Riyal (SAR)</option>
-        <option value="EUR">🇪🇺 Euro (EUR)</option>
-        <option value="GBP">🇬🇧 British Pound (GBP)</option>
-        <option value="AED">🇦🇪 UAE Dirham (AED)</option>
-        <option value="KWD">🇰🇼 Kuwaiti Dinar (KWD)</option>
-        <option value="QAR">🇶🇦 Qatari Riyal (QAR)</option>
-        <option value="OMR">🇴🇲 Omani Rial (OMR)</option>
-        <option value="BHD">🇧🇭 Bahraini Dinar (BHD)</option>
-        <option value="EGP">🇪🇬 Egyptian Pound (EGP)</option>
-        <option value="JPY">🇯🇵 Japanese Yen (JPY)</option>
-        <option value="CNY">🇨🇳 Chinese Yuan (CNY)</option>
-        <option value="INR">🇮🇳 Indian Rupee (INR)</option>
-    </select>
+    <label>From Currency</label>
+    <div class="search-box"><input type="text" id="searchFrom" placeholder="🔍 Search country or currency..." oninput="filterCurrencies('from')"></div>
+    <select class="currency-select" id="fromCurrency" onchange="convert()" size="5"></select>
     
-    <div class="swap-btn">
-        <button onclick="swapCurrencies()">↕️</button>
-    </div>
+    <div class="swap-btn"><button onclick="swapCurrencies()">↕️</button></div>
     
-    <label>To</label>
-    <select class="currency-select" id="toCurrency" onchange="convert()">
-        <option value="SAR" selected>🇸🇦 Saudi Riyal (SAR)</option>
-        <option value="USD">🇺🇸 US Dollar (USD)</option>
-        <option value="EUR">🇪🇺 Euro (EUR)</option>
-        <option value="GBP">🇬🇧 British Pound (GBP)</option>
-        <option value="AED">🇦🇪 UAE Dirham (AED)</option>
-        <option value="KWD">🇰🇼 Kuwaiti Dinar (KWD)</option>
-        <option value="QAR">🇶🇦 Qatari Riyal (QAR)</option>
-        <option value="OMR">🇴🇲 Omani Rial (OMR)</option>
-        <option value="BHD">🇧🇭 Bahraini Dinar (BHD)</option>
-        <option value="EGP">🇪🇬 Egyptian Pound (EGP)</option>
-        <option value="JPY">🇯🇵 Japanese Yen (JPY)</option>
-        <option value="CNY">🇨🇳 Chinese Yuan (CNY)</option>
-        <option value="INR">🇮🇳 Indian Rupee (INR)</option>
-    </select>
+    <label>To Currency</label>
+    <div class="search-box"><input type="text" id="searchTo" placeholder="🔍 Search country or currency..." oninput="filterCurrencies('to')"></div>
+    <select class="currency-select" id="toCurrency" onchange="convert()" size="5"></select>
     
     <div class="result-card" id="resultCard">
         <div class="converted-amount" id="convertedAmount">0</div>
@@ -124,32 +83,101 @@
     
     <div class="loading" id="loading">⏳ Loading rates...</div>
     
+    <div class="article-box">
+        <h2>🗂️ Currency Converter Guide</h2>
+        <h3>How It Works</h3>
+        <p>Hasibha's currency converter uses live and updated exchange rates from reliable sources. Search by country name or currency name and select from the list.</p>
+        <h3>Supported Currencies</h3>
+        <p>We support over 160 world currencies including all Arab and global currencies. Search by country like "Saudi" or by currency like "Riyal".</p>
+        <div class="tip">💡 <strong>Tip:</strong> Type part of the country or currency name in the search box and results will appear instantly.</div>
+        <p class="ref"><strong>Rate Source:</strong> ExchangeRate-API | Saudi Central Bank (SAMA.gov.sa)</p>
+    </div>
+    
     <a href="/index-en" class="back-link">↩ Back to Home</a>
-</div>
-
-<div class="article-box">
-    <h2>🗂️ Currency Converter Guide</h2>
-    
-    <h3>How It Works</h3>
-    <p>Hasibha's currency converter uses live and updated exchange rates from reliable sources. Rates are updated automatically every 24 hours. Just enter the amount and select the two currencies.</p>
-    
-    <h3>Supported Currencies</h3>
-    <p>We support all major world currencies including SAR, USD, EUR, GBP, AED, KWD, QAR, OMR, BHD, and many more.</p>
-    
-    <div class="tip">💡 <strong>Tip:</strong> Exchange rates change constantly. Monitor the market before making large currency conversions.</div>
-    
-    <p class="ref"><strong>Rate Source:</strong> ExchangeRate-API | Saudi Central Bank (SAMA.gov.sa)</p>
-</div>
-</div>
-</main>
+</div></div></main>
 
 <script>
 var rates = {};
+var currencyNames = {
+    AED: "UAE - Dirham", AFN: "Afghanistan - Afghani", ALL: "Albania - Lek", AMD: "Armenia - Dram", ANG: "Netherlands Antilles - Guilder",
+    AOA: "Angola - Kwanza", ARS: "Argentina - Peso", AUD: "Australia - Dollar", AWG: "Aruba - Florin", AZN: "Azerbaijan - Manat",
+    BAM: "Bosnia - Mark", BBD: "Barbados - Dollar", BDT: "Bangladesh - Taka", BGN: "Bulgaria - Lev", BHD: "Bahrain - Dinar",
+    BIF: "Burundi - Franc", BMD: "Bermuda - Dollar", BND: "Brunei - Dollar", BOB: "Bolivia - Boliviano", BRL: "Brazil - Real",
+    BSD: "Bahamas - Dollar", BTN: "Bhutan - Ngultrum", BWP: "Botswana - Pula", BYN: "Belarus - Ruble", BZD: "Belize - Dollar",
+    CAD: "Canada - Dollar", CDF: "Congo - Franc", CHF: "Switzerland - Franc", CLP: "Chile - Peso", CNY: "China - Yuan",
+    COP: "Colombia - Peso", CRC: "Costa Rica - Colon", CUP: "Cuba - Peso", CVE: "Cape Verde - Escudo", CZK: "Czech - Koruna",
+    DJF: "Djibouti - Franc", DKK: "Denmark - Krone", DOP: "Dominican Republic - Peso", DZD: "Algeria - Dinar", EGP: "Egypt - Pound",
+    ERN: "Eritrea - Nakfa", ETB: "Ethiopia - Birr", EUR: "Europe - Euro", FJD: "Fiji - Dollar", FKP: "Falkland - Pound",
+    FOK: "Faroe - Krona", GBP: "UK - Pound Sterling", GEL: "Georgia - Lari", GHS: "Ghana - Cedi",
+    GIP: "Gibraltar - Pound", GMD: "Gambia - Dalasi", GNF: "Guinea - Franc", GTQ: "Guatemala - Quetzal", GYD: "Guyana - Dollar",
+    HKD: "Hong Kong - Dollar", HNL: "Honduras - Lempira", HRK: "Croatia - Kuna", HTG: "Haiti - Gourde", HUF: "Hungary - Forint",
+    IDR: "Indonesia - Rupiah", INR: "India - Rupee", IQD: "Iraq - Dinar", IRR: "Iran - Rial",
+    ISK: "Iceland - Krona", JMD: "Jamaica - Dollar", JOD: "Jordan - Dinar", JPY: "Japan - Yen", KES: "Kenya - Shilling",
+    KGS: "Kyrgyzstan - Som", KHR: "Cambodia - Riel", KMF: "Comoros - Franc", KRW: "South Korea - Won",
+    KWD: "Kuwait - Dinar", KYD: "Cayman - Dollar", KZT: "Kazakhstan - Tenge", LAK: "Laos - Kip", LBP: "Lebanon - Pound",
+    LKR: "Sri Lanka - Rupee", LRD: "Liberia - Dollar", LSL: "Lesotho - Loti", LYD: "Libya - Dinar", MAD: "Morocco - Dirham",
+    MDL: "Moldova - Leu", MGA: "Madagascar - Ariary", MKD: "Macedonia - Denar", MMK: "Myanmar - Kyat", MNT: "Mongolia - Tugrik",
+    MOP: "Macau - Pataca", MRU: "Mauritania - Ouguiya", MUR: "Mauritius - Rupee", MVR: "Maldives - Rufiyaa", MWK: "Malawi - Kwacha",
+    MXN: "Mexico - Peso", MYR: "Malaysia - Ringgit", MZN: "Mozambique - Metical", NAD: "Namibia - Dollar", NGN: "Nigeria - Naira",
+    NIO: "Nicaragua - Cordoba", NOK: "Norway - Krone", NPR: "Nepal - Rupee", NZD: "New Zealand - Dollar", OMR: "Oman - Rial",
+    PAB: "Panama - Balboa", PEN: "Peru - Sol", PGK: "Papua New Guinea - Kina", PHP: "Philippines - Peso", PKR: "Pakistan - Rupee",
+    PLN: "Poland - Zloty", PYG: "Paraguay - Guarani", QAR: "Qatar - Riyal", RON: "Romania - Leu", RSD: "Serbia - Dinar",
+    RUB: "Russia - Ruble", RWF: "Rwanda - Franc", SAR: "Saudi Arabia - Riyal", SBD: "Solomon Islands - Dollar", SCR: "Seychelles - Rupee",
+    SDG: "Sudan - Pound", SEK: "Sweden - Krona", SGD: "Singapore - Dollar", SLE: "Sierra Leone - Leone",
+    SOS: "Somalia - Shilling", SRD: "Suriname - Dollar", SSP: "South Sudan - Pound", STN: "Sao Tome - Dobra", SYP: "Syria - Pound",
+    SZL: "Eswatini - Lilangeni", THB: "Thailand - Baht", TJS: "Tajikistan - Somoni", TMT: "Turkmenistan - Manat", TND: "Tunisia - Dinar",
+    TOP: "Tonga - Pa'anga", TRY: "Turkey - Lira", TTD: "Trinidad - Dollar", TWD: "Taiwan - Dollar",
+    TZS: "Tanzania - Shilling", UAH: "Ukraine - Hryvnia", UGX: "Uganda - Shilling", USD: "USA - Dollar", UYU: "Uruguay - Peso",
+    UZS: "Uzbekistan - Som", VES: "Venezuela - Bolivar", VND: "Vietnam - Dong", VUV: "Vanuatu - Vatu", WST: "Samoa - Tala",
+    XAF: "Central Africa - CFA Franc", XCD: "East Caribbean - Dollar", XOF: "West Africa - CFA Franc", XPF: "Polynesia - CFP Franc",
+    YER: "Yemen - Rial", ZAR: "South Africa - Rand", ZMW: "Zambia - Kwacha", ZWL: "Zimbabwe - Dollar"
+};
+
+function populateCurrencies(){
+    var from = document.getElementById('fromCurrency');
+    var to = document.getElementById('toCurrency');
+    var sorted = Object.keys(currencyNames).sort();
+    sorted.forEach(function(code){
+        from.innerHTML += '<option value="'+code+'">'+currencyNames[code]+' ('+code+')</option>';
+        to.innerHTML += '<option value="'+code+'">'+currencyNames[code]+' ('+code+')</option>';
+    });
+    from.value = 'USD';
+    to.value = 'SAR';
+}
+
+function filterCurrencies(type){
+    var searchInput = document.getElementById(type === 'from' ? 'searchFrom' : 'searchTo');
+    var select = document.getElementById(type === 'from' ? 'fromCurrency' : 'toCurrency');
+    var searchTerm = searchInput.value.toLowerCase();
+    var selectedValue = select.value;
+    
+    select.innerHTML = '';
+    var sorted = Object.keys(currencyNames).sort();
+    sorted.forEach(function(code){
+        var name = currencyNames[code];
+        if(name.toLowerCase().includes(searchTerm) || code.toLowerCase().includes(searchTerm)){
+            select.innerHTML += '<option value="'+code+'">'+name+' ('+code+')</option>';
+        }
+    });
+    
+    if(select.options.length > 0){
+        var exists = false;
+        for(var i=0; i<select.options.length; i++){
+            if(select.options[i].value === selectedValue){
+                select.value = selectedValue;
+                exists = true;
+                break;
+            }
+        }
+        if(!exists) select.selectedIndex = 0;
+    }
+    
+    convert();
+}
 
 async function loadRates(){
     document.getElementById('loading').style.display = 'block';
     document.getElementById('resultCard').style.display = 'none';
-    
     try {
         var response = await fetch('https://v6.exchangerate-api.com/v6/a75a3bb7acda2fe87fd97bf9/latest/USD');
         var data = await response.json();
@@ -167,14 +195,10 @@ function convert(){
     var amount = parseFloat(document.getElementById('amountInput').value) || 0;
     var from = document.getElementById('fromCurrency').value;
     var to = document.getElementById('toCurrency').value;
-    
-    if(Object.keys(rates).length === 0) return;
-    
+    if(Object.keys(rates).length === 0 || !from || !to) return;
     var fromRate = rates[from] || 1;
     var toRate = rates[to] || 1;
-    var amountInUSD = amount / fromRate;
-    var result = amountInUSD * toRate;
-    
+    var result = (amount / fromRate) * toRate;
     document.getElementById('convertedAmount').textContent = result.toFixed(4) + ' ' + to;
     document.getElementById('rateInfo').textContent = '1 ' + from + ' = ' + (toRate / fromRate).toFixed(4) + ' ' + to;
     document.getElementById('resultCard').style.display = 'block';
@@ -188,6 +212,7 @@ function swapCurrencies(){
     convert();
 }
 
+populateCurrencies();
 loadRates();
 </script>
 </body>
