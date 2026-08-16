@@ -4,12 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>محول الوزن - تحويل جميع وحدات الوزن والكتلة | حاسبها</title>
-    <meta name="description" content="محول الوزن الشامل لتحويل بين الكيلوجرام، الجرام، الطن، الرطل، الأونصة، المثقال، الأقة وجميع وحدات الوزن والكتلة بدقة عالية. 17 وحدة وزن مختلفة.">
-    <meta name="keywords" content="تحويل الوزن, محول الوزن, كيلوجرام, جرام, طن, رطل, أونصة, مثقال, weight converter, محول الكتلة, وحدات الوزن">
-    <meta name="robots" content="index, follow">
+    <meta name="description" content="محول الوزن الشامل لتحويل بين الكيلوجرام، الجرام، الطن، الرطل، الأونصة، المثقال و17 وحدة وزن بدقة عالية.">
+    <meta name="keywords" content="تحويل الوزن, محول الوزن, كيلوجرام, جرام, طن, رطل, أونصة, مثقال, weight converter, محول الكتلة">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="حاسبها">
+    <meta name="geo.region" content="SA">
     <link rel="canonical" href="https://hasibha.com/weight">
+    <link rel="icon" type="image/png" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <meta property="og:title" content="محول الوزن - تحويل جميع وحدات الوزن">
+    <meta property="og:description" content="حول بين 17 وحدة وزن بدقة عالية.">
+    <meta property="og:url" content="https://hasibha.com/weight">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <meta property="og:site_name" content="حاسبها">
+    <meta property="og:locale" content="ar_SA">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="محول الوزن | حاسبها">
+    <meta name="twitter:description" content="17 وحدة وزن بدقة عالية.">
+    <meta name="twitter:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "الرئيسية", "item": "https://hasibha.com/"},
+        {"@type": "ListItem", "position": 2, "name": "أدوات التحويل", "item": "https://hasibha.com/#conversion"},
+        {"@type": "ListItem", "position": 3, "name": "تحويل الوزن", "item": "https://hasibha.com/weight"}
+      ]
+    }
+    </script>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
@@ -19,6 +45,9 @@
         .logo{font-size:26px;font-weight:800;color:#059669;text-decoration:none}
         .logo img{height:35px;vertical-align:middle;margin-left:8px}
         .lang-btn{background:#f1f5f9;border:1px solid #e2e8f0;padding:8px 16px;border-radius:8px;font-size:14px;color:#475569;text-decoration:none}
+        .breadcrumb{background:#fff;padding:12px 0;font-size:13px;color:#64748b;border-bottom:1px solid #e2e8f0}
+        .breadcrumb a{color:#059669;text-decoration:none}
+        .breadcrumb span{margin:0 4px}
         .calc-wrapper{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:28px 24px;margin:30px auto}
         .calc-wrapper h1{text-align:center;color:#064e3b;font-size:22px;margin-bottom:4px}
         .subtitle{text-align:center;color:#64748b;font-size:14px;margin-bottom:28px}
@@ -37,7 +66,6 @@
         .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
         .article-box p{color:#475569;font-size:15px;margin-bottom:14px}
         .article-box ul{color:#475569;font-size:14px;padding-right:20px;margin-bottom:14px}
-        .article-box ul li{margin-bottom:8px}
         .article-box .tip{background:#f0fdf4;border-right:4px solid #059669;padding:16px;margin:16px 0;border-radius:8px}
         .article-box .example{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:16px 0}
         .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
@@ -49,39 +77,45 @@
 <header class="site-header"><div class="container"><div class="header-content">
     <a href="/" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="حاسبها"> حاسبها</a>
     <div style="display:flex;gap:12px;align-items:center">
-        <a href="/weight-en" class="lang-btn">English</a>
-        <a href="/" class="lang-btn">الرئيسية</a>
+        <a href="/weight-en" style="color:#64748b;text-decoration:none;font-weight:600">English</a>
+        <a href="/" style="color:#059669;text-decoration:none;font-weight:600">الرئيسية</a>
     </div>
 </div></div></header>
 
-<main><div class="container"><div class="calc-wrapper">
+<nav class="breadcrumb">
+    <div class="container">
+        <a href="/">🏠 الرئيسية</a>
+        <span>←</span>
+        <a href="/#conversion">📊 أدوات التحويل</a>
+        <span>←</span>
+        <span style="color:#1e293b;font-weight:600">تحويل الوزن</span>
+    </div>
+</nav>
+
+<main>
+<div class="container">
+<div class="calc-wrapper">
     <h1>⚖️ محول الوزن</h1>
     <p class="subtitle">تحويل بين جميع وحدات الوزن والكتلة بدقة عالية</p>
-    
     <label>المبلغ</label>
     <div class="input-row"><input type="number" id="amountInput" value="1" oninput="convert()" placeholder="أدخل القيمة"></div>
-    
     <label>من</label>
     <select class="unit-select" id="fromUnit" onchange="convert()">
         <option value="1">كيلوجرام (kg)</option><option value="1000">جرام (g)</option><option value="1000000">مليجرام (mg)</option><option value="1000000000">ميكروجرام (µg)</option><option value="0.001">طن متري (t)</option><option value="2.20462">رطل (lb)</option><option value="35.274">أونصة (oz)</option><option value="0.00110231">طن أمريكي (US ton)</option><option value="0.000984207">طن بريطاني (UK ton)</option><option value="0.157473">ستون (st)</option><option value="5000">قيراط (ct)</option><option value="15432.4">حبة (gr)</option><option value="564.383">درام (dr)</option><option value="0.0196841">قنطار (cwt)</option><option value="235.3">مثقال</option><option value="0.78">أقة</option><option value="0.025">من</option>
     </select>
-    
     <div class="swap-btn"><button onclick="swapUnits()">↕️</button></div>
-    
     <label>إلى</label>
     <select class="unit-select" id="toUnit" onchange="convert()">
         <option value="1">كيلوجرام (kg)</option><option value="1000" selected>جرام (g)</option><option value="1000000">مليجرام (mg)</option><option value="1000000000">ميكروجرام (µg)</option><option value="0.001">طن متري (t)</option><option value="2.20462">رطل (lb)</option><option value="35.274">أونصة (oz)</option><option value="0.00110231">طن أمريكي (US ton)</option><option value="0.000984207">طن بريطاني (UK ton)</option><option value="0.157473">ستون (st)</option><option value="5000">قيراط (ct)</option><option value="15432.4">حبة (gr)</option><option value="564.383">درام (dr)</option><option value="0.0196841">قنطار (cwt)</option><option value="235.3">مثقال</option><option value="0.78">أقة</option><option value="0.025">من</option>
     </select>
-    
     <div class="result-card" id="resultCard">
         <div class="result-value" id="resultValue">1000</div>
         <div class="result-label" id="resultLabel">جرام (g)</div>
     </div>
-    
     <div class="article-box">
         <h2>🗂️ محول الوزن - دليل شامل لتحويل وحدات الكتلة</h2>
         <h3>ما هو محول الوزن؟</h3>
-        <p>محول الوزن من حاسبها هو أداة دقيقة تساعدك على تحويل أي قيمة بين وحدات الوزن والكتلة المختلفة. سواء كنت طباخاً، تاجراً، أو تحتاج تحويل الأوزان في حياتك اليومية.</p>
+        <p>محول الوزن من حاسبها يساعدك على تحويل أي قيمة بين وحدات الوزن والكتلة المختلفة بسرعة ودقة.</p>
         <h3>الوحدات المدعومة (17 وحدة)</h3>
         <ul>
             <li><strong>النظام المتري:</strong> كيلوجرام، جرام، مليجرام، ميكروجرام، طن متري.</li>
@@ -89,12 +123,13 @@
             <li><strong>الوحدات العربية:</strong> مثقال، أقة، من.</li>
             <li><strong>أخرى:</strong> قيراط.</li>
         </ul>
-        <div class="example">📝 <strong>مثال:</strong> 1 كيلوجرام = 1000 جرام = 2.2 رطل = 35.27 أونصة = 4.25 مثقال</div>
-        <div class="tip">💡 <strong>نصيحة:</strong> لتحويل دقيق بين الوحدات العربية والعالمية، استخدم القيم المعيارية. المثقال الواحد = 4.25 جرام تقريباً.</div>
+        <div class="example">📝 <strong>مثال:</strong> 1 كيلوجرام = 1000 جرام = 2.2 رطل = 35.27 أونصة</div>
+        <div class="tip">💡 <strong>نصيحة:</strong> المثقال الواحد = 4.25 جرام تقريباً.</div>
     </div>
-    
     <a href="/" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
-</div></div></main>
+</div>
+</div>
+</main>
 
 <script>
 function convert(){
