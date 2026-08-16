@@ -82,7 +82,7 @@
         .calc-btn{width:100%;background:#059669;color:#fff;border:none;padding:16px;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;margin-top:8px}
         .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:28px;text-align:center;margin-top:24px;display:none}
         .result-line{font-size:18px;font-weight:700;margin-bottom:12px}
-        .result-line .bmi-value{font-size:24px;font-weight:900}
+        .result-line .bmi-value{font-size:24px;font-weight:900;color:#059669}
         .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin-top:32px;text-align:right;line-height:2.3}
         .article-box h2{font-size:22px;color:#064e3b;margin-bottom:24px;border-bottom:3px solid #059669;padding-bottom:12px}
         .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
@@ -169,54 +169,48 @@ function calculateBMI(){
     var heightM = heightCm / 100;
     var bmi = weight / (heightM * heightM);
     
+    // الوزن المثالي = الوزن الذي يعطي BMI = 22 (منتصف النطاق الطبيعي)
+    var idealWeight = 22 * (heightM * heightM);
     var maxIdealWeight = 24.9 * (heightM * heightM);
-    var minIdealWeight = 18.5 * (heightM * heightM);
     
-    var category = '';
     var line1 = '';
     var line2 = '';
     var line3 = '';
     
     if(bmi < 18.5){
-        category = 'نحيف';
-        var needGain = minIdealWeight - weight;
+        var needGain = idealWeight - weight;
         line1 = 'نحيف <span class="bmi-value">' + bmi.toFixed(2) + '</span> = BMI';
         line2 = 'تحتاج لزيادة <span class="bmi-value">' + needGain.toFixed(1) + ' كغم</span> من أجل الوصول إلى الوزن الطبيعي';
-        line3 = 'وزنك المثالي: <span class="bmi-value">' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كغم</span>';
+        line3 = 'وزنك المثالي: <span class="bmi-value">' + idealWeight.toFixed(1) + ' كغم</span>';
     }
     else if(bmi < 25){
-        category = 'وزن طبيعي';
         line1 = 'وزن طبيعي <span class="bmi-value">' + bmi.toFixed(2) + '</span> = BMI';
         line2 = 'وزنك مثالي. حافظ على نمط حياتك الصحي';
-        line3 = 'وزنك المثالي: <span class="bmi-value">' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كغم</span>';
+        line3 = 'وزنك المثالي: <span class="bmi-value">' + idealWeight.toFixed(1) + ' كغم</span>';
     }
     else if(bmi < 30){
-        category = 'زيادة وزن';
-        var needLose = weight - maxIdealWeight;
+        var needLose = weight - idealWeight;
         line1 = 'زيادة وزن <span class="bmi-value">' + bmi.toFixed(2) + '</span> = BMI';
         line2 = 'تحتاج لإنقاص <span class="bmi-value">' + needLose.toFixed(1) + ' كغم</span> من أجل الوصول إلى الوزن الطبيعي';
-        line3 = 'وزنك المثالي: <span class="bmi-value">' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كغم</span>';
+        line3 = 'وزنك المثالي: <span class="bmi-value">' + idealWeight.toFixed(1) + ' كغم</span>';
     }
     else if(bmi < 35){
-        category = 'سمنة درجة أولى';
-        var needLose = weight - maxIdealWeight;
+        var needLose = weight - idealWeight;
         line1 = 'سمنة درجة أولى <span class="bmi-value">' + bmi.toFixed(2) + '</span> = BMI';
         line2 = 'تحتاج لإنقاص <span class="bmi-value">' + needLose.toFixed(1) + ' كغم</span> من أجل الوصول إلى الوزن الطبيعي';
-        line3 = 'وزنك المثالي: <span class="bmi-value">' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كغم</span>';
+        line3 = 'وزنك المثالي: <span class="bmi-value">' + idealWeight.toFixed(1) + ' كغم</span>';
     }
     else if(bmi < 40){
-        category = 'سمنة درجة ثانية';
-        var needLose = weight - maxIdealWeight;
+        var needLose = weight - idealWeight;
         line1 = 'سمنة درجة ثانية <span class="bmi-value">' + bmi.toFixed(2) + '</span> = BMI';
         line2 = 'تحتاج لإنقاص <span class="bmi-value">' + needLose.toFixed(1) + ' كغم</span> من أجل الوصول إلى الوزن الطبيعي';
-        line3 = 'وزنك المثالي: <span class="bmi-value">' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كغم</span>';
+        line3 = 'وزنك المثالي: <span class="bmi-value">' + idealWeight.toFixed(1) + ' كغم</span>';
     }
     else{
-        category = 'سمنة مفرطة';
-        var needLose = weight - maxIdealWeight;
+        var needLose = weight - idealWeight;
         line1 = 'سمنة مفرطة <span class="bmi-value">' + bmi.toFixed(2) + '</span> = BMI';
         line2 = 'تحتاج لإنقاص <span class="bmi-value">' + needLose.toFixed(1) + ' كغم</span> من أجل الوصول إلى الوزن الطبيعي';
-        line3 = 'وزنك المثالي: <span class="bmi-value">' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كغم</span>';
+        line3 = 'وزنك المثالي: <span class="bmi-value">' + idealWeight.toFixed(1) + ' كغم</span>';
     }
     
     document.getElementById('resultLine1').innerHTML = line1;
