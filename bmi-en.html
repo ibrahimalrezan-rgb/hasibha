@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator - Know Your Ideal Weight | Hasibha</title>
+    <meta name="description" content="Free BMI calculator. Know if your weight is normal, underweight, or obese. Find out how many kg you need to lose or gain to reach your ideal weight based on WHO standards.">
+    <meta name="keywords" content="BMI calculator, body mass index, ideal weight, obesity, underweight, BMI Calculator Saudi, how much to lose, ideal weight range">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Hasibha">
+    <meta name="geo.region" content="SA">
+    <link rel="canonical" href="https://hasibha.com/bmi-en">
+    <link rel="icon" type="image/png" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <meta property="og:title" content="BMI Calculator - Know Your Ideal Weight">
+    <meta property="og:description" content="Know your ideal weight and how many kg you need to lose or gain.">
+    <meta property="og:url" content="https://hasibha.com/bmi-en">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <meta property="og:site_name" content="Hasibha">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BMI Calculator | Hasibha">
+    <meta name="twitter:description" content="Know your body mass index and ideal weight.">
+    <meta name="twitter:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://hasibha.com/index-en"},
+        {"@type": "ListItem", "position": 2, "name": "Health Calculators", "item": "https://hasibha.com/index-en#health"},
+        {"@type": "ListItem", "position": 3, "name": "BMI Calculator", "item": "https://hasibha.com/bmi-en"}
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is BMI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "BMI (Body Mass Index) measures if your weight is appropriate for your height. It's calculated by dividing weight in kg by height in meters squared."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the normal BMI range?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "According to WHO, the normal BMI range is between 18.5 and 24.9."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I know my ideal weight?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Your ideal weight is the weight that gives a BMI between 18.5 and 24.9. Use Hasibha's calculator to find your exact ideal weight."
+          }
+        }
+      ]
+    }
+    </script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
+        .container{max-width:700px;margin:0 auto;padding:0 20px}
+        .site-header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 0}
+        .header-content{display:flex;justify-content:space-between;align-items:center}
+        .logo{font-size:26px;font-weight:800;color:#059669;text-decoration:none}
+        .logo img{height:35px;vertical-align:middle;margin-right:8px}
+        .lang-btn{background:#f1f5f9;border:1px solid #e2e8f0;padding:8px 16px;border-radius:8px;font-size:14px;color:#475569;text-decoration:none}
+        .breadcrumb{background:#fff;padding:12px 0;font-size:13px;color:#64748b;border-bottom:1px solid #e2e8f0}
+        .breadcrumb a{color:#059669;text-decoration:none}
+        .breadcrumb span{margin:0 4px}
+        .calc-wrapper{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:28px 24px;margin:30px auto}
+        .calc-wrapper h1{text-align:center;color:#064e3b;font-size:22px;margin-bottom:4px}
+        .subtitle{text-align:center;color:#64748b;font-size:14px;margin-bottom:28px}
+        label{display:block;font-weight:600;margin-bottom:6px;font-size:15px}
+        .input-row{display:flex;gap:10px;margin-bottom:20px;align-items:center}
+        .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:16px;text-align:left;flex:1}
+        .input-row input:focus{outline:none;border-color:#059669}
+        .calc-btn{width:100%;background:#059669;color:#fff;border:none;padding:16px;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;margin-top:8px}
+        .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:28px;text-align:center;margin-top:24px;display:none}
+        .result-card .bmi-value{font-size:48px;font-weight:900;color:#059669}
+        .result-card .bmi-category{font-size:20px;font-weight:700;margin-top:8px}
+        .result-card .bmi-detail{color:#475569;font-size:15px;margin-top:12px;line-height:2}
+        .result-card .weight-info{background:#fff;border-radius:12px;padding:16px;margin-top:16px}
+        .result-card .weight-info p{color:#475569;font-size:14px;margin-bottom:8px}
+        .result-card .weight-info strong{color:#059669}
+        .result-card .ideal-range{background:#fff;border-radius:12px;padding:16px;margin-top:12px}
+        .result-card .ideal-range p{color:#475569;font-size:14px}
+        .result-card .ideal-range strong{color:#059669;font-size:18px}
+        .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin-top:32px;text-align:left;line-height:2.3}
+        .article-box h2{font-size:22px;color:#064e3b;margin-bottom:24px;border-bottom:3px solid #059669;padding-bottom:12px}
+        .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
+        .article-box p{color:#475569;font-size:15px;margin-bottom:14px}
+        .article-box ul{color:#475569;font-size:14px;padding-left:20px;margin-bottom:14px}
+        .article-box .tip{background:#f0fdf4;border-left:4px solid #059669;padding:16px;margin:16px 0;border-radius:8px}
+        .article-box .example{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:16px 0}
+        .article-box .ref{color:#64748b;font-size:13px;margin-top:24px;padding-top:16px;border-top:1px solid #e2e8f0}
+        .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
+        @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:20px 16px}.result-card .bmi-value{font-size:36px}}
+    </style>
+</head>
+<body>
+
+<header class="site-header"><div class="container"><div class="header-content">
+    <a href="/index-en" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha"> Hasibha</a>
+    <div style="display:flex;gap:12px;align-items:center">
+        <a href="/bmi" style="color:#64748b;text-decoration:none;font-weight:600">عربي</a>
+        <a href="/index-en" style="color:#059669;text-decoration:none;font-weight:600">Home</a>
+    </div>
+</div></div></header>
+
+<nav class="breadcrumb">
+    <div class="container">
+        <a href="/index-en">🏠 Home</a>
+        <span>←</span>
+        <a href="/index-en#health">❤️ Health Calculators</a>
+        <span>←</span>
+        <span style="color:#1e293b;font-weight:600">BMI Calculator</span>
+    </div>
+</nav>
+
+<main>
+<div class="container">
+<div class="calc-wrapper">
+    <h1>🧍 BMI Calculator</h1>
+    <p class="subtitle">Know your ideal weight and how many kg you need to lose or gain</p>
+    
+    <label>Weight (kg)</label>
+    <div class="input-row"><input type="number" id="weightInput" placeholder="Enter your weight" oninput="calculateBMI()"><span style="font-weight:600;color:#64748b">kg</span></div>
+    
+    <label>Height (cm)</label>
+    <div class="input-row"><input type="number" id="heightInput" placeholder="Enter your height" oninput="calculateBMI()"><span style="font-weight:600;color:#64748b">cm</span></div>
+    
+    <button class="calc-btn" onclick="calculateBMI()">Calculate BMI</button>
+    
+    <div class="result-card" id="resultCard">
+        <div class="bmi-value" id="bmiValue">0</div>
+        <div class="bmi-category" id="bmiCategory"></div>
+        <div class="bmi-detail" id="bmiDetail"></div>
+        <div class="weight-info" id="weightInfo"></div>
+        <div class="ideal-range" id="idealRange"></div>
+    </div>
+    
+    <div class="article-box">
+        <h2>🗂️ BMI Guide - Body Mass Index</h2>
+        <h3>What is BMI?</h3>
+        <p>Body Mass Index measures if your weight is appropriate for your height. It's calculated by dividing weight in kilograms by height in meters squared.</p>
+        <h3>BMI Categories (WHO)</h3>
+        <ul>
+            <li><strong>Below 18.5:</strong> 🔵 Underweight</li>
+            <li><strong>18.5 - 24.9:</strong> 🟢 Normal weight</li>
+            <li><strong>25 - 29.9:</strong> 🟡 Overweight</li>
+            <li><strong>30 - 34.9:</strong> 🟠 Obesity Class I</li>
+            <li><strong>35 - 39.9:</strong> 🔴 Obesity Class II</li>
+            <li><strong>40+:</strong> ⚫ Obesity Class III</li>
+        </ul>
+        <div class="example">📝 <strong>Example:</strong> Person weighing 70 kg and 175 cm tall = 70 ÷ (1.75)² = 22.86 (Normal)</div>
+        <div class="tip">💡 <strong>Tip:</strong> BMI doesn't differentiate between muscle and fat. Athletes may appear overweight due to muscle mass.</div>
+        <p class="ref"><strong>Reference:</strong> World Health Organization (WHO.int) | Saudi Ministry of Health (moh.gov.sa)</p>
+    </div>
+    
+    <a href="/index-en" class="back-link">↩ Back to Home</a>
+</div>
+</div>
+</main>
+
+<script>
+function calculateBMI(){
+    var weight = parseFloat(document.getElementById('weightInput').value) || 0;
+    var heightCm = parseFloat(document.getElementById('heightInput').value) || 0;
+    
+    if(weight <= 0 || heightCm <= 0){
+        document.getElementById('resultCard').style.display = 'none';
+        return;
+    }
+    
+    var heightM = heightCm / 100;
+    var bmi = weight / (heightM * heightM);
+    
+    var minIdealWeight = 18.5 * (heightM * heightM);
+    var maxIdealWeight = 24.9 * (heightM * heightM);
+    
+    var category = '';
+    var detail = '';
+    var weightInfo = '';
+    var idealRange = '';
+    
+    if(bmi < 18.5){
+        category = '🔵 Underweight';
+        detail = 'Your weight is below normal';
+        var needGain = minIdealWeight - weight;
+        weightInfo = '<p>You need to gain <strong>' + needGain.toFixed(1) + ' kg</strong> to reach normal weight</p>';
+        idealRange = '<p>Your ideal weight range: <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' kg</strong></p>';
+    }
+    else if(bmi < 25){
+        category = '🟢 Normal Weight';
+        detail = 'Your weight is ideal. Maintain your healthy lifestyle';
+        weightInfo = '<p>You are in the <strong>normal range</strong>. Keep up your healthy habits</p>';
+        idealRange = '<p>Your ideal weight range: <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' kg</strong></p>';
+    }
+    else if(bmi < 30){
+        category = '🟡 Overweight';
+        detail = 'Your weight is slightly above normal';
+        var needLose = weight - maxIdealWeight;
+        weightInfo = '<p>You need to lose <strong>' + needLose.toFixed(1) + ' kg</strong> to reach normal weight</p>';
+        idealRange = '<p>Your ideal weight range: <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' kg</strong></p>';
+    }
+    else if(bmi < 35){
+        category = '🟠 Obesity Class I';
+        detail = 'Your weight is significantly above normal';
+        var needLose = weight - maxIdealWeight;
+        weightInfo = '<p>You need to lose <strong>' + needLose.toFixed(1) + ' kg</strong> to reach normal weight</p>';
+        idealRange = '<p>Your ideal weight range: <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' kg</strong></p>';
+    }
+    else if(bmi < 40){
+        category = '🔴 Obesity Class II';
+        detail = 'Your weight is very high. We recommend seeing a doctor';
+        var needLose = weight - maxIdealWeight;
+        weightInfo = '<p>You need to lose <strong>' + needLose.toFixed(1) + ' kg</strong> to reach normal weight</p>';
+        idealRange = '<p>Your ideal weight range: <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' kg</strong></p>';
+    }
+    else{
+        category = '⚫ Obesity Class III';
+        detail = 'Your weight is extremely high. We recommend seeing a doctor immediately';
+        var needLose = weight - maxIdealWeight;
+        weightInfo = '<p>You need to lose <strong>' + needLose.toFixed(1) + ' kg</strong> to reach normal weight</p>';
+        idealRange = '<p>Your ideal weight range: <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' kg</strong></p>';
+    }
+    
+    document.getElementById('bmiValue').textContent = bmi.toFixed(1);
+    document.getElementById('bmiCategory').textContent = category;
+    document.getElementById('bmiDetail').textContent = detail;
+    document.getElementById('weightInfo').innerHTML = weightInfo;
+    document.getElementById('idealRange').innerHTML = idealRange;
+    document.getElementById('resultCard').style.display = 'block';
+}
+</script>
+</body>
+</html>
