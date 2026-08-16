@@ -1,29 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://hasibha.com/</loc></url>
-<url><loc>https://hasibha.com/mortgage</loc></url>
-<url><loc>https://hasibha.com/personal-loan</loc></url>
-<url><loc>https://hasibha.com/eos</loc></url>
-<url><loc>https://hasibha.com/vat</loc></url>
-<url><loc>https://hasibha.com/salary</loc></url>
-<url><loc>https://hasibha.com/currency</loc></url>
-<url><loc>https://hasibha.com/length</loc></url>
-<url><loc>https://hasibha.com/weight</loc></url>
-<url><loc>https://hasibha.com/area</loc></url>
-<url><loc>https://hasibha.com/privacy</loc></url>
-<url><loc>https://hasibha.com/about</loc></url>
-<url><loc>https://hasibha.com/contact</loc></url>
-<url><loc>https://hasibha.com/index-en</loc></url>
-<url><loc>https://hasibha.com/mortgage-en</loc></url>
-<url><loc>https://hasibha.com/personal-loan-en</loc></url>
-<url><loc>https://hasibha.com/eos-en</loc></url>
-<url><loc>https://hasibha.com/vat-en</loc></url>
-<url><loc>https://hasibha.com/salary-en</loc></url>
-<url><loc>https://hasibha.com/currency-en</loc></url>
-<url><loc>https://hasibha.com/length-en</loc></url>
-<url><loc>https://hasibha.com/weight-en</loc></url>
-<url><loc>https://hasibha.com/area-en</loc></url>
-<url><loc>https://hasibha.com/privacy-en</loc></url>
-<url><loc>https://hasibha.com/about-en</loc></url>
-<url><loc>https://hasibha.com/contact-en</loc></url>
+  <!-- الصفحات العربية -->
+  <url><loc>https://hasibha.com/</loc><priority>1.0</priority></url>
+  <url><loc>https://hasibha.com/mortgage</loc><priority>0.9</priority></url>
+  <url><loc>https://hasibha.com/personal-loan</loc><priority>0.9</priority></url>
+  <url><loc>https://hasibha.com/eos</loc><priority>0.9</priority></url>
+  <url><loc>https://hasibha.com/vat</loc><priority>0.9</priority></url>
+  <url><loc>https://hasibha.com/salary</loc><priority>0.9</priority></url>
+  <url><loc>https://hasibha.com/currency</loc><priority>0.9</priority></url>
+  <url><loc>https://hasibha.com/length</loc><priority>0.8</priority></url>
+  <url><loc>https://hasibha.com/weight</loc><priority>0.8</priority></url>
+  <url><loc>https://hasibha.com/area</loc><priority>0.8</priority></url>
+  <url><loc>https://hasibha.com/bmi</loc><priority>0.8</priority></url>
+  <url><loc>https://hasibha.com/calorie</loc><priority>0.8</priority></url>
+  <url><loc>https://hasibha.com/water</loc><priority>0.8</priority></url>
+  <url><loc>https://hasibha.com/age</loc><priority>0.8</priority></url>
+  <url><loc>https://hasibha.com/discount</loc><priority>0.8</priority></url>
+  <url><loc>https://hasibha.com/date-diff</loc><priority>0.8</priority></url>
+  <url><loc>https://hasibha.com/privacy</loc><priority>0.5</priority></url>
+  <url><loc>https://hasibha.com/about</loc><priority>0.5</priority></url>
+  <url><loc>https://hasibha.com/contact</loc><priority>0.5</priority></url>
+
+  <!-- الصفحات الإنجليزية -->
+  <url><loc>https://hasibha.com/index-en</loc><priority>1.0</priority></url>
+  <url><loc>https://hasibha.com/mortgage-en</loc><priority>0.9</priority></url>
+  <url><loc>https://hasibha.com/personal-loan-en</loc><priority>0.9</priority></url>
+  <url><loc>https://hasibha.com/eos-en</loc><priority>0.9</priority></url>
+  <url><loc>https://hasibha.com/vat-en</loc><priority>0.9</priority></url>
+  <url><loc>https://hasibha.com/salary-en</loc><priority>0.9</priority></url>
+  <url><loc>https://hasibha.com/currency-en</loc><priority>0.9</priority></url>
+  <url><loc>https://hasibha.com/length-en</loc><priority>0.8</priority></url>
+  <url><loc>https://hasibha.com/weight-en</loc><priority>0.8</priority></url>
+  <url><loc>https://hasibha.com/area-en</loc><priority>0.8</priority></url>
+  <url><loc>https://hasibha.com/bmi-en</loc><priority>0.8</priority></url>
+  <url><loc>https://hasibha.com/calorie-en</loc><priority>0.8</priority></url>
+  <url><loc>https://hasibha.com/water-en</loc><priority>0.8</priority></url>
+  <url><loc>https://hasibha.com/age-en</loc><priority>0.8</priority></url>
+  <url><loc>https://hasibha.com/discount-en</loc><priority>0.8</priority></url>
+  <url><loc>https://hasibha.com/date-diff-en</loc><priority>0.8</priority></url>
+  <url><loc>https://hasibha.com/privacy-en</loc><priority>0.5</priority></url>
+  <url><loc>https://hasibha.com/about-en</loc><priority>0.5</priority></url>
+  <url><loc>https://hasibha.com/contact-en</loc><priority>0.5</priority></url>
 </urlset>
