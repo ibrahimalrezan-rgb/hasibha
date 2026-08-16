@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حاسبة مؤشر كتلة الجسم BMI - اعرف وزنك المثالي | حاسبها</title>
-    <meta name="description" content="حاسبة مؤشر كتلة الجسم BMI. اعرف إذا كان وزنك طبيعي أو نحيف أو سمين حسب معايير منظمة الصحة العالمية مع شرح كامل.">
-    <meta name="keywords" content="حاسبة BMI, مؤشر كتلة الجسم, الوزن المثالي, السمنة, النحافة, BMI Calculator Saudi">
+    <meta name="description" content="حاسبة مؤشر كتلة الجسم BMI. اعرف إذا كان وزنك طبيعي أو نحيف أو سمين، كم كيلو تحتاج تنقص أو تزيد للوصول للوزن المثالي.">
+    <meta name="keywords" content="حاسبة BMI, مؤشر كتلة الجسم, الوزن المثالي, السمنة, النحافة, BMI Calculator Saudi, كم كيلو انقص">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="author" content="حاسبها">
     <meta name="geo.region" content="SA">
@@ -13,7 +13,7 @@
     <link rel="icon" type="image/png" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
     <link rel="apple-touch-icon" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
     <meta property="og:title" content="حاسبة مؤشر كتلة الجسم BMI">
-    <meta property="og:description" content="اعرف وزنك المثالي بدقة.">
+    <meta property="og:description" content="اعرف وزنك المثالي وكم كيلو تحتاج تنقص أو تزيد.">
     <meta property="og:url" content="https://hasibha.com/bmi">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
@@ -21,7 +21,7 @@
     <meta property="og:locale" content="ar_SA">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="حاسبة BMI | حاسبها">
-    <meta name="twitter:description" content="اعرف مؤشر كتلة جسمك.">
+    <meta name="twitter:description" content="اعرف مؤشر كتلة جسمك ووزنك المثالي.">
     <meta name="twitter:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
@@ -46,7 +46,7 @@
           "name": "ما هو مؤشر كتلة الجسم BMI؟",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "مؤشر كتلة الجسم (BMI) هو مقياس يستخدم لتحديد إذا كان وزنك مناسباً لطولك. يحسب بقسمة الوزن بالكيلوجرام على مربع الطول بالمتر."
+            "text": "BMI هو مقياس يحدد إذا كان وزنك مناسباً لطولك. يحسب بقسمة الوزن بالكيلوجرام على مربع الطول بالمتر."
           }
         },
         {
@@ -59,10 +59,10 @@
         },
         {
           "@type": "Question",
-          "name": "كيف أحسب BMI الخاص بي؟",
+          "name": "كيف أعرف وزني المثالي؟",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "BMI = الوزن (كجم) ÷ الطول² (متر). مثال: شخص وزنه 70 كجم وطوله 1.75 متر = 70 ÷ 3.0625 = 22.86"
+            "text": "وزنك المثالي هو الوزن الذي يجعل BMI بين 18.5 و24.9. استخدم حاسبة حاسبها لمعرفة الوزن المثالي بالضبط."
           }
         }
       ]
@@ -90,8 +90,14 @@
         .calc-btn{width:100%;background:#059669;color:#fff;border:none;padding:16px;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;margin-top:8px}
         .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:28px;text-align:center;margin-top:24px;display:none}
         .result-card .bmi-value{font-size:48px;font-weight:900;color:#059669}
-        .result-card .bmi-category{font-size:18px;font-weight:700;margin-top:8px}
-        .result-card .bmi-range{color:#64748b;font-size:13px;margin-top:4px}
+        .result-card .bmi-category{font-size:20px;font-weight:700;margin-top:8px}
+        .result-card .bmi-detail{color:#475569;font-size:15px;margin-top:12px;line-height:2}
+        .result-card .weight-info{background:#fff;border-radius:12px;padding:16px;margin-top:16px}
+        .result-card .weight-info p{color:#475569;font-size:14px;margin-bottom:8px}
+        .result-card .weight-info strong{color:#059669}
+        .result-card .ideal-range{background:#fff;border-radius:12px;padding:16px;margin-top:12px}
+        .result-card .ideal-range p{color:#475569;font-size:14px}
+        .result-card .ideal-range strong{color:#059669;font-size:18px}
         .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin-top:32px;text-align:right;line-height:2.3}
         .article-box h2{font-size:22px;color:#064e3b;margin-bottom:24px;border-bottom:3px solid #059669;padding-bottom:12px}
         .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
@@ -128,34 +134,42 @@
 <div class="container">
 <div class="calc-wrapper">
     <h1>🧍 حاسبة مؤشر كتلة الجسم BMI</h1>
-    <p class="subtitle">اعرف إذا كان وزنك طبيعي أو نحيف أو سمين</p>
+    <p class="subtitle">اعرف وزنك المثالي وكم كيلو تحتاج تنقص أو تزيد</p>
+    
     <label>الوزن (كيلوجرام)</label>
     <div class="input-row"><input type="number" id="weightInput" placeholder="أدخل وزنك" oninput="calculateBMI()"><span style="font-weight:600;color:#64748b">كجم</span></div>
+    
     <label>الطول (سنتيمتر)</label>
     <div class="input-row"><input type="number" id="heightInput" placeholder="أدخل طولك" oninput="calculateBMI()"><span style="font-weight:600;color:#64748b">سم</span></div>
+    
     <button class="calc-btn" onclick="calculateBMI()">احسب BMI</button>
+    
     <div class="result-card" id="resultCard">
         <div class="bmi-value" id="bmiValue">0</div>
         <div class="bmi-category" id="bmiCategory"></div>
-        <div class="bmi-range" id="bmiRange"></div>
+        <div class="bmi-detail" id="bmiDetail"></div>
+        <div class="weight-info" id="weightInfo"></div>
+        <div class="ideal-range" id="idealRange"></div>
     </div>
+    
     <div class="article-box">
         <h2>🗂️ دليل مؤشر كتلة الجسم BMI</h2>
         <h3>ما هو BMI؟</h3>
         <p>مؤشر كتلة الجسم هو مقياس يحدد إذا كان وزنك مناسباً لطولك. يحسب بقسمة الوزن بالكيلوجرام على مربع الطول بالمتر.</p>
         <h3>فئات BMI حسب منظمة الصحة العالمية</h3>
         <ul>
-            <li>أقل من 18.5: نحيف</li>
-            <li>18.5 - 24.9: وزن طبيعي ✅</li>
-            <li>25 - 29.9: زيادة وزن</li>
-            <li>30 - 34.9: سمنة درجة أولى</li>
-            <li>35 - 39.9: سمنة درجة ثانية</li>
-            <li>40+: سمنة مفرطة</li>
+            <li><strong>أقل من 18.5:</strong> 🔵 نحيف</li>
+            <li><strong>18.5 - 24.9:</strong> 🟢 وزن طبيعي</li>
+            <li><strong>25 - 29.9:</strong> 🟡 زيادة وزن</li>
+            <li><strong>30 - 34.9:</strong> 🟠 سمنة درجة أولى</li>
+            <li><strong>35 - 39.9:</strong> 🔴 سمنة درجة ثانية</li>
+            <li><strong>40+:</strong> ⚫ سمنة مفرطة</li>
         </ul>
         <div class="example">📝 <strong>مثال:</strong> شخص وزنه 70 كجم وطوله 175 سم = 70 ÷ (1.75)² = 22.86 (طبيعي)</div>
         <div class="tip">💡 <strong>نصيحة:</strong> BMI لا يفرق بين العضلات والدهون. الرياضيين قد يظهرون كأصحاب وزن زائد بسبب كتلة العضلات.</div>
         <p class="ref"><strong>المرجع:</strong> منظمة الصحة العالمية (WHO.int) | وزارة الصحة السعودية (moh.gov.sa)</p>
     </div>
+    
     <a href="/" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
 </div>
 </div>
@@ -163,28 +177,74 @@
 
 <script>
 function calculateBMI(){
-    var weight=parseFloat(document.getElementById('weightInput').value)||0;
-    var heightCm=parseFloat(document.getElementById('heightInput').value)||0;
-    if(weight<=0||heightCm<=0){
-        document.getElementById('bmiValue').textContent='0';
-        document.getElementById('bmiCategory').textContent='';
-        document.getElementById('bmiRange').textContent='';
-        document.getElementById('resultCard').style.display='block';
+    var weight = parseFloat(document.getElementById('weightInput').value) || 0;
+    var heightCm = parseFloat(document.getElementById('heightInput').value) || 0;
+    
+    if(weight <= 0 || heightCm <= 0){
+        document.getElementById('resultCard').style.display = 'none';
         return;
     }
-    var heightM=heightCm/100;
-    var bmi=weight/(heightM*heightM);
-    var category,range;
-    if(bmi<18.5){category='🔵 نحيف';range='أقل من 18.5';}
-    else if(bmi<25){category='🟢 وزن طبيعي';range='18.5 - 24.9';}
-    else if(bmi<30){category='🟡 زيادة وزن';range='25 - 29.9';}
-    else if(bmi<35){category='🟠 سمنة درجة أولى';range='30 - 34.9';}
-    else if(bmi<40){category='🔴 سمنة درجة ثانية';range='35 - 39.9';}
-    else{category='⚫ سمنة مفرطة';range='40+';}
-    document.getElementById('bmiValue').textContent=bmi.toFixed(1);
-    document.getElementById('bmiCategory').textContent=category;
-    document.getElementById('bmiRange').textContent='النطاق: '+range;
-    document.getElementById('resultCard').style.display='block';
+    
+    var heightM = heightCm / 100;
+    var bmi = weight / (heightM * heightM);
+    
+    var category = '';
+    var detail = '';
+    var weightInfo = '';
+    var idealRange = '';
+    
+    // حساب الوزن المثالي
+    var minIdealWeight = 18.5 * (heightM * heightM);
+    var maxIdealWeight = 24.9 * (heightM * heightM);
+    
+    if(bmi < 18.5){
+        category = '🔵 نحيف';
+        detail = 'وزنك أقل من الطبيعي';
+        var needGain = minIdealWeight - weight;
+        weightInfo = '<p>تحتاج لزيادة <strong>' + needGain.toFixed(1) + ' كجم</strong> للوصول إلى الوزن الطبيعي</p>';
+        idealRange = '<p>وزنك المثالي بين <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كجم</strong></p>';
+    }
+    else if(bmi < 25){
+        category = '🟢 وزن طبيعي';
+        detail = 'وزنك مثالي. حافظ على نمط حياتك الصحي';
+        weightInfo = '<p>أنت في <strong>النطاق الطبيعي</strong>. استمر في عاداتك الصحية</p>';
+        idealRange = '<p>وزنك المثالي بين <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كجم</strong></p>';
+    }
+    else if(bmi < 30){
+        category = '🟡 زيادة وزن';
+        detail = 'وزنك أعلى من الطبيعي قليلاً';
+        var needLose = weight - maxIdealWeight;
+        weightInfo = '<p>تحتاج لإنقاص <strong>' + needLose.toFixed(1) + ' كجم</strong> للوصول إلى الوزن الطبيعي</p>';
+        idealRange = '<p>وزنك المثالي بين <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كجم</strong></p>';
+    }
+    else if(bmi < 35){
+        category = '🟠 سمنة درجة أولى';
+        detail = 'وزنك أعلى من الطبيعي بشكل ملحوظ';
+        var needLose = weight - maxIdealWeight;
+        weightInfo = '<p>تحتاج لإنقاص <strong>' + needLose.toFixed(1) + ' كجم</strong> للوصول إلى الوزن الطبيعي</p>';
+        idealRange = '<p>وزنك المثالي بين <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كجم</strong></p>';
+    }
+    else if(bmi < 40){
+        category = '🔴 سمنة درجة ثانية';
+        detail = 'وزنك مرتفع جداً. ننصح بمراجعة الطبيب';
+        var needLose = weight - maxIdealWeight;
+        weightInfo = '<p>تحتاج لإنقاص <strong>' + needLose.toFixed(1) + ' كجم</strong> للوصول إلى الوزن الطبيعي</p>';
+        idealRange = '<p>وزنك المثالي بين <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كجم</strong></p>';
+    }
+    else{
+        category = '⚫ سمنة مفرطة';
+        detail = 'وزنك مرتفع جداً. ننصح بمراجعة الطبيب فوراً';
+        var needLose = weight - maxIdealWeight;
+        weightInfo = '<p>تحتاج لإنقاص <strong>' + needLose.toFixed(1) + ' كجم</strong> للوصول إلى الوزن الطبيعي</p>';
+        idealRange = '<p>وزنك المثالي بين <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كجم</strong></p>';
+    }
+    
+    document.getElementById('bmiValue').textContent = bmi.toFixed(1);
+    document.getElementById('bmiCategory').textContent = category;
+    document.getElementById('bmiDetail').textContent = detail;
+    document.getElementById('weightInfo').innerHTML = weightInfo;
+    document.getElementById('idealRange').innerHTML = idealRange;
+    document.getElementById('resultCard').style.display = 'block';
 }
 </script>
 </body>
