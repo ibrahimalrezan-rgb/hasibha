@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Calculator - Daily Caloric Needs | Hasibha</title>
+    <meta name="description" content="Free calorie calculator. Calculate your daily calorie needs based on age, weight, height, gender, and activity level. Lose, maintain, or gain weight with accurate BMR and TDEE.">
+    <meta name="keywords" content="calorie calculator, BMR, TDEE, daily calories, weight loss, weight gain, Calorie Calculator Saudi, caloric needs">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Hasibha">
+    <meta name="geo.region" content="SA">
+    <link rel="canonical" href="https://hasibha.com/calorie-en">
+    <link rel="icon" type="image/png" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <meta property="og:title" content="Calorie Calculator - Daily Caloric Needs">
+    <meta property="og:description" content="Calculate your daily calories for weight loss, maintenance, or gain.">
+    <meta property="og:url" content="https://hasibha.com/calorie-en">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <meta property="og:site_name" content="Hasibha">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Calorie Calculator | Hasibha">
+    <meta name="twitter:description" content="Know your daily calorie needs.">
+    <meta name="twitter:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://hasibha.com/index-en"},
+        {"@type": "ListItem", "position": 2, "name": "Health Calculators", "item": "https://hasibha.com/index-en#health"},
+        {"@type": "ListItem", "position": 3, "name": "Calorie Calculator", "item": "https://hasibha.com/calorie-en"}
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How many calories do I need daily?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Daily calorie needs vary by age, weight, height, gender, and activity level. Use Hasibha's calorie calculator for an accurate number."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many calories to lose weight?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Subtract 500 calories from your daily TDEE to lose about 0.5 kg per week, or 1000 calories to lose 1 kg per week."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many calories to gain weight?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Add 500 calories above your daily TDEE to gain about 0.5 kg per week."
+          }
+        }
+      ]
+    }
+    </script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
+        .container{max-width:700px;margin:0 auto;padding:0 20px}
+        .site-header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 0}
+        .header-content{display:flex;justify-content:space-between;align-items:center}
+        .logo{font-size:26px;font-weight:800;color:#059669;text-decoration:none}
+        .logo img{height:35px;vertical-align:middle;margin-right:8px}
+        .lang-btn{background:#f1f5f9;border:1px solid #e2e8f0;padding:8px 16px;border-radius:8px;font-size:14px;color:#475569;text-decoration:none}
+        .breadcrumb{background:#fff;padding:12px 0;font-size:13px;color:#64748b;border-bottom:1px solid #e2e8f0}
+        .breadcrumb a{color:#059669;text-decoration:none}
+        .breadcrumb span{margin:0 4px}
+        .calc-wrapper{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:28px 24px;margin:30px auto}
+        .calc-wrapper h1{text-align:center;color:#064e3b;font-size:22px;margin-bottom:4px}
+        .subtitle{text-align:center;color:#64748b;font-size:14px;margin-bottom:28px}
+        label{display:block;font-weight:600;margin-bottom:6px;font-size:15px}
+        .input-row{display:flex;gap:10px;margin-bottom:20px;align-items:center}
+        .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:16px;text-align:left;flex:1}
+        .input-row input:focus{outline:none;border-color:#059669}
+        .radio-group{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+        .radio-option{flex:1;min-width:100px}
+        .radio-option input{display:none}
+        .radio-option label{display:block;text-align:center;padding:14px;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;font-weight:600;font-size:14px;transition:.2s}
+        .radio-option input:checked+label{border-color:#059669;background:#ecfdf5;color:#059669}
+        .full-width{margin-bottom:20px}
+        .full-width select{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;background:#fff;color:#1e293b;cursor:pointer}
+        .calc-btn{width:100%;background:#059669;color:#fff;border:none;padding:16px;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;margin-top:8px}
+        .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:28px;text-align:center;margin-top:24px;display:none}
+        .result-card .calorie-value{font-size:48px;font-weight:900;color:#059669}
+        .result-card .calorie-label{color:#475569;font-size:14px}
+        .result-card .goals{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:20px}
+        .result-card .goal-box{background:#fff;border-radius:10px;padding:16px 8px}
+        .result-card .goal-box .val{font-weight:700;font-size:20px;color:#1e293b}
+        .result-card .goal-box .lbl{font-size:11px;color:#94a3b8;margin-top:4px}
+        .result-card .goal-box.lose .val{color:#ef4444}
+        .result-card .goal-box.maintain .val{color:#059669}
+        .result-card .goal-box.gain .val{color:#eab308}
+        .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin-top:32px;text-align:left;line-height:2.3}
+        .article-box h2{font-size:22px;color:#064e3b;margin-bottom:24px;border-bottom:3px solid #059669;padding-bottom:12px}
+        .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
+        .article-box p{color:#475569;font-size:15px;margin-bottom:14px}
+        .article-box ul{color:#475569;font-size:14px;padding-left:20px;margin-bottom:14px}
+        .article-box .tip{background:#f0fdf4;border-left:4px solid #059669;padding:16px;margin:16px 0;border-radius:8px}
+        .article-box .ref{color:#64748b;font-size:13px;margin-top:24px;padding-top:16px;border-top:1px solid #e2e8f0}
+        .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
+        @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:20px 16px}.result-card .calorie-value{font-size:36px}.result-card .goals{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+
+<header class="site-header"><div class="container"><div class="header-content">
+    <a href="/index-en" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha"> Hasibha</a>
+    <div style="display:flex;gap:12px;align-items:center">
+        <a href="/calorie" style="color:#64748b;text-decoration:none;font-weight:600">عربي</a>
+        <a href="/index-en" style="color:#059669;text-decoration:none;font-weight:600">Home</a>
+    </div>
+</div></div></header>
+
+<nav class="breadcrumb">
+    <div class="container">
+        <a href="/index-en">🏠 Home</a>
+        <span>←</span>
+        <a href="/index-en#health">❤️ Health Calculators</a>
+        <span>←</span>
+        <span style="color:#1e293b;font-weight:600">Calorie Calculator</span>
+    </div>
+</nav>
+
+<main>
+<div class="container">
+<div class="calc-wrapper">
+    <h1>🍎 Calorie Calculator</h1>
+    <p class="subtitle">Know your daily calorie needs</p>
+    
+    <label>Gender</label>
+    <div class="radio-group">
+        <div class="radio-option"><input type="radio" name="gender" id="male" value="male" checked onchange="calculateCalories()"><label for="male">👨 Male</label></div>
+        <div class="radio-option"><input type="radio" name="gender" id="female" value="female" onchange="calculateCalories()"><label for="female">👩 Female</label></div>
+    </div>
+    
+    <label>Age</label>
+    <div class="input-row"><input type="number" id="ageInput" placeholder="Enter your age" oninput="calculateCalories()"><span style="font-weight:600;color:#64748b">Years</span></div>
+    
+    <label>Weight (kg)</label>
+    <div class="input-row"><input type="number" id="weightInput" placeholder="Enter your weight" oninput="calculateCalories()"><span style="font-weight:600;color:#64748b">kg</span></div>
+    
+    <label>Height (cm)</label>
+    <div class="input-row"><input type="number" id="heightInput" placeholder="Enter your height" oninput="calculateCalories()"><span style="font-weight:600;color:#64748b">cm</span></div>
+    
+    <label>Activity Level</label>
+    <div class="full-width">
+        <select id="activityLevel" onchange="calculateCalories()">
+            <option value="1.2">Sedentary (no exercise)</option>
+            <option value="1.375">Light activity (1-3 days/week)</option>
+            <option value="1.55" selected>Moderate activity (3-5 days/week)</option>
+            <option value="1.725">High activity (6-7 days/week)</option>
+            <option value="1.9">Very high (professional athlete)</option>
+        </select>
+    </div>
+    
+    <button class="calc-btn" onclick="calculateCalories()">Calculate Calories</button>
+    
+    <div class="result-card" id="resultCard">
+        <div class="calorie-value" id="tdeeValue">0</div>
+        <div class="calorie-label">calories per day to maintain weight</div>
+        <div class="goals">
+            <div class="goal-box lose"><div class="val" id="loseCalories">0</div><div class="lbl">Lose (500 less)</div></div>
+            <div class="goal-box maintain"><div class="val" id="maintainCalories">0</div><div class="lbl">Maintain</div></div>
+            <div class="goal-box gain"><div class="val" id="gainCalories">0</div><div class="lbl">Gain (500 more)</div></div>
+        </div>
+    </div>
+    
+    <div class="article-box">
+        <h2>🗂️ Calorie & Daily Needs Guide</h2>
+        <h3>What are Calories?</h3>
+        <p>A calorie is a unit of energy your body gets from food. Your body needs a certain number of calories daily for basic functions and daily activities.</p>
+        <h3>BMR (Basal Metabolic Rate)</h3>
+        <p>The number of calories your body burns at complete rest, calculated using the Mifflin-St Jeor equation.</p>
+        <h3>TDEE (Total Daily Energy Expenditure)</h3>
+        <p>BMR multiplied by activity factor. This is the calories you need daily to maintain your current weight.</p>
+        <h3>Weight Loss & Gain</h3>
+        <ul>
+            <li><strong>To lose:</strong> Subtract 500-1000 calories from TDEE daily to lose 0.5-1 kg weekly.</li>
+            <li><strong>To gain:</strong> Add 500 calories above TDEE daily to gain 0.5 kg weekly.</li>
+            <li><strong>To maintain:</strong> Consume TDEE.</li>
+        </ul>
+        <div class="tip">💡 <strong>Tip:</strong> Don't go below 1200 calories for women or 1500 for men without medical supervision.</div>
+        <p class="ref"><strong>Reference:</strong> World Health Organization (WHO.int) | Saudi Ministry of Health (moh.gov.sa)</p>
+    </div>
+    
+    <a href="/index-en" class="back-link">↩ Back to Home</a>
+</div>
+</div>
+</main>
+
+<script>
+function calculateCalories(){
+    var gender = document.querySelector('input[name="gender"]:checked').value;
+    var age = parseFloat(document.getElementById('ageInput').value) || 0;
+    var weight = parseFloat(document.getElementById('weightInput').value) || 0;
+    var heightCm = parseFloat(document.getElementById('heightInput').value) || 0;
+    var activity = parseFloat(document.getElementById('activityLevel').value);
+    
+    if(age <= 0 || weight <= 0 || heightCm <= 0){
+        document.getElementById('resultCard').style.display = 'none';
+        return;
+    }
+    
+    var bmr;
+    if(gender === 'male'){
+        bmr = 10 * weight + 6.25 * heightCm - 5 * age + 5;
+    } else {
+        bmr = 10 * weight + 6.25 * heightCm - 5 * age - 161;
+    }
+    
+    var tdee = bmr * activity;
+    
+    document.getElementById('tdeeValue').textContent = Math.round(tdee);
+    document.getElementById('loseCalories').textContent = Math.round(tdee - 500);
+    document.getElementById('maintainCalories').textContent = Math.round(tdee);
+    document.getElementById('gainCalories').textContent = Math.round(tdee + 500);
+    document.getElementById('resultCard').style.display = 'block';
+}
+</script>
+</body>
+</html>
