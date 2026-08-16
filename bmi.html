@@ -56,14 +56,6 @@
             "@type": "Answer",
             "text": "حسب منظمة الصحة العالمية، معدل BMI الطبيعي بين 18.5 و24.9."
           }
-        },
-        {
-          "@type": "Question",
-          "name": "كيف أعرف وزني المثالي؟",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "وزنك المثالي هو الوزن الذي يجعل BMI بين 18.5 و24.9. استخدم حاسبة حاسبها لمعرفة الوزن المثالي بالضبط."
-          }
         }
       ]
     }
@@ -89,25 +81,17 @@
         .input-row input:focus{outline:none;border-color:#059669}
         .calc-btn{width:100%;background:#059669;color:#fff;border:none;padding:16px;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;margin-top:8px}
         .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:28px;text-align:center;margin-top:24px;display:none}
-        .result-card .bmi-value{font-size:48px;font-weight:900;color:#059669}
-        .result-card .bmi-category{font-size:20px;font-weight:700;margin-top:8px}
-        .result-card .bmi-detail{color:#475569;font-size:15px;margin-top:12px;line-height:2}
-        .result-card .weight-info{background:#fff;border-radius:12px;padding:16px;margin-top:16px}
-        .result-card .weight-info p{color:#475569;font-size:14px;margin-bottom:8px}
-        .result-card .weight-info strong{color:#059669}
-        .result-card .ideal-range{background:#fff;border-radius:12px;padding:16px;margin-top:12px}
-        .result-card .ideal-range p{color:#475569;font-size:14px}
-        .result-card .ideal-range strong{color:#059669;font-size:18px}
+        .result-line{font-size:18px;font-weight:700;margin-bottom:12px}
+        .result-line .bmi-value{font-size:24px;font-weight:900}
         .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin-top:32px;text-align:right;line-height:2.3}
         .article-box h2{font-size:22px;color:#064e3b;margin-bottom:24px;border-bottom:3px solid #059669;padding-bottom:12px}
         .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
         .article-box p{color:#475569;font-size:15px;margin-bottom:14px}
         .article-box ul{color:#475569;font-size:14px;padding-right:20px;margin-bottom:14px}
         .article-box .tip{background:#f0fdf4;border-right:4px solid #059669;padding:16px;margin:16px 0;border-radius:8px}
-        .article-box .example{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:16px 0}
         .article-box .ref{color:#64748b;font-size:13px;margin-top:24px;padding-top:16px;border-top:1px solid #e2e8f0}
         .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
-        @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:20px 16px}.result-card .bmi-value{font-size:36px}}
+        @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:20px 16px}}
     </style>
 </head>
 <body>
@@ -145,11 +129,9 @@
     <button class="calc-btn" onclick="calculateBMI()">احسب BMI</button>
     
     <div class="result-card" id="resultCard">
-        <div class="bmi-value" id="bmiValue">0</div>
-        <div class="bmi-category" id="bmiCategory"></div>
-        <div class="bmi-detail" id="bmiDetail"></div>
-        <div class="weight-info" id="weightInfo"></div>
-        <div class="ideal-range" id="idealRange"></div>
+        <div class="result-line" id="resultLine1"></div>
+        <div class="result-line" id="resultLine2"></div>
+        <div class="result-line" id="resultLine3"></div>
     </div>
     
     <div class="article-box">
@@ -165,8 +147,7 @@
             <li><strong>35 - 39.9:</strong> 🔴 سمنة درجة ثانية</li>
             <li><strong>40+:</strong> ⚫ سمنة مفرطة</li>
         </ul>
-        <div class="example">📝 <strong>مثال:</strong> شخص وزنه 70 كجم وطوله 175 سم = 70 ÷ (1.75)² = 22.86 (طبيعي)</div>
-        <div class="tip">💡 <strong>نصيحة:</strong> BMI لا يفرق بين العضلات والدهون. الرياضيين قد يظهرون كأصحاب وزن زائد بسبب كتلة العضلات.</div>
+        <div class="tip">💡 <strong>نصيحة:</strong> BMI لا يفرق بين العضلات والدهون. الرياضيين قد يظهرون كأصحاب وزن زائد.</div>
         <p class="ref"><strong>المرجع:</strong> منظمة الصحة العالمية (WHO.int) | وزارة الصحة السعودية (moh.gov.sa)</p>
     </div>
     
@@ -188,62 +169,59 @@ function calculateBMI(){
     var heightM = heightCm / 100;
     var bmi = weight / (heightM * heightM);
     
-    var category = '';
-    var detail = '';
-    var weightInfo = '';
-    var idealRange = '';
-    
-    // حساب الوزن المثالي
-    var minIdealWeight = 18.5 * (heightM * heightM);
     var maxIdealWeight = 24.9 * (heightM * heightM);
+    var minIdealWeight = 18.5 * (heightM * heightM);
+    
+    var category = '';
+    var line1 = '';
+    var line2 = '';
+    var line3 = '';
     
     if(bmi < 18.5){
-        category = '🔵 نحيف';
-        detail = 'وزنك أقل من الطبيعي';
+        category = 'نحيف';
         var needGain = minIdealWeight - weight;
-        weightInfo = '<p>تحتاج لزيادة <strong>' + needGain.toFixed(1) + ' كجم</strong> للوصول إلى الوزن الطبيعي</p>';
-        idealRange = '<p>وزنك المثالي بين <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كجم</strong></p>';
+        line1 = 'نحيف <span class="bmi-value">' + bmi.toFixed(2) + '</span> = BMI';
+        line2 = 'تحتاج لزيادة <span class="bmi-value">' + needGain.toFixed(1) + ' كغم</span> من أجل الوصول إلى الوزن الطبيعي';
+        line3 = 'وزنك المثالي: <span class="bmi-value">' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كغم</span>';
     }
     else if(bmi < 25){
-        category = '🟢 وزن طبيعي';
-        detail = 'وزنك مثالي. حافظ على نمط حياتك الصحي';
-        weightInfo = '<p>أنت في <strong>النطاق الطبيعي</strong>. استمر في عاداتك الصحية</p>';
-        idealRange = '<p>وزنك المثالي بين <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كجم</strong></p>';
+        category = 'وزن طبيعي';
+        line1 = 'وزن طبيعي <span class="bmi-value">' + bmi.toFixed(2) + '</span> = BMI';
+        line2 = 'وزنك مثالي. حافظ على نمط حياتك الصحي';
+        line3 = 'وزنك المثالي: <span class="bmi-value">' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كغم</span>';
     }
     else if(bmi < 30){
-        category = '🟡 زيادة وزن';
-        detail = 'وزنك أعلى من الطبيعي قليلاً';
+        category = 'زيادة وزن';
         var needLose = weight - maxIdealWeight;
-        weightInfo = '<p>تحتاج لإنقاص <strong>' + needLose.toFixed(1) + ' كجم</strong> للوصول إلى الوزن الطبيعي</p>';
-        idealRange = '<p>وزنك المثالي بين <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كجم</strong></p>';
+        line1 = 'زيادة وزن <span class="bmi-value">' + bmi.toFixed(2) + '</span> = BMI';
+        line2 = 'تحتاج لإنقاص <span class="bmi-value">' + needLose.toFixed(1) + ' كغم</span> من أجل الوصول إلى الوزن الطبيعي';
+        line3 = 'وزنك المثالي: <span class="bmi-value">' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كغم</span>';
     }
     else if(bmi < 35){
-        category = '🟠 سمنة درجة أولى';
-        detail = 'وزنك أعلى من الطبيعي بشكل ملحوظ';
+        category = 'سمنة درجة أولى';
         var needLose = weight - maxIdealWeight;
-        weightInfo = '<p>تحتاج لإنقاص <strong>' + needLose.toFixed(1) + ' كجم</strong> للوصول إلى الوزن الطبيعي</p>';
-        idealRange = '<p>وزنك المثالي بين <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كجم</strong></p>';
+        line1 = 'سمنة درجة أولى <span class="bmi-value">' + bmi.toFixed(2) + '</span> = BMI';
+        line2 = 'تحتاج لإنقاص <span class="bmi-value">' + needLose.toFixed(1) + ' كغم</span> من أجل الوصول إلى الوزن الطبيعي';
+        line3 = 'وزنك المثالي: <span class="bmi-value">' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كغم</span>';
     }
     else if(bmi < 40){
-        category = '🔴 سمنة درجة ثانية';
-        detail = 'وزنك مرتفع جداً. ننصح بمراجعة الطبيب';
+        category = 'سمنة درجة ثانية';
         var needLose = weight - maxIdealWeight;
-        weightInfo = '<p>تحتاج لإنقاص <strong>' + needLose.toFixed(1) + ' كجم</strong> للوصول إلى الوزن الطبيعي</p>';
-        idealRange = '<p>وزنك المثالي بين <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كجم</strong></p>';
+        line1 = 'سمنة درجة ثانية <span class="bmi-value">' + bmi.toFixed(2) + '</span> = BMI';
+        line2 = 'تحتاج لإنقاص <span class="bmi-value">' + needLose.toFixed(1) + ' كغم</span> من أجل الوصول إلى الوزن الطبيعي';
+        line3 = 'وزنك المثالي: <span class="bmi-value">' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كغم</span>';
     }
     else{
-        category = '⚫ سمنة مفرطة';
-        detail = 'وزنك مرتفع جداً. ننصح بمراجعة الطبيب فوراً';
+        category = 'سمنة مفرطة';
         var needLose = weight - maxIdealWeight;
-        weightInfo = '<p>تحتاج لإنقاص <strong>' + needLose.toFixed(1) + ' كجم</strong> للوصول إلى الوزن الطبيعي</p>';
-        idealRange = '<p>وزنك المثالي بين <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كجم</strong></p>';
+        line1 = 'سمنة مفرطة <span class="bmi-value">' + bmi.toFixed(2) + '</span> = BMI';
+        line2 = 'تحتاج لإنقاص <span class="bmi-value">' + needLose.toFixed(1) + ' كغم</span> من أجل الوصول إلى الوزن الطبيعي';
+        line3 = 'وزنك المثالي: <span class="bmi-value">' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كغم</span>';
     }
     
-    document.getElementById('bmiValue').textContent = bmi.toFixed(1);
-    document.getElementById('bmiCategory').textContent = category;
-    document.getElementById('bmiDetail').textContent = detail;
-    document.getElementById('weightInfo').innerHTML = weightInfo;
-    document.getElementById('idealRange').innerHTML = idealRange;
+    document.getElementById('resultLine1').innerHTML = line1;
+    document.getElementById('resultLine2').innerHTML = line2;
+    document.getElementById('resultLine3').innerHTML = line3;
     document.getElementById('resultCard').style.display = 'block';
 }
 </script>
