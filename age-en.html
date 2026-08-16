@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator - Gregorian, Hijri & Zodiac | Hasibha</title>
+    <meta name="description" content="Comprehensive age calculator. Know your age in Gregorian and Hijri calendars, your zodiac sign, life stage, total days, hours, and fun life facts. Based on Saudi timezone.">
+    <meta name="keywords" content="age calculator, Gregorian age, Hijri age, zodiac sign, life stage, age in days, Age Calculator Saudi, how old am I">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Hasibha">
+    <meta name="geo.region" content="SA">
+    <link rel="canonical" href="https://hasibha.com/age-en">
+    <link rel="icon" type="image/png" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <meta property="og:title" content="Age Calculator - Gregorian, Hijri & Zodiac">
+    <meta property="og:description" content="Know your age in Gregorian and Hijri calendars, zodiac sign, and life stage.">
+    <meta property="og:url" content="https://hasibha.com/age-en">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <meta property="og:site_name" content="Hasibha">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Age Calculator | Hasibha">
+    <meta name="twitter:description" content="Your age in Gregorian, Hijri, and your zodiac sign.">
+    <meta name="twitter:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://hasibha.com/index-en"},
+        {"@type": "ListItem", "position": 2, "name": "General Tools", "item": "https://hasibha.com/index-en#general"},
+        {"@type": "ListItem", "position": 3, "name": "Age Calculator", "item": "https://hasibha.com/age-en"}
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why does Hijri age differ from Gregorian age?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because the Hijri year is 354.36 days while the Gregorian year is 365.25 days, a difference of about 11 days per year, so Hijri age is greater."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I calculate my age in Hijri?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use Hasibha's age calculator and enter your Gregorian birthdate; it will automatically show your Hijri age."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I know my zodiac sign from my birthdate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The age calculator automatically determines your zodiac sign from your Gregorian birthdate."
+          }
+        }
+      ]
+    }
+    </script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
+        .container{max-width:700px;margin:0 auto;padding:0 20px}
+        .site-header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 0}
+        .header-content{display:flex;justify-content:space-between;align-items:center}
+        .logo{font-size:26px;font-weight:800;color:#059669;text-decoration:none}
+        .logo img{height:35px;vertical-align:middle;margin-right:8px}
+        .lang-btn{background:#f1f5f9;border:1px solid #e2e8f0;padding:8px 16px;border-radius:8px;font-size:14px;color:#475569;text-decoration:none}
+        .breadcrumb{background:#fff;padding:12px 0;font-size:13px;color:#64748b;border-bottom:1px solid #e2e8f0}
+        .breadcrumb a{color:#059669;text-decoration:none}
+        .breadcrumb span{margin:0 4px}
+        .calc-wrapper{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:28px 24px;margin:30px auto}
+        .calc-wrapper h1{text-align:center;color:#064e3b;font-size:22px;margin-bottom:4px}
+        .subtitle{text-align:center;color:#64748b;font-size:14px;margin-bottom:28px}
+        label{display:block;font-weight:600;margin-bottom:6px;font-size:15px}
+        .input-row{display:flex;gap:10px;margin-bottom:20px;align-items:center}
+        .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:16px;text-align:left;flex:1}
+        .input-row input:focus{outline:none;border-color:#059669}
+        .calc-btn{width:100%;background:#059669;color:#fff;border:none;padding:16px;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;margin-top:8px}
+        .result-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:24px;margin-top:24px;display:none;line-height:2}
+        .result-box .section-title{font-size:18px;font-weight:700;color:#064e3b;margin-bottom:12px;border-bottom:2px solid #059669;padding-bottom:8px}
+        .result-box p{color:#475569;font-size:14px}
+        .result-box .highlight{color:#059669;font-weight:700;font-size:16px}
+        .result-box .divider{margin:20px 0;border-top:1px dashed #e2e8f0}
+        .zodiac-btn{display:inline-block;margin-top:12px;background:#059669;color:#fff;padding:10px 20px;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;cursor:pointer}
+        .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin-top:32px;text-align:left;line-height:2.3}
+        .article-box h2{font-size:22px;color:#064e3b;margin-bottom:24px;border-bottom:3px solid #059669;padding-bottom:12px}
+        .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
+        .article-box p{color:#475569;font-size:15px;margin-bottom:14px}
+        .article-box ul{color:#475569;font-size:14px;padding-left:20px;margin-bottom:14px}
+        .article-box .tip{background:#f0fdf4;border-left:4px solid #059669;padding:16px;margin:16px 0;border-radius:8px}
+        .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
+        @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:20px 16px}.result-box{padding:16px}}
+    </style>
+</head>
+<body>
+
+<header class="site-header"><div class="container"><div class="header-content">
+    <a href="/index-en" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha"> Hasibha</a>
+    <div style="display:flex;gap:12px;align-items:center">
+        <a href="/age" style="color:#64748b;text-decoration:none;font-weight:600">عربي</a>
+        <a href="/index-en" style="color:#059669;text-decoration:none;font-weight:600">Home</a>
+    </div>
+</div></div></header>
+
+<nav class="breadcrumb">
+    <div class="container">
+        <a href="/index-en">🏠 Home</a>
+        <span>←</span>
+        <a href="/index-en#general">🧮 General Tools</a>
+        <span>←</span>
+        <span style="color:#1e293b;font-weight:600">Age Calculator</span>
+    </div>
+</nav>
+
+<main>
+<div class="container">
+<div class="calc-wrapper">
+    <h1>🎂 Comprehensive Age Calculator</h1>
+    <p class="subtitle">Your age in Gregorian and Hijri + zodiac + life facts</p>
+    
+    <label>Date of Birth</label>
+    <div class="input-row"><input type="date" id="birthDate" onchange="calculateAge()"></div>
+    
+    <button class="calc-btn" onclick="calculateAge()">Calculate My Age</button>
+    
+    <div class="result-box" id="resultBox">
+        <div id="resultContent"></div>
+    </div>
+    
+    <div class="article-box">
+        <h2>🗂️ Age Calculation Guide</h2>
+        <h3>Why does Hijri age differ from Gregorian?</h3>
+        <p>The Hijri year is shorter than the Gregorian by about 11 days (354.36 vs 365.25 days). Therefore, Hijri age is greater, and the difference increases with age.</p>
+        <h3>How are zodiac signs determined?</h3>
+        <p>Zodiac signs are based on Gregorian birthdate. There are 12 signs: Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius, Capricorn, Aquarius, Pisces.</p>
+        <h3>Life Stages</h3>
+        <ul>
+            <li>Childhood: 0-12 years</li>
+            <li>Adolescence: 13-17 years</li>
+            <li>Late Adolescence: 18-21 years</li>
+            <li>Early Adulthood: 22-35 years</li>
+            <li>Late Adulthood: 36-50 years</li>
+            <li>Middle Age: 51-65 years</li>
+            <li>Senior: 66+ years</li>
+        </ul>
+        <div class="tip">💡 <strong>Note:</strong> Calculations are based on Saudi Arabia timezone (Asia/Riyadh).</div>
+    </div>
+    
+    <a href="/index-en" class="back-link">↩ Back to Home</a>
+</div>
+</div>
+</main>
+
+<script>
+function calculateAge(){
+    var birthDate = new Date(document.getElementById('birthDate').value + 'T00:00:00');
+    if(isNaN(birthDate.getTime())){
+        document.getElementById('resultBox').style.display = 'none';
+        return;
+    }
+    
+    var now = new Date();
+    
+    // Gregorian age calculation
+    var ageYears = now.getFullYear() - birthDate.getFullYear();
+    var ageMonths = now.getMonth() - birthDate.getMonth();
+    var ageDays = now.getDate() - birthDate.getDate();
+    
+    if(ageDays < 0){
+        ageMonths--;
+        var daysInPrevMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+        ageDays += daysInPrevMonth;
+    }
+    if(ageMonths < 0){
+        ageYears--;
+        ageMonths += 12;
+    }
+    
+    // Time until next birthday
+    var nextBirthday = new Date(now.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+    if(nextBirthday < now){
+        nextBirthday = new Date(now.getFullYear() + 1, birthDate.getMonth(), birthDate.getDate());
+    }
+    var diffToBirthday = nextBirthday - now;
+    var daysToBirthday = Math.floor(diffToBirthday / (1000 * 60 * 60 * 24));
+    var hoursToBirthday = Math.floor((diffToBirthday % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutesToBirthday = Math.floor((diffToBirthday % (1000 * 60 * 60)) / (1000 * 60));
+    
+    // Total values
+    var totalDays = Math.floor((now - birthDate) / (1000 * 60 * 60 * 24));
+    var totalMonths = Math.floor(totalDays / 30.44);
+    var totalWeeks = Math.floor(totalDays / 7);
+    var totalHours = Math.floor(totalDays * 24);
+    var totalMinutes = Math.floor(totalHours * 60);
+    
+    // Day of week born
+    var weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var bornDay = weekDays[birthDate.getDay()];
+    
+    // Month name
+    var monthsNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var bornMonth = monthsNames[birthDate.getMonth()];
+    
+    // Season
+    var month = birthDate.getMonth();
+    var season = '';
+    if(month === 11 || month === 0 || month === 1) season = 'Winter';
+    else if(month >= 2 && month <= 4) season = 'Spring';
+    else if(month >= 5 && month <= 7) season = 'Summer';
+    else season = 'Autumn';
+    
+    // Zodiac
+    var zodiac = getZodiac(birthDate);
+    
+    // Life stage
+    var lifeStage = '';
+    if(ageYears <= 12) lifeStage = 'Childhood';
+    else if(ageYears <= 17) lifeStage = 'Adolescence';
+    else if(ageYears <= 21) lifeStage = 'Late Adolescence';
+    else if(ageYears <= 35) lifeStage = 'Early Adulthood';
+    else if(ageYears <= 50) lifeStage = 'Late Adulthood';
+    else if(ageYears <= 65) lifeStage = 'Middle Age';
+    else lifeStage = 'Senior';
+    
+    // Sleep hours
+    var sleepHours = '';
+    if(ageYears <= 3) sleepHours = '11-14 hours/day';
+    else if(ageYears <= 5) sleepHours = '10-13 hours/day';
+    else if(ageYears <= 12) sleepHours = '9-12 hours/day';
+    else if(ageYears <= 17) sleepHours = '8-10 hours/day';
+    else if(ageYears <= 64) sleepHours = '7-9 hours/day';
+    else sleepHours = '7-8 hours/day';
+    
+    // Hijri date conversion (approximate)
+    var hijriDate = new Intl.DateTimeFormat('en-SA-u-ca-islamic-umalqura', {
+        year: 'numeric', month: 'numeric', day: 'numeric'
+    }).format(birthDate);
+    var hijriParts = hijriDate.split('/');
+    var hijriDay = hijriParts[0];
+    var hijriMonth = hijriParts[1];
+    var hijriYear = hijriParts[2];
+    var hijriMonths = ['Muharram','Safar','Rabi I','Rabi II','Jumada I','Jumada II','Rajab','Shaaban','Ramadan','Shawwal','Dhu al-Qadah','Dhu al-Hijjah'];
+    var hijriMonthName = hijriMonths[parseInt(hijriMonth) - 1] || hijriMonth;
+    
+    // Hijri age calculation
+    var birthHijri = new Date(birthDate);
+    var hijriAgeYears = Math.floor(totalDays / 354.36);
+    var hijriRemainingDays = totalDays % 354.36;
+    var hijriAgeMonths = Math.floor(hijriRemainingDays / 29.53);
+    var hijriAgeDays = Math.floor(hijriRemainingDays % 29.53);
+    
+    // Life facts
+    var breaths = Math.round(totalDays * 20000);
+    var heartbeats = Math.round(totalDays * 115200);
+    var laughs = Math.round(totalDays * 10);
+    var sleepYears = (totalDays * 8) / 24 / 365.25;
+    var eatYears = (totalDays * 1.5) / 24 / 365.25;
+    var sleepY = Math.floor(sleepYears);
+    var sleepM = Math.floor((sleepYears - sleepY) * 12);
+    var sleepD = Math.floor(((sleepYears - sleepY) * 12 - sleepM) * 30);
+    var eatY = Math.floor(eatYears);
+    var eatM = Math.floor((eatYears - eatY) * 12);
+    var eatD = Math.floor(((eatYears - eatY) * 12 - eatM) * 30);
+    
+    var html = '';
+    html += '<div class="section-title">📅 Gregorian Age</div>';
+    html += '<p><strong>Date of Birth:</strong> ' + birthDate.toISOString().split('T')[0] + '</p>';
+    html += '<p><strong>Birth Month:</strong> ' + bornMonth + '</p>';
+    html += '<p><strong>Age:</strong> <span class="highlight">' + ageYears + ' years, ' + ageMonths + ' months, ' + ageDays + ' days</span></p>';
+    html += '<p><strong>Time until next birthday:</strong> ' + daysToBirthday + ' days, ' + hoursToBirthday + ' hours, ' + minutesToBirthday + ' minutes (Saudi time)</p>';
+    html += '<p><strong>Next birthday will be on:</strong> ' + weekDays[nextBirthday.getDay()] + ', ' + nextBirthday.toISOString().split('T')[0] + '</p>';
+    
+    html += '<div class="divider"></div>';
+    html += '<div class="section-title">🕌 Hijri Age</div>';
+    html += '<p><strong>Hijri Date of Birth:</strong> ' + hijriDay + '/' + hijriMonth + '/' + hijriYear + ' (' + hijriMonthName + ')</p>';
+    html += '<p><strong>Hijri Age:</strong> <span class="highlight">' + hijriAgeYears + ' years, ' + hijriAgeMonths + ' months, ' + hijriAgeDays + ' days</span></p>';
+    html += '<p style="font-size:12px;color:#94a3b8">⚠️ Note: Hijri age is approximate based on the difference between calendars.</p>';
+    
+    html += '<div class="divider"></div>';
+    html += '<div class="section-title">📊 Age in Different Formats</div>';
+    html += '<p><strong>In months:</strong> ' + totalMonths + ' months, ' + (totalDays % 30) + ' days</p>';
+    html += '<p><strong>In weeks:</strong> ' + totalWeeks + ' weeks, ' + (totalDays % 7) + ' days</p>';
+    html += '<p><strong>In days:</strong> ' + totalDays + ' days</p>';
+    html += '<p><strong>In hours:</strong> about ' + totalHours + ' hours</p>';
+    
+    html += '<div class="divider"></div>';
+    html += '<div class="section-title">📋 More Information</div>';
+    html += '<p><strong>Born on:</strong> ' + bornDay + '</p>';
+    html += '<p><strong>Born in season:</strong> ' + season + '</p>';
+    html += '<p><strong>Zodiac sign:</strong> ' + zodiac + '</p>';
+    html += '<p><strong>Life stage:</strong> ' + lifeStage + '</p>';
+    html += '<p><strong>Healthy sleep:</strong> ' + sleepHours + '</p>';
+    
+    html += '<div class="divider"></div>';
+    html += '<div class="section-title">✨ Life Facts</div>';
+    html += '<p><strong>You have breathed approximately:</strong> ' + breaths.toLocaleString() + ' times</p>';
+    html += '<p><strong>Your heart has beaten approximately:</strong> ' + heartbeats.toLocaleString() + ' beats</p>';
+    html += '<p><strong>You have laughed approximately:</strong> ' + laughs.toLocaleString() + ' times</p>';
+    html += '<p><strong>You have slept approximately:</strong> ' + sleepY + ' years, ' + sleepM + ' months, ' + sleepD + ' days</p>';
+    html += '<p><strong>You have spent eating:</strong> ' + eatY + ' years, ' + eatM + ' months, ' + eatD + ' days</p>';
+    html += '<p style="font-size:11px;color:#94a3b8">Note: calculations are approximate based on daily averages for a healthy human body.</p>';
+    
+    html += '<div class="divider"></div>';
+    html += '<p><a class="zodiac-btn" onclick="showZodiacInfo(\'' + zodiac + '\')">View ' + zodiac + ' Traits</a></p>';
+    html += '<div id="zodiacInfo"></div>';
+    
+    document.getElementById('resultContent').innerHTML = html;
+    document.getElementById('resultBox').style.display = 'block';
+}
+
+function getZodiac(date){
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    if((month === 1 && day >= 20) || (month === 2 && day <= 18)) return 'Capricorn';
+    if((month === 2 && day >= 19) || (month === 3 && day <= 20)) return 'Aquarius';
+    if((month === 3 && day >= 21) || (month === 4 && day <= 19)) return 'Aries';
+    if((month === 4 && day >= 20) || (month === 5 && day <= 20)) return 'Taurus';
+    if((month === 5 && day >= 21) || (month === 6 && day <= 20)) return 'Gemini';
+    if((month === 6 && day >= 21) || (month === 7 && day <= 22)) return 'Cancer';
+    if((month === 7 && day >= 23) || (month === 8 && day <= 22)) return 'Leo';
+    if((month === 8 && day >= 23) || (month === 9 && day <= 22)) return 'Virgo';
+    if((month === 9 && day >= 23) || (month === 10 && day <= 22)) return 'Libra';
+    if((month === 10 && day >= 23) || (month === 11 && day <= 21)) return 'Scorpio';
+    if((month === 11 && day >= 22) || (month === 12 && day <= 21)) return 'Sagittarius';
+    return 'Capricorn';
+}
+
+function showZodiacInfo(zodiac){
+    var info = {
+        'Capricorn': 'Capricorn (Dec 22 - Jan 19): Practical, ambitious, disciplined, patient, serious. Earth sign.',
+        'Aquarius': 'Aquarius (Jan 20 - Feb 18): Innovative, independent, humanitarian, intelligent. Air sign.',
+        'Aries': 'Aries (Mar 21 - Apr 19): Courageous, enthusiastic, leader, quick-witted. Fire sign.',
+        'Taurus': 'Taurus (Apr 20 - May 20): Reliable, patient, practical, loyal. Earth sign.',
+        'Gemini': 'Gemini (May 21 - Jun 20): Intelligent, social, curious, flexible. Air sign.',
+        'Cancer': 'Cancer (Jun 21 - Jul 22): Emotional, caring, sensitive, loyal. Water sign.',
+        'Leo': 'Leo (Jul 23 - Aug 22): Generous, confident, leader, brave. Fire sign.',
+        'Virgo': 'Virgo (Aug 23 - Sep 22): Precise, analytical, practical, organized. Earth sign.',
+        'Libra': 'Libra (Sep 23 - Oct 22): Balanced, fair, social, elegant. Air sign.',
+        'Scorpio': 'Scorpio (Oct 23 - Nov 21): Passionate, mysterious, strong, determined. Water sign.',
+        'Sagittarius': 'Sagittarius (Nov 22 - Dec 21): Optimistic, adventurous, honest, freedom-loving. Fire sign.'
+    };
+    document.getElementById('zodiacInfo').innerHTML = '<p style="background:#f0fdf4;padding:12px;border-radius:10px;margin-top:12px">' + info[zodiac] + '</p>';
+}
+</script>
+</body>
+</html>
