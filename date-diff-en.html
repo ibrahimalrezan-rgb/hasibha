@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Difference Calculator - Days Between Dates | Hasibha</title>
+    <meta name="description" content="Free date difference calculator. Calculate the difference between two dates in years, months, days, weeks, hours, and minutes. Perfect for duration, age, and project planning.">
+    <meta name="keywords" content="date difference calculator, days between dates, date duration, time between dates, Date Difference Calculator Saudi, how many days">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Hasibha">
+    <meta name="geo.region" content="SA">
+    <link rel="canonical" href="https://hasibha.com/date-diff-en">
+    <link rel="icon" type="image/png" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <meta property="og:title" content="Date Difference Calculator - Days Between Dates">
+    <meta property="og:description" content="Calculate the difference between two dates accurately.">
+    <meta property="og:url" content="https://hasibha.com/date-diff-en">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <meta property="og:site_name" content="Hasibha">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Date Difference Calculator | Hasibha">
+    <meta name="twitter:description" content="Know the exact difference between two dates.">
+    <meta name="twitter:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://hasibha.com/index-en"},
+        {"@type": "ListItem", "position": 2, "name": "General Tools", "item": "https://hasibha.com/index-en#general"},
+        {"@type": "ListItem", "position": 3, "name": "Date Difference Calculator", "item": "https://hasibha.com/date-diff-en"}
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I calculate the difference between two dates?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Enter the start date and end date in the date difference calculator and you'll get the difference in years, months, days, weeks, hours, and minutes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many days between two dates?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use Hasibha's calculator to enter the two dates and you'll know the exact number of days."
+          }
+        }
+      ]
+    }
+    </script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
+        .container{max-width:700px;margin:0 auto;padding:0 20px}
+        .site-header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 0}
+        .header-content{display:flex;justify-content:space-between;align-items:center}
+        .logo{font-size:26px;font-weight:800;color:#059669;text-decoration:none}
+        .logo img{height:35px;vertical-align:middle;margin-right:8px}
+        .lang-btn{background:#f1f5f9;border:1px solid #e2e8f0;padding:8px 16px;border-radius:8px;font-size:14px;color:#475569;text-decoration:none}
+        .breadcrumb{background:#fff;padding:12px 0;font-size:13px;color:#64748b;border-bottom:1px solid #e2e8f0}
+        .breadcrumb a{color:#059669;text-decoration:none}
+        .breadcrumb span{margin:0 4px}
+        .calc-wrapper{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:28px 24px;margin:30px auto}
+        .calc-wrapper h1{text-align:center;color:#064e3b;font-size:22px;margin-bottom:4px}
+        .subtitle{text-align:center;color:#64748b;font-size:14px;margin-bottom:28px}
+        label{display:block;font-weight:600;margin-bottom:6px;font-size:15px}
+        .input-row{display:flex;gap:10px;margin-bottom:20px;align-items:center}
+        .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:16px;text-align:left;flex:1}
+        .input-row input:focus{outline:none;border-color:#059669}
+        .calc-btn{width:100%;background:#059669;color:#fff;border:none;padding:16px;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;margin-top:8px}
+        .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:28px;text-align:center;margin-top:24px;display:none}
+        .result-card .main-diff{font-size:36px;font-weight:900;color:#059669}
+        .result-card .details-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+        .result-card .diff-item{background:#fff;border-radius:10px;padding:16px 8px}
+        .result-card .diff-item .val{font-weight:700;font-size:22px;color:#1e293b}
+        .result-card .diff-item .lbl{font-size:11px;color:#94a3b8;margin-top:4px}
+        .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin-top:32px;text-align:left;line-height:2.3}
+        .article-box h2{font-size:22px;color:#064e3b;margin-bottom:24px;border-bottom:3px solid #059669;padding-bottom:12px}
+        .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
+        .article-box p{color:#475569;font-size:15px;margin-bottom:14px}
+        .article-box ul{color:#475569;font-size:14px;padding-left:20px;margin-bottom:14px}
+        .article-box .tip{background:#f0fdf4;border-left:4px solid #059669;padding:16px;margin:16px 0;border-radius:8px}
+        .article-box .example{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:16px 0}
+        .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
+        @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:20px 16px}.result-card .main-diff{font-size:28px}.result-card .details-grid{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+
+<header class="site-header"><div class="container"><div class="header-content">
+    <a href="/index-en" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha"> Hasibha</a>
+    <div style="display:flex;gap:12px;align-items:center">
+        <a href="/date-diff" style="color:#64748b;text-decoration:none;font-weight:600">عربي</a>
+        <a href="/index-en" style="color:#059669;text-decoration:none;font-weight:600">Home</a>
+    </div>
+</div></div></header>
+
+<nav class="breadcrumb">
+    <div class="container">
+        <a href="/index-en">🏠 Home</a>
+        <span>←</span>
+        <a href="/index-en#general">🧮 General Tools</a>
+        <span>←</span>
+        <span style="color:#1e293b;font-weight:600">Date Difference Calculator</span>
+    </div>
+</nav>
+
+<main>
+<div class="container">
+<div class="calc-wrapper">
+    <h1>📅 Date Difference Calculator</h1>
+    <p class="subtitle">Calculate difference between two dates in years, months, days</p>
+    
+    <label>Start Date</label>
+    <div class="input-row"><input type="date" id="startDate" onchange="calculateDiff()"></div>
+    
+    <label>End Date</label>
+    <div class="input-row"><input type="date" id="endDate" onchange="calculateDiff()"></div>
+    
+    <button class="calc-btn" onclick="calculateDiff()">Calculate Difference</button>
+    
+    <div class="result-card" id="resultCard">
+        <div class="main-diff" id="mainDiff"></div>
+        <div class="details-grid">
+            <div class="diff-item"><div class="val" id="yearsDiff">0</div><div class="lbl">Years</div></div>
+            <div class="diff-item"><div class="val" id="monthsDiff">0</div><div class="lbl">Months</div></div>
+            <div class="diff-item"><div class="val" id="daysDiff">0</div><div class="lbl">Days</div></div>
+            <div class="diff-item"><div class="val" id="weeksDiff">0</div><div class="lbl">Weeks</div></div>
+            <div class="diff-item"><div class="val" id="hoursDiff">0</div><div class="lbl">Hours</div></div>
+            <div class="diff-item"><div class="val" id="minutesDiff">0</div><div class="lbl">Minutes</div></div>
+        </div>
+    </div>
+    
+    <div class="article-box">
+        <h2>🗂️ Date Difference Calculation Guide</h2>
+        <h3>How to Calculate Difference Between Two Dates</h3>
+        <p>Enter the start date and end date. The calculator shows the difference in years, months, days, weeks, hours, and minutes.</p>
+        <div class="example">📝 <strong>Example:</strong> From 2024-01-01 to 2025-01-01 = 1 year = 12 months = 365 days</div>
+        <h3>When to Use This Calculator</h3>
+        <ul>
+            <li>Calculate employment duration.</li>
+            <li>Calculate pregnancy duration.</li>
+            <li>Calculate time between events.</li>
+            <li>Calculate subscription periods.</li>
+            <li>Calculate warranty periods.</li>
+        </ul>
+        <div class="tip">💡 <strong>Tip:</strong> Make sure to enter both dates correctly. Order doesn't matter because the calculator calculates the absolute difference.</div>
+    </div>
+    
+    <a href="/index-en" class="back-link">↩ Back to Home</a>
+</div>
+</div>
+</main>
+
+<script>
+function calculateDiff(){
+    var startDate = new Date(document.getElementById('startDate').value + 'T00:00:00');
+    var endDate = new Date(document.getElementById('endDate').value + 'T00:00:00');
+    
+    if(isNaN(startDate.getTime()) || isNaN(endDate.getTime())){
+        document.getElementById('resultCard').style.display = 'none';
+        return;
+    }
+    
+    if(endDate < startDate){
+        var temp = startDate;
+        startDate = endDate;
+        endDate = temp;
+    }
+    
+    var diffMs = endDate - startDate;
+    var totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    var totalWeeks = Math.floor(totalDays / 7);
+    var totalHours = Math.floor(diffMs / (1000 * 60 * 60));
+    var totalMinutes = Math.floor(diffMs / (1000 * 60));
+    
+    var years = endDate.getFullYear() - startDate.getFullYear();
+    var months = endDate.getMonth() - startDate.getMonth();
+    var days = endDate.getDate() - startDate.getDate();
+    
+    if(days < 0){
+        months--;
+        var daysInPrevMonth = new Date(endDate.getFullYear(), endDate.getMonth(), 0).getDate();
+        days += daysInPrevMonth;
+    }
+    if(months < 0){
+        years--;
+        months += 12;
+    }
+    
+    var mainText = years > 0 ? years + ' years, ' + months + ' months, ' + days + ' days' 
+                              : months > 0 ? months + ' months, ' + days + ' days' 
+                              : days + ' days';
+    
+    document.getElementById('mainDiff').textContent = mainText;
+    document.getElementById('yearsDiff').textContent = years;
+    document.getElementById('monthsDiff').textContent = months;
+    document.getElementById('daysDiff').textContent = days;
+    document.getElementById('weeksDiff').textContent = totalWeeks;
+    document.getElementById('hoursDiff').textContent = totalHours;
+    document.getElementById('minutesDiff').textContent = totalMinutes;
+    document.getElementById('resultCard').style.display = 'block';
+}
+</script>
+</body>
+</html>
