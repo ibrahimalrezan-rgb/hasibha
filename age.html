@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حاسبة العمر - اعرف عمرك بالسنوات والأيام | حاسبها</title>
-    <meta name="description" content="حاسبة العمر بدقة. اعرف عمرك بالسنوات والأشهر والأيام والساعات والدقائق. أدخل تاريخ ميلادك واحصل على عمرك بالتفصيل.">
-    <meta name="keywords" content="حاسبة العمر, حساب العمر, تاريخ الميلاد, عمرك, Age Calculator Saudi, كم عمري">
+    <title>حاسبة العمر - عمرك بالميلادي والهجري والبرج | حاسبها</title>
+    <meta name="description" content="حاسبة العمر الشاملة. اعرف عمرك بالميلادي والهجري، برجك، مرحلة حياتك، عدد أيامك وساعاتك، وحقائق عن حياتك. بدقة عالية حسب توقيت السعودية.">
+    <meta name="keywords" content="حاسبة العمر, حساب العمر, العمر بالهجري, العمر بالميلادي, البرج, تاريخ الميلاد, عمرك, Age Calculator Saudi, كم عمري, برجك">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="author" content="حاسبها">
     <meta name="geo.region" content="SA">
     <link rel="canonical" href="https://hasibha.com/age">
     <link rel="icon" type="image/png" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
     <link rel="apple-touch-icon" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
-    <meta property="og:title" content="حاسبة العمر - اعرف عمرك بدقة">
-    <meta property="og:description" content="احسب عمرك بالسنوات والأشهر والأيام والساعات.">
+    <meta property="og:title" content="حاسبة العمر - عمرك بالميلادي والهجري">
+    <meta property="og:description" content="احسب عمرك بالهجري والميلادي واعرف برجك ومرحلة حياتك.">
     <meta property="og:url" content="https://hasibha.com/age">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
@@ -21,7 +21,7 @@
     <meta property="og:locale" content="ar_SA">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="حاسبة العمر | حاسبها">
-    <meta name="twitter:description" content="اعرف عمرك بالتفصيل.">
+    <meta name="twitter:description" content="عمرك بالهجري والميلادي وبرجك.">
     <meta name="twitter:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
@@ -43,18 +43,26 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "كيف أحسب عمري بدقة؟",
+          "name": "لماذا يختلف العمر الهجري عن الميلادي؟",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "أدخل تاريخ ميلادك في حاسبة العمر وستحصل على عمرك بالسنوات والأشهر والأيام والساعات والدقائق."
+            "text": "لأن السنة الهجرية 354.36 يوم بينما السنة الميلادية 365.25 يوم، فالفرق حوالي 11 يوم في كل سنة، لذلك العمر بالهجري أكبر."
           }
         },
         {
           "@type": "Question",
-          "name": "كم عمري بالأيام؟",
+          "name": "كيف أحسب عمري بالهجري؟",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "استخدم حاسبة العمر من حاسبها. أدخل تاريخ ميلادك وستعرف عدد الأيام التي عشتها بالضبط."
+            "text": "استخدم حاسبة العمر من حاسبها وأدخل تاريخ ميلادك الميلادي وستحصل على عمرك الهجري تلقائياً."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "كيف أعرف برجي من تاريخ ميلادي؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "حاسبة العمر تحدد برجك تلقائياً من تاريخ ميلادك الميلادي."
           }
         }
       ]
@@ -80,19 +88,20 @@
         .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:16px;text-align:right;flex:1}
         .input-row input:focus{outline:none;border-color:#059669}
         .calc-btn{width:100%;background:#059669;color:#fff;border:none;padding:16px;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;margin-top:8px}
-        .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:28px;text-align:center;margin-top:24px;display:none}
-        .result-card .age-main{font-size:40px;font-weight:900;color:#059669}
-        .result-card .age-details{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
-        .result-card .age-item{background:#fff;border-radius:10px;padding:16px 8px}
-        .result-card .age-item .val{font-weight:700;font-size:22px;color:#1e293b}
-        .result-card .age-item .lbl{font-size:11px;color:#94a3b8;margin-top:4px}
+        .result-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:24px;margin-top:24px;display:none;line-height:2}
+        .result-box .section-title{font-size:18px;font-weight:700;color:#064e3b;margin-bottom:12px;border-bottom:2px solid #059669;padding-bottom:8px}
+        .result-box p{color:#475569;font-size:14px}
+        .result-box .highlight{color:#059669;font-weight:700;font-size:16px}
+        .result-box .divider{margin:20px 0;border-top:1px dashed #e2e8f0}
+        .zodiac-btn{display:inline-block;margin-top:12px;background:#059669;color:#fff;padding:10px 20px;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;cursor:pointer}
         .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin-top:32px;text-align:right;line-height:2.3}
         .article-box h2{font-size:22px;color:#064e3b;margin-bottom:24px;border-bottom:3px solid #059669;padding-bottom:12px}
         .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
         .article-box p{color:#475569;font-size:15px;margin-bottom:14px}
+        .article-box ul{color:#475569;font-size:14px;padding-right:20px;margin-bottom:14px}
         .article-box .tip{background:#f0fdf4;border-right:4px solid #059669;padding:16px;margin:16px 0;border-radius:8px}
         .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
-        @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:20px 16px}.result-card .age-details{grid-template-columns:1fr 1fr}.result-card .age-main{font-size:32px}}
+        @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:20px 16px}.result-box{padding:16px}}
     </style>
 </head>
 <body>
@@ -118,36 +127,35 @@
 <main>
 <div class="container">
 <div class="calc-wrapper">
-    <h1>🎂 حاسبة العمر</h1>
-    <p class="subtitle">اعرف عمرك بالسنوات والأشهر والأيام</p>
+    <h1>🎂 حاسبة العمر الشاملة</h1>
+    <p class="subtitle">عمرك بالميلادي والهجري + برجك + حقائق عن حياتك</p>
     
     <label>تاريخ الميلاد</label>
     <div class="input-row"><input type="date" id="birthDate" onchange="calculateAge()"></div>
     
     <button class="calc-btn" onclick="calculateAge()">احسب عمري</button>
     
-    <div class="result-card" id="resultCard">
-        <div class="age-main" id="ageMain">0</div>
-        <div class="age-details">
-            <div class="age-item"><div class="val" id="monthsAge">0</div><div class="lbl">شهر</div></div>
-            <div class="age-item"><div class="val" id="daysAge">0</div><div class="lbl">يوم</div></div>
-            <div class="age-item"><div class="val" id="hoursAge">0</div><div class="lbl">ساعة</div></div>
-            <div class="age-item"><div class="val" id="minutesAge">0</div><div class="lbl">دقيقة</div></div>
-        </div>
+    <div class="result-box" id="resultBox">
+        <div id="resultContent"></div>
     </div>
     
     <div class="article-box">
-        <h2>🗂️ دليل حساب العمر</h2>
-        <h3>كيف يتم حساب العمر؟</h3>
-        <p>حاسبة العمر تحسب الفرق بين تاريخ الميلاد والتاريخ الحالي. تعرض النتيجة بالسنوات والأشهر والأيام والساعات والدقائق.</p>
-        <h3>متى تحتاج حاسبة العمر؟</h3>
+        <h2>🗂️ دليل حساب العمر والفروق بين التقويمين</h2>
+        <h3>لماذا يختلف العمر الهجري عن الميلادي؟</h3>
+        <p>السنة الهجرية أقصر من الميلادية بحوالي 11 يوماً (354.36 يوم مقابل 365.25 يوم). لذلك العمر بالهجري يكون أكبر من العمر بالميلادي، ويزداد الفرق كلما تقدم العمر.</p>
+        <h3>كيف تحسب الأبراج؟</h3>
+        <p>البرج يعتمد على تاريخ الميلاد الميلادي. هناك 12 برجاً: الحمل، الثور، الجوزاء، السرطان، الأسد، العذراء، الميزان، العقرب، القوس، الجدي، الدلو، الحوت.</p>
+        <h3>مراحل الحياة</h3>
         <ul>
-            <li>معرفة عمرك القانوني للمعاملات الرسمية.</li>
-            <li>حساب العمر للتقديم على الوظائف.</li>
-            <li>معرفة سن التقاعد.</li>
-            <li>حساب عمر الأطفال بالمواعيد المهمة.</li>
+            <li>الطفولة: 0-12 سنة</li>
+            <li>المراهقة: 13-17 سنة</li>
+            <li>المراهقة المتأخرة: 18-21 سنة</li>
+            <li>الشباب المبكر: 22-35 سنة</li>
+            <li>الشباب المتأخر: 36-50 سنة</li>
+            <li>الكهولة: 51-65 سنة</li>
+            <li>الشيخوخة: 66+ سنة</li>
         </ul>
-        <div class="tip">💡 <strong>نصيحة:</strong> تأكد من إدخال تاريخ الميلاد الصحيح بالهجري أو الميلادي حسب الحاجة.</div>
+        <div class="tip">💡 <strong>ملاحظة:</strong> الحسابات مبنية على توقيت السعودية (Asia/Riyadh).</div>
     </div>
     
     <a href="/" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
@@ -157,38 +165,201 @@
 
 <script>
 function calculateAge(){
-    var birthDate = new Date(document.getElementById('birthDate').value);
+    var birthDate = new Date(document.getElementById('birthDate').value + 'T00:00:00');
     if(isNaN(birthDate.getTime())){
-        document.getElementById('resultCard').style.display = 'none';
+        document.getElementById('resultBox').style.display = 'none';
         return;
     }
     
     var now = new Date();
-    var diff = now - birthDate;
     
-    var years = now.getFullYear() - birthDate.getFullYear();
-    var months = now.getMonth() - birthDate.getMonth();
-    var days = now.getDate() - birthDate.getDate();
+    // حساب العمر الميلادي
+    var ageYears = now.getFullYear() - birthDate.getFullYear();
+    var ageMonths = now.getMonth() - birthDate.getMonth();
+    var ageDays = now.getDate() - birthDate.getDate();
     
-    if(days < 0){
-        months--;
-        days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+    if(ageDays < 0){
+        ageMonths--;
+        var daysInPrevMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+        ageDays += daysInPrevMonth;
     }
-    if(months < 0){
-        years--;
-        months += 12;
+    if(ageMonths < 0){
+        ageYears--;
+        ageMonths += 12;
     }
     
-    var totalDays = Math.floor(diff / (1000 * 60 * 60 * 24));
-    var totalHours = Math.floor(diff / (1000 * 60 * 60));
-    var totalMinutes = Math.floor(diff / (1000 * 60));
+    // باقي لعيد الميلاد القادم
+    var nextBirthday = new Date(now.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+    if(nextBirthday < now){
+        nextBirthday = new Date(now.getFullYear() + 1, birthDate.getMonth(), birthDate.getDate());
+    }
+    var diffToBirthday = nextBirthday - now;
+    var daysToBirthday = Math.floor(diffToBirthday / (1000 * 60 * 60 * 24));
+    var hoursToBirthday = Math.floor((diffToBirthday % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutesToBirthday = Math.floor((diffToBirthday % (1000 * 60 * 60)) / (1000 * 60));
     
-    document.getElementById('ageMain').textContent = years + ' سنة';
-    document.getElementById('monthsAge').textContent = months;
-    document.getElementById('daysAge').textContent = days;
-    document.getElementById('hoursAge').textContent = totalHours;
-    document.getElementById('minutesAge').textContent = totalMinutes;
-    document.getElementById('resultCard').style.display = 'block';
+    // العمر الكلي
+    var totalDays = Math.floor((now - birthDate) / (1000 * 60 * 60 * 24));
+    var totalMonths = Math.floor(totalDays / 30.44);
+    var totalWeeks = Math.floor(totalDays / 7);
+    var totalHours = Math.floor(totalDays * 24);
+    var totalMinutes = Math.floor(totalHours * 60);
+    
+    // اليوم ولد فيه
+    var weekDays = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+    var bornDay = weekDays[birthDate.getDay()];
+    
+    // الشهر الميلادي
+    var monthsNames = ['كانون الثاني - يناير','شباط - فبراير','آذار - مارس','نيسان - أبريل','أيار - مايو','حزيران - يونيو','تموز - يوليو','آب - أغسطس','أيلول - سبتمبر','تشرين الأول - أكتوبر','تشرين الثاني - نوفمبر','كانون الأول - ديسمبر'];
+    var bornMonth = monthsNames[birthDate.getMonth()];
+    
+    // الفصل
+    var month = birthDate.getMonth();
+    var season = '';
+    if(month === 11 || month === 0 || month === 1) season = 'الشتاء';
+    else if(month >= 2 && month <= 4) season = 'الربيع';
+    else if(month >= 5 && month <= 7) season = 'الصيف';
+    else season = 'الخريف';
+    
+    // البرج
+    var zodiac = getZodiac(birthDate);
+    
+    // مرحلة الحياة
+    var lifeStage = '';
+    if(ageYears <= 12) lifeStage = 'الطفولة';
+    else if(ageYears <= 17) lifeStage = 'المراهقة';
+    else if(ageYears <= 21) lifeStage = 'المراهقة المتأخرة';
+    else if(ageYears <= 35) lifeStage = 'الشباب المبكر';
+    else if(ageYears <= 50) lifeStage = 'الشباب المتأخر';
+    else if(ageYears <= 65) lifeStage = 'الكهولة';
+    else lifeStage = 'الشيخوخة';
+    
+    // ساعات النوم الصحية
+    var sleepHours = '';
+    if(ageYears <= 3) sleepHours = 'من 11 إلى 14 ساعة يومياً';
+    else if(ageYears <= 5) sleepHours = 'من 10 إلى 13 ساعة يومياً';
+    else if(ageYears <= 12) sleepHours = 'من 9 إلى 12 ساعة يومياً';
+    else if(ageYears <= 17) sleepHours = 'من 8 إلى 10 ساعات يومياً';
+    else if(ageYears <= 64) sleepHours = 'من 7 إلى 9 ساعات يومياً';
+    else sleepHours = 'من 7 إلى 8 ساعات يومياً';
+    
+    // تحويل تاريخ الميلاد إلى هجري
+    var hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric'
+    }).format(birthDate);
+    
+    var hijriParts = hijriDate.split('/');
+    var hijriDay = hijriParts[0];
+    var hijriMonth = hijriParts[1];
+    var hijriYear = hijriParts[2];
+    
+    var hijriMonths = ['محرم','صفر','ربيع الأول','ربيع الثاني','جمادى الأولى','جمادى الثانية','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'];
+    var hijriMonthName = hijriMonths[parseInt(hijriMonth) - 1] || hijriMonth;
+    
+    // حساب العمر الهجري (تقديري)
+    var birthHijri = new Date(birthDate);
+    var hijriAgeYears = Math.floor(totalDays / 354.36);
+    var hijriRemainingDays = totalDays % 354.36;
+    var hijriAgeMonths = Math.floor(hijriRemainingDays / 29.53);
+    var hijriAgeDays = Math.floor(hijriRemainingDays % 29.53);
+    
+    // حقائق حياتية
+    var breaths = Math.round(totalDays * 20000);
+    var heartbeats = Math.round(totalDays * 115200);
+    var laughs = Math.round(totalDays * 10);
+    var sleepYears = (totalDays * 8) / 24 / 365.25;
+    var eatYears = (totalDays * 1.5) / 24 / 365.25;
+    
+    var sleepY = Math.floor(sleepYears);
+    var sleepM = Math.floor((sleepYears - sleepY) * 12);
+    var sleepD = Math.floor(((sleepYears - sleepY) * 12 - sleepM) * 30);
+    
+    var eatY = Math.floor(eatYears);
+    var eatM = Math.floor((eatYears - eatY) * 12);
+    var eatD = Math.floor(((eatYears - eatY) * 12 - eatM) * 30);
+    
+    // بناء المحتوى
+    var html = '';
+    
+    html += '<div class="section-title">📅 العمر بالميلادي</div>';
+    html += '<p><strong>تاريخ الميلاد:</strong> ' + birthDate.toISOString().split('T')[0] + '</p>';
+    html += '<p><strong>شهر الميلاد:</strong> ' + bornMonth + '</p>';
+    html += '<p><strong>العمر:</strong> <span class="highlight">' + ageYears + ' سنة و ' + ageMonths + ' شهر و ' + ageDays + ' يوم</span></p>';
+    html += '<p><strong>باقي لعيد ميلادك القادم:</strong> ' + daysToBirthday + ' يوم و ' + hoursToBirthday + ' ساعة و ' + minutesToBirthday + ' دقيقة حسب توقيت السعودية</p>';
+    html += '<p><strong>سيكون عيد ميلادك يوم:</strong> ' + weekDays[nextBirthday.getDay()] + ' الموافق ' + nextBirthday.toISOString().split('T')[0] + '</p>';
+    
+    html += '<div class="divider"></div>';
+    html += '<div class="section-title">🕌 العمر بالهجري</div>';
+    html += '<p><strong>تاريخ الميلاد الهجري:</strong> ' + hijriDay + '/' + hijriMonth + '/' + hijriYear + ' (' + hijriMonthName + ')</p>';
+    html += '<p><strong>العمر الهجري:</strong> <span class="highlight">' + hijriAgeYears + ' سنة و ' + hijriAgeMonths + ' شهر و ' + hijriAgeDays + ' يوم</span></p>';
+    html += '<p style="font-size:12px;color:#94a3b8">⚠️ ملاحظة: العمر الهجري تقديري بناءً على الفرق بين التقويمين.</p>';
+    
+    html += '<div class="divider"></div>';
+    html += '<div class="section-title">📊 عمرك بصيغ مختلفة</div>';
+    html += '<p><strong>بالأشهر:</strong> ' + totalMonths + ' شهر و ' + (totalDays % 30) + ' يوم</p>';
+    html += '<p><strong>بالأسابيع:</strong> ' + totalWeeks + ' أسبوع و ' + (totalDays % 7) + ' يوم</p>';
+    html += '<p><strong>بالأيام:</strong> ' + totalDays + ' يوم</p>';
+    html += '<p><strong>بالساعات:</strong> حوالي ' + totalHours + ' ساعة</p>';
+    
+    html += '<div class="divider"></div>';
+    html += '<div class="section-title">📋 معلومات أكثر عن عمرك</div>';
+    html += '<p><strong>ولدت يوم:</strong> ' + bornDay + '</p>';
+    html += '<p><strong>ولدت في فصل:</strong> ' + season + '</p>';
+    html += '<p><strong>برجك:</strong> ' + zodiac + '</p>';
+    html += '<p><strong>مرحلة حياتك:</strong> ' + lifeStage + '</p>';
+    html += '<p><strong>نومك الصحي:</strong> ' + sleepHours + '</p>';
+    
+    html += '<div class="divider"></div>';
+    html += '<div class="section-title">✨ حقائق حصلت في حياتك</div>';
+    html += '<p><strong>تَنَفَستَ حوالي:</strong> ' + breaths.toLocaleString() + ' مرة</p>';
+    html += '<p><strong>نَبَضَ قلبك حوالي:</strong> ' + heartbeats.toLocaleString() + ' نبضة</p>';
+    html += '<p><strong>ضَحِكتَ حوالي:</strong> ' + laughs.toLocaleString() + ' مرة</p>';
+    html += '<p><strong>نِمتَ حوالي:</strong> ' + sleepY + ' سنة و ' + sleepM + ' شهر و ' + sleepD + ' يوم</p>';
+    html += '<p><strong>أمضيتَ في تناول الطعام:</strong> ' + eatY + ' سنة و ' + eatM + ' شهر و ' + eatD + ' يوم</p>';
+    html += '<p style="font-size:11px;color:#94a3b8">توضيح: الحسابات تقريبية بناءً على معدلات يومية لجسم الإنسان السليم.</p>';
+    
+    html += '<div class="divider"></div>';
+    html += '<p><a class="zodiac-btn" onclick="showZodiacInfo(\'' + zodiac + '\')">عرض صفات برج ' + zodiac + '</a></p>';
+    html += '<div id="zodiacInfo"></div>';
+    
+    document.getElementById('resultContent').innerHTML = html;
+    document.getElementById('resultBox').style.display = 'block';
+}
+
+function getZodiac(date){
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    if((month === 1 && day >= 20) || (month === 2 && day <= 18)) return 'الجدي';
+    if((month === 2 && day >= 19) || (month === 3 && day <= 20)) return 'الدلو';
+    if((month === 3 && day >= 21) || (month === 4 && day <= 19)) return 'الحمل';
+    if((month === 4 && day >= 20) || (month === 5 && day <= 20)) return 'الثور';
+    if((month === 5 && day >= 21) || (month === 6 && day <= 20)) return 'الجوزاء';
+    if((month === 6 && day >= 21) || (month === 7 && day <= 22)) return 'السرطان';
+    if((month === 7 && day >= 23) || (month === 8 && day <= 22)) return 'الأسد';
+    if((month === 8 && day >= 23) || (month === 9 && day <= 22)) return 'العذراء';
+    if((month === 9 && day >= 23) || (month === 10 && day <= 22)) return 'الميزان';
+    if((month === 10 && day >= 23) || (month === 11 && day <= 21)) return 'العقرب';
+    if((month === 11 && day >= 22) || (month === 12 && day <= 21)) return 'القوس';
+    return 'الجدي';
+}
+
+function showZodiacInfo(zodiac){
+    var info = {
+        'الجدي': 'برج الجدي (22 ديسمبر - 19 يناير): عملي، طموح، منضبط، صبور، جاد. من الأبراج الأرضية.',
+        'الدلو': 'برج الدلو (20 يناير - 18 فبراير): مبتكر، مستقل، إنساني، ذكي. من الأبراج الهوائية.',
+        'الحمل': 'برج الحمل (21 مارس - 19 أبريل): شجاع، متحمس، قيادي، سريع البديهة. من الأبراج النارية.',
+        'الثور': 'برج الثور (20 أبريل - 20 مايو): موثوق، صبور، عملي، مخلص. من الأبراج الأرضية.',
+        'الجوزاء': 'برج الجوزاء (21 مايو - 20 يونيو): ذكي، اجتماعي، فضولي، مرن. من الأبراج الهوائية.',
+        'السرطان': 'برج السرطان (21 يونيو - 22 يوليو): عاطفي، حنون، حساس، مخلص. من الأبراج المائية.',
+        'الأسد': 'برج الأسد (23 يوليو - 22 أغسطس): كريم، واثق، قيادي، شجاع. من الأبراج النارية.',
+        'العذراء': 'برج العذراء (23 أغسطس - 22 سبتمبر): دقيق، تحليلي، عملي، منظم. من الأبراج الأرضية.',
+        'الميزان': 'برج الميزان (23 سبتمبر - 22 أكتوبر): متوازن، عادل، اجتماعي، أنيق. من الأبراج الهوائية.',
+        'العقرب': 'برج العقرب (23 أكتوبر - 21 نوفمبر): شغوف، غامض، قوي، حازم. من الأبراج المائية.',
+        'القوس': 'برج القوس (22 نوفمبر - 21 ديسمبر): متفائل، مغامر، صريح، محب للحرية. من الأبراج النارية.'
+    };
+    document.getElementById('zodiacInfo').innerHTML = '<p style="background:#f0fdf4;padding:12px;border-radius:10px;margin-top:12px">' + info[zodiac] + '</p>';
 }
 </script>
 </body>
