@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!-- ============================================================
-  حاسبها — الصفحة الرئيسية (النسخة الجديدة)
-  ملف واحد جاهز: HTML + CSS + JS — انسخه محل index.html القديم
-  ============================================================ -->
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -16,7 +12,7 @@
 <meta name="author" content="hasibha">
 <link rel="canonical" href="https://hasibha.com/">
 <link rel="alternate" hreflang="ar" href="https://hasibha.com/">
-<link rel="alternate" hreflang="en" href="https://hasibha.com/en/">
+<link rel="alternate" hreflang="en" href="https://hasibha.com/index-en">
 <link rel="alternate" hreflang="x-default" href="https://hasibha.com/">
 
 <!-- ============ Open Graph / Twitter ============ -->
@@ -26,14 +22,17 @@
 <meta property="og:title" content="حاسبها | حاسبات مالية وصحية مجانية للسوق السعودي">
 <meta property="og:description" content="15+ حاسبة دقيقة ومجانية مصممة للسوق السعودي: تمويل، نهاية خدمة، ضريبة، تحويلات، صحة وغيرها — نتائج فورية بدون تسجيل.">
 <meta property="og:url" content="https://hasibha.com/">
-<meta property="og:image" content="https://hasibha.com/og-cover.jpg">
+<meta property="og:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="حاسبها | حاسبات مالية وصحية مجانية للسوق السعودي">
 <meta name="twitter:description" content="احسبها صح في ثوانٍ — تمويل عقاري، نهاية خدمة، ضريبة القيمة المضافة وأكثر.">
-<meta name="twitter:image" content="https://hasibha.com/og-cover.jpg">
+<meta name="twitter:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
 <meta name="theme-color" content="#0b0d10">
+
+<link rel="icon" type="image/png" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+<link rel="apple-touch-icon" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
 
 <!-- ============ بيانات منظمة JSON-LD ============ -->
 <script type="application/ld+json">
@@ -59,7 +58,7 @@
       "@id": "https://hasibha.com/#org",
       "name": "حاسبها",
       "url": "https://hasibha.com/",
-      "logo": { "@type": "ImageObject", "url": "https://hasibha.com/logo.png", "width": 512, "height": 512 },
+      "logo": { "@type": "ImageObject", "url": "https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png", "width": 512, "height": 512 },
       "areaServed": { "@type": "Country", "name": "Saudi Arabia" }
     },
     {
@@ -67,21 +66,21 @@
       "@id": "https://hasibha.com/#list",
       "name": "حاسبات حاسبها",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1,  "item": { "@type": "WebApplication", "name": "حاسبة التمويل العقاري",      "url": "https://hasibha.com/حاسبة-التمويل-العقاري/",      "applicationCategory": "FinanceApplication", "operatingSystem": "Any" } },
-        { "@type": "ListItem", "position": 2,  "item": { "@type": "WebApplication", "name": "حاسبة التمويل الشخصي",       "url": "https://hasibha.com/حاسبة-التمويل-الشخصي/",       "applicationCategory": "FinanceApplication", "operatingSystem": "Any" } },
-        { "@type": "ListItem", "position": 3,  "item": { "@type": "WebApplication", "name": "حاسبة نهاية الخدمة",         "url": "https://hasibha.com/حاسبة-نهاية-الخدمة/",         "applicationCategory": "FinanceApplication", "operatingSystem": "Any" } },
-        { "@type": "ListItem", "position": 4,  "item": { "@type": "WebApplication", "name": "حاسبة ضريبة القيمة المضافة", "url": "https://hasibha.com/حاسبة-ضريبة-القيمة-المضافة/", "applicationCategory": "FinanceApplication", "operatingSystem": "Any" } },
-        { "@type": "ListItem", "position": 5,  "item": { "@type": "WebApplication", "name": "حاسبة الراتب بعد التأمينات", "url": "https://hasibha.com/حاسبة-الراتب-بعد-التأمينات/", "applicationCategory": "FinanceApplication", "operatingSystem": "Any" } },
-        { "@type": "ListItem", "position": 6,  "item": { "@type": "WebApplication", "name": "تحويل العملات",              "url": "https://hasibha.com/تحويل-العملات/",              "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any" } },
-        { "@type": "ListItem", "position": 7,  "item": { "@type": "WebApplication", "name": "تحويل الطول",                "url": "https://hasibha.com/تحويل-الطول/",                "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any" } },
-        { "@type": "ListItem", "position": 8,  "item": { "@type": "WebApplication", "name": "تحويل الوزن",                "url": "https://hasibha.com/تحويل-الوزن/",                "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any" } },
-        { "@type": "ListItem", "position": 9,  "item": { "@type": "WebApplication", "name": "تحويل المساحة",              "url": "https://hasibha.com/تحويل-المساحة/",              "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any" } },
-        { "@type": "ListItem", "position": 10, "item": { "@type": "WebApplication", "name": "حاسبة مؤشر كتلة الجسم BMI",  "url": "https://hasibha.com/حاسبة-bmi/",                  "applicationCategory": "HealthApplication", "operatingSystem": "Any" } },
-        { "@type": "ListItem", "position": 11, "item": { "@type": "WebApplication", "name": "حاسبة السعرات الحرارية",     "url": "https://hasibha.com/حاسبة-السعرات-الحرارية/",     "applicationCategory": "HealthApplication", "operatingSystem": "Any" } },
-        { "@type": "ListItem", "position": 12, "item": { "@type": "WebApplication", "name": "حاسبة احتياج الماء",         "url": "https://hasibha.com/حاسبة-احتياج-الماء/",         "applicationCategory": "HealthApplication", "operatingSystem": "Any" } },
-        { "@type": "ListItem", "position": 13, "item": { "@type": "WebApplication", "name": "حاسبة العمر",                "url": "https://hasibha.com/حاسبة-العمر/",                "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any" } },
-        { "@type": "ListItem", "position": 14, "item": { "@type": "WebApplication", "name": "حاسبة نسبة الخصم",           "url": "https://hasibha.com/حاسبة-نسبة-الخصم/",           "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any" } },
-        { "@type": "ListItem", "position": 15, "item": { "@type": "WebApplication", "name": "حاسبة الوقت بين تاريخين",    "url": "https://hasibha.com/الوقت-بين-تاريخين/",          "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any" } }
+        { "@type": "ListItem", "position": 1,  "item": { "@type": "WebApplication", "name": "حاسبة التمويل العقاري",      "url": "https://hasibha.com/mortgage",      "applicationCategory": "FinanceApplication", "operatingSystem": "Any" } },
+        { "@type": "ListItem", "position": 2,  "item": { "@type": "WebApplication", "name": "حاسبة التمويل الشخصي",       "url": "https://hasibha.com/personal-loan", "applicationCategory": "FinanceApplication", "operatingSystem": "Any" } },
+        { "@type": "ListItem", "position": 3,  "item": { "@type": "WebApplication", "name": "حاسبة نهاية الخدمة",         "url": "https://hasibha.com/eos",           "applicationCategory": "FinanceApplication", "operatingSystem": "Any" } },
+        { "@type": "ListItem", "position": 4,  "item": { "@type": "WebApplication", "name": "حاسبة ضريبة القيمة المضافة", "url": "https://hasibha.com/vat",           "applicationCategory": "FinanceApplication", "operatingSystem": "Any" } },
+        { "@type": "ListItem", "position": 5,  "item": { "@type": "WebApplication", "name": "حاسبة الراتب بعد التأمينات", "url": "https://hasibha.com/salary",        "applicationCategory": "FinanceApplication", "operatingSystem": "Any" } },
+        { "@type": "ListItem", "position": 6,  "item": { "@type": "WebApplication", "name": "تحويل العملات",              "url": "https://hasibha.com/currency",      "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any" } },
+        { "@type": "ListItem", "position": 7,  "item": { "@type": "WebApplication", "name": "تحويل الطول",                "url": "https://hasibha.com/length",        "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any" } },
+        { "@type": "ListItem", "position": 8,  "item": { "@type": "WebApplication", "name": "تحويل الوزن",                "url": "https://hasibha.com/weight",        "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any" } },
+        { "@type": "ListItem", "position": 9,  "item": { "@type": "WebApplication", "name": "تحويل المساحة",              "url": "https://hasibha.com/area",          "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any" } },
+        { "@type": "ListItem", "position": 10, "item": { "@type": "WebApplication", "name": "حاسبة مؤشر كتلة الجسم BMI",  "url": "https://hasibha.com/bmi",           "applicationCategory": "HealthApplication", "operatingSystem": "Any" } },
+        { "@type": "ListItem", "position": 11, "item": { "@type": "WebApplication", "name": "حاسبة السعرات الحرارية",     "url": "https://hasibha.com/calorie",       "applicationCategory": "HealthApplication", "operatingSystem": "Any" } },
+        { "@type": "ListItem", "position": 12, "item": { "@type": "WebApplication", "name": "حاسبة احتياج الماء",         "url": "https://hasibha.com/water",         "applicationCategory": "HealthApplication", "operatingSystem": "Any" } },
+        { "@type": "ListItem", "position": 13, "item": { "@type": "WebApplication", "name": "حاسبة العمر",                "url": "https://hasibha.com/age",           "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any" } },
+        { "@type": "ListItem", "position": 14, "item": { "@type": "WebApplication", "name": "حاسبة نسبة الخصم",           "url": "https://hasibha.com/discount",      "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any" } },
+        { "@type": "ListItem", "position": 15, "item": { "@type": "WebApplication", "name": "حاسبة الوقت بين تاريخين",    "url": "https://hasibha.com/date-diff",     "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any" } }
       ]
     },
     {
@@ -91,245 +90,17 @@
         { "@type": "Question", "name": "هل حاسبات حاسبها مجانية؟", "acceptedAnswer": { "@type": "Answer", "text": "نعم، جميع الحاسبات في حاسبها مجانية 100% وبدون تسجيل أو اشتراك." } },
         { "@type": "Question", "name": "هل يتم حفظ بياناتي؟", "acceptedAnswer": { "@type": "Answer", "text": "لا. جميع الحسابات تتم داخل متصفحك بالكامل ولا يتم إرسال أو تخزين أي من بياناتك الشخصية على خوادمنا." } },
         { "@type": "Question", "name": "هل الحاسبات مخصصة للسوق السعودي؟", "acceptedAnswer": { "@type": "Answer", "text": "نعم، صممت الحاسبات المالية وفق الأنظمة السعودية مثل نسب التمويل، خصم التأمينات (GOSI)، ونظام حساب مكافأة نهاية الخدمة." } },
-        { "@type": "Question", "name": "كيف يتم حساب قسط التمويل العقاري؟", "acceptedAnswer": { "@type": "Answer", "text": "نعتمد المعادلة القياسية لأقساط القروض المعاد تمويلها (القسط التمويلي)، مع مراعاة نسبة الاستقطاع ومدة التمويل المعتمدة في المملكة." } }
+        { "@type": "Question", "name": "كيف يتم حساب قسط التمويل العقاري؟", "acceptedAnswer": { "@type": "Answer", "text": "نعتمد المعادلة القياسية لأقساط القروض المعاد تمويلها، مع مراعاة نسبة الاستقطاع ومدة التمويل المعتمدة في المملكة." } }
       ]
     }
   ]
 }
 </script>
 
-<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="%230b0d10"/><text x="32" y="44" font-size="34" text-anchor="middle" fill="white" font-family="sans-serif">ح</text></svg>'>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
 
-<style>
-/* ============ متغيرات التصميم (فاتح) ============ */
-:root{
-  --bg:#ffffff;
-  --surface:#ffffff;
-  --surface-muted:#f6f7f8;
-  --text:#0b0d10;
-  --text-2:#4b5563;
-  --text-3:#8b95a1;
-  --border:#e6e8eb;
-  --brand:#0b0d10;            /* الأزرار الرئيسية */
-  --on-brand:#ffffff;
-  --c-fin:#2563eb;            /* أزرق مالي */
-  --c-fin-bg:#eaf1fe;
-  --c-conv:#7c3aed;           /* بنفسجي تحويلات */
-  --c-conv-bg:#f2ecfd;
-  --c-health:#059669;         /* أخضر صحة */
-  --c-health-bg:#e8f6f0;
-  --c-gen:#475569;            /* رمادي عامة */
-  --c-gen-bg:#eef0f3;
-  --radius:12px;
-  --shadow:0 1px 2px rgba(11,13,16,.05);
-  --maxw:1060px;
-}
-/* ============ وضع ليلي ============ */
-[data-theme="dark"]{
-  --bg:#0e1116;
-  --surface:#161a21;
-  --surface-muted:#12151b;
-  --text:#f3f4f6;
-  --text-2:#aab3bf;
-  --text-3:#6b7480;
-  --border:#262c36;
-  --brand:#f3f4f6;
-  --on-brand:#0b0d10;
-  --c-fin-bg:rgba(37,99,235,.16);
-  --c-conv-bg:rgba(124,58,237,.16);
-  --c-health-bg:rgba(5,150,105,.16);
-  --c-gen-bg:rgba(148,163,184,.14);
-  --shadow:none;
-}
-/* ============ أساسيات ============ */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:"Segoe UI",Tahoma,"Noto Kufi Arabic","Helvetica Neue",Arial,sans-serif;
-  background:var(--bg);color:var(--text);
-  line-height:1.7;-webkit-font-smoothing:antialiased;
-}
-a{color:inherit;text-decoration:none}
-button{font:inherit;cursor:pointer;background:none;border:0;color:inherit}
-svg{display:block}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
-:focus-visible{outline:2px solid var(--c-fin);outline-offset:2px;border-radius:4px}
-
-/* ============ الهيدر ============ */
-.site-header{
-  position:sticky;top:0;z-index:50;
-  background:color-mix(in srgb,var(--bg) 86%,transparent);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--border);
-}
-.header-in{display:flex;align-items:center;gap:20px;height:60px}
-.logo{display:flex;align-items:center;gap:8px;font-size:20px;font-weight:700}
-.logo-mark{
-  width:34px;height:34px;border-radius:9px;flex:none;
-  background:var(--brand);color:var(--on-brand);
-  display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;
-}
-.main-nav{display:flex;gap:4px;margin-inline-start:8px}
-.main-nav a{
-  padding:6px 12px;border-radius:8px;font-size:14px;color:var(--text-2);
-  transition:.15s;
-}
-.main-nav a:hover{background:var(--surface-muted);color:var(--text)}
-.header-actions{margin-inline-start:auto;display:flex;align-items:center;gap:8px}
-.lang-btn,.theme-btn{
-  border:1px solid var(--border);border-radius:8px;padding:6px 12px;
-  font-size:13px;color:var(--text);background:var(--surface);
-  transition:.15s;
-}
-.lang-btn:hover,.theme-btn:hover{border-color:var(--text)}
-.theme-btn{width:34px;height:34px;padding:0;display:flex;align-items:center;justify-content:center}
-.nav-toggle{display:none}
-
-/* ============ الواجهة الرئيسية Hero ============ */
-.hero{padding:72px 0 48px;text-align:center}
-.badge{
-  display:inline-flex;align-items:center;gap:6px;
-  border:1px solid var(--border);border-radius:999px;
-  padding:4px 14px;font-size:12.5px;color:var(--text-2);
-  background:var(--surface);
-}
-.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--c-health)}
-.hero h1{font-size:clamp(30px,5.4vw,48px);font-weight:800;line-height:1.25;margin:18px 0 10px;letter-spacing:0}
-.hero .lead{color:var(--text-2);font-size:17px;max-width:560px;margin:0 auto 28px}
-
-/* شريط البحث */
-.searchbox{
-  display:flex;align-items:center;gap:8px;max-width:580px;margin:0 auto;
-  background:var(--surface);border:1.5px solid var(--border);border-radius:14px;
-  padding:6px 6px 6px 18px;box-shadow:var(--shadow);
-  transition:border-color .15s;
-}
-.searchbox:focus-within{border-color:var(--text)}
-.searchbox svg{flex:none;color:var(--text-3)}
-.searchbox input{
-  flex:1;border:0;outline:0;background:transparent;font-size:15.5px;
-  color:var(--text);padding:10px 0;min-width:0;
-}
-.searchbox input::placeholder{color:var(--text-3)}
-.search-go{
-  background:var(--brand);color:var(--on-brand);border-radius:10px;
-  padding:10px 24px;font-size:14.5px;font-weight:600;transition:.15s;
-}
-.search-go:hover{opacity:.85}
-.kbd-hint{font-size:11.5px;color:var(--text-3);margin-top:8px}
-.kbd{
-  border:1px solid var(--border);border-bottom-width:2px;border-radius:5px;
-  padding:0 6px;font-size:11px;background:var(--surface-muted);
-}
-
-/* الاقتراحات الشائعة */
-.quick-chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px}
-.chip{
-  border:1px solid var(--border);border-radius:999px;background:var(--surface);
-  padding:6px 15px;font-size:13px;color:var(--text-2);transition:.15s;
-}
-.chip:hover{border-color:var(--text);color:var(--text)}
-
-/* الإحصائيات */
-.stats{display:flex;gap:0;justify-content:center;margin-top:40px;flex-wrap:wrap}
-.stat{padding:0 32px;text-align:center}
-.stat + .stat{border-inline-start:1px solid var(--border)}
-.stat b{display:block;font-size:21px;font-weight:700;font-variant-numeric:tabular-nums}
-.stat span{font-size:12.5px;color:var(--text-3)}
-
-/* ============ قسم الحاسبات ============ */
-.calc-section{padding:36px 0 8px}
-.section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px}
-.section-head h2{font-size:23px;font-weight:700}
-.section-head span{font-size:13px;color:var(--text-3)}
-.tabs{
-  display:flex;gap:4px;flex-wrap:wrap;
-  border-bottom:1px solid var(--border);margin-bottom:20px;
-}
-.tab{
-  padding:10px 16px;font-size:14.5px;color:var(--text-2);
-  border-bottom:2px solid transparent;margin-bottom:-1px;transition:.15s;
-}
-.tab:hover{color:var(--text)}
-.tab.on{color:var(--text);border-bottom-color:var(--text);font-weight:600}
-
-/* شبكة البطاقات */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:14px}
-.card{
-  display:flex;flex-direction:column;gap:12px;
-  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-  padding:18px;transition:border-color .15s,transform .15s;
-}
-.card:hover{border-color:var(--text);transform:translateY(-2px)}
-.card-top{display:flex;align-items:center;gap:12px}
-.card-icon{
-  width:42px;height:42px;border-radius:10px;flex:none;
-  display:flex;align-items:center;justify-content:center;
-}
-.card-icon svg{width:21px;height:21px}
-.fin  .card-icon{background:var(--c-fin-bg);color:var(--c-fin)}
-.conv .card-icon{background:var(--c-conv-bg);color:var(--c-conv)}
-.health .card-icon{background:var(--c-health-bg);color:var(--c-health)}
-.gen  .card-icon{background:var(--c-gen-bg);color:var(--c-gen)}
-.card h3{font-size:15.5px;font-weight:600}
-.card p{font-size:13px;color:var(--text-3);line-height:1.6}
-.card-cta{
-  margin-top:auto;display:inline-flex;align-items:center;gap:6px;
-  font-size:13.5px;font-weight:600;color:var(--text-2);transition:gap .15s,color .15s;
-}
-.card:hover .card-cta{gap:10px;color:var(--text)}
-.empty-msg{
-  grid-column:1/-1;text-align:center;padding:44px 20px;
-  border:1.5px dashed var(--border);border-radius:var(--radius);
-  color:var(--text-3);font-size:14.5px;
-}
-
-/* ============ المميزات ============ */
-.features{padding:56px 0 8px}
-.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:22px}
-.feature{
-  background:var(--surface-muted);border-radius:var(--radius);padding:20px;
-}
-.feature .f-ic{width:38px;height:38px;border-radius:9px;background:var(--surface);
-  border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
-.feature .f-ic svg{width:19px;height:19px;color:var(--text-2)}
-.feature b{display:block;font-size:14.5px;margin-bottom:4px}
-.feature span{font-size:13px;color:var(--text-3);line-height:1.7}
-
-/* ============ الأسئلة الشائعة (SEO) ============ */
-.faq{padding:56px 0}
-.faq details{
-  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-  margin-bottom:10px;overflow:hidden;
-}
-.faq summary{
-  list-style:none;cursor:pointer;padding:16px 20px;font-size:15px;font-weight:600;
-  display:flex;justify-content:space-between;align-items:center;gap:12px;
-}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{
-  content:"+";font-size:20px;color:var(--text-3);flex:none;transition:transform .2s;
-}
-.faq details[open] summary::after{transform:rotate(45deg)}
-.faq .faq-a{padding:0 20px 16px;color:var(--text-2);font-size:14px;line-height:1.8}
-
-/* ============ الفوتر ============ */
-.site-footer{border-top:1px solid var(--border);padding:32px 0;margin-top:24px}
-.footer-in{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-.footer-in nav{display:flex;gap:18px;flex-wrap:wrap}
-.footer-in nav a,.footer-in p{font-size:13px;color:var(--text-3)}
-.footer-in nav a:hover{color:var(--text)}
-
-/* ============ تجاوب ============ */
-@media (max-width:720px){
-  .main-nav{display:none}
-  .stats{gap:16px}
-  .stat{padding:0 16px}
-  .hero{padding:48px 0 32px}
-  .search-go{padding:10px 16px}
-}
-</style>
-<base target="_blank">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
@@ -347,12 +118,10 @@ svg{display:block}
     </nav>
     <div class="header-actions">
       <button class="theme-btn" id="themeBtn" aria-label="تبديل الوضع الليلي">
-        <!-- قمر -->
         <svg id="iconMoon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
-        <!-- شمس -->
         <svg id="iconSun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
       </button>
-      <a class="lang-btn" href="/en/" hreflang="en" lang="en">EN</a>
+      <a class="lang-btn" href="/index-en" hreflang="en" lang="en">EN</a>
     </div>
   </div>
 </header>
@@ -402,99 +171,93 @@ svg{display:block}
       <button class="tab" role="tab" aria-selected="false" data-cat="gen">عامة</button>
     </div>
 
-    <!-- ملاحظة: البطاقات ثابتة في HTML عمدًا لأفضلية الزحف لمحركات البحث.
-         عدّل الروابط href لتطابق روابط صفحاتك الفعلية. -->
     <div class="grid" id="cardsGrid">
 
-      <!-- ═══ مالية ═══ -->
-      <a class="card fin" href="/حاسبة-التمويل-العقاري/" data-cat="fin" data-title="حاسبة التمويل العقاري قسط شهري عقار سكني بنك">
+      <a class="card fin" href="/mortgage" data-cat="fin" data-title="حاسبة التمويل العقاري قسط شهري عقار سكني بنك">
         <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M10 19.5v-5h4v5"/></svg></span>
         <div><h3>حاسبة التمويل العقاري</h3><p>قسطك الشهري وقدرتك على الشراء لأي عقار سكني.</p></div>
         <span class="card-cta">احسب الآن <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg></span>
       </a>
 
-      <a class="card fin" href="/حاسبة-التمويل-الشخصي/" data-cat="fin" data-title="حاسبة التمويل الشخصي قرض قسط فائدة بنك">
+      <a class="card fin" href="/personal-loan" data-cat="fin" data-title="حاسبة التمويل الشخصي قرض قسط فائدة بنك">
         <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.5h16v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-11Z"/><path d="M16 7.5V6a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v1.5"/><path d="M15.5 13.5h.01"/></svg></span>
         <div><h3>حاسبة التمويل الشخصي</h3><p>القسط الشهري والفائدة لأي مبلغ ومدة تمويل.</p></div>
         <span class="card-cta">احسب الآن <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg></span>
       </a>
 
-      <a class="card fin" href="/حاسبة-نهاية-الخدمة/" data-cat="fin" data-title="حاسبة نهاية الخدمة مكافأة استقالة فصل نظام العمل السعودي">
+      <a class="card fin" href="/eos" data-cat="fin" data-title="حاسبة نهاية الخدمة مكافأة استقالة فصل نظام العمل السعودي">
         <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="8" width="17" height="12" rx="2"/><path d="M9 8V6.5A2.5 2.5 0 0 1 11.5 4h1A2.5 2.5 0 0 1 15 6.5V8"/><path d="M3.5 13h17"/></svg></span>
         <div><h3>حاسبة نهاية الخدمة</h3><p>مكافأتك وفق نظام العمل السعودي — استقالة أو فصل.</p></div>
         <span class="card-cta">احسب الآن <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg></span>
       </a>
 
-      <a class="card fin" href="/حاسبة-ضريبة-القيمة-المضافة/" data-cat="fin" data-title="حاسبة ضريبة القيمة المضافة 15% vat">
+      <a class="card fin" href="/vat" data-cat="fin" data-title="حاسبة ضريبة القيمة المضافة 15% vat">
         <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 4.5h11L18 20H6L6.5 4.5Z"/><path d="m9 9 6 6M15 9l-6 6"/></svg></span>
         <div><h3>حاسبة ضريبة القيمة المضافة</h3><p>إضافة أو استبعاد 15% من أي مبلغ في ثانية.</p></div>
         <span class="card-cta">احسب الآن <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg></span>
       </a>
 
-      <a class="card fin" href="/حاسبة-الراتب-بعد-التأمينات/" data-cat="fin" data-title="حاسبة الراتب بعد التأمينات صافي gosi تأمينات اجتماعية">
+      <a class="card fin" href="/salary" data-cat="fin" data-title="حاسبة الراتب بعد التأمينات صافي gosi تأمينات اجتماعية">
         <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2"/><circle cx="8.2" cy="11" r="2"/><path d="M5.4 16c.5-1.6 1.5-2.4 2.8-2.4s2.3.8 2.8 2.4"/><path d="M14 9.5h5M14 13h5"/></svg></span>
         <div><h3>الراتب بعد التأمينات</h3><p>صافي راتبك بعد خصم التأمينات الاجتماعية (GOSI).</p></div>
         <span class="card-cta">احسب الآن <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg></span>
       </a>
 
-      <!-- ═══ تحويلات ═══ -->
-      <a class="card conv" href="/تحويل-العملات/" data-cat="conv" data-title="تحويل العملات ريال دولار يورو صرف">
+      <a class="card conv" href="/currency" data-cat="conv" data-title="تحويل العملات ريال دولار يورو صرف">
         <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M14.8 9.5c-.5-1-1.6-1.5-2.8-1.5-1.6 0-2.8.9-2.8 2.1 0 2.9 5.7 1.4 5.7 4.2 0 1.2-1.3 2.1-2.9 2.1-1.3 0-2.4-.6-2.9-1.6"/></svg></span>
         <div><h3>تحويل العملات</h3><p>ريال سعودي، دولار، يورو وأكثر — بأسعار محدثة.</p></div>
         <span class="card-cta">حوّل الآن <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg></span>
       </a>
 
-      <a class="card conv" href="/تحويل-الطول/" data-cat="conv" data-title="تحويل الطول متر قدم إنش بوصة">
+      <a class="card conv" href="/length" data-cat="conv" data-title="تحويل الطول متر قدم إنش بوصة">
         <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="9" width="19" height="6" rx="1.5" transform="rotate(-45 12 12)"/><path d="m8.2 15.8-1.4 1.4M11 13l-1.4 1.4M13.8 10.2 12.4 11.6M16.6 7.4l-1.4 1.4"/></svg></span>
         <div><h3>تحويل الطول</h3><p>أمتار، أقدام، إنشات وبوصات بضغطة واحدة.</p></div>
         <span class="card-cta">حوّل الآن <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg></span>
       </a>
 
-      <a class="card conv" href="/تحويل-الوزن/" data-cat="conv" data-title="تحويل الوزن كيلو رطل أونصة جرام">
+      <a class="card conv" href="/weight" data-cat="conv" data-title="تحويل الوزن كيلو رطل أونصة جرام">
         <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 7.5v-2a5.5 5.5 0 0 1 11 0v2"/><path d="M4 7.5h16l1.2 11a2 2 0 0 1-2 2.2H4.8a2 2 0 0 1-2-2.2L4 7.5Z"/><path d="M12 11v4"/></svg></span>
         <div><h3>تحويل الوزن</h3><p>كيلوغرام، رطل، أونصة وجرام بدقة كاملة.</p></div>
         <span class="card-cta">حوّل الآن <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg></span>
       </a>
 
-      <a class="card conv" href="/تحويل-المساحة/" data-cat="conv" data-title="تحويل المساحة متر مربع فدان هكتار كيلومتر">
+      <a class="card conv" href="/area" data-cat="conv" data-title="تحويل المساحة متر مربع فدان هكتار كيلومتر">
         <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M4 12h5M15 12h5M12 4v5M12 15v5"/></svg></span>
         <div><h3>تحويل المساحة</h3><p>متر مربع، فدان، هكتار وكيلومتر مربع.</p></div>
         <span class="card-cta">حوّل الآن <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg></span>
       </a>
 
-      <!-- ═══ صحة ═══ -->
-      <a class="card health" href="/حاسبة-bmi/" data-cat="health" data-title="حاسبة مؤشر كتلة الجسم bmi وزن مثالي صحة">
+      <a class="card health" href="/bmi" data-cat="health" data-title="حاسبة مؤشر كتلة الجسم bmi وزن مثالي صحة">
         <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5.5" r="2.5"/><path d="M12 8v5"/><path d="M12 10.5 8.5 13M12 10.5l3.5 2.5"/><path d="M12 13v4l-2.5 3M12 17l2.5 3"/></svg></span>
         <div><h3>مؤشر كتلة الجسم BMI</h3><p>وزنك المثالي وتصنيفك الصحي بالتفصيل.</p></div>
         <span class="card-cta">احسب الآن <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg></span>
       </a>
 
-      <a class="card health" href="/حاسبة-السعرات-الحرارية/" data-cat="health" data-title="حاسبة السعرات الحرارية احتياج يومي طاقة دايت">
+      <a class="card health" href="/calorie" data-cat="health" data-title="حاسبة السعرات الحرارية احتياج يومي طاقة دايت">
         <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5c2.5 2.6 5.5 5.5 5.5 9.5a5.5 5.5 0 0 1-11 0C6.5 9 9.5 6.1 12 3.5Z"/><path d="M12 12.5c1.1 1 2 2 2 3.2a2 2 0 0 1-4 0c0-1.2.9-2.2 2-3.2Z"/></svg></span>
         <div><h3>حاسبة السعرات الحرارية</h3><p>احتياجك اليومي من الطاقة حسب نشاطك وهدفك.</p></div>
         <span class="card-cta">احسب الآن <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg></span>
       </a>
 
-      <a class="card health" href="/حاسبة-احتياج-الماء/" data-cat="health" data-title="حاسبة احتياج الماء لتر ترطيب يومي">
+      <a class="card health" href="/water" data-cat="health" data-title="حاسبة احتياج الماء لتر ترطيب يومي">
         <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5c3 3.6 6 6.6 6 10a6 6 0 0 1-12 0c0-3.4 3-6.4 6-10Z"/><path d="M9.5 13.5a2.5 2.5 0 0 0 2.5 2.5"/></svg></span>
         <div><h3>حاسبة احتياج الماء</h3><p>كم لتر يحتاج جسمك يوميًا بناءً على وزنك.</p></div>
         <span class="card-cta">احسب الآن <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg></span>
       </a>
 
-      <!-- ═══ عامة ═══ -->
-      <a class="card gen" href="/حاسبة-العمر/" data-cat="gen" data-title="حاسبة العمر بالسنوات الأشهر الأيام ميلاد">
+      <a class="card gen" href="/age" data-cat="gen" data-title="حاسبة العمر بالسنوات الأشهر الأيام ميلاد">
         <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11h14v8a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-8Z"/><path d="M5 11a7 7 0 0 1 14 0"/><path d="M12 4v2.5M10 15.5h4"/></svg></span>
         <div><h3>حاسبة العمر</h3><p>عمرك بالسنوات والأشهر والأيام بدقة كاملة.</p></div>
         <span class="card-cta">احسب الآن <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg></span>
       </a>
 
-      <a class="card gen" href="/حاسبة-نسبة-الخصم/" data-cat="gen" data-title="حاسبة نسبة الخصم تخفيضات وفورات سعر">
+      <a class="card gen" href="/discount" data-cat="gen" data-title="حاسبة نسبة الخصم تخفيضات وفورات سعر">
         <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.6 3.5h5.9v5.9L10 17.9a2.5 2.5 0 0 1-3.5-3.5l8.1-8.1Z"/><circle cx="15.4" cy="8.6" r="1.2"/><path d="m8 12.5 3.5 3.5"/></svg></span>
         <div><h3>حاسبة نسبة الخصم</h3><p>كم وفّرت فعلًا من السعر الأصلي في التخفيضات.</p></div>
         <span class="card-cta">احسب الآن <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg></span>
       </a>
 
-      <a class="card gen" href="/الوقت-بين-تاريخين/" data-cat="gen" data-title="حاسبة الوقت بين تاريخين فرق الأيام التقويم">
+      <a class="card gen" href="/date-diff" data-cat="gen" data-title="حاسبة الوقت بين تاريخين فرق الأيام التقويم">
         <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3.5v4M16 3.5v4"/><path d="M8.5 14.5h2M13.5 14.5h2M8.5 17.5h2"/></svg></span>
         <div><h3>الوقت بين تاريخين</h3><p>الفارق بين أي تاريخين بالأيام والشهور والسنوات.</p></div>
         <span class="card-cta">احسب الآن <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg></span>
@@ -561,8 +324,9 @@ svg{display:block}
       حاسبها
     </a>
     <nav aria-label="روابط الفوتر">
-      <a href="/سياسة-الخصوصية/">سياسة الخصوصية</a>
-      <a href="/اتصل-بنا/">تواصل معنا</a>
+      <a href="/privacy">سياسة الخصوصية</a>
+      <a href="/contact">تواصل معنا</a>
+      <a href="/about">من نحن</a>
       <a href="/sitemap.xml">خريطة الموقع</a>
     </nav>
     <p>حاسبها © <span id="year"></span> — جميع الحقوق محفوظة</p>
@@ -628,7 +392,6 @@ document.getElementById('year').textContent=new Date().getFullYear();
   input.addEventListener('input',render);
   render();
 
-  /* شرائح الحاسبات الشائعة تملأ البحث */
   document.querySelectorAll('.chip').forEach(function(ch){
     ch.addEventListener('click',function(){
       input.value=ch.dataset.q;curCat='all';
@@ -639,14 +402,12 @@ document.getElementById('year').textContent=new Date().getFullYear();
     });
   });
 
-  /* اختصار "/" للبحث */
   document.addEventListener('keydown',function(e){
     if(e.key==='/'&&document.activeElement!==input){
       e.preventDefault();input.focus();window.scrollTo({top:0,behavior:'smooth'});
     }
   });
 
-  /* دعم ?q= من بيانات SearchAction المنظمة */
   var params=new URLSearchParams(location.search);
   var qParam=params.get('q');
   if(qParam){input.value=qParam;render();document.getElementById('calculators').scrollIntoView();}
