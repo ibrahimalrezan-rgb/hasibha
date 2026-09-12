@@ -1,0 +1,34 @@
+name: Generate Calculators
+
+on:
+  push:
+    paths:
+      - 'automation/calculators.json'
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Generate with AI
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python automation/generate.py
+      
+      - name: Commit
+        run: |
+          git config user.name "Hasibha Bot"
+          git config user.email "bot@hasibha.com"
+          git add .
+          git diff --staged --quiet || git commit -m "🤖 إضافة حاسبات جديدة تلقائياً"
+          git push
