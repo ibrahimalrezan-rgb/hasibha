@@ -15,9 +15,13 @@ class GeminiProvider(AIProvider):
     
     BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models"
     
+    def __init__(self, api_key, model="gemini-3.6-flash"):
+        super().__init__(api_key)
+        self.model = model
+    
     def generate(self, prompt, max_tokens=3000):
         """يولّد نص باستخدام Gemini"""
-        url = f"{self.BASE_URL}/gemini-3.6-flash:generateContent?key={self.api_key}"
+        url = f"{self.BASE_URL}/{self.model}:generateContent?key={self.api_key}"
         
         payload = {
             "contents": [{
