@@ -20,6 +20,12 @@ jobs:
         with:
           python-version: '3.11'
       
+      - name: Pull latest
+        run: |
+          git config user.name "Hasibha Bot"
+          git config user.email "bot@hasibha.com"
+          git pull --rebase origin main
+      
       - name: Generate with AI
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -27,9 +33,6 @@ jobs:
       
       - name: Commit and Push
         run: |
-          git config user.name "Hasibha Bot"
-          git config user.email "bot@hasibha.com"
           git add .
           git diff --staged --quiet || git commit -m "🤖 إضافة حاسبات جديدة تلقائياً"
-          git pull --rebase origin main
           git push
