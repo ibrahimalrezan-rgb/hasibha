@@ -32,7 +32,7 @@ jobs:
           git add .
           git diff --staged --quiet || git commit -m "🤖 إضافة حاسبات جديدة"
       
-      - name: Push with retry loop
+      - name: Push with retry
         run: |
           for i in 1 2 3 4 5; do
             echo "🔄 محاولة $i..."
@@ -40,11 +40,11 @@ jobs:
             git rebase origin/main || git rebase --abort
             
             if git push origin main; then
-              echo "✅ نجح الرفع في المحاولة $i"
+              echo "✅ نجح الرفع"
               exit 0
             fi
             
-            echo "⚠️ فشلت المحاولة $i، ننتظر 10 ثواني..."
+            echo "⚠️ فشلت المحاولة $i، ننتظر..."
             sleep 10
           done
           
