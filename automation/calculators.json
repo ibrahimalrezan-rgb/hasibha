@@ -1,22 +1,16 @@
 {
-  "calculators": [
-    {
-      "slug": "zakat",
-      "category": "finance",
-      "icon": "🕌",
-      "title_ar": "حاسبة الزكاة",
-      "title_en": "Zakat Calculator",
-      "description_ar": "احسب زكاة أموالك بدقة وفق الأحكام الشرعية",
-      "description_en": "Calculate your Zakat accurately",
-      "keywords_ar": "حاسبة الزكاة, زكاة المال, نصاب الزكاة, حساب الزكاة",
-      "keywords_en": "zakat calculator, zakat on wealth, islamic finance",
-      "fields": [
-        {"id": "cash", "label_ar": "النقد والمدخرات", "label_en": "Cash and Savings", "type": "number"},
-        {"id": "gold", "label_ar": "قيمة الذهب", "label_en": "Gold Value", "type": "number"},
-        {"id": "silver", "label_ar": "قيمة الفضة", "label_en": "Silver Value", "type": "number"},
-        {"id": "investments", "label_ar": "الاستثمارات", "label_en": "Investments", "type": "number"}
-      ],
-      "calc_script": "function calculate(){var c=parseFloat(document.getElementById('cash').value)||0;var g=parseFloat(document.getElementById('gold').value)||0;var s=parseFloat(document.getElementById('silver').value)||0;var i=parseFloat(document.getElementById('investments').value)||0;var total=c+g+s+i;var zakat=total*0.025;document.getElementById('finalResult').textContent=formatNumber(zakat)+' ريال';document.getElementById('resultCard').style.display='block';}"
-    }
-  ]
+  "slug": "discount-calc",
+  "category": "general",
+  "icon": "🏷️",
+  "title_ar": "حاسبة الخصم",
+  "title_en": "Discount Calculator",
+  "description_ar": "احسب السعر بعد الخصم",
+  "description_en": "Calculate price after discount",
+  "keywords_ar": "حاسبة الخصم, حساب التخفيض",
+  "keywords_en": "discount calculator",
+  "fields": [
+    {"id": "price", "label_ar": "السعر الأصلي", "label_en": "Original Price", "type": "number"},
+    {"id": "discount", "label_ar": "نسبة الخصم %", "label_en": "Discount %", "type": "number"}
+  ],
+  "calc_script": "function calculate(){var p=parseFloat(document.getElementById('price').value)||0;var d=parseFloat(document.getElementById('discount').value)||0;var result=p-(p*d/100);document.getElementById('finalResult').textContent=formatNumber(result)+' ريال';document.getElementById('resultCard').style.display='block';}"
 }
