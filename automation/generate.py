@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-نظام أتمتة حاسبها - مع دعم AI
+نظام أتمتة حاسبها - مع دعم AI + محتوى افتراضي
 """
 
 import json
@@ -8,7 +8,6 @@ import os
 import sys
 from datetime import datetime
 
-# إضافة المسار
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from ai_providers import get_provider
@@ -20,19 +19,16 @@ AUTOMATION_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def load_config():
-    """يقرأ الإعدادات"""
     with open(os.path.join(AUTOMATION_DIR, 'config.json'), 'r', encoding='utf-8') as f:
         return json.load(f)
 
 
 def load_template():
-    """يقرأ قالب HTML"""
     with open(os.path.join(AUTOMATION_DIR, 'template.html'), 'r', encoding='utf-8') as f:
         return f.read()
 
 
 def get_api_key(provider_name):
-    """يجيب المفتاح من متغيرات البيئة"""
     if provider_name == "gemini":
         return os.environ.get("GEMINI_API_KEY")
     elif provider_name == "claude":
@@ -42,8 +38,72 @@ def get_api_key(provider_name):
     return None
 
 
+def default_article(calc, lang):
+    title = calc['title_ar'] if lang == "ar" else calc['title_en']
+    desc = calc['description_ar'] if lang == "ar" else calc['description_en']
+    
+    if lang == "ar":
+        return f"""<h3>عن {title}</h3>
+<p>{desc}. تستخدم هذه الحاسبة معادلات دقيقة لمساعدتك في الحصول على نتائج فورية وموثوقة.</p>
+
+<h3>كيفية الاستخدام</h3>
+<ul>
+<li>أدخل القيم المطلوبة في الحقول أعلاه.</li>
+<li>ستظهر النتيجة تلقائياً أثناء الكتابة.</li>
+<li>يمكنك تعديل القيم للحصول على نتائج مختلفة.</li>
+</ul>
+
+<h3>ملاحظات مهمة</h3>
+<p>جميع الحسابات تتم داخل متصفحك مباشرة ولا يتم إرسالها لأي خادم. النتائج تقديرية ويُنصح بمراجعة جهة مختصة للحالات الخاصة.</p>
+
+<div class="tip">💡 <strong>نصيحة:</strong> احتفظ بنتيجة الحساب للرجوع إليها لاحقاً.</div>"""
+    else:
+        return f"""<h3>About {title}</h3>
+<p>{desc}. This calculator uses accurate formulas to give you instant, reliable results.</p>
+
+<h3>How to Use</h3>
+<ul>
+<li>Enter the required values in the fields above.</li>
+<li>The result appears automatically as you type.</li>
+<li>Modify values to get different results.</li>
+</ul>
+
+<h3>Important Notes</h3>
+<p>All calculations run inside your browser and are never sent to any server. Results are estimates; consult a specialist for specific cases.</p>
+
+<div class="tip">💡 <strong>Tip:</strong> Save your result for future reference.</div>"""
+
+
+def default_faq(calc, lang):
+    title = calc['title_ar'] if lang == "ar" else calc['title_en']
+    
+    if lang == "ar":
+        return [
+            {"q": f"هل {title} مجانية؟", "a": "نعم، جميع الحاسبات في حاسبها مجانية بالكامل."},
+            {"q": "هل النتائج دقيقة؟", "a": "نعم، نستخدم معادلات دقيقة، لكن النتائج تقديرية."},
+            {"q": "هل بياناتي محفوظة؟", "a": "لا، جميع الحسابات تتم في متصفحك فقط."},
+            {"q": "هل يمكن استخدامها على الجوال؟", "a": "نعم، الموقع متوافق مع جميع الأجهزة."}
+        ]
+    else:
+        return [
+            {"q": f"Is {title} free?", "a": "Yes, all calculators on Hasibha are completely free."},
+            {"q": "Are results accurate?", "a": "Yes, we use accurate formulas, but results are estimates."},
+            {"q": "Is my data saved?", "a": "No, all calculations run in your browser only."},
+            {"q": "Does it work on mobile?", "a": "Yes, the site works on all devices."}
+        ]
+
+
+def default_script(calc, lang):
+    return """function calculate(){
+  var total = 0;
+  var fields = document.querySelectorAll('.input-row input');
+  fields.forEach(function(f){ total += parseFloat(f.value) || 0; });
+  document.getElementById('finalResult').textContent = formatNumber(total);
+  document.getElementById('resultCard').style.display = 'block';
+}"""
+
+
 def render_fields(calc, lang):
-    """يولّد HTML للحقول"""
     html = ""
     for field in calc['fields']:
         label = field[f'label_{lang}']
@@ -57,7 +117,6 @@ def render_fields(calc, lang):
 
 
 def render_faq(faqs, lang):
-    """يولّد HTML للأسئلة الشائعة"""
     if not faqs:
         return ""
     title = "الأسئلة الشائعة" if lang == "ar" else "FAQ"
@@ -68,7 +127,6 @@ def render_faq(faqs, lang):
 
 
 def render_schema(calc, lang, faqs):
-    """يولّد Schema JSON-LD"""
     title = calc['title_ar'] if lang == "ar" else calc['title_en']
     desc = calc['description_ar'] if lang == "ar" else calc['description_en']
     url = f"{SITE_URL}/{calc['slug']}" + ("-en" if lang == "en" else "")
@@ -108,28 +166,62 @@ def render_schema(calc, lang, faqs):
 
 
 def generate_page(calc, lang, ai_provider, config):
-    """يولّد صفحة كاملة"""
     template = load_template()
     
-    # جلب المحتوى من AI أو من JSON
     article = calc.get(f'article_{lang}', '')
     faqs = calc.get(f'faq_{lang}', [])
     script = calc.get('calc_script', '')
     
     if ai_provider and config.get('ai_enabled'):
-        print(f"    🤖 توليد مقال ({lang})...")
-        if config.get('generate_articles') and not article:
-            article = ai_provider.generate_article(calc, lang)
+        if not article:
+            print(f"    🤖 توليد مقال ({lang})...")
+            try:
+                result = ai_provider.generate_article(calc, lang)
+                if result and len(result) > 100:
+                    article = result
+                    print(f"    ✅ مقال ({len(result)} حرف)")
+                else:
+                    print(f"    ⚠️ رد فاضي - استخدام محتوى افتراضي")
+                    article = default_article(calc, lang)
+            except Exception as e:
+                print(f"    ⚠️ خطأ: {e}")
+                article = default_article(calc, lang)
         
-        print(f"    🤖 توليد أسئلة ({lang})...")
-        if config.get('generate_faq') and not faqs:
-            faqs = ai_provider.generate_faq(calc, lang)
+        if not faqs:
+            print(f"    🤖 توليد أسئلة ({lang})...")
+            try:
+                result = ai_provider.generate_faq(calc, lang)
+                if result and len(result) > 0:
+                    faqs = result
+                    print(f"    ✅ {len(result)} أسئلة")
+                else:
+                    print(f"    ⚠️ رد فاضي - استخدام أسئلة افتراضية")
+                    faqs = default_faq(calc, lang)
+            except Exception as e:
+                print(f"    ⚠️ خطأ: {e}")
+                faqs = default_faq(calc, lang)
         
-        print(f"    🤖 توليد كود ({lang})...")
-        if config.get('generate_scripts') and not script:
-            script = ai_provider.generate_script(calc, lang)
+        if not script:
+            print(f"    🤖 توليد كود ({lang})...")
+            try:
+                result = ai_provider.generate_script(calc, lang)
+                if result and len(result) > 50:
+                    script = result
+                    print(f"    ✅ سكربت ({len(result)} حرف)")
+                else:
+                    print(f"    ⚠️ رد فاضي - استخدام سكربت افتراضي")
+                    script = default_script(calc, lang)
+            except Exception as e:
+                print(f"    ⚠️ خطأ: {e}")
+                script = default_script(calc, lang)
     
-    # القيم حسب اللغة
+    if not article:
+        article = default_article(calc, lang)
+    if not faqs:
+        faqs = default_faq(calc, lang)
+    if not script:
+        script = default_script(calc, lang)
+    
     if lang == "ar":
         title = calc['title_ar']
         desc = calc['description_ar']
@@ -227,7 +319,6 @@ def generate_page(calc, lang, ai_provider, config):
 def main():
     config = load_config()
     
-    # تحضير AI
     ai_provider = None
     if config.get('ai_enabled'):
         provider_name = config.get('ai_provider', 'gemini')
@@ -235,14 +326,13 @@ def main():
         
         if api_key:
             try:
-                ai_provider = get_provider(provider_name, api_key)
-                print(f"🤖 AI: {provider_name}")
+                ai_provider = get_provider(provider_name, api_key, config.get('ai_model'))
+                print(f"🤖 AI: {provider_name} ({config.get('ai_model', 'default')})")
             except Exception as e:
                 print(f"⚠️ خطأ في تحميل AI: {e}")
         else:
-            print(f"⚠️ لا يوجد مفتاح API لـ {provider_name}")
+            print(f"⚠️ لا يوجد مفتاح API")
     
-    # قراءة الحاسبات
     with open(os.path.join(AUTOMATION_DIR, 'calculators.json'), 'r', encoding='utf-8') as f:
         data = json.load(f)
     
