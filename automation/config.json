@@ -1,0 +1,8 @@
+{
+  "ai_provider": "gemini",
+  "ai_model": "gemini-1.5-flash",
+  "ai_enabled": true,
+  "generate_articles": true,
+  "generate_faq": true,
+  "generate_scripts": true
+}
