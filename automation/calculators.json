@@ -16,9 +16,7 @@
         {"id": "silver", "label_ar": "قيمة الفضة", "label_en": "Silver Value", "type": "number"},
         {"id": "investments", "label_ar": "الاستثمارات", "label_en": "Investments", "type": "number"}
       ],
-      "formula_ar": "إذا بلغ مجموع الأموال النصاب تجب الزكاة بنسبة 2.5%",
-      "formula_en": "If total reaches nisab, zakat is 2.5%",
-      "calc_script": "var c=parseFloat(document.getElementById('cash').value)||0;var g=parseFloat(document.getElementById('gold').value)||0;var s=parseFloat(document.getElementById('silver').value)||0;var i=parseFloat(document.getElementById('investments').value)||0;var total=c+g+s+i;var zakat=total*0.025;document.getElementById('finalResult').textContent=formatNumber(zakat)+' ريال';document.getElementById('resultCard').style.display='block';"
+      "calc_script": "function calculate(){var c=parseFloat(document.getElementById('cash').value)||0;var g=parseFloat(document.getElementById('gold').value)||0;var s=parseFloat(document.getElementById('silver').value)||0;var i=parseFloat(document.getElementById('investments').value)||0;var total=c+g+s+i;var zakat=total*0.025;document.getElementById('finalResult').textContent=formatNumber(zakat)+' ريال';document.getElementById('resultCard').style.display='block';}"
     }
   ]
 }
