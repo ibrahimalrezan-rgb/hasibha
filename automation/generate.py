@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-نظام أتمتة حاسبها - مع دعم AI + محتوى افتراضي
+نظام أتمتة حاسبها - مع دعم AI + محتوى افتراضي + تحديث الرئيسية
 """
 
 import json
 import os
+import re
 import sys
 from datetime import datetime
 
@@ -316,6 +317,67 @@ def generate_page(calc, lang, ai_provider, config):
     return output
 
 
+def update_index_page(calculators):
+    """يحدّث الصفحة الرئيسية بالبطاقات الجديدة"""
+    index_path = os.path.join(ROOT_DIR, 'index.html')
+    
+    if not os.path.exists(index_path):
+        print("⚠️ index.html غير موجود")
+        return
+    
+    with open(index_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+    
+    # البحث عن نهاية cardsGrid
+    if '<!-- AUTO-GENERATED-START -->' in content:
+        pattern = r'\s*<!-- AUTO-GENERATED-START -->.*?<!-- AUTO-GENERATED-END -->'
+        content = re.sub(pattern, '', content, flags=re.DOTALL)
+    
+    # بناء البطاقات
+    cards_html = '\n      <!-- AUTO-GENERATED-START -->\n'
+    for calc in calculators:
+        cat = calc.get('category', 'fin')
+        slug = calc['slug']
+        title = calc['title_ar']
+        desc = calc['description_ar']
+        icon = calc.get('icon', '🧮')
+        
+        # تحديد فئة CSS
+        cat_class = 'fin'
+        if cat in ['conversion', 'conv']:
+            cat_class = 'conv'
+        elif cat in ['health']:
+            cat_class = 'health'
+        elif cat in ['general', 'gen']:
+            cat_class = 'gen'
+        
+        cards_html += f'      <a class="card {cat_class}" href="/{slug}" data-cat="{cat_class}" data-title="{title}">\n'
+        cards_html += f'        <span class="card-icon">{icon}</span>\n'
+        cards_html += f'        <div><h3>{title}</h3><p>{desc}</p></div>\n'
+        cards_html += f'        <span class="card-cta">احسب الآن ←</span>\n'
+        cards_html += f'      </a>\n'
+    cards_html += '      <!-- AUTO-GENERATED-END -->\n    '
+    
+    # نضيف قبل closing div of cardsGrid
+    # نبحث عن النمط
+    target = '    </div>\n    <p class="empty-msg"'
+    if target in content:
+        content = content.replace(target, cards_html + '</div>\n    <p class="empty-msg"', 1)
+    else:
+        # بديل
+        target2 = '</div>\n    <p class="empty-msg"'
+        if target2 in content:
+            content = content.replace(target2, cards_html + '</div>\n    <p class="empty-msg"', 1)
+        else:
+            print("⚠️ لم يتم العثور على نهاية cardsGrid")
+            return
+    
+    with open(index_path, 'w', encoding='utf-8') as f:
+        f.write(content)
+    
+    print(f"  ✅ تم تحديث index.html بـ {len(calculators)} بطاقة")
+
+
 def main():
     config = load_config()
     
@@ -345,6 +407,9 @@ def main():
         print(f"  ✅ {ar}")
         en = generate_page(calc, 'en', ai_provider, config)
         print(f"  ✅ {en}")
+    
+    print(f"\n📝 تحديث الصفحة الرئيسية...")
+    update_index_page(calculators)
     
     print("\n🎉 اكتمل!")
 
