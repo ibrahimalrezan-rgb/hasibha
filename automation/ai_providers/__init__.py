@@ -15,8 +15,10 @@ PROVIDERS = {
 }
 
 
-def get_provider(name, api_key):
+def get_provider(name, api_key, model=None):
     """يعيد المزود المطلوب"""
     if name not in PROVIDERS:
         raise ValueError(f"مزود غير معروف: {name}")
+    if model:
+        return PROVIDERS[name](api_key, model=model)
     return PROVIDERS[name](api_key)
