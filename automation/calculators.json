@@ -1,3 +1,24 @@
 {
-  "calculators": []
+  "calculators": [
+    {
+      "slug": "zakat",
+      "category": "finance",
+      "icon": "🕌",
+      "title_ar": "حاسبة الزكاة",
+      "title_en": "Zakat Calculator",
+      "description_ar": "احسب زكاة أموالك بدقة وفق الأحكام الشرعية",
+      "description_en": "Calculate your Zakat accurately",
+      "keywords_ar": "حاسبة الزكاة, زكاة المال, نصاب الزكاة, حساب الزكاة",
+      "keywords_en": "zakat calculator, zakat on wealth, islamic finance",
+      "fields": [
+        {"id": "cash", "label_ar": "النقد والمدخرات", "label_en": "Cash and Savings", "type": "number"},
+        {"id": "gold", "label_ar": "قيمة الذهب", "label_en": "Gold Value", "type": "number"},
+        {"id": "silver", "label_ar": "قيمة الفضة", "label_en": "Silver Value", "type": "number"},
+        {"id": "investments", "label_ar": "الاستثمارات", "label_en": "Investments", "type": "number"}
+      ],
+      "formula_ar": "إذا بلغ مجموع الأموال النصاب تجب الزكاة بنسبة 2.5%",
+      "formula_en": "If total reaches nisab, zakat is 2.5%",
+      "calc_script": "var c=parseFloat(document.getElementById('cash').value)||0;var g=parseFloat(document.getElementById('gold').value)||0;var s=parseFloat(document.getElementById('silver').value)||0;var i=parseFloat(document.getElementById('investments').value)||0;var total=c+g+s+i;var zakat=total*0.025;document.getElementById('finalResult').textContent=formatNumber(zakat)+' ريال';document.getElementById('resultCard').style.display='block';"
+    }
+  ]
 }
