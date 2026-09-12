@@ -8,8 +8,8 @@
       "title_en": "Zakat Calculator",
       "description_ar": "احسب زكاة أموالك بدقة وفق الأحكام الشرعية",
       "description_en": "Calculate your Zakat accurately",
-      "keywords_ar": "حاسبة الزكاة, زكاة المال, نصاب الزكاة, حساب الزكاة",
-      "keywords_en": "zakat calculator, zakat on wealth, islamic finance",
+      "keywords_ar": "حاسبة الزكاة, زكاة المال, نصاب الزكاة",
+      "keywords_en": "zakat calculator, zakat on wealth",
       "fields": [
         {"id": "cash", "label_ar": "النقد والمدخرات", "label_en": "Cash and Savings", "type": "number"},
         {"id": "gold", "label_ar": "قيمة الذهب", "label_en": "Gold Value", "type": "number"},
@@ -17,6 +17,23 @@
         {"id": "investments", "label_ar": "الاستثمارات", "label_en": "Investments", "type": "number"}
       ],
       "calc_script": "function calculate(){var c=parseFloat(document.getElementById('cash').value)||0;var g=parseFloat(document.getElementById('gold').value)||0;var s=parseFloat(document.getElementById('silver').value)||0;var i=parseFloat(document.getElementById('investments').value)||0;var total=c+g+s+i;var zakat=total*0.025;document.getElementById('finalResult').textContent=formatNumber(zakat)+' ريال';document.getElementById('resultCard').style.display='block';}"
+    },
+    {
+      "slug": "gold-value",
+      "category": "finance",
+      "icon": "🥇",
+      "title_ar": "حاسبة قيمة الذهب",
+      "title_en": "Gold Value Calculator",
+      "description_ar": "احسب قيمة الذهب حسب الوزن والعيار والسعر الحالي",
+      "description_en": "Calculate gold value by weight, karat and current price",
+      "keywords_ar": "حاسبة الذهب, سعر الذهب, قيمة الذهب",
+      "keywords_en": "gold calculator, gold value, gold price",
+      "fields": [
+        {"id": "grams", "label_ar": "الوزن بالجرام", "label_en": "Weight (grams)", "type": "number"},
+        {"id": "karat", "label_ar": "العيار (24، 22، 21، 18)", "label_en": "Karat (24, 22, 21, 18)", "type": "number"},
+        {"id": "price", "label_ar": "سعر الجرام الواحد", "label_en": "Price per gram", "type": "number"}
+      ],
+      "calc_script": "function calculate(){var g=parseFloat(document.getElementById('grams').value)||0;var k=parseFloat(document.getElementById('karat').value)||24;var p=parseFloat(document.getElementById('price').value)||0;var result=g*(k/24)*p;document.getElementById('finalResult').textContent=formatNumber(result)+' ريال';document.getElementById('resultCard').style.display='block';}"
     }
   ]
 }
