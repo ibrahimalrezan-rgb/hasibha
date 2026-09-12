@@ -134,7 +134,6 @@ No extra text. JSON only.
 """
         response = self.generate(prompt, max_tokens=1500)
         
-        # تنظيف الرد
         response = response.strip()
         if response.startswith("```"):
             response = response.split("```")[1]
@@ -153,53 +152,72 @@ No extra text. JSON only.
         formula = calc.get(f'formula_{lang}', '')
         
         if lang == "ar":
-            prompt = f"""اكتب JavaScript لحاسبة "{calc['title_ar']}".
+            prompt = f"""اكتب كود JavaScript لحاسبة "{calc['title_ar']}" داخل دالة اسمها `calculate`.
 
-الحقول:
+الحقول المتوفرة (استخدم نفس id):
 {fields}
 
 المعادلة:
 {formula}
 
-المطلوب:
-- دالة `calculate()`
-- تقرأ القيم من الحقول
-- تحسب النتيجة
-- تعرض النتيجة في عنصر id="finalResult"
-- استخدم `formatNumber()` للتنسيق
+القواعد الصارمة:
+1. الكود **يجب** أن يكون داخل دالة اسمها calculate() بهذا الشكل بالضبط:
 
-القيود:
-- JavaScript فقط (بدون HTML)
-- استخدم document.getElementById
-- نفس id الحقول
-- كود نظيف
-- بدون شرح إضافي
+function calculate() {{
+  var field1 = parseFloat(document.getElementById('FIELD_ID').value) || 0;
+  var result = ...;
+  document.getElementById('finalResult').textContent = formatNumber(result) + ' ريال';
+  document.getElementById('resultCard').style.display = 'block';
+}}
+
+2. استخدم `document.getElementById('ID')` لكل حقل حسب id المذكور
+3. عرض النتيجة في `document.getElementById('finalResult')`
+4. أظهر البطاقة بـ `document.getElementById('resultCard').style.display = 'block'`
+5. استخدم `formatNumber()` للتنسيق (موجودة مسبقاً)
+6. إذا كان الحقل فاضي، اعتبره 0
+
+مثال على المخرجات الصحيحة:
+
+function calculate() {{
+  var cash = parseFloat(document.getElementById('cash').value) || 0;
+  var gold = parseFloat(document.getElementById('gold').value) || 0;
+  var total = cash + gold;
+  var zakat = total * 0.025;
+  document.getElementById('finalResult').textContent = formatNumber(zakat) + ' ريال';
+  document.getElementById('resultCard').style.display = 'block';
+}}
+
+المخرجات: JavaScript فقط. لا تكتب ``` أو أي شرح. ابدأ مباشرة بـ `function calculate()`.
 """
         else:
-            prompt = f"""Write JavaScript for "{calc['title_en']}" calculator.
+            prompt = f"""Write JavaScript code for "{calc['title_en']}" calculator inside a function called `calculate`.
 
-Fields:
+Available fields (use same id):
 {fields}
 
 Formula:
 {formula}
 
-Requirements:
-- Function `calculate()`
-- Read values from fields
-- Calculate result
-- Display in id="finalResult"
-- Use `formatNumber()`
+Strict rules:
+1. Code **must** be inside a function named calculate() like this:
 
-Restrictions:
-- JavaScript only (no HTML)
-- Use document.getElementById
-- Same id as fields
-- Clean code
+function calculate() {{
+  var field1 = parseFloat(document.getElementById('FIELD_ID').value) || 0;
+  var result = ...;
+  document.getElementById('finalResult').textContent = formatNumber(result) + ' SAR';
+  document.getElementById('resultCard').style.display = 'block';
+}}
+
+2. Use `document.getElementById('ID')` for each field
+3. Display result in `document.getElementById('finalResult')`
+4. Show card with `document.getElementById('resultCard').style.display = 'block'`
+5. Use `formatNumber()` (already exists)
+6. Empty fields count as 0
+
+Output: JavaScript only. No ``` blocks. No explanations. Start with `function calculate()`.
 """
         response = self.generate(prompt, max_tokens=2000)
         
-        # تنظيف
         response = response.strip()
         if response.startswith("```"):
             response = response.split("```")[1]
