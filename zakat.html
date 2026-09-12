@@ -73,34 +73,34 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "هل حاسبة الزكاة مجانية؟",
+          "name": "ما هي حاسبة الزكاة وكيف تعمل؟",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "نعم، جميع الحاسبات في حاسبها مجانية بالكامل."
+            "text": "حاسبة الزكاة هي أداة إلكترونية تُستخدم لحساب قيمة الزكاة المستحقة على أموالك وممتلكاتك بدقة، حيث تقوم بحساب النسب الشرعية المحددة بمجرد إدخال قيمة الأصول والمدخرات التي تملكها."
           }
         },
         {
           "@type": "Question",
-          "name": "هل النتائج دقيقة؟",
+          "name": "ما هي النسبة التي تعتمد عليها حاسبة الزكاة لحساب زكاة المال؟",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "نعم، نستخدم معادلات دقيقة، لكن النتائج تقديرية."
+            "text": "تعتمد الحاسبة على النسبة الشرعية المقررة لزكاة المال وهي 2.5% (أو ربع العشر) من إجمالي الأموال النقدية والمدخرات التي بلغت النصاب ومر عليها عام هجري كامل (الحول)."
           }
         },
         {
           "@type": "Question",
-          "name": "هل بياناتي محفوظة؟",
+          "name": "هل يمكن استخدام حاسبة الزكاة لحساب زكاة الذهب والأسهم؟",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "لا، جميع الحسابات تتم في متصفحك فقط."
+            "text": "نعم، تتيح لك الحاسبة إدخال أوزان الذهب والفضة بالجرام، أو عدد الأسهم وقيمتها السوقية، وتقوم بتحويلها تلقائياً إلى قيمتها النقدية لحساب الزكاة الواجبة عليها."
           }
         },
         {
           "@type": "Question",
-          "name": "هل يمكن استخدامها على الجوال؟",
+          "name": "كيف تحدد حاسبة الزكاة ما إذا كان المال قد بلغ النصاب؟",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "نعم، الموقع متوافق مع جميع الأجهزة."
+            "text": "تعتمد الحاسبة على القيمة الحالية للنصاب الشرعي (ما يعادل قيمة 85 جراماً من الذهب الخالص)، وتقوم بمقارنة إجمالي أموالك بها لتوضح لك ما إذا كانت الزكاة واجبة عليك أم لا."
           }
         }
       ]
@@ -168,37 +168,24 @@
       <input type="number" id="investments" placeholder="الاستثمارات" oninput="calculate()">
     </div>
 
+
     <button class="calc-btn" onclick="calculate()">احسب</button>
 
     <div class="result-card" id="resultCard">
-      <div class="result-row"><span class="result-label">إجمالي الأموال</span><span class="result-value" id="totalWealth">0</span></div>
-      <div class="result-row"><span class="result-label">الزكاة الواجبة</span><span class="result-value big" id="finalResult">0</span></div>
+      <div class="result-row"><span class="result-label">النتيجة</span><span class="result-value big" id="finalResult">0</span></div>
     </div>
 
     <a href="/" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
   </div>
 
   <div class="article-box">
-    <h3>عن حاسبة الزكاة</h3>
-    <p>احسب زكاة أموالك بدقة وفق الأحكام الشرعية. تستخدم هذه الحاسبة معادلات دقيقة لمساعدتك في الحصول على نتائج فورية وموثوقة.</p>
+<h3>احسب زكاة أموالك بدقة وفق الأحكام الشرعية</h3>
+<p>تمثل الزكاة ركناً أساسياً من أركان الإسلام، وهي واجب شرعي يعزز التكافل الاجتماعي والتنمية الاقتصادية. في المملكة العربية السعودية، يحرص المزكون على أداء هذه الفريضة بدقة وشفافية وفق أحكام الشريعة الإسلامية. ومع تطور الخدمات الرقمية، أصبحت حاسبة<h3>الأسئلة الشائعة</h3>
+<div style="margin-bottom:16px"><strong>ما هي حاسبة الزكاة وكيف تعمل؟</strong><p>حاسبة الزكاة هي أداة إلكترونية تُستخدم لحساب قيمة الزكاة المستحقة على أموالك وممتلكاتك بدقة، حيث تقوم بحساب النسب الشرعية المحددة بمجرد إدخال قيمة الأصول والمدخرات التي تملكها.</p></div>
+<div style="margin-bottom:16px"><strong>ما هي النسبة التي تعتمد عليها حاسبة الزكاة لحساب زكاة المال؟</strong><p>تعتمد الحاسبة على النسبة الشرعية المقررة لزكاة المال وهي 2.5% (أو ربع العشر) من إجمالي الأموال النقدية والمدخرات التي بلغت النصاب ومر عليها عام هجري كامل (الحول).</p></div>
+<div style="margin-bottom:16px"><strong>هل يمكن استخدام حاسبة الزكاة لحساب زكاة الذهب والأسهم؟</strong><p>نعم، تتيح لك الحاسبة إدخال أوزان الذهب والفضة بالجرام، أو عدد الأسهم وقيمتها السوقية، وتقوم بتحويلها تلقائياً إلى قيمتها النقدية لحساب الزكاة الواجبة عليها.</p></div>
+<div style="margin-bottom:16px"><strong>كيف تحدد حاسبة الزكاة ما إذا كان المال قد بلغ النصاب؟</strong><p>تعتمد الحاسبة على القيمة الحالية للنصاب الشرعي (ما يعادل قيمة 85 جراماً من الذهب الخالص)، وتقوم بمقارنة إجمالي أموالك بها لتوضح لك ما إذا كانت الزكاة واجبة عليك أم لا.</p></div>
 
-    <h3>كيفية الاستخدام</h3>
-    <ul>
-      <li>أدخل القيم المطلوبة في الحقول أعلاه.</li>
-      <li>ستظهر النتيجة تلقائياً أثناء الكتابة.</li>
-      <li>يمكنك تعديل القيم للحصول على نتائج مختلفة.</li>
-    </ul>
-
-    <h3>ملاحظات مهمة</h3>
-    <p>جميع الحسابات تتم داخل متصفحك مباشرة ولا يتم إرسالها لأي خادم. النتائج تقديرية ويُنصح بمراجعة جهة مختصة للحالات الخاصة.</p>
-
-    <div class="tip">💡 <strong>نصيحة:</strong> احتفظ بنتيجة الحساب للرجوع إليها لاحقاً.</div>
-
-    <h3>الأسئلة الشائعة</h3>
-    <div style="margin-bottom:16px"><strong>هل حاسبة الزكاة مجانية؟</strong><p>نعم، جميع الحاسبات في حاسبها مجانية بالكامل.</p></div>
-    <div style="margin-bottom:16px"><strong>هل النتائج دقيقة؟</strong><p>نعم، نستخدم معادلات دقيقة، لكن النتائج تقديرية.</p></div>
-    <div style="margin-bottom:16px"><strong>هل بياناتي محفوظة؟</strong><p>لا، جميع الحسابات تتم في متصفحك فقط.</p></div>
-    <div style="margin-bottom:16px"><strong>هل يمكن استخدامها على الجوال؟</strong><p>نعم، الموقع متوافق مع جميع الأجهزة.</p></div>
   </div>
 </div>
 </main>
@@ -236,22 +223,11 @@
     try{localStorage.setItem('hs-theme',next);}catch(e){}
   });
 })();
+document.getElementById('year').textContent=new Date().getFullYear();
 
-function formatNumber(n){
-  return n.toLocaleString('ar-SA',{minimumFractionDigits:2,maximumFractionDigits:2});
-}
+function formatNumber(n){return n.toLocaleString('ar-SA',{minimumFractionDigits:2,maximumFractionDigits:2});}
 
-function calculate(){
-  var c = parseFloat(document.getElementById('cash').value) || 0;
-  var g = parseFloat(document.getElementById('gold').value) || 0;
-  var s = parseFloat(document.getElementById('silver').value) || 0;
-  var i = parseFloat(document.getElementById('investments').value) || 0;
-  var total = c + g + s + i;
-  var zakat = total * 0.025;
-  document.getElementById('totalWealth').textContent = formatNumber(total) + ' ريال';
-  document.getElementById('finalResult').textContent = formatNumber(zakat) + ' ريال';
-  document.getElementById('resultCard').style.display = 'block';
-}
+function calculate(){var c=parseFloat(document.getElementById('cash').value)||0;var g=parseFloat(document.getElementById('gold').value)||0;var s=parseFloat(document.getElementById('silver').value)||0;var i=parseFloat(document.getElementById('investments').value)||0;var total=c+g+s+i;var zakat=total*0.025;document.getElementById('finalResult').textContent=formatNumber(zakat)+' ريال';document.getElementById('resultCard').style.display='block';}
 </script>
 </body>
 </html>
