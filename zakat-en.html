@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Zakat Calculator - حاسبها</title>
+<meta name="description" content="Calculate your Zakat accurately">
+<meta name="keywords" content="zakat calculator, zakat on wealth, islamic finance">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="حاسبها">
+<meta name="geo.region" content="SA">
+<link rel="canonical" href="https://hasibha.com/zakat">
+<link rel="icon" type="image/png" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+<link rel="apple-touch-icon" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+<link rel="alternate" hreflang="ar" href="https://hasibha.com/zakat">
+<link rel="alternate" hreflang="en" href="https://hasibha.com/zakat-en">
+<link rel="alternate" hreflang="x-default" href="https://hasibha.com/zakat">
+
+<meta property="og:title" content="Zakat Calculator">
+<meta property="og:description" content="Calculate your Zakat accurately">
+<meta property="og:url" content="https://hasibha.com/zakat">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+<meta property="og:site_name" content="حاسبها">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Zakat Calculator">
+<meta name="twitter:description" content="Calculate your Zakat accurately">
+<meta name="twitter:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+<meta name="theme-color" content="#0b0d10">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hasibha.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Zakat Calculator",
+          "item": "https://hasibha.com/zakat-en"
+        }
+      ]
+    },
+    {
+      "@type": "WebApplication",
+      "name": "Zakat Calculator",
+      "description": "Calculate your Zakat accurately",
+      "url": "https://hasibha.com/zakat-en",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "inLanguage": "en-US",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "SAR"
+      }
+    }
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-in">
+    <a class="logo" href="/" aria-label="حاسبها">
+      <img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="حاسبها" style="height:36px;vertical-align:middle">
+      حاسبها
+    </a>
+    <nav class="main-nav" aria-label="التنقل الرئيسي">
+      <a href="/#calculators">Calculators</a>
+      <a href="/#features">Features</a>
+      <a href="/#faq">FAQ</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-btn" id="themeBtn" aria-label="Theme">
+        <svg id="iconMoon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg id="iconSun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a class="lang-btn" href="/zakat" hreflang="ar" lang="ar">عربي</a>
+    </div>
+  </div>
+</header>
+
+<nav class="breadcrumb">
+  <div class="wrap">
+    <a href="/">🏠 Home</a>
+    <span>←</span>
+    <span style="color:var(--text);font-weight:600">Zakat Calculator</span>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+  <div class="calc-wrapper">
+    <h1>🕌 Zakat Calculator</h1>
+    <p class="subtitle">Calculate your Zakat accurately</p>
+
+    <label for="cash">Cash and Savings</label>
+    <div class="input-row">
+      <input type="number" id="cash" placeholder="Cash and Savings" oninput="calculate()">
+    </div>
+
+    <label for="gold">Gold Value</label>
+    <div class="input-row">
+      <input type="number" id="gold" placeholder="Gold Value" oninput="calculate()">
+    </div>
+
+    <label for="silver">Silver Value</label>
+    <div class="input-row">
+      <input type="number" id="silver" placeholder="Silver Value" oninput="calculate()">
+    </div>
+
+    <label for="investments">Investments</label>
+    <div class="input-row">
+      <input type="number" id="investments" placeholder="Investments" oninput="calculate()">
+    </div>
+
+
+    <button class="calc-btn" onclick="calculate()">Calculate</button>
+
+    <div class="result-card" id="resultCard">
+      <div class="result-row"><span class="result-label">Result</span><span class="result-value big" id="finalResult">0</span></div>
+    </div>
+
+    <a href="/" class="back-link">↩ Back to Home</a>
+  </div>
+
+  <div class="article-box">
+
+  </div>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-in">
+    <a class="logo" href="/" style="font-size:16px">
+      <img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="حاسبها" style="height:28px;vertical-align:middle">
+      حاسبها
+    </a>
+    <nav aria-label="Footer">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/contact">Contact Us</a>
+      <a href="/about">About Us</a>
+    </nav>
+    <p>Hasibha © 2026 — All Rights Reserved</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  var moon=document.getElementById('iconMoon'), sun=document.getElementById('iconSun');
+  function apply(t){
+    if(t==='dark'){root.setAttribute('data-theme','dark');moon.style.display='none';sun.style.display='block';}
+    else{root.removeAttribute('data-theme');moon.style.display='block';sun.style.display='none';}
+  }
+  var saved=null;
+  try{saved=localStorage.getItem('hs-theme');}catch(e){}
+  if(!saved){saved=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}
+  apply(saved);
+  btn.addEventListener('click',function(){
+    var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    apply(next);
+    try{localStorage.setItem('hs-theme',next);}catch(e){}
+  });
+})();
+document.getElementById('year').textContent=new Date().getFullYear();
+
+function formatNumber(n){return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+
+var c=parseFloat(document.getElementById('cash').value)||0;var g=parseFloat(document.getElementById('gold').value)||0;var s=parseFloat(document.getElementById('silver').value)||0;var i=parseFloat(document.getElementById('investments').value)||0;var total=c+g+s+i;var zakat=total*0.025;document.getElementById('finalResult').textContent=formatNumber(zakat)+' ريال';document.getElementById('resultCard').style.display='block';
+</script>
+</body>
+</html>
