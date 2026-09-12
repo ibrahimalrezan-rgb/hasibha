@@ -168,36 +168,37 @@
       <input type="number" id="investments" placeholder="الاستثمارات" oninput="calculate()">
     </div>
 
-
     <button class="calc-btn" onclick="calculate()">احسب</button>
 
     <div class="result-card" id="resultCard">
-      <div class="result-row"><span class="result-label">النتيجة</span><span class="result-value big" id="finalResult">0</span></div>
+      <div class="result-row"><span class="result-label">إجمالي الأموال</span><span class="result-value" id="totalWealth">0</span></div>
+      <div class="result-row"><span class="result-label">الزكاة الواجبة</span><span class="result-value big" id="finalResult">0</span></div>
     </div>
 
     <a href="/" class="back-link">↩ الرجوع للقائمة الرئيسية</a>
   </div>
 
   <div class="article-box">
-<h3>عن حاسبة الزكاة</h3>
-<p>احسب زكاة أموالك بدقة وفق الأحكام الشرعية. تستخدم هذه الحاسبة معادلات دقيقة لمساعدتك في الحصول على نتائج فورية وموثوقة.</p>
+    <h3>عن حاسبة الزكاة</h3>
+    <p>احسب زكاة أموالك بدقة وفق الأحكام الشرعية. تستخدم هذه الحاسبة معادلات دقيقة لمساعدتك في الحصول على نتائج فورية وموثوقة.</p>
 
-<h3>كيفية الاستخدام</h3>
-<ul>
-<li>أدخل القيم المطلوبة في الحقول أعلاه.</li>
-<li>ستظهر النتيجة تلقائياً أثناء الكتابة.</li>
-<li>يمكنك تعديل القيم للحصول على نتائج مختلفة.</li>
-</ul>
+    <h3>كيفية الاستخدام</h3>
+    <ul>
+      <li>أدخل القيم المطلوبة في الحقول أعلاه.</li>
+      <li>ستظهر النتيجة تلقائياً أثناء الكتابة.</li>
+      <li>يمكنك تعديل القيم للحصول على نتائج مختلفة.</li>
+    </ul>
 
-<h3>ملاحظات مهمة</h3>
-<p>جميع الحسابات تتم داخل متصفحك مباشرة ولا يتم إرسالها لأي خادم. النتائج تقديرية ويُنصح بمراجعة جهة مختصة للحالات الخاصة.</p>
+    <h3>ملاحظات مهمة</h3>
+    <p>جميع الحسابات تتم داخل متصفحك مباشرة ولا يتم إرسالها لأي خادم. النتائج تقديرية ويُنصح بمراجعة جهة مختصة للحالات الخاصة.</p>
 
-<div class="tip">💡 <strong>نصيحة:</strong> احتفظ بنتيجة الحساب للرجوع إليها لاحقاً.</div><h3>الأسئلة الشائعة</h3>
-<div style="margin-bottom:16px"><strong>هل حاسبة الزكاة مجانية؟</strong><p>نعم، جميع الحاسبات في حاسبها مجانية بالكامل.</p></div>
-<div style="margin-bottom:16px"><strong>هل النتائج دقيقة؟</strong><p>نعم، نستخدم معادلات دقيقة، لكن النتائج تقديرية.</p></div>
-<div style="margin-bottom:16px"><strong>هل بياناتي محفوظة؟</strong><p>لا، جميع الحسابات تتم في متصفحك فقط.</p></div>
-<div style="margin-bottom:16px"><strong>هل يمكن استخدامها على الجوال؟</strong><p>نعم، الموقع متوافق مع جميع الأجهزة.</p></div>
+    <div class="tip">💡 <strong>نصيحة:</strong> احتفظ بنتيجة الحساب للرجوع إليها لاحقاً.</div>
 
+    <h3>الأسئلة الشائعة</h3>
+    <div style="margin-bottom:16px"><strong>هل حاسبة الزكاة مجانية؟</strong><p>نعم، جميع الحاسبات في حاسبها مجانية بالكامل.</p></div>
+    <div style="margin-bottom:16px"><strong>هل النتائج دقيقة؟</strong><p>نعم، نستخدم معادلات دقيقة، لكن النتائج تقديرية.</p></div>
+    <div style="margin-bottom:16px"><strong>هل بياناتي محفوظة؟</strong><p>لا، جميع الحسابات تتم في متصفحك فقط.</p></div>
+    <div style="margin-bottom:16px"><strong>هل يمكن استخدامها على الجوال؟</strong><p>نعم، الموقع متوافق مع جميع الأجهزة.</p></div>
   </div>
 </div>
 </main>
@@ -235,11 +236,22 @@
     try{localStorage.setItem('hs-theme',next);}catch(e){}
   });
 })();
-document.getElementById('year').textContent=new Date().getFullYear();
 
-function formatNumber(n){return n.toLocaleString('ar-SA',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function formatNumber(n){
+  return n.toLocaleString('ar-SA',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
 
-function calculate(){var c=parseFloat(document.getElementById('cash').value)||0;var g=parseFloat(document.getElementById('gold').value)||0;var s=parseFloat(document.getElementById('silver').value)||0;var i=parseFloat(document.getElementById('investments').value)||0;var total=c+g+s+i;var zakat=total*0.025;document.getElementById('finalResult').textContent=formatNumber(zakat)+' ريال';document.getElementById('resultCard').style.display='block';}
+function calculate(){
+  var c = parseFloat(document.getElementById('cash').value) || 0;
+  var g = parseFloat(document.getElementById('gold').value) || 0;
+  var s = parseFloat(document.getElementById('silver').value) || 0;
+  var i = parseFloat(document.getElementById('investments').value) || 0;
+  var total = c + g + s + i;
+  var zakat = total * 0.025;
+  document.getElementById('totalWealth').textContent = formatNumber(total) + ' ريال';
+  document.getElementById('finalResult').textContent = formatNumber(zakat) + ' ريال';
+  document.getElementById('resultCard').style.display = 'block';
+}
 </script>
 </body>
 </html>
