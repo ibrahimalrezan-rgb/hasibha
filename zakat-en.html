@@ -239,7 +239,7 @@ document.getElementById('year').textContent=new Date().getFullYear();
 
 function formatNumber(n){return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 
-var c=parseFloat(document.getElementById('cash').value)||0;var g=parseFloat(document.getElementById('gold').value)||0;var s=parseFloat(document.getElementById('silver').value)||0;var i=parseFloat(document.getElementById('investments').value)||0;var total=c+g+s+i;var zakat=total*0.025;document.getElementById('finalResult').textContent=formatNumber(zakat)+' ريال';document.getElementById('resultCard').style.display='block';
+function calculate(){var c=parseFloat(document.getElementById('cash').value)||0;var g=parseFloat(document.getElementById('gold').value)||0;var s=parseFloat(document.getElementById('silver').value)||0;var i=parseFloat(document.getElementById('investments').value)||0;var total=c+g+s+i;var zakat=total*0.025;document.getElementById('finalResult').textContent=formatNumber(zakat)+' ريال';document.getElementById('resultCard').style.display='block';}
 </script>
 </body>
 </html>
