@@ -94,13 +94,26 @@ def default_faq(calc, lang):
 
 
 def default_script(calc, lang):
-    return """function calculate(){
-  var total = 0;
-  var fields = document.querySelectorAll('.input-row input');
-  fields.forEach(function(f){ total += parseFloat(f.value) || 0; });
-  document.getElementById('finalResult').textContent = formatNumber(total);
+    """يولّد سكربت تلقائي من الحقول"""
+    fields = calc['fields']
+    reads = []
+    sums = []
+    for f in fields:
+        fid = f['id']
+        reads.append(f"  var {fid} = parseFloat(document.getElementById('{fid}').value) || 0;")
+        sums.append(fid)
+    
+    reads_str = "\n".join(reads)
+    total_expr = " + ".join(sums)
+    currency = 'ريال' if lang == 'ar' else 'SAR'
+    
+    return f"""function calculate(){{
+{reads_str}
+  var total = {total_expr};
+  var result = total;
+  document.getElementById('finalResult').textContent = formatNumber(result) + ' {currency}';
   document.getElementById('resultCard').style.display = 'block';
-}"""
+}}"""
 
 
 def render_fields(calc, lang):
@@ -200,26 +213,13 @@ def generate_page(calc, lang, ai_provider, config):
             except Exception as e:
                 print(f"    ⚠️ خطأ: {e}")
                 faqs = default_faq(calc, lang)
-        
-        if not script:
-            print(f"    🤖 توليد كود ({lang})...")
-            try:
-                result = ai_provider.generate_script(calc, lang)
-                if result and len(result) > 50:
-                    script = result
-                    print(f"    ✅ سكربت ({len(result)} حرف)")
-                else:
-                    print(f"    ⚠️ رد فاضي - استخدام سكربت افتراضي")
-                    script = default_script(calc, lang)
-            except Exception as e:
-                print(f"    ⚠️ خطأ: {e}")
-                script = default_script(calc, lang)
     
     if not article:
         article = default_article(calc, lang)
     if not faqs:
         faqs = default_faq(calc, lang)
     if not script:
+        print(f"    ⚙️ استخدام قالب سكربت تلقائي...")
         script = default_script(calc, lang)
     
     if lang == "ar":
