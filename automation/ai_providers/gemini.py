@@ -17,7 +17,7 @@ class GeminiProvider(AIProvider):
     
     def generate(self, prompt, max_tokens=3000):
         """يولّد نص باستخدام Gemini"""
-        url = f"{self.BASE_URL}/gemini-2.0-flash:generateContent?key={self.api_key}"
+        url = f"{self.BASE_URL}/gemini-3.6-flash:generateContent?key={self.api_key}"
         
         payload = {
             "contents": [{
