@@ -1,18 +1,17 @@
 #!/usr/bin/env python3
 """
-تحديث الصفحات الإنجليزية من العربية
-يستخرج الحقول والسكربت كامل، ويترجم فقط النصوص
+تحديث الصفحات الإنجليزية من العربية - بدون AI
+يستخدم Google Translate المجاني
 """
 
 import os
 import sys
 import re
 import json
+import time
+import urllib.parse
+import urllib.request
 from datetime import datetime
-
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-from ai_providers import get_provider
 
 SITE_URL = "https://hasibha.com"
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,34 +36,77 @@ PAGES = [
 ]
 
 
-def load_config():
-    with open(os.path.join(AUTOMATION_DIR, 'config.json'), 'r', encoding='utf-8') as f:
-        return json.load(f)
+def translate_google(text):
+    """يترجم باستخدام Google Translate المجاني"""
+    if not text or not text.strip():
+        return text
+    
+    # إذا النص طويل، نقسمه
+    if len(text) > 4000:
+        parts = []
+        current = ""
+        for line in text.split("\n"):
+            if len(current) + len(line) < 3500:
+                current += line + "\n"
+            else:
+                parts.append(current)
+                current = line + "\n"
+        if current:
+            parts.append(current)
+        
+        translated_parts = []
+        for part in parts:
+            translated_parts.append(translate_google(part))
+            time.sleep(0.5)
+        return "\n".join(translated_parts)
+    
+    try:
+        url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ar&tl=en&dt=t&q=" + urllib.parse.quote(text)
+        
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=30) as response:
+            data = json.loads(response.read().decode('utf-8'))
+            
+            if data and data[0]:
+                result = ""
+                for item in data[0]:
+                    if item[0]:
+                        result += item[0]
+                return result
+    except Exception as e:
+        print(f"    ⚠️ خطأ ترجمة: {e}")
+    
+    return text
 
 
-def get_api_key(provider_name):
-    if provider_name == "gemini":
-        return os.environ.get("GEMINI_API_KEY")
-    return None
-
-
-def clean_ai_response(text):
-    if not text:
+def translate_html(html):
+    """يترجم HTML مع الحفاظ على الوسوم"""
+    if not html:
         return ""
-    text = text.strip()
-    if text.startswith("```"):
-        parts = text.split("```")
-        if len(parts) >= 2:
-            text = parts[1]
-            for prefix in ["html", "json", "javascript", "js"]:
-                if text.startswith(prefix):
-                    text = text[len(prefix):]
-                    break
-    return text.strip()
+    
+    # نستخرج النصوص العربية ونترجمها
+    # نستخدم regex لإيجاد النصوص بين الوسوم
+    
+    def replace_text(match):
+        text = match.group(0)
+        if not text.strip():
+            return text
+        # نحتفظ بالمسافات
+        leading = len(text) - len(text.lstrip())
+        trailing = len(text) - len(text.rstrip())
+        core = text.strip()
+        if core:
+            translated = translate_google(core)
+            return " " * leading + translated + " " * trailing
+        return text
+    
+    # نطبق على النصوص بين الوسوم
+    html = re.sub(r'>([^<>]+)<', lambda m: '>' + replace_text(m.group(1)) + '<', html)
+    
+    return html
 
 
 def read_ar_page(slug):
-    """يقرأ كل ما نحتاجه من الصفحة العربية"""
     path = os.path.join(ROOT_DIR, f"{slug}.html")
     if not os.path.exists(path):
         return None
@@ -74,30 +116,30 @@ def read_ar_page(slug):
     
     result = {}
     
-    # استخراج subtitle
     subtitle_match = re.search(r'<p class="subtitle">([^<]+)</p>', content)
     result['subtitle'] = subtitle_match.group(1).strip() if subtitle_match else ''
     
-    # استخراج fields HTML
-    fields_match = re.search(
-        r'</p>\s*(.*?)\s*<button class="calc-btn"',
-        content, re.DOTALL
-    )
-    result['fields_html'] = fields_match.group(1).strip() if fields_match else ''
+    # نستخرج الحقول بطريقة أذكى - من بعد subtitle إلى calc-btn
+    start_match = re.search(r'</p>', content)
+    end_match = re.search(r'<button class="calc-btn"', content)
     
-    # استخراج article-box
+    if start_match and end_match:
+        start_pos = start_match.end()
+        end_pos = end_match.start()
+        result['fields_html'] = content[start_pos:end_pos].strip()
+    else:
+        result['fields_html'] = ''
+    
     article_match = re.search(
         r'<div class="article-box">(.*?)</div>\s*</div>\s*</main>',
         content, re.DOTALL
     )
     result['article'] = article_match.group(1).strip() if article_match else ''
     
-    # استخراج كل السكربتات (ما عدا Analytics)
+    # السكربت
     scripts = re.findall(r'<script>(.*?)</script>', content, re.DOTALL)
-    
     all_scripts = []
     for s in scripts:
-        # تجاهل Google Analytics
         if 'googletagmanager' in s or 'gtag' in s:
             continue
         if not s.strip():
@@ -109,165 +151,13 @@ def read_ar_page(slug):
     return result
 
 
-def translate_simple(ai, text_ar):
-    """يترجم نص عادي قصير"""
-    if not text_ar:
-        return ""
-    
-    prompt = f"""Translate this Arabic sentence to English. Return ONLY the translation, no explanations, no quotes.
-
-Arabic: {text_ar}
-
-English:"""
-    
-    result = ai.generate(prompt, max_tokens=300)
-    return clean_ai_response(result).strip('"').strip()
-
-
-def translate_article(ai, article_ar):
-    if not article_ar:
-        return ""
-    
-    prompt = f"""Translate this Arabic HTML article to English.
-
-CRITICAL RULES:
-1. Keep ALL HTML tags exactly: <h3>, <p>, <ul>, <li>, <div class="tip">
-2. Translate only text content, NOT tags or class names
-3. Keep numbers, URLs as-is
-4. "ريال" → "SAR", "السعودية" → "Saudi Arabia", "حاسبها" → "Hasibha"
-5. Do NOT add markdown or code blocks
-6. Output ONLY the English HTML
-
-Arabic HTML:
-{article_ar}
-
-English HTML:"""
-    
-    result = ai.generate(prompt, max_tokens=4000)
-    return clean_ai_response(result)
-
-
-def translate_fields_html(ai, fields_ar):
-    """يترجم النصوص في الحقول مع الحفاظ على البنية"""
-    if not fields_ar:
-        return ""
-    
-    prompt = f"""Translate the Arabic text in this HTML to English.
-
-CRITICAL RULES:
-1. Keep ALL HTML tags and attributes EXACTLY as they are
-2. Translate ONLY the Arabic text (labels, placeholders, slider labels, unit text)
-3. Do NOT change: input types, ids, class names, min, max, value, step, oninput
-4. "ريال" → "SAR", "سنة" → "years", "٪" → "%"
-5. Do NOT add markdown or code blocks
-6. Output ONLY the translated HTML
-
-Arabic HTML:
-{fields_ar}
-
-English HTML:"""
-    
-    result = ai.generate(prompt, max_tokens=4000)
-    return clean_ai_response(result)
-
-
-def generate_en_page(ai, page):
-    slug = page['slug']
-    print(f"  📖 قراءة {slug}.html...")
-    
-    data = read_ar_page(slug)
-    if not data:
-        print(f"  ⚠️ لم أجد {slug}.html")
-        return None
-    
-    if not data['fields_html']:
-        print(f"  ⚠️ لا توجد حقول")
-        return None
-    
-    if not data['script']:
-        print(f"  ⚠️ لا يوجد سكربت")
-        return None
-    
-    print(f"  📊 سكربت: {len(data['script'])} حرف")
-    
-    # ترجمة subtitle
-    print(f"  🤖 ترجمة العنوان الفرعي...")
-    subtitle_en = translate_simple(ai, data['subtitle'])
-    if not subtitle_en:
-        subtitle_en = "Calculate instantly with our free online tool."
-    print(f"  ✅ {subtitle_en[:60]}...")
-    
-    # ترجمة المقال
-    if data['article']:
-        print(f"  🤖 ترجمة المقال...")
-        article_en = translate_article(ai, data['article'])
-        print(f"  ✅ مقال ({len(article_en)} حرف)")
-    else:
-        article_en = ""
-    
-    # ترجمة الحقول
-    print(f"  🤖 ترجمة الحقول...")
-    fields_en = translate_fields_html(ai, data['fields_html'])
-    print(f"  ✅ حقول ({len(fields_en)} حرف)")
-    
-    # السكربت - نستخدمه كما هو مع تعديلات
-    script = data['script']
-    script = script.replace("'ريال'", "'SAR'")
-    script = script.replace('"ريال"', '"SAR"')
-    script = script.replace("' سنة'", "' years'")
-    script = script.replace("'ar-SA'", "'en-US'")
-    script = script.replace('"ar-SA"', '"en-US"')
-    
-    # وصف SEO
-    desc_prompt = f"Write a short SEO meta description in English (140-160 chars) for: {page['title_en']}. Return ONLY the description."
-    desc_en = clean_ai_response(ai.generate(desc_prompt, max_tokens=200))
-    if not desc_en or len(desc_en) < 30:
-        desc_en = f"Free online {page['title_en']}. Instant, accurate results - no registration required."
-    
-    # Schema
-    schema = {
-        "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "BreadcrumbList",
-                "itemListElement": [
-                    {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/index-en"},
-                    {"@type": "ListItem", "position": 2, "name": page['title_en'], "item": f"{SITE_URL}/{slug}-en"}
-                ]
-            },
-            {
-                "@type": "WebApplication",
-                "name": page['title_en'],
-                "description": desc_en,
-                "url": f"{SITE_URL}/{slug}-en",
-                "applicationCategory": "UtilityApplication",
-                "operatingSystem": "Any",
-                "inLanguage": "en-US",
-                "offers": {"@type": "Offer", "price": "0", "priceCurrency": "SAR"}
-            }
-        ]
-    }
-    
-    # بناء الصفحة
-    html = build_en_page(page, fields_en, article_en, subtitle_en, desc_en, script, schema)
-    
-    output = f"{slug}-en.html"
-    output_path = os.path.join(ROOT_DIR, output)
-    with open(output_path, 'w', encoding='utf-8') as f:
-        f.write(html)
-    
-    print(f"  ✅ تم إنشاء {output}")
-    return output
-
-
 def build_en_page(page, fields_html, article_html, subtitle, desc, script, schema):
-    """يبني صفحة إنجليزية كاملة"""
     slug = page['slug']
     title = page['title_en']
     icon = page['icon']
     year = datetime.now().year
     
-    html = f'''<!DOCTYPE html>
+    return f'''<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
@@ -399,31 +289,90 @@ def build_en_page(page, fields_html, article_html, subtitle, desc, script, schem
 </body>
 </html>
 '''
-    return html
+
+
+def generate_en_page(page):
+    slug = page['slug']
+    print(f"  📖 قراءة {slug}.html...")
+    
+    data = read_ar_page(slug)
+    if not data:
+        print(f"  ⚠️ لم أجد {slug}.html")
+        return None
+    
+    if not data['fields_html']:
+        print(f"  ⚠️ لا توجد حقول")
+        return None
+    
+    print(f"  📊 سكربت: {len(data['script'])} حرف")
+    
+    # ترجمة subtitle
+    print(f"  🌐 ترجمة العنوان...")
+    subtitle_en = translate_google(data['subtitle']) if data['subtitle'] else "Calculate instantly with our free online tool."
+    print(f"  ✅ {subtitle_en[:60]}...")
+    
+    # ترجمة المقال
+    if data['article']:
+        print(f"  🌐 ترجمة المقال...")
+        article_en = translate_html(data['article'])
+        print(f"  ✅ مقال ({len(article_en)} حرف)")
+    else:
+        article_en = ""
+    
+    # ترجمة الحقول
+    print(f"  🌐 ترجمة الحقول...")
+    fields_en = translate_html(data['fields_html'])
+    print(f"  ✅ حقول ({len(fields_en)} حرف)")
+    
+    # السكربت
+    script = data['script']
+    script = script.replace("'ريال'", "'SAR'")
+    script = script.replace('"ريال"', '"SAR"')
+    script = script.replace("' سنة'", "' years'")
+    script = script.replace("'ar-SA'", "'en-US'")
+    script = script.replace('"ar-SA"', '"en-US"')
+    script = script.replace("+ ' ريال'", "+ ' SAR'")
+    script = script.replace("' ريال'", "' SAR'")
+    
+    # وصف SEO
+    desc = f"Free online {page['title_en']}. Instant, accurate results - no registration required."
+    
+    # Schema
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/index-en"},
+                    {"@type": "ListItem", "position": 2, "name": page['title_en'], "item": f"{SITE_URL}/{slug}-en"}
+                ]
+            },
+            {
+                "@type": "WebApplication",
+                "name": page['title_en'],
+                "description": desc,
+                "url": f"{SITE_URL}/{slug}-en",
+                "applicationCategory": "UtilityApplication",
+                "operatingSystem": "Any",
+                "inLanguage": "en-US",
+                "offers": {"@type": "Offer", "price": "0", "priceCurrency": "SAR"}
+            }
+        ]
+    }
+    
+    html = build_en_page(page, fields_en, article_en, subtitle_en, desc, script, schema)
+    
+    output = f"{slug}-en.html"
+    output_path = os.path.join(ROOT_DIR, output)
+    with open(output_path, 'w', encoding='utf-8') as f:
+        f.write(html)
+    
+    print(f"  ✅ تم إنشاء {output}")
+    return output
 
 
 def main():
-    config = load_config()
-    
-    ai = None
-    if config.get('ai_enabled'):
-        provider_name = config.get('ai_provider', 'gemini')
-        api_key = get_api_key(provider_name)
-        
-        if api_key:
-            try:
-                ai = get_provider(provider_name, api_key, config.get('ai_model'))
-                print(f"🤖 AI: {provider_name}")
-            except Exception as e:
-                print(f"⚠️ خطأ في AI: {e}")
-                return
-        else:
-            print("⚠️ لا يوجد مفتاح API")
-            return
-    else:
-        print("⚠️ AI معطل")
-        return
-    
     pages_to_update = PAGES
     if len(sys.argv) > 1 and sys.argv[1]:
         target = sys.argv[1]
@@ -433,11 +382,12 @@ def main():
             return
     
     print(f"📊 عدد الصفحات: {len(pages_to_update)}")
+    print("🌐 استخدام Google Translate (بدون AI)")
     
     for i, page in enumerate(pages_to_update, 1):
         print(f"\n[{i}/{len(pages_to_update)}] 🔨 {page['slug']}-en.html")
         try:
-            generate_en_page(ai, page)
+            generate_en_page(page)
         except Exception as e:
             print(f"  ❌ خطأ: {e}")
     
