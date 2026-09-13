@@ -92,30 +92,19 @@ def read_ar_page(slug):
     )
     result['article'] = article_match.group(1).strip() if article_match else ''
     
-    # استخراج كل السكربتات
+    # استخراج كل السكربتات (ما عدا Analytics)
     scripts = re.findall(r'<script>(.*?)</script>', content, re.DOTALL)
     
-    # نجمع كل السكربتات التي تحتوي على دوال مفيدة
     all_scripts = []
     for s in scripts:
-        # نتجاهل سكربت Google Analytics
+        # تجاهل Google Analytics
         if 'googletagmanager' in s or 'gtag' in s:
             continue
-        # نتجاهل السكربت الفارغ
         if not s.strip():
             continue
         all_scripts.append(s.strip())
     
-    # نأخذ آخر سكربتين (الأخير فيه الدوال، وقبله theme toggle)
-    # ندخلهم في سكربت واحد
-    useful_scripts = []
-    for s in all_scripts:
-        # نتجاهل theme toggle (فيه hs-theme)
-        if 'hs-theme' in s or 'themeBtn' in s:
-            continue
-        useful_scripts.append(s)
-    
-    result['script'] = '\n\n'.join(useful_scripts)
+    result['script'] = '\n\n'.join(all_scripts)
     
     return result
 
@@ -168,7 +157,7 @@ def translate_fields_html(ai, fields_ar):
 CRITICAL RULES:
 1. Keep ALL HTML tags and attributes EXACTLY as they are
 2. Translate ONLY the Arabic text (labels, placeholders, slider labels, unit text)
-3. Do NOT change: input types, ids, class names, min, max, value, step
+3. Do NOT change: input types, ids, class names, min, max, value, step, oninput
 4. "ريال" → "SAR", "سنة" → "years", "٪" → "%"
 5. Do NOT add markdown or code blocks
 6. Output ONLY the translated HTML
@@ -221,7 +210,7 @@ def generate_en_page(ai, page):
     fields_en = translate_fields_html(ai, data['fields_html'])
     print(f"  ✅ حقول ({len(fields_en)} حرف)")
     
-    # السكربت - نستخدمه كما هو مع تعديلات بسيطة
+    # السكربت - نستخدمه كما هو مع تعديلات
     script = data['script']
     script = script.replace("'ريال'", "'SAR'")
     script = script.replace('"ريال"', '"SAR"')
