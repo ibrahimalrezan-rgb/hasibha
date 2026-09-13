@@ -5,12 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Mortgage Calculator - Hasibha</title>
-<meta name="description" content="Calculate your monthly mortgage payments">
-<meta name="keywords" content="Mortgage Calculator">
+<meta name="description" content="Check length: "Calculate your monthly mortgage">
+<meta name="keywords" content="Mortgage Calculator, free calculator, online calculator">
 <meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="author" content="حاسبها">
-<meta name="geo.region" content="SA">
-<link rel="canonical" href="https://hasibha.com/mortgage">
+<meta name="author" content="Hasibha">
+<link rel="canonical" href="https://hasibha.com/mortgage-en">
 <link rel="icon" type="image/png" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
 <link rel="apple-touch-icon" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
 <link rel="alternate" hreflang="ar" href="https://hasibha.com/mortgage">
@@ -18,15 +17,15 @@
 <link rel="alternate" hreflang="x-default" href="https://hasibha.com/mortgage">
 
 <meta property="og:title" content="Mortgage Calculator">
-<meta property="og:description" content="Calculate your monthly mortgage payments">
-<meta property="og:url" content="https://hasibha.com/mortgage">
+<meta property="og:description" content="Check length: "Calculate your monthly mortgage">
+<meta property="og:url" content="https://hasibha.com/mortgage-en">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
-<meta property="og:site_name" content="حاسبها">
+<meta property="og:site_name" content="Hasibha">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Mortgage Calculator">
-<meta name="twitter:description" content="Calculate your monthly mortgage payments">
+<meta name="twitter:description" content="Check length: "Calculate your monthly mortgage">
 <meta name="twitter:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
 <meta name="theme-color" content="#0b0d10">
 
@@ -57,7 +56,7 @@
     {
       "@type": "WebApplication",
       "name": "Mortgage Calculator",
-      "description": "Calculate your monthly mortgage payments",
+      "description": "Check length: \"Calculate your monthly mortgage",
       "url": "https://hasibha.com/mortgage-en",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Any",
@@ -78,14 +77,14 @@
 
 <header class="site-header">
   <div class="wrap header-in">
-    <a class="logo" href="/" aria-label="حاسبها">
-      <img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="حاسبها" style="height:36px;vertical-align:middle">
-      حاسبها
+    <a class="logo" href="/index-en" aria-label="Hasibha">
+      <img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha" style="height:36px;vertical-align:middle">
+      Hasibha
     </a>
-    <nav class="main-nav" aria-label="التنقل الرئيسي">
-      <a href="/#calculators">Calculators</a>
-      <a href="/#features">Features</a>
-      <a href="/#faq">FAQ</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/index-en#calculators">Calculators</a>
+      <a href="/index-en#features">Features</a>
+      <a href="/index-en#faq">FAQ</a>
     </nav>
     <div class="header-actions">
       <button class="theme-btn" id="themeBtn" aria-label="Theme">
@@ -99,7 +98,7 @@
 
 <nav class="breadcrumb">
   <div class="wrap">
-    <a href="/">🏠 Home</a>
+    <a href="/index-en">🏠 Home</a>
     <span>←</span>
     <span style="color:var(--text);font-weight:600">Mortgage Calculator</span>
   </div>
@@ -109,65 +108,62 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>🏠 Mortgage Calculator</h1>
-    <p class="subtitle">Calculate your monthly mortgage payments</p>
+    <p class="subtitle">Check length: "Calculate your monthly mortgage</p>
 
-    <label for="priceInput">Property Price (SAR)</label>
+<label for="priceInput">Property Price (SAR)</label>
     <div class="input-row">
-      <input type="number" id="priceInput" placeholder="Property Price (SAR)" oninput="calculate()">
+      <input type="number" id="priceInput" placeholder="Enter property price" oninput="updateAll()">
     </div>
 
+    <div class="slider-group">
+      <div class="slider-value">
+        <label>Down Payment — <span id="downPercent">20</span>%</label>
+        <span id="downVal">0 SAR</span>
+      </div>
+      <input type="range" id="downSlider" min="5" max="50" value="20" oninput="updateAll()">
+      <div class="labels"><span>5%</span><span>50%</span></div>
+    </div>
+
+    <div class="slider-group">
+      <div class="slider-value">
+        <label>Loan Duration — <span id="yearsVal">20</span> years</label>
+      </div>
+      <input type="range" id="yearsSlider" min="5" max="30" value="20" oninput="updateAll()">
+      <div class="labels"><span>5</span><span>30</span></div>
+    </div>
+
+    <div class="slider-group">
+      <div class="slider-value">
+        <label>Interest Rate — <span id="rateVal">5.0</span>%</label>
+      </div>
+      <input type="range" id="rateSlider" min="2" max="15" step="0.1" value="5" oninput="updateAll()">
+      <div class="labels"><span>2%</span><span>15%</span></div>
+    </div>
 
     <button class="calc-btn" onclick="calculate()">Calculate</button>
 
     <div class="result-card" id="resultCard">
-<div class="result-row"><span class="result-label">Result</span><span class="result-value big" id="finalResult">0</span></div>
     </div>
 
-    <a href="/" class="back-link">↩ Back to Home</a>
+    <a href="/index-en" class="back-link">↩ Back to Home</a>
   </div>
 
   <div class="article-box">
-<h2>🗂️ Comprehensive Guide to Real Estate Finance in Saudi Arabia 2026</h2>
 
-    <h3>What is Real Estate Finance?</h3>
-    <p>Real estate finance is a financial product offered by banks and financing companies to help individuals purchase a home or property. The bank pays the full value of the property to the seller, and then the client repays the amount in monthly installments over years, with an agreed-upon profit margin added.</p>
-    <p>According to statistics from the Saudi Central Bank (SAMA), the volume of residential real estate financing in the Kingdom exceeded 600 billion SAR by the end of 2025.</p>
-
-    <h3>Types of Real Estate Finance</h3>
-    <ul>
-      <li><strong>Subsidized Financing:</strong> Provided by the Ministry of Housing in cooperation with banks, where the state bears a portion of the profits.</li>
-      <li><strong>Murabaha Financing:</strong> The bank buys the property and then sells it to the client at a higher price.</li>
-      <li><strong>Ijarah Financing:</strong> The bank buys the property and leases it to the client until the end of the term.</li>
-      <li><strong>Commercial Financing:</strong> For investors in commercial real estate.</li>
-    </ul>
-
-    <h3>Down Payment</h3>
-    <p>According to the Saudi Central Bank: First home 10% minimum, second home 30%.</p>
-    <div class="example">📝 <strong>Example:</strong> A property worth 1 million SAR, down payment 10% = 100,000 SAR paid by you, and the bank finances 900,000 SAR.</div>
-
-    <h3>Golden Tips</h3>
-    <ul>
-      <li>Compare 3 banks before signing.</li>
-      <li>Ask about APR and not the nominal rate.</li>
-      <li>Ensure the installment does not exceed 30% of your income.</li>
-      <li>Use the calculator to try different scenarios.</li>
-    </ul>
-
-    <p class="ref"><strong>References:</strong> Saudi Central Bank (SAMA.gov.sa) | Ministry of Housing (housing.gov.sa) | Real Estate Development Fund (redf.gov.sa)</p>
   </div>
 </div>
 </main>
 
 <footer class="site-footer">
   <div class="wrap footer-in">
-    <a class="logo" href="/" style="font-size:16px">
-      <img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="حاسبها" style="height:28px;vertical-align:middle">
-      حاسبها
+    <a class="logo" href="/index-en" style="font-size:16px">
+      <img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha" style="height:28px;vertical-align:middle">
+      Hasibha
     </a>
     <nav aria-label="Footer">
-      <a href="/privacy">Privacy Policy</a>
-      <a href="/contact">Contact Us</a>
-      <a href="/about">About Us</a>
+      <a href="/privacy-en">Privacy Policy</a>
+      <a href="/contact-en">Contact Us</a>
+      <a href="/about-en">About Us</a>
     </nav>
     <p>Hasibha © 2026 — All Rights Reserved</p>
   </div>
@@ -191,9 +187,6 @@
     try{localStorage.setItem('hs-theme',next);}catch(e){}
   });
 })();
-document.getElementById('year').textContent=new Date().getFullYear();
-
-function formatNumber(n){return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 
 
 </script>
