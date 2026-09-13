@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Personal Loan Calculator - Hasibha</title>
-<meta name="description" content="Calculate your monthly personal loan payments easily.">
+<meta name="description" content="Free online Personal Loan Calculator. Instant, accurate results - no registration required.">
 <meta name="keywords" content="Personal Loan Calculator, free calculator, online calculator">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="author" content="Hasibha">
@@ -17,7 +17,7 @@
 <link rel="alternate" hreflang="x-default" href="https://hasibha.com/personal-loan">
 
 <meta property="og:title" content="Personal Loan Calculator">
-<meta property="og:description" content="Calculate your monthly personal loan payments easily.">
+<meta property="og:description" content="Free online Personal Loan Calculator. Instant, accurate results - no registration required.">
 <meta property="og:url" content="https://hasibha.com/personal-loan-en">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Personal Loan Calculator">
-<meta name="twitter:description" content="Calculate your monthly personal loan payments easily.">
+<meta name="twitter:description" content="Free online Personal Loan Calculator. Instant, accurate results - no registration required.">
 <meta name="twitter:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
 <meta name="theme-color" content="#0b0d10">
 
@@ -56,7 +56,7 @@
     {
       "@type": "WebApplication",
       "name": "Personal Loan Calculator",
-      "description": "Calculate your monthly personal loan payments easily.",
+      "description": "Free online Personal Loan Calculator. Instant, accurate results - no registration required.",
       "url": "https://hasibha.com/personal-loan-en",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Any",
@@ -108,7 +108,7 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>💵 Personal Loan Calculator</h1>
-    <p class="subtitle">Calculate your monthly personal loan payments easily.</p>
+    <p class="subtitle">Calculate instantly with our free online tool.</p>
 
 
 
@@ -121,44 +121,7 @@
   </div>
 
   <div class="article-box">
-<h2>🗂️ The Comprehensive Guide to Personal Finance in Saudi Arabia 2026</h2>
 
-    <h3>What is Personal Finance?</h3>
-    <p>Personal finance is a contract between the customer and the bank under which an amount of money is granted to be used for personal purposes (marriage, travel, education, medical treatment, car purchase), in exchange for repaying it in monthly installments that include the principal amount plus a profit margin.</p>
-
-    <h3>Annual Percentage Rate (APR)</h3>
-    <p>The Annual Percentage Rate includes the profit margin + all administrative fees + insurance cost + any additional expenses. The Saudi Central Bank mandates all banks to clearly disclose the APR.</p>
-
-    <div class="tip">💡 <strong>Important Information:</strong> The nominal rate might be 3.9%, but the actual APR could be 6.2%. Always ask: "What is the annual percentage rate (APR) including all fees?"</div>
-
-    <h3>Salary Deduction Percentage</h3>
-    <ul>
-      <li><strong>Less than 25%:</strong> A comfortable and safe financial situation.</li>
-      <li><strong>Between 25% and 33%:</strong> Acceptable, but monitor your budget.</li>
-      <li><strong>Between 33% and 50%:</strong> High and may cause financial strain.</li>
-      <li><strong>More than 50%:</strong> Rejected by most banks.</li>
-    </ul>
-
-    <div class="warning">⚠️ <strong>Warning:</strong> Individuals whose installment ratio exceeds 35% of their income are 3 times more likely to default on payments.</div>
-
-    <h3>Personal Finance Fees</h3>
-    <ul>
-      <li><strong>Administrative Fees:</strong> 1% of the financing amount or 5,000 SAR, whichever is lower.</li>
-      <li><strong>Early Settlement Fees:</strong> Imposed by some banks.</li>
-      <li><strong>Late Payment Fees:</strong> A penalty when the installment is not paid on time.</li>
-    </ul>
-
-    <h3>Golden Tips</h3>
-    <ul>
-      <li>Receive only the amount you actually need.</li>
-      <li>Read the entire contract before signing.</li>
-      <li>Avoid multiple financings at the same time.</li>
-      <li>Plan for early repayment if you have the opportunity.</li>
-    </ul>
-
-    <div class="example">📝 <strong>Example:</strong> Financing of 100,000 SAR, APR 7%, 5-year duration = approximately 1,980 SAR monthly installment.</div>
-
-    <p class="ref"><strong>Official References:</strong> Saudi Central Bank (SAMA.gov.sa) | Ministry of Commerce (mc.gov.sa) | SIMAH Credit Rating Company (simah.com)</p>
   </div>
 </div>
 </main>
@@ -197,7 +160,63 @@
   });
 })();
 
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  var moon=document.getElementById('iconMoon'), sun=document.getElementById('iconSun');
+  function apply(t){
+    if(t==='dark'){root.setAttribute('data-theme','dark');moon.style.display='none';sun.style.display='block';}
+    else{root.removeAttribute('data-theme');moon.style.display='block';sun.style.display='none';}
+  }
+  var saved=null;
+  try{saved=localStorage.getItem('hs-theme');}catch(e){}
+  if(!saved){saved=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}
+  apply(saved);
+  btn.addEventListener('click',function(){
+    var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    apply(next);
+    try{localStorage.setItem('hs-theme',next);}catch(e){}
+  });
+})();
 
+document.getElementById('year').textContent=new Date().getFullYear();
+
+function formatNumber(n){return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+
+function updateAll(){
+  var a=parseFloat(document.getElementById('loanAmount').value)||0,
+      r=parseFloat(document.getElementById('aprInput').value)||0,
+      y=parseInt(document.getElementById('loanYearsSlider').value),
+      inc=parseFloat(document.getElementById('incomeInput').value)||0;
+
+  document.getElementById('loanYearsVal').textContent=y;
+
+  if(a<=0||r<=0){
+    document.getElementById('monthlyDisplay').textContent='0';
+    document.getElementById('ratioDisplay').textContent='—';
+    document.getElementById('statusMsg').textContent='أدخل البيانات لمعرفة التقييم';
+    document.getElementById('statusMsg').style.color='var(--text-2)';
+    return;
+  }
+
+  var m=y*12,mr=(r/100)/12,mo=0;
+  if(mr>0)mo=a*mr*Math.pow(1+mr,m)/(Math.pow(1+mr,m)-1);
+  else mo=a/m;
+
+  document.getElementById('monthlyDisplay').textContent=formatNumber(mo);
+
+  if(inc>0){
+    var rt=(mo/inc)*100;
+    document.getElementById('ratioDisplay').textContent=rt.toFixed(1)+'%';
+    var s=document.getElementById('statusMsg');
+    if(rt<25){s.textContent='💚 ممتاز — التمويل مناسب جداً.';s.style.color='#22c55e';}
+    else if(rt<=35){s.textContent='💛 مقبول بحذر — راقب ميزانيتك.';s.style.color='#eab308';}
+    else{s.textContent='❤️ تحذير — التمويل قد يشكل ضغطاً مالياً.';s.style.color='#ef4444';}
+  } else {
+    document.getElementById('ratioDisplay').textContent='—';
+    document.getElementById('statusMsg').textContent='أدخل الدخل لمعرفة التقييم';
+    document.getElementById('statusMsg').style.color='var(--text-2)';
+  }
+}
 </script>
 </body>
 </html>

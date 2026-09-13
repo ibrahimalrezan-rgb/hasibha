@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Mortgage Calculator - Hasibha</title>
-<meta name="description" content="Calculate your monthly mortgage payments instantly with our free online calculator for Saudi Arabia.">
-<meta name="keywords" content="Mortgage Calculator, Saudi Arabia, home finance, real estate">
+<meta name="description" content="Free online Mortgage Calculator. Instant, accurate results - no registration required.">
+<meta name="keywords" content="Mortgage Calculator, free calculator, online calculator">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="author" content="Hasibha">
 <link rel="canonical" href="https://hasibha.com/mortgage-en">
@@ -17,7 +17,7 @@
 <link rel="alternate" hreflang="x-default" href="https://hasibha.com/mortgage">
 
 <meta property="og:title" content="Mortgage Calculator">
-<meta property="og:description" content="Calculate your monthly mortgage payments instantly.">
+<meta property="og:description" content="Free online Mortgage Calculator. Instant, accurate results - no registration required.">
 <meta property="og:url" content="https://hasibha.com/mortgage-en">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Mortgage Calculator">
-<meta name="twitter:description" content="Calculate your monthly mortgage payments instantly.">
+<meta name="twitter:description" content="Free online Mortgage Calculator. Instant, accurate results - no registration required.">
 <meta name="twitter:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
 <meta name="theme-color" content="#0b0d10">
 
@@ -39,19 +39,33 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://hasibha.com/index-en"},
-        {"@type": "ListItem", "position": 2, "name": "Mortgage Calculator", "item": "https://hasibha.com/mortgage-en"}
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hasibha.com/index-en"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Mortgage Calculator",
+          "item": "https://hasibha.com/mortgage-en"
+        }
       ]
     },
     {
       "@type": "WebApplication",
       "name": "Mortgage Calculator",
-      "description": "Calculate your monthly mortgage payments instantly with our free online calculator for Saudi Arabia.",
+      "description": "Free online Mortgage Calculator. Instant, accurate results - no registration required.",
       "url": "https://hasibha.com/mortgage-en",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Any",
       "inLanguage": "en-US",
-      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "SAR"}
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "SAR"
+      }
     }
   ]
 }
@@ -94,81 +108,43 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>🏠 Mortgage Calculator</h1>
-    <p class="subtitle">Calculate your monthly mortgage payments instantly</p>
+    <p class="subtitle">Calculate the estimated monthly installment before making a decision.</p>
 
-    <label for="priceInput">Property Price (SAR)</label>
-    <div class="input-row">
-      <input type="number" id="priceInput" placeholder="Enter property price" oninput="updateAll()">
+
+
+    <button class="calc-btn" onclick="calculate()">Calculate</button>
+
+    <div class="result-card" id="resultCard">
     </div>
-
-    <div class="slider-group">
-      <div class="slider-value">
-        <label>Down Payment — <span id="downPercent">20</span>%</label>
-        <span id="downVal">0 SAR</span>
-      </div>
-      <input type="range" id="downSlider" min="5" max="50" value="20" oninput="updateAll()">
-      <div class="labels"><span>5%</span><span>50%</span></div>
-    </div>
-
-    <div class="slider-group">
-      <div class="slider-value">
-        <label>Finance Duration — <span id="yearsVal">20</span> years</label>
-      </div>
-      <input type="range" id="yearsSlider" min="5" max="30" value="20" oninput="updateAll()">
-      <div class="labels"><span>5</span><span>30</span></div>
-    </div>
-
-    <div class="slider-group">
-      <div class="slider-value">
-        <label>Interest Rate — <span id="rateVal">5.0</span>%</label>
-      </div>
-      <input type="range" id="rateSlider" min="2" max="15" step="0.1" value="5" oninput="updateAll()">
-      <div class="labels"><span>2%</span><span>15%</span></div>
-    </div>
-
-    <button class="calc-btn" onclick="updateAll()">Calculate Monthly Payment</button>
-
-    <div class="result-card" id="resultCard" style="display:block">
-      <p style="color:var(--text-2);font-size:14px">Estimated Monthly Payment</p>
-      <div style="font-size:42px;font-weight:900;color:var(--c-health)" id="monthlyDisplay">0</div>
-      <p style="color:var(--text-2)">SAR</p>
-      <div class="goals">
-        <div class="goal-box"><div class="val" id="financedDisplay">0</div><div class="lbl">Financed Amount</div></div>
-        <div class="goal-box"><div class="val" id="interestDisplay">0</div><div class="lbl">Total Interest</div></div>
-        <div class="goal-box"><div class="val" id="totalDisplay">0</div><div class="lbl">Total Payment</div></div>
-      </div>
-    </div>
-
-    <p style="text-align:center;color:var(--text-3);font-size:11px;margin-top:16px">* Estimates only. Not a financing offer.</p>
 
     <a href="/index-en" class="back-link">↩ Back to Home</a>
   </div>
 
   <div class="article-box">
-    <h2>🗂️ Comprehensive Guide to Real Estate Finance in Saudi Arabia 2026</h2>
+<h2>🗂️ Comprehensive Guide to Real Estate Finance in Saudi Arabia 2026</h2>
 
-    <h3>What is Real Estate Finance?</h3>
-    <p>Real estate finance is a financial product offered by banks and financing companies to help individuals purchase a home or property. The bank pays the full value of the property to the seller, and then the client repays the amount in monthly installments extending over years, with an agreed-upon profit margin added.</p>
-    <p>According to statistics from the Saudi Central Bank (SAMA), the volume of residential real estate finance in the Kingdom exceeded 600 billion SAR by the end of 2025.</p>
+    <h3>What is Real Estate Financing?</h3>
+    <p>Real estate financing is a financial product offered by banks and financing companies to help individuals purchase a home or property. The bank pays the full value of the property to the seller, and the customer repays the amount in monthly installments extending over years, with an agreed-upon profit margin added.</p>
+    <p>According to statistics from the Saudi Central Bank (SAMA), the volume of residential real estate financing in the Kingdom exceeded 600 billion SAR by the end of 2025.</p>
 
-    <h3>Types of Real Estate Finance</h3>
+    <h3>Types of Real Estate Financing</h3>
     <ul>
-      <li><strong>Subsidized Finance:</strong> Provided by the Ministry of Housing in cooperation with banks, where the state covers a portion of the profit.</li>
-      <li><strong>Murabaha Finance:</strong> The bank buys the property and then sells it to the client at a higher price.</li>
-      <li><strong>Ijarah Finance:</strong> The bank buys the property and leases it to the client until the end of the term.</li>
-      <li><strong>Commercial Finance:</strong> For investors in commercial real estate.</li>
+      <li><strong>Subsidized Financing:</strong> Provided by the Ministry of Housing in cooperation with banks, where the state bears a portion of the profit.</li>
+      <li><strong>Murabaha Financing:</strong> The bank buys the property and then sells it to the customer at a higher price.</li>
+      <li><strong>Ijarah Financing:</strong> The bank buys the property and leases it to the customer until the end of the term.</li>
+      <li><strong>Commercial Financing:</strong> For investors in commercial real estate.</li>
     </ul>
 
     <h3>Down Payment</h3>
-    <p>According to the Saudi Central Bank: First home 10% minimum, second home 30%.</p>
-    <div class="example">📝 <strong>Example:</strong> A property worth 1 million SAR, down payment 10% = 100,000 SAR paid by you, and the bank finances 900,000 SAR.</div>
+    <p>According to the Saudi Central Bank: 10% minimum for the first home, and 30% for the second home.</p>
+    <div class="example">📝 <strong>Example:</strong> A property worth 1 million SAR, a 10% down payment = 100,000 SAR paid by you, and the bank finances 900,000 SAR.</div>
 
     <h3>Golden Tips</h3>
     <ul>
       <li>Compare 3 banks before signing.</li>
-      <li>Ask about APR, not the nominal rate.</li>
-      <li>Ensure the installment does not exceed 30% of your income.</li>
-      <li>Use the calculator to test different scenarios.</li>
+      <li>Ask about the APR, not the nominal rate.</li>
+      <li>The installment should not exceed 30% of your income.</li>
+      <li>Use the calculator to try different scenarios.</li>
     </ul>
 
     <p class="ref"><strong>References:</strong> Saudi Central Bank (SAMA.gov.sa) | Ministry of Housing (housing.gov.sa) | Real Estate Development Fund (redf.gov.sa)</p>
@@ -210,6 +186,26 @@
   });
 })();
 
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  var moon=document.getElementById('iconMoon'), sun=document.getElementById('iconSun');
+  function apply(t){
+    if(t==='dark'){root.setAttribute('data-theme','dark');moon.style.display='none';sun.style.display='block';}
+    else{root.removeAttribute('data-theme');moon.style.display='block';sun.style.display='none';}
+  }
+  var saved=null;
+  try{saved=localStorage.getItem('hs-theme');}catch(e){}
+  if(!saved){saved=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}
+  apply(saved);
+  btn.addEventListener('click',function(){
+    var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    apply(next);
+    try{localStorage.setItem('hs-theme',next);}catch(e){}
+  });
+})();
+
+document.getElementById('year').textContent=new Date().getFullYear();
+
 function formatNumber(n){return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
 
 function updateAll(){
@@ -221,7 +217,7 @@ function updateAll(){
   document.getElementById('yearsVal').textContent=y;
   document.getElementById('rateVal').textContent=r.toFixed(1);
   if(p<=0){
-    document.getElementById('downVal').textContent='0 SAR';
+    document.getElementById('downVal').textContent='0 ريال';
     document.getElementById('monthlyDisplay').textContent='0';
     document.getElementById('financedDisplay').textContent='0';
     document.getElementById('interestDisplay').textContent='0';
@@ -232,7 +228,7 @@ function updateAll(){
   if(mr>0&&f>0)mo=f*mr*Math.pow(1+mr,m)/(Math.pow(1+mr,m)-1);
   else if(f>0)mo=f/m;
   var t=mo*m;
-  document.getElementById('downVal').textContent=formatNumber(Math.round(dp))+' SAR';
+  document.getElementById('downVal').textContent=formatNumber(Math.round(dp))+' ريال';
   document.getElementById('monthlyDisplay').textContent=formatNumber(Math.round(mo));
   document.getElementById('financedDisplay').textContent=formatNumber(Math.round(f));
   document.getElementById('interestDisplay').textContent=formatNumber(Math.round(t-f));

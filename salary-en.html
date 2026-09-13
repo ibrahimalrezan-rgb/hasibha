@@ -108,7 +108,7 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>💼 Salary After Insurance</h1>
-    <p class="subtitle">Free online Salary After Insurance. Instant, accurate results - no registration required.</p>
+    <p class="subtitle">Calculate instantly with our free online tool.</p>
 
 
 
@@ -160,7 +160,57 @@
   });
 })();
 
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  var moon=document.getElementById('iconMoon'), sun=document.getElementById('iconSun');
+  function apply(t){
+    if(t==='dark'){root.setAttribute('data-theme','dark');moon.style.display='none';sun.style.display='block';}
+    else{root.removeAttribute('data-theme');moon.style.display='block';sun.style.display='none';}
+  }
+  var saved=null;
+  try{saved=localStorage.getItem('hs-theme');}catch(e){}
+  if(!saved){saved=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}
+  apply(saved);
+  btn.addEventListener('click',function(){
+    var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    apply(next);
+    try{localStorage.setItem('hs-theme',next);}catch(e){}
+  });
+})();
 
+document.getElementById('year').textContent=new Date().getFullYear();
+
+function formatNumber(n){return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+
+function updateAll(){
+  var system=document.querySelector('input[name="systemMode"]:checked').value;
+  var salary=parseFloat(document.getElementById('salaryInput').value)||0;
+
+  if(system==='old'){
+    document.getElementById('rateText').innerHTML='النظام القديم: نسبة الخصم <strong style="color:var(--c-health);font-size:16px">9%</strong>';
+    document.getElementById('rateDetail').textContent='(9% تأمينات)';
+  } else {
+    document.getElementById('rateText').innerHTML='النظام الجديد: نسبة الخصم <strong style="color:var(--c-health);font-size:16px">11%</strong>';
+    document.getElementById('rateDetail').textContent='(9% تأمينات + 2% ساند)';
+  }
+
+  if(salary<=0){
+    document.getElementById('grossSalary').textContent='0 ريال';
+    document.getElementById('deductionAmount').textContent='0 ريال';
+    document.getElementById('netSalary').textContent='0 ريال';
+    document.getElementById('resultCard').style.display='block';
+    return;
+  }
+
+  var rate=(system==='old')?0.09:0.11;
+  var deduction=salary*rate;
+  var net=salary-deduction;
+
+  document.getElementById('grossSalary').textContent=formatNumber(salary)+' ريال';
+  document.getElementById('deductionAmount').textContent='- '+formatNumber(deduction)+' ريال';
+  document.getElementById('netSalary').textContent=formatNumber(net)+' ريال';
+  document.getElementById('resultCard').style.display='block';
+}
 </script>
 </body>
 </html>

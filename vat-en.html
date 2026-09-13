@@ -108,7 +108,7 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>🧾 VAT Calculator</h1>
-    <p class="subtitle">Free online VAT Calculator. Instant, accurate results - no registration required.</p>
+    <p class="subtitle">Calculate instantly with our free online tool.</p>
 
 
 
@@ -160,7 +160,68 @@
   });
 })();
 
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  var moon=document.getElementById('iconMoon'), sun=document.getElementById('iconSun');
+  function apply(t){
+    if(t==='dark'){root.setAttribute('data-theme','dark');moon.style.display='none';sun.style.display='block';}
+    else{root.removeAttribute('data-theme');moon.style.display='block';sun.style.display='none';}
+  }
+  var saved=null;
+  try{saved=localStorage.getItem('hs-theme');}catch(e){}
+  if(!saved){saved=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}
+  apply(saved);
+  btn.addEventListener('click',function(){
+    var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    apply(next);
+    try{localStorage.setItem('hs-theme',next);}catch(e){}
+  });
+})();
 
+document.getElementById('year').textContent=new Date().getFullYear();
+
+function formatNumber(n){return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+
+function updateAll(){
+  var mode=document.querySelector('input[name="vatMode"]:checked').value;
+  var amount=parseFloat(document.getElementById('amountInput').value)||0;
+
+  if(mode==='add'){
+    document.getElementById('amountLabel').textContent='المبلغ (بدون ضريبة)';
+    document.getElementById('amountHint').textContent='أدخل المبلغ بدون الضريبة';
+    document.getElementById('baseLabel').textContent='المبلغ قبل الضريبة';
+    document.getElementById('totalLabel').textContent='المبلغ بعد الضريبة';
+  } else {
+    document.getElementById('amountLabel').textContent='المبلغ (شامل الضريبة)';
+    document.getElementById('amountHint').textContent='أدخل المبلغ شامل الضريبة';
+    document.getElementById('baseLabel').textContent='المبلغ قبل الضريبة';
+    document.getElementById('totalLabel').textContent='المبلغ شامل الضريبة';
+  }
+
+  if(amount<=0){
+    document.getElementById('vatAmount').textContent='0 ريال';
+    document.getElementById('baseAmount').textContent='0 ريال';
+    document.getElementById('totalAmount').textContent='0 ريال';
+    document.getElementById('resultCard').style.display='block';
+    return;
+  }
+
+  var vatAmount,baseAmount,totalAmount;
+  if(mode==='add'){
+    vatAmount=amount*0.15;
+    baseAmount=amount;
+    totalAmount=amount+vatAmount;
+  } else {
+    baseAmount=amount/1.15;
+    vatAmount=amount-baseAmount;
+    totalAmount=amount;
+  }
+
+  document.getElementById('vatAmount').textContent=formatNumber(vatAmount)+' ريال';
+  document.getElementById('baseAmount').textContent=formatNumber(baseAmount)+' ريال';
+  document.getElementById('totalAmount').textContent=formatNumber(totalAmount)+' ريال';
+  document.getElementById('resultCard').style.display='block';
+}
 </script>
 </body>
 </html>
