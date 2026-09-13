@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 تحديث الصفحات الإنجليزية من العربية باستخدام AI
+يستخرج المقال + الحقول + JavaScript
 """
 
 import os
@@ -17,7 +18,7 @@ SITE_URL = "https://hasibha.com"
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AUTOMATION_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# قائمة الصفحات اللي سنحدّثها
+# قائمة الصفحات
 PAGES = [
     {"slug": "mortgage", "title_ar": "حاسبة التمويل العقاري", "title_en": "Mortgage Calculator", "category": "finance", "icon": "🏠"},
     {"slug": "personal-loan", "title_ar": "حاسبة التمويل الشخصي", "title_en": "Personal Loan Calculator", "category": "finance", "icon": "💵"},
@@ -34,13 +35,6 @@ PAGES = [
     {"slug": "age", "title_ar": "حاسبة العمر", "title_en": "Age Calculator", "category": "general", "icon": "🎂"},
     {"slug": "discount", "title_ar": "حاسبة نسبة الخصم", "title_en": "Discount Calculator", "category": "general", "icon": "🏷️"},
     {"slug": "date-diff", "title_ar": "الوقت بين تاريخين", "title_en": "Date Difference Calculator", "category": "general", "icon": "📅"},
-]
-
-# الصفحات الثابتة
-STATIC_PAGES = [
-    {"slug": "privacy", "title_en": "Privacy Policy"},
-    {"slug": "about", "title_en": "About Us"},
-    {"slug": "contact", "title_en": "Contact Us"},
 ]
 
 
@@ -64,8 +58,22 @@ def get_api_key(provider_name):
     return None
 
 
-def read_ar_article(slug):
-    """يقرأ المقال العربي من الصفحة الحالية"""
+def clean_ai_response(text):
+    """ينظف رد AI من code blocks"""
+    if not text:
+        return ""
+    text = text.strip()
+    if text.startswith("```"):
+        parts = text.split("```")
+        if len(parts) >= 2:
+            text = parts[1]
+            if text.startswith("html") or text.startswith("json") or text.startswith("javascript"):
+                text = text.split("\n", 1)[1] if "\n" in text else ""
+    return text.strip()
+
+
+def read_ar_content(slug):
+    """يقرأ كل المحتوى من الصفحة العربية"""
     path = os.path.join(ROOT_DIR, f"{slug}.html")
     if not os.path.exists(path):
         return None
@@ -73,109 +81,164 @@ def read_ar_article(slug):
     with open(path, 'r', encoding='utf-8') as f:
         content = f.read()
     
-    # استخراج article-box
+    result = {
+        'article': '',
+        'fields': [],
+        'script': '',
+        'title': '',
+        'description': ''
+    }
+    
+    # استخراج article-box (كل المحتوى حتى main end)
     match = re.search(r'<div class="article-box">(.*?)</div>\s*</div>\s*</main>', content, re.DOTALL)
-    if not match:
-        return None
+    if match:
+        result['article'] = match.group(1).strip()
     
-    return match.group(1).strip()
-
-
-def read_ar_script(slug):
-    """يقرأ JavaScript من الصفحة العربية"""
-    path = os.path.join(ROOT_DIR, f"{slug}.html")
-    if not os.path.exists(path):
-        return None
-    
-    with open(path, 'r', encoding='utf-8') as f:
-        content = f.read()
+    # استخراج الحقول
+    label_pattern = re.compile(r'<label for="([^"]+)">([^<]+)</label>', re.UNICODE)
+    for m in label_pattern.finditer(content):
+        field_id = m.group(1)
+        label_ar = m.group(2).strip()
+        if field_id and label_ar:
+            result['fields'].append({
+                'id': field_id,
+                'label_ar': label_ar
+            })
     
     # استخراج السكربت الأخير
     scripts = re.findall(r'<script>(.*?)</script>', content, re.DOTALL)
-    if scripts:
-        # نأخذ الأخير (يحتوي calculate)
-        for s in reversed(scripts):
-            if 'function calculate' in s or 'function formatNumber' in s:
-                return s.strip()
-    return None
+    for s in reversed(scripts):
+        if 'function calculate' in s:
+            result['script'] = s.strip()
+            break
+    
+    # استخراج العنوان
+    title_match = re.search(r'<title>([^<]+)</title>', content)
+    if title_match:
+        result['title'] = title_match.group(1).strip()
+    
+    # استخراج الوصف
+    desc_match = re.search(r'<meta name="description" content="([^"]+)"', content)
+    if desc_match:
+        result['description'] = desc_match.group(1).strip()
+    
+    return result
 
 
-def translate_text(ai, text, lang_from="ar", lang_to="en"):
-    """يترجم نص باستخدام AI"""
-    if not text:
+def translate_article(ai, article_ar):
+    """يترجم المقال من العربية للإنجليزية"""
+    if not article_ar:
         return ""
     
-    prompt = f"""Translate the following text from Arabic to English.
+    prompt = f"""Translate the following Arabic HTML content to English.
 
-Keep the HTML structure exactly the same:
-- Keep all <h3>, <p>, <ul>, <li>, <div class="tip"> tags
-- Translate only the text content
-- Keep numbers, URLs, technical terms in English
-- Keep "ريال" as "SAR"
-- Keep "السعودية" as "Saudi Arabia"
+CRITICAL RULES:
+1. Keep ALL HTML tags exactly as they are: <h3>, <p>, <ul>, <li>, <div class="tip">
+2. Translate ONLY the text content inside the tags
+3. Keep numbers as-is
+4. Keep "ريال" → "SAR", "السعودية" → "Saudi Arabia", "حاسبها" → "Hasibha"
+5. Keep class names and attributes unchanged
+6. Do NOT add explanations or code blocks
+7. Output ONLY the translated HTML
 
-Text to translate:
-{text}
+Arabic HTML:
+{article_ar}
 
-Output ONLY the translated HTML. No explanations. No code blocks.
-"""
+English HTML:"""
     
     result = ai.generate(prompt, max_tokens=4000)
-    return result.strip()
+    return clean_ai_response(result)
 
 
-def extract_faq_from_article(article_html):
-    """يستخرج الأسئلة من المقال العربي"""
-    if 'الأسئلة الشائعة' not in article_html:
-        return ""
+def translate_labels(ai, labels_ar):
+    """يترجم قائمة labels من العربية للإنجليزية"""
+    if not labels_ar:
+        return []
     
-    parts = article_html.split('الأسئلة الشائعة')
-    if len(parts) > 1:
-        return parts[1].strip()
-    return ""
+    prompt = f"""Translate these Arabic labels to English.
+
+Rules:
+- Return ONLY a JSON array of translated strings
+- Same order as input
+- No explanations
+- No code blocks
+
+Input: {json.dumps(labels_ar, ensure_ascii=False)}
+
+Output (JSON array only):"""
+    
+    result = ai.generate(prompt, max_tokens=500)
+    result = clean_ai_response(result)
+    
+    try:
+        # تنظيف إضافي
+        if result.startswith('['):
+            return json.loads(result)
+    except:
+        pass
+    
+    # fallback: ترجمة بسيطة
+    return [f"Field {i+1}" for i in range(len(labels_ar))]
+
+
+def build_fields_html(fields_ar, labels_en):
+    """يبني HTML الحقول بالإنجليزية"""
+    html = ""
+    for i, field in enumerate(fields_ar):
+        label_en = labels_en[i] if i < len(labels_en) else field['label_ar']
+        fid = field['id']
+        html += f'    <label for="{fid}">{label_en}</label>\n'
+        html += f'    <div class="input-row">\n'
+        html += f'      <input type="number" id="{fid}" placeholder="{label_en}" oninput="calculate()">\n'
+        html += f'    </div>\n\n'
+    return html
 
 
 def generate_en_page(ai, page):
-    """يولّد صفحة إنجليزية من العربية"""
+    """يولّد صفحة إنجليزية كاملة"""
     slug = page['slug']
-    
-    # قراءة المحتوى العربي
     print(f"  📖 قراءة {slug}.html...")
-    article_ar = read_ar_article(slug)
-    if not article_ar:
-        print(f"  ⚠️ لم أجد article-box في {slug}.html")
+    
+    content = read_ar_content(slug)
+    if not content:
+        print(f"  ⚠️ لم أجد {slug}.html")
         return None
     
-    script = read_ar_script(slug)
+    if not content['article']:
+        print(f"  ⚠️ لا يوجد article-box")
+        return None
+    
+    print(f"  📊 {len(content['fields'])} حقل، {len(content['article'])} حرف مقال")
     
     # ترجمة المقال
     print(f"  🤖 ترجمة المقال...")
-    article_en = translate_text(ai, article_ar)
+    article_en = translate_article(ai, content['article'])
     
     if not article_en or len(article_en) < 100:
         print(f"  ⚠️ الترجمة فشلت")
         return None
     
-    print(f"  ✅ تمت الترجمة ({len(article_en)} حرف)")
+    print(f"  ✅ مقال ({len(article_en)} حرف)")
     
-    # استخدام القالب
-    template = load_template()
+    # ترجمة الحقول
+    labels_ar = [f['label_ar'] for f in content['fields']]
+    if labels_ar:
+        print(f"  🤖 ترجمة {len(labels_ar)} حقل...")
+        labels_en = translate_labels(ai, labels_ar)
+        print(f"  ✅ تمت الترجمة")
+    else:
+        labels_en = []
     
-    # تقسيم article_en إلى مقال + أسئلة
-    faq_html = ""
-    if 'FAQ' in article_en or 'Frequently Asked' in article_en:
-        # الأسئلة موجودة داخل الترجمة
-        pass
+    fields_html = build_fields_html(content['fields'], labels_en)
     
-    # بناء الصفحة
-    title = page['title_en']
-    desc_prompt = f"Write a one-sentence SEO description (150-160 chars) in English for: {page['title_ar']}"
-    desc = ai.generate(desc_prompt, max_tokens=200).strip()
+    # الوصف الإنجليزي
+    desc_prompt = f"Write a short SEO description (140-160 chars) in English for: {page['title_en']}. Just the description, no quotes."
+    desc_en = clean_ai_response(ai.generate(desc_prompt, max_tokens=200))
     
-    if not desc or len(desc) < 20:
-        desc = f"Free online {title.lower()} - Calculate instantly and accurately."
+    if not desc_en or len(desc_en) < 20:
+        desc_en = f"Free online {page['title_en']}. Get instant, accurate results - no registration required."
     
-    # بناء Schema
+    # Schema
     schema = {
         "@context": "https://schema.org",
         "@graph": [
@@ -183,13 +246,13 @@ def generate_en_page(ai, page):
                 "@type": "BreadcrumbList",
                 "itemListElement": [
                     {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/index-en"},
-                    {"@type": "ListItem", "position": 2, "name": title, "item": f"{SITE_URL}/{slug}-en"}
+                    {"@type": "ListItem", "position": 2, "name": page['title_en'], "item": f"{SITE_URL}/{slug}-en"}
                 ]
             },
             {
                 "@type": "WebApplication",
-                "name": title,
-                "description": desc,
+                "name": page['title_en'],
+                "description": desc_en,
                 "url": f"{SITE_URL}/{slug}-en",
                 "applicationCategory": "UtilityApplication",
                 "operatingSystem": "Any",
@@ -199,13 +262,20 @@ def generate_en_page(ai, page):
         ]
     }
     
-    # استبدال القيم
+    # استخدام القالب
+    template = load_template()
+    
+    # السكربت
+    script = content['script'] or ""
+    full_script = f"function formatNumber(n){{return n.toLocaleString('en-US',{{minimumFractionDigits:2,maximumFractionDigits:2}});}}\n\n{script}"
+    
+    # استبدالات
     replacements = {
         "{{LANG}}": "en",
         "{{DIR}}": "ltr",
-        "{{TITLE}}": title,
-        "{{DESCRIPTION}}": desc,
-        "{{KEYWORDS}}": title,
+        "{{TITLE}}": page['title_en'],
+        "{{DESCRIPTION}}": desc_en,
+        "{{KEYWORDS}}": page['title_en'],
         "{{SLUG}}": slug,
         "{{SITE_NAME}}": "Hasibha",
         "{{OG_LOCALE}}": "en_US",
@@ -217,18 +287,18 @@ def generate_en_page(ai, page):
         "{{LANG_SWITCH_CODE}}": "ar",
         "{{LANG_SWITCH_TEXT}}": "عربي",
         "{{BREADCRUMB_HOME}}": "🏠 Home",
-        "{{H1}}": page['icon'] + ' ' + title,
-        "{{SUBTITLE}}": desc,
+        "{{H1}}": page['icon'] + ' ' + page['title_en'],
+        "{{SUBTITLE}}": desc_en,
+        "{{FIELDS_HTML}}": fields_html,
         "{{CALC_BUTTON}}": "Calculate",
+        "{{RESULT_HTML}}": '<div class="result-row"><span class="result-label">Result</span><span class="result-value big" id="finalResult">0</span></div>',
         "{{BACK_LINK}}": "↩ Back to Home",
         "{{ARTICLE_HTML}}": article_en,
         "{{FOOTER_PRIVACY}}": "Privacy Policy",
         "{{FOOTER_CONTACT}}": "Contact Us",
         "{{FOOTER_ABOUT}}": "About Us",
         "{{FOOTER_COPYRIGHT}}": f'Hasibha © {datetime.now().year} — All Rights Reserved',
-        "{{FIELDS_HTML}}": "",  # سنحتفظ بالحقول الإنجليزية لاحقاً
-        "{{RESULT_HTML}}": "",
-        "{{CALC_SCRIPT}}": script or "",
+        "{{CALC_SCRIPT}}": full_script
     }
     
     for key, value in replacements.items():
@@ -267,12 +337,14 @@ def main():
         print("⚠️ AI معطل")
         return
     
-    # تحديث الصفحات
+    # تحديد الصفحات
     pages_to_update = PAGES
-    if len(sys.argv) > 1:
-        # تحديث صفحة واحدة فقط
+    if len(sys.argv) > 1 and sys.argv[1]:
         target = sys.argv[1]
         pages_to_update = [p for p in PAGES if p['slug'] == target]
+        if not pages_to_update:
+            print(f"⚠️ لم أجد صفحة: {target}")
+            return
     
     print(f"📊 عدد الصفحات: {len(pages_to_update)}")
     
