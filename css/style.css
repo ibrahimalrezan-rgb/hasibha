@@ -1,6 +1,6 @@
 /* ============================================================
    حاسبها — ملف الأنماط الموحد
-   يدعم التصميم الجديد + الصفحات القديمة
+   يدعم التصميم الجديد + الصفحات القديمة + الإنجليزية
    ============================================================ */
 
 /* ============ متغيرات التصميم ============ */
@@ -344,4 +344,80 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
   .age-details{grid-template-columns:1fr 1fr}
   .details-grid{grid-template-columns:1fr}
   .result-box{padding:16px}
+}
+
+/* ============ دعم الصفحات الإنجليزية (LTR) ============ */
+html[dir="ltr"],
+html[lang="en"]{
+  direction:ltr;
+}
+
+html[dir="ltr"] body,
+html[lang="en"] body{
+  direction:ltr;
+  text-align:left;
+}
+
+/* الحقول */
+html[dir="ltr"] .input-row input,
+html[lang="en"] .input-row input,
+html[dir="ltr"] .percent-input input,
+html[lang="en"] .percent-input input{
+  text-align:left;
+}
+
+/* المقالات */
+html[dir="ltr"] .article-box,
+html[lang="en"] .article-box,
+html[dir="ltr"] .seo-text,
+html[lang="en"] .seo-text{
+  text-align:left;
+  direction:ltr;
+}
+
+html[dir="ltr"] .article-box ul,
+html[lang="en"] .article-box ul,
+html[dir="ltr"] .article-box ol,
+html[lang="en"] .article-box ol{
+  padding-right:0;
+  padding-left:20px;
+}
+
+html[dir="ltr"] .article-box .tip,
+html[lang="en"] .article-box .tip{
+  border-right:none;
+  border-left:4px solid var(--c-health);
+}
+
+html[dir="ltr"] .article-box .warning,
+html[lang="en"] .article-box .warning{
+  border-right:none;
+  border-left:4px solid #eab308;
+}
+
+/* الفوتر */
+html[dir="ltr"] .footer-in nav,
+html[lang="en"] .footer-in nav{
+  direction:ltr;
+}
+
+/* أزرار الإذاعة */
+html[dir="ltr"] .radio-option label,
+html[lang="en"] .radio-option label{
+  direction:ltr;
+}
+
+/* الموقع الرئيسي */
+html[dir="ltr"] .hero,
+html[lang="en"] .hero,
+html[dir="ltr"] .section-head,
+html[lang="en"] .section-head,
+html[dir="ltr"] .category-title,
+html[lang="en"] .category-title{
+  text-align:left;
+}
+
+html[dir="ltr"] .hero,
+html[lang="en"] .hero{
+  text-align:center;
 }
