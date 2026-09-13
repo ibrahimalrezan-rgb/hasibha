@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 تحديث الصفحات الإنجليزية من العربية
-يستخرج الحقول والسكربت كما هي، ويترجم فقط النصوص
+يستخرج الحقول والسكربت كامل، ويترجم فقط النصوص
 """
 
 import os
@@ -56,10 +56,10 @@ def clean_ai_response(text):
         parts = text.split("```")
         if len(parts) >= 2:
             text = parts[1]
-            if text.startswith("html"):
-                text = text[4:]
-            elif text.startswith("json"):
-                text = text[4:]
+            for prefix in ["html", "json", "javascript", "js"]:
+                if text.startswith(prefix):
+                    text = text[len(prefix):]
+                    break
     return text.strip()
 
 
@@ -74,9 +74,13 @@ def read_ar_page(slug):
     
     result = {}
     
-    # استخراج fields HTML كامل (كل ما بين subtitle و calc-btn)
+    # استخراج subtitle
+    subtitle_match = re.search(r'<p class="subtitle">([^<]+)</p>', content)
+    result['subtitle'] = subtitle_match.group(1).strip() if subtitle_match else ''
+    
+    # استخراج fields HTML
     fields_match = re.search(
-        r'<p class="subtitle">.*?</p>(.*?)<button class="calc-btn"',
+        r'</p>\s*(.*?)\s*<button class="calc-btn"',
         content, re.DOTALL
     )
     result['fields_html'] = fields_match.group(1).strip() if fields_match else ''
@@ -88,16 +92,47 @@ def read_ar_page(slug):
     )
     result['article'] = article_match.group(1).strip() if article_match else ''
     
-    # استخراج السكربت الأخير
+    # استخراج كل السكربتات
     scripts = re.findall(r'<script>(.*?)</script>', content, re.DOTALL)
-    script_found = ''
-    for s in reversed(scripts):
-        if 'function calculate' in s:
-            script_found = s.strip()
-            break
-    result['script'] = script_found
+    
+    # نجمع كل السكربتات التي تحتوي على دوال مفيدة
+    all_scripts = []
+    for s in scripts:
+        # نتجاهل سكربت Google Analytics
+        if 'googletagmanager' in s or 'gtag' in s:
+            continue
+        # نتجاهل السكربت الفارغ
+        if not s.strip():
+            continue
+        all_scripts.append(s.strip())
+    
+    # نأخذ آخر سكربتين (الأخير فيه الدوال، وقبله theme toggle)
+    # ندخلهم في سكربت واحد
+    useful_scripts = []
+    for s in all_scripts:
+        # نتجاهل theme toggle (فيه hs-theme)
+        if 'hs-theme' in s or 'themeBtn' in s:
+            continue
+        useful_scripts.append(s)
+    
+    result['script'] = '\n\n'.join(useful_scripts)
     
     return result
+
+
+def translate_simple(ai, text_ar):
+    """يترجم نص عادي قصير"""
+    if not text_ar:
+        return ""
+    
+    prompt = f"""Translate this Arabic sentence to English. Return ONLY the translation, no explanations, no quotes.
+
+Arabic: {text_ar}
+
+English:"""
+    
+    result = ai.generate(prompt, max_tokens=300)
+    return clean_ai_response(result).strip('"').strip()
 
 
 def translate_article(ai, article_ar):
@@ -124,21 +159,19 @@ English HTML:"""
 
 
 def translate_fields_html(ai, fields_ar):
-    """يترجم النصوص فقط في الحقول، ويحفظ البنية"""
+    """يترجم النصوص في الحقول مع الحفاظ على البنية"""
     if not fields_ar:
         return ""
     
-    # نترجم الكل دفعة واحدة
     prompt = f"""Translate the Arabic text in this HTML to English.
 
 CRITICAL RULES:
 1. Keep ALL HTML tags and attributes EXACTLY as they are
-2. Translate ONLY the Arabic text content (in labels, placeholders, .slider-value, .labels)
+2. Translate ONLY the Arabic text (labels, placeholders, slider labels, unit text)
 3. Do NOT change: input types, ids, class names, min, max, value, step
-4. "٪" stays "٪" or becomes "%" - keep consistent
-5. "ريال" → "SAR", "سنة" → "years"
-6. Do NOT add markdown or code blocks
-7. Output ONLY the translated HTML
+4. "ريال" → "SAR", "سنة" → "years", "٪" → "%"
+5. Do NOT add markdown or code blocks
+6. Output ONLY the translated HTML
 
 Arabic HTML:
 {fields_ar}
@@ -162,21 +195,41 @@ def generate_en_page(ai, page):
         print(f"  ⚠️ لا توجد حقول")
         return None
     
-    if not data['article']:
-        print(f"  ⚠️ لا يوجد مقال")
+    if not data['script']:
+        print(f"  ⚠️ لا يوجد سكربت")
         return None
     
+    print(f"  📊 سكربت: {len(data['script'])} حرف")
+    
+    # ترجمة subtitle
+    print(f"  🤖 ترجمة العنوان الفرعي...")
+    subtitle_en = translate_simple(ai, data['subtitle'])
+    if not subtitle_en:
+        subtitle_en = "Calculate instantly with our free online tool."
+    print(f"  ✅ {subtitle_en[:60]}...")
+    
     # ترجمة المقال
-    print(f"  🤖 ترجمة المقال...")
-    article_en = translate_article(ai, data['article'])
-    print(f"  ✅ مقال ({len(article_en)} حرف)")
+    if data['article']:
+        print(f"  🤖 ترجمة المقال...")
+        article_en = translate_article(ai, data['article'])
+        print(f"  ✅ مقال ({len(article_en)} حرف)")
+    else:
+        article_en = ""
     
     # ترجمة الحقول
     print(f"  🤖 ترجمة الحقول...")
     fields_en = translate_fields_html(ai, data['fields_html'])
     print(f"  ✅ حقول ({len(fields_en)} حرف)")
     
-    # الوصف
+    # السكربت - نستخدمه كما هو مع تعديلات بسيطة
+    script = data['script']
+    script = script.replace("'ريال'", "'SAR'")
+    script = script.replace('"ريال"', '"SAR"')
+    script = script.replace("' سنة'", "' years'")
+    script = script.replace("'ar-SA'", "'en-US'")
+    script = script.replace('"ar-SA"', '"en-US"')
+    
+    # وصف SEO
     desc_prompt = f"Write a short SEO meta description in English (140-160 chars) for: {page['title_en']}. Return ONLY the description."
     desc_en = clean_ai_response(ai.generate(desc_prompt, max_tokens=200))
     if not desc_en or len(desc_en) < 30:
@@ -206,39 +259,26 @@ def generate_en_page(ai, page):
         ]
     }
     
-    # السكربت - نستخدم اللي في العربي كما هو (يشتغل بالإنجليزية تلقائياً)
-    script = data['script']
-    
-    # نعدل بعض النصوص العربية في السكربت
-    script = script.replace("'ريال'", "'SAR'")
-    script = script.replace('"ريال"', '"SAR"')
-    script = script.replace("' سنة'", "' years'")
-    script = script.replace('" سنة"', '" years"')
-    
-    # نغير locale للأرقام
-    script = script.replace("'ar-SA'", "'en-US'")
-    script = script.replace('"ar-SA"', '"en-US"')
-    
     # بناء الصفحة
-    template = build_en_template(page, fields_en, article_en, desc_en, script, schema)
+    html = build_en_page(page, fields_en, article_en, subtitle_en, desc_en, script, schema)
     
     output = f"{slug}-en.html"
     output_path = os.path.join(ROOT_DIR, output)
     with open(output_path, 'w', encoding='utf-8') as f:
-        f.write(template)
+        f.write(html)
     
     print(f"  ✅ تم إنشاء {output}")
     return output
 
 
-def build_en_template(page, fields_html, article_html, desc, script, schema):
+def build_en_page(page, fields_html, article_html, subtitle, desc, script, schema):
     """يبني صفحة إنجليزية كاملة"""
     slug = page['slug']
     title = page['title_en']
     icon = page['icon']
     year = datetime.now().year
     
-    return f'''<!DOCTYPE html>
+    html = f'''<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
@@ -313,7 +353,7 @@ def build_en_template(page, fields_html, article_html, desc, script, schema):
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>{icon} {title}</h1>
-    <p class="subtitle">{desc}</p>
+    <p class="subtitle">{subtitle}</p>
 
 {fields_html}
 
@@ -370,6 +410,7 @@ def build_en_template(page, fields_html, article_html, desc, script, schema):
 </body>
 </html>
 '''
+    return html
 
 
 def main():
