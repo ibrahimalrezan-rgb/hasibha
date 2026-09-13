@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-تحديث الصفحات الإنجليزية من العربية باستخدام AI
-يستخرج المقال + الحقول + JavaScript
+تحديث الصفحات الإنجليزية من العربية
+يستخرج الحقول والسكربت كما هي، ويترجم فقط النصوص
 """
 
 import os
@@ -18,23 +18,22 @@ SITE_URL = "https://hasibha.com"
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AUTOMATION_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# قائمة الصفحات
 PAGES = [
-    {"slug": "mortgage", "title_ar": "حاسبة التمويل العقاري", "title_en": "Mortgage Calculator", "category": "finance", "icon": "🏠"},
-    {"slug": "personal-loan", "title_ar": "حاسبة التمويل الشخصي", "title_en": "Personal Loan Calculator", "category": "finance", "icon": "💵"},
-    {"slug": "eos", "title_ar": "حاسبة نهاية الخدمة", "title_en": "End of Service Calculator", "category": "finance", "icon": "📋"},
-    {"slug": "vat", "title_ar": "حاسبة ضريبة القيمة المضافة", "title_en": "VAT Calculator", "category": "finance", "icon": "🧾"},
-    {"slug": "salary", "title_ar": "حاسبة الراتب بعد التأمينات", "title_en": "Salary After Insurance", "category": "finance", "icon": "💼"},
-    {"slug": "currency", "title_ar": "تحويل العملات", "title_en": "Currency Converter", "category": "conversion", "icon": "💱"},
-    {"slug": "length", "title_ar": "تحويل الطول", "title_en": "Length Converter", "category": "conversion", "icon": "📏"},
-    {"slug": "weight", "title_ar": "تحويل الوزن", "title_en": "Weight Converter", "category": "conversion", "icon": "⚖️"},
-    {"slug": "area", "title_ar": "تحويل المساحة", "title_en": "Area Converter", "category": "conversion", "icon": "📐"},
-    {"slug": "bmi", "title_ar": "مؤشر كتلة الجسم BMI", "title_en": "BMI Calculator", "category": "health", "icon": "🧍"},
-    {"slug": "calorie", "title_ar": "حاسبة السعرات الحرارية", "title_en": "Calorie Calculator", "category": "health", "icon": "🍎"},
-    {"slug": "water", "title_ar": "حاسبة احتياج الماء", "title_en": "Water Intake Calculator", "category": "health", "icon": "💧"},
-    {"slug": "age", "title_ar": "حاسبة العمر", "title_en": "Age Calculator", "category": "general", "icon": "🎂"},
-    {"slug": "discount", "title_ar": "حاسبة نسبة الخصم", "title_en": "Discount Calculator", "category": "general", "icon": "🏷️"},
-    {"slug": "date-diff", "title_ar": "الوقت بين تاريخين", "title_en": "Date Difference Calculator", "category": "general", "icon": "📅"},
+    {"slug": "mortgage", "title_en": "Mortgage Calculator", "category": "finance", "icon": "🏠"},
+    {"slug": "personal-loan", "title_en": "Personal Loan Calculator", "category": "finance", "icon": "💵"},
+    {"slug": "eos", "title_en": "End of Service Calculator", "category": "finance", "icon": "📋"},
+    {"slug": "vat", "title_en": "VAT Calculator", "category": "finance", "icon": "🧾"},
+    {"slug": "salary", "title_en": "Salary After Insurance", "category": "finance", "icon": "💼"},
+    {"slug": "currency", "title_en": "Currency Converter", "category": "conversion", "icon": "💱"},
+    {"slug": "length", "title_en": "Length Converter", "category": "conversion", "icon": "📏"},
+    {"slug": "weight", "title_en": "Weight Converter", "category": "conversion", "icon": "⚖️"},
+    {"slug": "area", "title_en": "Area Converter", "category": "conversion", "icon": "📐"},
+    {"slug": "bmi", "title_en": "BMI Calculator", "category": "health", "icon": "🧍"},
+    {"slug": "calorie", "title_en": "Calorie Calculator", "category": "health", "icon": "🍎"},
+    {"slug": "water", "title_en": "Water Intake Calculator", "category": "health", "icon": "💧"},
+    {"slug": "age", "title_en": "Age Calculator", "category": "general", "icon": "🎂"},
+    {"slug": "discount", "title_en": "Discount Calculator", "category": "general", "icon": "🏷️"},
+    {"slug": "date-diff", "title_en": "Date Difference Calculator", "category": "general", "icon": "📅"},
 ]
 
 
@@ -43,23 +42,13 @@ def load_config():
         return json.load(f)
 
 
-def load_template():
-    with open(os.path.join(AUTOMATION_DIR, 'template.html'), 'r', encoding='utf-8') as f:
-        return f.read()
-
-
 def get_api_key(provider_name):
     if provider_name == "gemini":
         return os.environ.get("GEMINI_API_KEY")
-    elif provider_name == "claude":
-        return os.environ.get("ANTHROPIC_API_KEY")
-    elif provider_name == "openai":
-        return os.environ.get("OPENAI_API_KEY")
     return None
 
 
 def clean_ai_response(text):
-    """ينظف رد AI من code blocks"""
     if not text:
         return ""
     text = text.strip()
@@ -67,13 +56,15 @@ def clean_ai_response(text):
         parts = text.split("```")
         if len(parts) >= 2:
             text = parts[1]
-            if text.startswith("html") or text.startswith("json") or text.startswith("javascript"):
-                text = text.split("\n", 1)[1] if "\n" in text else ""
+            if text.startswith("html"):
+                text = text[4:]
+            elif text.startswith("json"):
+                text = text[4:]
     return text.strip()
 
 
-def read_ar_content(slug):
-    """يقرأ كل المحتوى من الصفحة العربية"""
+def read_ar_page(slug):
+    """يقرأ كل ما نحتاجه من الصفحة العربية"""
     path = os.path.join(ROOT_DIR, f"{slug}.html")
     if not os.path.exists(path):
         return None
@@ -81,65 +72,47 @@ def read_ar_content(slug):
     with open(path, 'r', encoding='utf-8') as f:
         content = f.read()
     
-    result = {
-        'article': '',
-        'fields': [],
-        'script': '',
-        'title': '',
-        'description': ''
-    }
+    result = {}
     
-    # استخراج article-box (كل المحتوى حتى main end)
-    match = re.search(r'<div class="article-box">(.*?)</div>\s*</div>\s*</main>', content, re.DOTALL)
-    if match:
-        result['article'] = match.group(1).strip()
+    # استخراج fields HTML كامل (كل ما بين subtitle و calc-btn)
+    fields_match = re.search(
+        r'<p class="subtitle">.*?</p>(.*?)<button class="calc-btn"',
+        content, re.DOTALL
+    )
+    result['fields_html'] = fields_match.group(1).strip() if fields_match else ''
     
-    # استخراج الحقول
-    label_pattern = re.compile(r'<label for="([^"]+)">([^<]+)</label>', re.UNICODE)
-    for m in label_pattern.finditer(content):
-        field_id = m.group(1)
-        label_ar = m.group(2).strip()
-        if field_id and label_ar:
-            result['fields'].append({
-                'id': field_id,
-                'label_ar': label_ar
-            })
+    # استخراج article-box
+    article_match = re.search(
+        r'<div class="article-box">(.*?)</div>\s*</div>\s*</main>',
+        content, re.DOTALL
+    )
+    result['article'] = article_match.group(1).strip() if article_match else ''
     
     # استخراج السكربت الأخير
     scripts = re.findall(r'<script>(.*?)</script>', content, re.DOTALL)
+    script_found = ''
     for s in reversed(scripts):
         if 'function calculate' in s:
-            result['script'] = s.strip()
+            script_found = s.strip()
             break
-    
-    # استخراج العنوان
-    title_match = re.search(r'<title>([^<]+)</title>', content)
-    if title_match:
-        result['title'] = title_match.group(1).strip()
-    
-    # استخراج الوصف
-    desc_match = re.search(r'<meta name="description" content="([^"]+)"', content)
-    if desc_match:
-        result['description'] = desc_match.group(1).strip()
+    result['script'] = script_found
     
     return result
 
 
 def translate_article(ai, article_ar):
-    """يترجم المقال من العربية للإنجليزية"""
     if not article_ar:
         return ""
     
-    prompt = f"""Translate the following Arabic HTML content to English.
+    prompt = f"""Translate this Arabic HTML article to English.
 
 CRITICAL RULES:
-1. Keep ALL HTML tags exactly as they are: <h3>, <p>, <ul>, <li>, <div class="tip">
-2. Translate ONLY the text content inside the tags
-3. Keep numbers as-is
-4. Keep "ريال" → "SAR", "السعودية" → "Saudi Arabia", "حاسبها" → "Hasibha"
-5. Keep class names and attributes unchanged
-6. Do NOT add explanations or code blocks
-7. Output ONLY the translated HTML
+1. Keep ALL HTML tags exactly: <h3>, <p>, <ul>, <li>, <div class="tip">
+2. Translate only text content, NOT tags or class names
+3. Keep numbers, URLs as-is
+4. "ريال" → "SAR", "السعودية" → "Saudi Arabia", "حاسبها" → "Hasibha"
+5. Do NOT add markdown or code blocks
+6. Output ONLY the English HTML
 
 Arabic HTML:
 {article_ar}
@@ -150,93 +123,64 @@ English HTML:"""
     return clean_ai_response(result)
 
 
-def translate_labels(ai, labels_ar):
-    """يترجم قائمة labels من العربية للإنجليزية"""
-    if not labels_ar:
-        return []
+def translate_fields_html(ai, fields_ar):
+    """يترجم النصوص فقط في الحقول، ويحفظ البنية"""
+    if not fields_ar:
+        return ""
     
-    prompt = f"""Translate these Arabic labels to English.
+    # نترجم الكل دفعة واحدة
+    prompt = f"""Translate the Arabic text in this HTML to English.
 
-Rules:
-- Return ONLY a JSON array of translated strings
-- Same order as input
-- No explanations
-- No code blocks
+CRITICAL RULES:
+1. Keep ALL HTML tags and attributes EXACTLY as they are
+2. Translate ONLY the Arabic text content (in labels, placeholders, .slider-value, .labels)
+3. Do NOT change: input types, ids, class names, min, max, value, step
+4. "٪" stays "٪" or becomes "%" - keep consistent
+5. "ريال" → "SAR", "سنة" → "years"
+6. Do NOT add markdown or code blocks
+7. Output ONLY the translated HTML
 
-Input: {json.dumps(labels_ar, ensure_ascii=False)}
+Arabic HTML:
+{fields_ar}
 
-Output (JSON array only):"""
+English HTML:"""
     
-    result = ai.generate(prompt, max_tokens=500)
-    result = clean_ai_response(result)
-    
-    try:
-        # تنظيف إضافي
-        if result.startswith('['):
-            return json.loads(result)
-    except:
-        pass
-    
-    # fallback: ترجمة بسيطة
-    return [f"Field {i+1}" for i in range(len(labels_ar))]
-
-
-def build_fields_html(fields_ar, labels_en):
-    """يبني HTML الحقول بالإنجليزية"""
-    html = ""
-    for i, field in enumerate(fields_ar):
-        label_en = labels_en[i] if i < len(labels_en) else field['label_ar']
-        fid = field['id']
-        html += f'    <label for="{fid}">{label_en}</label>\n'
-        html += f'    <div class="input-row">\n'
-        html += f'      <input type="number" id="{fid}" placeholder="{label_en}" oninput="calculate()">\n'
-        html += f'    </div>\n\n'
-    return html
+    result = ai.generate(prompt, max_tokens=4000)
+    return clean_ai_response(result)
 
 
 def generate_en_page(ai, page):
-    """يولّد صفحة إنجليزية كاملة"""
     slug = page['slug']
     print(f"  📖 قراءة {slug}.html...")
     
-    content = read_ar_content(slug)
-    if not content:
+    data = read_ar_page(slug)
+    if not data:
         print(f"  ⚠️ لم أجد {slug}.html")
         return None
     
-    if not content['article']:
-        print(f"  ⚠️ لا يوجد article-box")
+    if not data['fields_html']:
+        print(f"  ⚠️ لا توجد حقول")
         return None
     
-    print(f"  📊 {len(content['fields'])} حقل، {len(content['article'])} حرف مقال")
+    if not data['article']:
+        print(f"  ⚠️ لا يوجد مقال")
+        return None
     
     # ترجمة المقال
     print(f"  🤖 ترجمة المقال...")
-    article_en = translate_article(ai, content['article'])
-    
-    if not article_en or len(article_en) < 100:
-        print(f"  ⚠️ الترجمة فشلت")
-        return None
-    
+    article_en = translate_article(ai, data['article'])
     print(f"  ✅ مقال ({len(article_en)} حرف)")
     
     # ترجمة الحقول
-    labels_ar = [f['label_ar'] for f in content['fields']]
-    if labels_ar:
-        print(f"  🤖 ترجمة {len(labels_ar)} حقل...")
-        labels_en = translate_labels(ai, labels_ar)
-        print(f"  ✅ تمت الترجمة")
-    else:
-        labels_en = []
+    print(f"  🤖 ترجمة الحقول...")
+    fields_en = translate_fields_html(ai, data['fields_html'])
+    print(f"  ✅ حقول ({len(fields_en)} حرف)")
     
-    fields_html = build_fields_html(content['fields'], labels_en)
-    
-    # الوصف الإنجليزي
-    desc_prompt = f"Write a short SEO description (140-160 chars) in English for: {page['title_en']}. Just the description, no quotes."
+    # الوصف
+    desc_prompt = f"Write a short SEO meta description in English (140-160 chars) for: {page['title_en']}. Return ONLY the description."
     desc_en = clean_ai_response(ai.generate(desc_prompt, max_tokens=200))
-    
-    if not desc_en or len(desc_en) < 20:
-        desc_en = f"Free online {page['title_en']}. Get instant, accurate results - no registration required."
+    if not desc_en or len(desc_en) < 30:
+        desc_en = f"Free online {page['title_en']}. Instant, accurate results - no registration required."
     
     # Schema
     schema = {
@@ -262,49 +206,22 @@ def generate_en_page(ai, page):
         ]
     }
     
-    # استخدام القالب
-    template = load_template()
+    # السكربت - نستخدم اللي في العربي كما هو (يشتغل بالإنجليزية تلقائياً)
+    script = data['script']
     
-    # السكربت
-    script = content['script'] or ""
-    full_script = f"function formatNumber(n){{return n.toLocaleString('en-US',{{minimumFractionDigits:2,maximumFractionDigits:2}});}}\n\n{script}"
+    # نعدل بعض النصوص العربية في السكربت
+    script = script.replace("'ريال'", "'SAR'")
+    script = script.replace('"ريال"', '"SAR"')
+    script = script.replace("' سنة'", "' years'")
+    script = script.replace('" سنة"', '" years"')
     
-    # استبدالات
-    replacements = {
-        "{{LANG}}": "en",
-        "{{DIR}}": "ltr",
-        "{{TITLE}}": page['title_en'],
-        "{{DESCRIPTION}}": desc_en,
-        "{{KEYWORDS}}": page['title_en'],
-        "{{SLUG}}": slug,
-        "{{SITE_NAME}}": "Hasibha",
-        "{{OG_LOCALE}}": "en_US",
-        "{{SCHEMA}}": json.dumps(schema, ensure_ascii=False, indent=2),
-        "{{NAV_CALC}}": "Calculators",
-        "{{NAV_FEATURES}}": "Features",
-        "{{NAV_FAQ}}": "FAQ",
-        "{{LANG_SWITCH_URL}}": f"/{slug}",
-        "{{LANG_SWITCH_CODE}}": "ar",
-        "{{LANG_SWITCH_TEXT}}": "عربي",
-        "{{BREADCRUMB_HOME}}": "🏠 Home",
-        "{{H1}}": page['icon'] + ' ' + page['title_en'],
-        "{{SUBTITLE}}": desc_en,
-        "{{FIELDS_HTML}}": fields_html,
-        "{{CALC_BUTTON}}": "Calculate",
-        "{{RESULT_HTML}}": '<div class="result-row"><span class="result-label">Result</span><span class="result-value big" id="finalResult">0</span></div>',
-        "{{BACK_LINK}}": "↩ Back to Home",
-        "{{ARTICLE_HTML}}": article_en,
-        "{{FOOTER_PRIVACY}}": "Privacy Policy",
-        "{{FOOTER_CONTACT}}": "Contact Us",
-        "{{FOOTER_ABOUT}}": "About Us",
-        "{{FOOTER_COPYRIGHT}}": f'Hasibha © {datetime.now().year} — All Rights Reserved',
-        "{{CALC_SCRIPT}}": full_script
-    }
+    # نغير locale للأرقام
+    script = script.replace("'ar-SA'", "'en-US'")
+    script = script.replace('"ar-SA"', '"en-US"')
     
-    for key, value in replacements.items():
-        template = template.replace(key, value)
+    # بناء الصفحة
+    template = build_en_template(page, fields_en, article_en, desc_en, script, schema)
     
-    # حفظ
     output = f"{slug}-en.html"
     output_path = os.path.join(ROOT_DIR, output)
     with open(output_path, 'w', encoding='utf-8') as f:
@@ -312,6 +229,147 @@ def generate_en_page(ai, page):
     
     print(f"  ✅ تم إنشاء {output}")
     return output
+
+
+def build_en_template(page, fields_html, article_html, desc, script, schema):
+    """يبني صفحة إنجليزية كاملة"""
+    slug = page['slug']
+    title = page['title_en']
+    icon = page['icon']
+    year = datetime.now().year
+    
+    return f'''<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{title} - Hasibha</title>
+<meta name="description" content="{desc}">
+<meta name="keywords" content="{title}, free calculator, online calculator">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="Hasibha">
+<link rel="canonical" href="{SITE_URL}/{slug}-en">
+<link rel="icon" type="image/png" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+<link rel="apple-touch-icon" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+<link rel="alternate" hreflang="ar" href="{SITE_URL}/{slug}">
+<link rel="alternate" hreflang="en" href="{SITE_URL}/{slug}-en">
+<link rel="alternate" hreflang="x-default" href="{SITE_URL}/{slug}">
+
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
+<meta property="og:url" content="{SITE_URL}/{slug}-en">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+<meta property="og:site_name" content="Hasibha">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{desc}">
+<meta name="twitter:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+<meta name="theme-color" content="#0b0d10">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
+
+<script type="application/ld+json">
+{json.dumps(schema, ensure_ascii=False, indent=2)}
+</script>
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-in">
+    <a class="logo" href="/index-en" aria-label="Hasibha">
+      <img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha" style="height:36px;vertical-align:middle">
+      Hasibha
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/index-en#calculators">Calculators</a>
+      <a href="/index-en#features">Features</a>
+      <a href="/index-en#faq">FAQ</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-btn" id="themeBtn" aria-label="Theme">
+        <svg id="iconMoon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg id="iconSun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a class="lang-btn" href="/{slug}" hreflang="ar" lang="ar">عربي</a>
+    </div>
+  </div>
+</header>
+
+<nav class="breadcrumb">
+  <div class="wrap">
+    <a href="/index-en">🏠 Home</a>
+    <span>←</span>
+    <span style="color:var(--text);font-weight:600">{title}</span>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+  <div class="calc-wrapper">
+    <h1>{icon} {title}</h1>
+    <p class="subtitle">{desc}</p>
+
+{fields_html}
+
+    <button class="calc-btn" onclick="calculate()">Calculate</button>
+
+    <div class="result-card" id="resultCard">
+    </div>
+
+    <a href="/index-en" class="back-link">↩ Back to Home</a>
+  </div>
+
+  <div class="article-box">
+{article_html}
+  </div>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-in">
+    <a class="logo" href="/index-en" style="font-size:16px">
+      <img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha" style="height:28px;vertical-align:middle">
+      Hasibha
+    </a>
+    <nav aria-label="Footer">
+      <a href="/privacy-en">Privacy Policy</a>
+      <a href="/contact-en">Contact Us</a>
+      <a href="/about-en">About Us</a>
+    </nav>
+    <p>Hasibha © {year} — All Rights Reserved</p>
+  </div>
+</footer>
+
+<script>
+(function(){{
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  var moon=document.getElementById('iconMoon'), sun=document.getElementById('iconSun');
+  function apply(t){{
+    if(t==='dark'){{root.setAttribute('data-theme','dark');moon.style.display='none';sun.style.display='block';}}
+    else{{root.removeAttribute('data-theme');moon.style.display='block';sun.style.display='none';}}
+  }}
+  var saved=null;
+  try{{saved=localStorage.getItem('hs-theme');}}catch(e){{}}
+  if(!saved){{saved=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}}
+  apply(saved);
+  btn.addEventListener('click',function(){{
+    var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    apply(next);
+    try{{localStorage.setItem('hs-theme',next);}}catch(e){{}}
+  }});
+}})();
+
+{script}
+</script>
+</body>
+</html>
+'''
 
 
 def main():
@@ -329,15 +387,13 @@ def main():
             except Exception as e:
                 print(f"⚠️ خطأ في AI: {e}")
                 return
-        
-        if not ai:
-            print("⚠️ AI غير متاح")
+        else:
+            print("⚠️ لا يوجد مفتاح API")
             return
     else:
         print("⚠️ AI معطل")
         return
     
-    # تحديد الصفحات
     pages_to_update = PAGES
     if len(sys.argv) > 1 and sys.argv[1]:
         target = sys.argv[1]
