@@ -110,7 +110,6 @@ def translate_html(html):
     if not html:
         return ""
     
-    # 1) placeholder
     def replace_placeholder(match):
         quote = match.group(1)
         value = match.group(2)
@@ -123,7 +122,6 @@ def translate_html(html):
     
     html = re.sub(r'placeholder=([\'"])([^\'"]+)\1', replace_placeholder, html)
     
-    # 2) النصوص بين الوسوم
     def replace_text(match):
         text = match.group(1)
         if not text.strip():
@@ -165,7 +163,6 @@ def fix_javascript(script):
     script = script.replace("'ر.س'", "'SAR'")
     script = script.replace('"ر.س"', '"SAR"')
     
-    # استبدالات شاملة (نصوص فقط، بدون علامات تنصيص)
     replacements = {
         # BMI التصنيفات
         "🔵 نحيف": "🔵 Underweight",
@@ -175,7 +172,7 @@ def fix_javascript(script):
         "🔴 سمنة درجة ثانية": "🔴 Obesity Class II",
         "⚫ سمنة مفرطة": "⚫ Obesity Class III",
         
-        # الجمل الديناميكية
+        # BMI جمل ديناميكية
         "تحتاج لإنقاص ": "You need to lose ",
         "تحتاج لزيادة ": "You need to gain ",
         "من أجل الوصول إلى الوزن الطبيعي": "to reach normal weight",
@@ -185,7 +182,7 @@ def fix_javascript(script):
         " كغم": " kg",
         " كيلوجرام": " kg",
         
-        # النصوص الثابتة
+        # BMI نصوص ثابتة
         "وزنك أقل من الطبيعي": "Your weight is below normal",
         "وزنك أعلى من الطبيعي قليلاً": "Your weight is slightly above normal",
         "وزنك أعلى من الطبيعي بشكل ملحوظ": "Your weight is significantly above normal",
@@ -196,6 +193,14 @@ def fix_javascript(script):
         "أنت في النطاق الطبيعي": "You are in the normal range",
         "استمر في عاداتك الصحية": "Keep your healthy habits",
         
+        # التمويل الشخصي
+        "أدخل الدخل لمعرفة التقييم": "Enter income to see assessment",
+        "أدخل البيانات لمعرفة التقييم": "Enter data to see assessment",
+        "💚 ممتاز — التمويل مناسب جداً.": "💚 Excellent — Loan is very suitable.",
+        "💛 مقبول بحذر — راقب ميزانيتك.": "💛 Acceptable with caution — Monitor your budget.",
+        "❤️ تحذير — التمويل قد يشكل ضغطاً مالياً.": "❤️ Warning — Loan may cause financial stress.",
+        "نسبة القسط إلى الدخل": "Debt-to-Income Ratio",
+        
         # الوحدات
         " سنة": " years",
         "سنة": "years",
@@ -204,7 +209,7 @@ def fix_javascript(script):
         "يوم": "days",
         "أيام": "days",
         
-        # حقول الحاسبات
+        # حقول الحاسبات المالية
         "المبلغ الممول": "Financed Amount",
         "إجمالي الفوائد": "Total Interest",
         "الإجمالي": "Total",
