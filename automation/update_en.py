@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 تحديث الصفحات الإنجليزية من العربية
-يستخرج اسم الدالة و result-card ويصحّح JS
+Google Translate + MyMemory (احتياطي)
 """
 
 import os
@@ -37,25 +37,9 @@ PAGES = [
 
 
 def translate_google(text):
+    """Google Translate المجاني"""
     if not text or not text.strip():
         return text
-    
-    if len(text) > 4000:
-        parts = []
-        current = ""
-        for line in text.split("\n"):
-            if len(current) + len(line) < 3500:
-                current += line + "\n"
-            else:
-                parts.append(current)
-                current = line + "\n"
-        if current:
-            parts.append(current)
-        translated_parts = []
-        for part in parts:
-            translated_parts.append(translate_google(part))
-            time.sleep(0.5)
-        return "\n".join(translated_parts)
     
     try:
         url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ar&tl=en&dt=t&q=" + urllib.parse.quote(text)
@@ -69,11 +53,52 @@ def translate_google(text):
                         result += item[0]
                 return result
     except Exception as e:
-        print(f"    ⚠️ خطأ ترجمة: {e}")
+        print(f"    ⚠️ Google: {e}")
+    return None
+
+
+def translate_mymemory(text):
+    """MyMemory API المجاني (احتياطي)"""
+    if not text or not text.strip():
+        return text
+    
+    try:
+        # MyMemory يحد النص بـ 500 حرف
+        if len(text) > 500:
+            text = text[:500]
+        url = "https://api.mymemory.translated.net/get?q=" + urllib.parse.quote(text) + "&langpair=ar|en"
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=30) as response:
+            data = json.loads(response.read().decode('utf-8'))
+            if data.get('responseData') and data['responseData'].get('translatedText'):
+                return data['responseData']['translatedText']
+    except Exception as e:
+        print(f"    ⚠️ MyMemory: {e}")
+    return None
+
+
+def translate(text):
+    """يترجم مع احتياطي"""
+    if not text or not text.strip():
+        return text
+    
+    # نجرب Google أولاً
+    result = translate_google(text)
+    if result and result.strip() and not re.search(r'[\u0600-\u06FF]', result):
+        return result
+    
+    # إذا فشل، نجرب MyMemory
+    time.sleep(0.3)
+    result = translate_mymemory(text)
+    if result and result.strip():
+        return result
+    
+    # إذا فشل الاثنين، نرجع النص الأصلي
     return text
 
 
 def fix_arabic(text):
+    """تصحيحات يدوية"""
     fixes = {
         'ريال سعودي': 'SAR',
         'ريال': 'SAR',
@@ -94,8 +119,10 @@ def fix_arabic(text):
 
 
 def translate_html(html):
+    """يترجم HTML مع كشف العربي المتبقي"""
     if not html:
         return ""
+    
     def replace_text(match):
         text = match.group(1)
         if not text.strip():
@@ -104,23 +131,24 @@ def translate_html(html):
         trailing = len(text) - len(text.rstrip())
         core = text.strip()
         if core:
-            translated = translate_google(core)
+            # نتخطى إذا كان النص قصير جداً
+            if len(core) < 2:
+                return '>' + text + '<'
+            
+            translated = translate(core)
+            time.sleep(0.2)
             return '>' + ' ' * leading + translated + ' ' * trailing + '<'
         return '>' + text + '<'
+    
     html = re.sub(r'>([^<>]+)<', replace_text, html)
     html = fix_arabic(html)
     return html
 
 
 def fix_javascript(script):
-    """يصحح JavaScript: locale, عملة, أرقام عربية"""
-    # تغيير locale من ar-SA إلى en-US
+    """تصحيح JavaScript"""
     script = script.replace("'ar-SA'", "'en-US'")
     script = script.replace('"ar-SA"', '"en-US"')
-    script = script.replace("'ar-sa'", "'en-US'")
-    script = script.replace('"ar-sa"', '"en-US"')
-    
-    # تغيير العملة
     script = script.replace("+ ' ريال'", "+ ' SAR'")
     script = script.replace("+' ريال'", "+' SAR'")
     script = script.replace('+ " ريال"', '+ " SAR"')
@@ -128,14 +156,6 @@ def fix_javascript(script):
     script = script.replace('" ريال"', '" SAR"')
     script = script.replace("'ريال'", "'SAR'")
     script = script.replace('"ريال"', '"SAR"')
-    script = script.replace("+ ' ر.س'", "+ ' SAR'")
-    script = script.replace("'ر.س'", "'SAR'")
-    
-    # replace كلمات عربية
-    script = script.replace("' سنة'", "' years'")
-    script = script.replace("'سنة'", "'years'")
-    script = script.replace("+ ' سنة'", "+ ' years'")
-    
     return script
 
 
@@ -175,16 +195,12 @@ def read_ar_page(slug):
         all_scripts.append(s.strip())
     result['script'] = '\n\n'.join(all_scripts)
     
-    # اسم الدالة من onclick
     main_func = 'calculate'
     onclick_match = re.search(r'onclick="(\w+)\(\)"', content)
     if onclick_match:
         main_func = onclick_match.group(1)
-    
     result['main_func'] = main_func
-    print(f"    🎯 الدالة: {main_func}()")
     
-    # result-card
     result_match = re.search(r'<div class="result-card"[^>]*>(.*?)(?:</div>\s*<p[^>]*>\s*\*|</div>\s*<a)', content, re.DOTALL)
     result['result_html'] = result_match.group(1).strip() if result_match else ''
     
@@ -345,11 +361,9 @@ def generate_en_page(page):
         print(f"  ⚠️ لا توجد حقول")
         return None
     
-    if not data['article']:
-        print(f"  ⚠️ لا يوجد مقال")
-        return None
+    print(f"    🎯 الدالة: {data['main_func']}()")
     
-    subtitle_en = translate_google(data['subtitle']) if data['subtitle'] else "Calculate instantly with our free online tool."
+    subtitle_en = translate(data['subtitle']) if data['subtitle'] else "Calculate instantly with our free online tool."
     print(f"  ✅ عنوان: {subtitle_en[:60]}")
     
     print(f"  🌐 ترجمة المقال...")
@@ -360,11 +374,9 @@ def generate_en_page(page):
     fields_en = translate_html(data['fields_html'])
     print(f"  ✅ حقول ({len(fields_en)} حرف)")
     
-    # تصحيح JavaScript
     script = fix_javascript(data['script'])
-    print(f"  ✅ سكربت محدث (locale= en-US, currency= SAR)")
+    print(f"  ✅ سكربت محدث")
     
-    # تصحيح result-card أيضاً
     result_html = fix_arabic(data['result_html'])
     
     desc = f"Free online {page['title_en']}. Instant, accurate results - no registration required."
@@ -413,6 +425,7 @@ def main():
             return
     
     print(f"📊 عدد الصفحات: {len(pages_to_update)}")
+    print("🌐 Google Translate + MyMemory (احتياطي)")
     
     for i, page in enumerate(pages_to_update, 1):
         print(f"\n[{i}/{len(pages_to_update)}] 🔨 {page['slug']}-en.html")
