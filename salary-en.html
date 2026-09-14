@@ -108,16 +108,16 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>💼 Salary After Insurance</h1>
-    <p class="subtitle">احسب صافي راتبك حسب النظام القديم والجديد</p>
+    <p class="subtitle">Calculate your net salary according to the old and new system</p>
 
-<label>نظام التأمينات</label>
+<label>Duration of the insurance system</label>
     <div class="radio-group">
-      <div class="radio-option"><input type="radio" name="systemMode" id="systemOld" value="old" onchange="updateAll()"><label for="systemOld">📜 النظام القديم (9%)</label></div>
-      <div class="radio-option"><input type="radio" name="systemMode" id="systemNew" value="new" checked onchange="updateAll()"><label for="systemNew">✨ النظام الجديد (11%)</label></div>
+      <div class="radio-option"><input type="radio" name="systemMode" id="systemOld" value="old" onchange="updateAll()"><label for="systemOld">Old 📜 System (9%)</label></div>
+      <div class="radio-option"><input type="radio" name="systemMode" id="systemNew" value="new" checked onchange="updateAll()"><label for="systemNew">New ✨ System (11%)</label></div>
     </div>
 
-    <label for="salaryInput">الراتب الإجمالي</label>
-    <p class="hint">الراتب الأساسي + بدل السكن + بدلات أخرى</p>
+    <label for="salaryInput">Total salary </label>
+    <p class="hint">Basic Salary + Housing Allowance + Other Allowances</p>
     <div class="input-row">
       <input type="number" id="salaryInput" placeholder="أدخل الراتب الإجمالي" oninput="updateAll()">
       <span style="font-weight:600;color:var(--text-2)">SAR</span>
@@ -126,37 +126,37 @@
     <button class="calc-btn" onclick="updateAll()">Calculate</button>
 
     <div class="result-card" id="resultCard" style="display:block">
-<div class="result-row"><span class="result-label">الراتب الإجمالي</span><span class="result-value" id="grossSalary">0 ريال</span></div>
-      <div class="result-row"><span class="result-label">قيمة الخصم</span><span class="result-value" style="color:#ef4444" id="deductionAmount">0 ريال</span></div>
-      <div class="result-row"><span class="result-label">💰 صافي الراتب</span><span class="result-value big" id="netSalary">0 ريال</span></div>
+<div class="result-row"><span class="result-label">الراتب الإجمالي</span><span class="result-value" id="grossSalary">0 SAR</span></div>
+      <div class="result-row"><span class="result-label">قيمة الخصم</span><span class="result-value" style="color:#ef4444" id="deductionAmount">0 SAR</span></div>
+      <div class="result-row"><span class="result-label">💰 صافي الراتب</span><span class="result-value big" id="netSalary">0 SAR</span></div>
     </div>
 
     <a href="/index-en" class="back-link">↩ Back to Home</a>
   </div>
 
   <div class="article-box">
-<h2>🗂️ دليل خصم التأمينات الاجتماعية في Saudi Arabia</h2>
+<h2>Social Insurance Discount 🗂️ Guide in Saudi Arabia</h2>
 
-    <h3>ما هي التأمينات الاجتماعية؟</h3>
-    <p>نظام إلزامي تديره المؤسسة العامة للتأمينات الاجتماعية (GOSI) يوفر الحماية الاجتماعية للموظفين السعوديين في القطاعين العام والخاص.</p>
+    <h3>What are social insurances?</h3>
+    <p>A mandatory system administered by the General Organization for Social Insurance (GOSI) that provides social protection to Saudi employees in the public and private sectors.</p>
 
-    <h3>النظام القديم (9%)</h3>
-    <p>خصم 9% من الراتب للتأمينات فقط.</p>
-    <div class="example">📝 راتب 10,000 SAR: الخصم = 900 SAR، الصافي = 9,100 SAR</div>
+    <h3>Old System (9%)</h3>
+    <p>9% salary deduction for insurances only.</p>
+    <div class="example">📝 Salary 10,000 riyals: discount = 900 riyals, net = 9,100 riyals</div>
 
-    <h3>النظام الجديد (11%)</h3>
+    <h3>New System (11%)</h3>
     <ul>
-      <li>9% تأمينات</li>
-      <li>2% ساند (تعويض التعطل)</li>
+      <li>9% insurances</li>
+      <li>2% Sanid (Disruption Compensation)</li>
     </ul>
-    <div class="example">📝 راتب 10,000 SAR: الخصم = 1,100 SAR، الصافي = 8,900 SAR</div>
+    <div class="example">📝 Salary 10,000 riyals: discount = 1,100 riyals, net = 8,900 riyals</div>
 
-    <h3>الفرق بين النظامين</h3>
-    <p>النظام الجديد يضيف 2% لنظام ساند الذي يوفر تعويضاً 60% من الراتب لمدة 12 monthsاً في حالة التعطل.</p>
+    <h3>Difference between the two systems</h3>
+    <p>The new system adds 2% to the Sanid system, which provides compensation of 60% of the salary for 12 months in the event of disruption.</p>
 
-    <div class="tip">💡 <strong>نصيحة:</strong> الخصم يطبق فقط على السعوديين. غير السعوديين يخضعون لنظام 2% يتحملها صاحب العمل.</div>
+    <div class="tip">💡 <strong>Advice:</strong> Discount applies only to Saudis. Non-Saudis are subject to a 2% system that is borne by the employer.</div>
 
-    <p class="ref"><strong>المراجع الرسمية:</strong> المؤسسة العامة للتأمينات الاجتماعية (GOSI.gov.sa) | نظام ساند | وزارة الموارد البشرية (HRSD.gov.sa)</p>
+    <p class="ref"><strong>Official References:</strong> General Organization for Social Insurance (GOSI.gov.sa) | Sanid System | Ministry of Human Resources (HRSD.gov.sa)</p>
   </div>
 </div>
 </main>

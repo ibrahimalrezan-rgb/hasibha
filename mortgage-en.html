@@ -108,17 +108,17 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>🏠 Mortgage Calculator</h1>
-    <p class="subtitle">احسب القسط الشهري التقديري قبل اتخاذ القرار</p>
+    <p class="subtitle">Calculate the estimated monthly installment before making a decision</p>
 
-<label for="priceInput">سعر العقار (SAR)</label>
+<label for="priceInput">Property Price (SAR)</label>
     <div class="input-row">
       <input type="number" id="priceInput" placeholder="أدخل سعر العقار" oninput="updateAll()">
     </div>
 
     <div class="slider-group">
       <div class="slider-value">
-        <label>الدفعة المقدمة — <span id="downPercent">20</span>%</label>
-        <span id="downVal">0 SAR</span>
+        <label>Advance paymnet <span id="downPercent">20</span>%</label>
+        <span id="downVal">SAR 0</span>
       </div>
       <input type="range" id="downSlider" min="5" max="50" value="20" oninput="updateAll()">
       <div class="labels"><span>5%</span><span>50%</span></div>
@@ -126,7 +126,7 @@
 
     <div class="slider-group">
       <div class="slider-value">
-        <label>مدة التمويل — <span id="yearsVal">20</span> years</label>
+        <label>Facility Period <span id="yearsVal">20</span> 1 Year</label>
       </div>
       <input type="range" id="yearsSlider" min="5" max="30" value="20" oninput="updateAll()">
       <div class="labels"><span>5</span><span>30</span></div>
@@ -134,7 +134,7 @@
 
     <div class="slider-group">
       <div class="slider-value">
-        <label>نسبة الفائدة — <span id="rateVal">5.0</span>%</label>
+        <label>Interest Rate <span id="rateVal">5.0</span>%</label>
       </div>
       <input type="range" id="rateSlider" min="2" max="15" step="0.1" value="5" oninput="updateAll()">
       <div class="labels"><span>2%</span><span>15%</span></div>
@@ -143,9 +143,9 @@
     <button class="calc-btn" onclick="updateAll()">Calculate</button>
 
     <div class="result-card" id="resultCard" style="display:block">
-<p style="color:var(--text-2);font-size:14px">القسط الشهري التقديري</p>
+<p style="color:var(--text-2);font-size:14px">القسط الmonthsي التقديري</p>
       <div style="font-size:42px;font-weight:900;color:var(--c-health)" id="monthlyDisplay">0</div>
-      <p style="color:var(--text-2)">ر.س</p>
+      <p style="color:var(--text-2)">SAR</p>
       <div class="goals">
         <div class="goal-box"><div class="val" id="financedDisplay">0</div><div class="lbl">المبلغ الممول</div></div>
         <div class="goal-box"><div class="val" id="interestDisplay">0</div><div class="lbl">إجمالي الفوائد</div></div>
@@ -157,33 +157,33 @@
   </div>
 
   <div class="article-box">
-<h2>🗂️ الدليل الشامل للتمويل العقاري في Saudi Arabia 2026</h2>
+<h2>🗂️ The Comprehensive Guide to Real Estate Finance in Saudi Arabia 2026</h2>
 
-    <h3>ما هو التمويل العقاري؟</h3>
-    <p>التمويل العقاري هو منتج مالي تقدمه البنوك وشركات التمويل لمساعدة الأفراد على شراء منزل أو عقار. يقوم البنك بدفع قيمة العقار كاملة للبائع، ثم يسدد العميل المبلغ على أقساط monthsية تمتد لyears، مع إضافة هامش ربح متفق عليه.</p>
-    <p>وفقاً لإحصائيات البنك المركزي السعودي (ساما)، تجاوز حجم التمويل العقاري السكني في المملكة 600 مليار SAR بنهاية عام 2025.</p>
+    <h3>What is mortgage finance?</h3>
+    <p>Mortgage finance is a financial product offered by banks and finance companies to help individuals buy a home or property. The bank pays the full value of the property to the seller, and then the customer pays the amount in monthly installments that extend for years, with the addition of an agreed profit margin.</p>
+    <p>According to the statistics of the Saudi Central Bank (SAMA), the volume of residential real estate financing in the Kingdom exceeded 600 billion riyals by the end of 2025.</p>
 
-    <h3>أنواع التمويل العقاري</h3>
+    <h3>Types of Mortgage Finance</h3>
     <ul>
-      <li><strong>التمويل المدعوم:</strong> تقدمه وزارة الإسكان بالتعاون مع البنوك، تتحمل الدولة جزءاً من الأرباح.</li>
-      <li><strong>تمويل المرابحة:</strong> يشتري البنك العقار ثم يبيعه للعميل بسعر أعلى.</li>
-      <li><strong>تمويل الإجارة:</strong> يشتري البنك العقار ويؤجره للعميل حتى نهاية المدة.</li>
-      <li><strong>التمويل التجاري:</strong> للمستثمرين في العقارات التجارية.</li>
+      <li><strong>Subsidized funding:</strong> It is provided by the Ministry of Housing in cooperation with banks, and the state bears part of the profits.</li>
+      <li><strong>Murabaha financing</strong> The bank buys the property and then sells it to the customer at a higher price.</li>
+      <li><strong>Ijara Finance:</strong> The bank buys the property and leases it to the customer until the end of the period.</li>
+      <li><strong>Trade Finance</strong> for investors in commercial real estate.</li>
     </ul>
 
-    <h3>الدفعة المقدمة</h3>
-    <p>حسب البنك المركزي السعودي: المسكن الأول 10% كحد أدنى، المسكن الثاني 30%.</p>
-    <div class="example">📝 <strong>مثال:</strong> عقار بمليون SAR، دفعة مقدمة 10% = 100,000 SAR تدفعها، والبنك يمول 900,000 SAR.</div>
+    <h3>Payment</h3>
+    <p>According to the Central Bank of Saudi Arabia: The first dwelling is 10% minimum, the second dwelling is 30%.</p>
+    <div class="example">📝 <strong>Example:</strong> A property with a million riyals, an advance payment of 10% = 100,000 riyals to be paid, and the bank finances 900,000 riyals.</div>
 
-    <h3>نصائح ذهبية</h3>
+    <h3>Golden tips</h3>
     <ul>
-      <li>قارن 3 بنوك قبل التوقيع.</li>
-      <li>اسأل عن APR وليس النسبة الاسمية.</li>
-      <li>لا يتجاوز القسط 30% من دخلك.</li>
-      <li>استخدم الحاسبة لتجربة سيناريوهات مختلفة.</li>
+      <li>Compare 3 banks before signing.</li>
+      <li>Ask about the Apr and not the nominal ratio.</li>
+      <li>Installment does not exceed 30% of your earnings.</li>
+      <li>Use the calculator to try different scenarios.</li>
     </ul>
 
-    <p class="ref"><strong>المراجع:</strong> البنك المركزي السعودي (SAMA.gov.sa) | وزارة الإسكان (housing.gov.sa) | صندوق التنمية العقارية (redf.gov.sa)</p>
+    <p class="ref"><strong>References:</strong> Saudi Central Bank (SAMA.gov.sa) | Ministry of Housing (housing.gov.sa) | Real Estate Development Fund (redf.gov.sa)</p>
   </div>
 </div>
 </main>

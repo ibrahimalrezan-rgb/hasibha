@@ -108,53 +108,53 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>📋 End of Service Calculator</h1>
-    <p class="subtitle">احسب مكافأة نهاية الخدمة وفق نظام العمل السعودي</p>
+    <p class="subtitle">Calculate the end of service gratuity according to the Saudi Labor Law</p>
 
-<label for="eosSalary">الراتب الإجمالي</label>
-    <p class="hint">آخر راتب إجمالي شامل الأساسي والبدلات.</p>
+<label for="eosSalary">Total salary </label>
+    <p class="hint">Latest gross salary inclusive of basic and allowances.</p>
     <div class="input-row">
       <input type="number" id="eosSalary" placeholder="أدخل الراتب الإجمالي" oninput="updateAll()">
       <span style="font-weight:600;color:var(--text-2)">SAR</span>
     </div>
 
-    <label for="eosStartDate">تاريخ بداية العمل</label>
+    <label for="eosStartDate">Date of Work Starting</label>
     <div class="input-row">
       <input type="date" id="eosStartDate" onchange="updateAll()">
     </div>
 
-    <label for="eosEndDate">تاريخ انتهاء العمل</label>
+    <label for="eosEndDate">The Work Completion date</label>
     <div class="input-row">
       <input type="date" id="eosEndDate" onchange="updateAll()">
     </div>
 
-    <label for="eosContractType">نوع العقد</label>
+    <label for="eosContractType">Type of Contract</label>
     <div class="full-width">
       <select id="eosContractType" onchange="updateAll()">
-        <option value="">-- اختر نوع العقد --</option>
-        <option value="limited">محدد المدة</option>
-        <option value="unlimited">غير محدد المدة</option>
+        <option value="">Select Contract Type</option>
+        <option value="limited">Fixed-term</option>
+        <option value="unlimited">No specific duration</option>
       </select>
     </div>
 
-    <label for="eosReason">سبب انتهاء العلاقة الوظيفية</label>
+    <label for="eosReason">Termination of the employment relationship</label>
     <div class="full-width">
       <select id="eosReason" onchange="updateAll()">
-        <option value="">-- اختر سبب الإنهاء --</option>
-        <option value="resign">استقالة الموظف</option>
-        <option value="end_contract">انتهاء العقد بانتهاء مدته</option>
-        <option value="mutual_74">اتفاق الطرفين - المادة (74)</option>
-        <option value="terminate_80">فسخ العقد من صاحب العمل - المادة (80)</option>
-        <option value="probation_53">فسخ العقد خلال التجربة - المادة (53)</option>
-        <option value="activity_end_74">إنهاء النشاط - المادة (74)</option>
-        <option value="close_business_74">إغلاق المنشأة - المادة (74)</option>
-        <option value="retirement_74">بلوغ سن التقاعد - المادة (74)</option>
-        <option value="unlawful_77">إنهاء دون سبب مشروع - المادة (77)</option>
-        <option value="worker_terminate_81">فسخ العقد من العامل - المادة (81)</option>
-        <option value="worker_death_79">وفاة العامل - المادة (79)</option>
-        <option value="disability_79">عجز العامل - المادة (79)</option>
-        <option value="work_injury_137">عجز بسبب إصابة عمل - المادة (137)</option>
-        <option value="marriage_87">إنهاء العقد بسبب الزواج - المادة (87)</option>
-        <option value="childbirth_87">إنهاء العقد بسبب الولادة - المادة (87)</option>
+        <option value="">-- Select Termination Reason --</option>
+        <option value="resign">Employee Resignation</option>
+        <option value="end_contract">Expiry of the contract at the end of its term</option>
+        <option value="mutual_74">Agreement of the Parties - Article (74)</option>
+        <option value="terminate_80">Termination of the Contract by the Employer - Article (80)</option>
+        <option value="probation_53">Termination of the contract during the trial - Article (53)</option>
+        <option value="activity_end_74">Termination of Activity - Article (74)</option>
+        <option value="close_business_74">Closure of the facility - Article (74)</option>
+        <option value="retirement_74">Reaching retirement age - Article (74)</option>
+        <option value="unlawful_77">Termination without a legitimate reason - Article (77)</option>
+        <option value="worker_terminate_81">Termination of the contract by the worker - Article (81)</option>
+        <option value="worker_death_79">Death of the worker - Article (79)</option>
+        <option value="disability_79">Worker disability - Article (79)</option>
+        <option value="work_injury_137">Disability due to work injury - Article (137)</option>
+        <option value="marriage_87">Termination of the contract due to marriage - Article (87)</option>
+        <option value="childbirth_87">Termination of the contract due to childbirth - Article (87)</option>
       </select>
     </div>
 
@@ -167,7 +167,7 @@
       <div class="result-row"><span class="result-label">الراتب الإجمالي</span><span class="result-value" id="eosSalaryDisplay">—</span></div>
       <div class="result-row"><span class="result-label">تاريخ بداية العقد</span><span class="result-value" id="eosStartDisplay">—</span></div>
       <div class="result-row"><span class="result-label">تاريخ انتهاء العقد</span><span class="result-value" id="eosEndDisplay">—</span></div>
-      <div class="result-row"><span class="result-label">المكافأة المحسوبة</span><span class="result-value big" id="eosAmount">0.00 ريال</span></div>
+      <div class="result-row"><span class="result-label">المكافأة المحسوبة</span><span class="result-value big" id="eosAmount">0.00 SAR</span></div>
     </div>
 
     <div class="article-box" style="margin-top:20px;padding:16px">
@@ -178,63 +178,63 @@
   </div>
 
   <div class="article-box">
-<h2>🗂️ الدليل الشامل لمكافأة نهاية الخدمة في نظام العمل السعودي 2026</h2>
+<h2>🗂️ The Comprehensive Guide to End of Service Gratuity in the Saudi Labor Law 2026</h2>
 
-    <h3>ما هي مكافأة نهاية الخدمة؟</h3>
-    <p>مكافأة نهاية الخدمة هي حق مالي أساسي يكفله نظام العمل السعودي الصادر بالمرسوم الملكي رقم (م/51). وهي مبلغ يصرفه صاحب العمل للعامل عند انتهاء العلاقة الوظيفية، وتُحتسب بناءً على آخر راتب أساسي، ومدة الخدمة، وسبب انتهاء العلاقة الوظيفية.</p>
+    <h3>What is an end of service gratuity?</h3>
+    <p>The end of service gratuity is a basic financial right guaranteed by the Saudi Labor Law issued by Royal Decree No. (M/51). It is an amount disbursed by the employer to the worker upon the end of the employment relationship, and is calculated based on the last basic salary, the period of service, and the reason for the end of the employment relationship.</p>
 
-    <h3>كيف تُحسب المكافأة؟</h3>
+    <h3>How is the bonus calculated?</h3>
     <ul>
-      <li><strong>أول خمس years:</strong> نصف months (15 daysاً) عن كل years خدمة.</li>
-      <li><strong>بعد الخمس years:</strong> months كامل (30 daysاً) عن كل years إضافية.</li>
-      <li><strong>كسور الyears:</strong> تحسب بنسبة من الyears الكاملة.</li>
+      <li><strong>First five ears </strong> Half a month (15 days) for each year of service.</li>
+      <li><strong>After five years:</strong> A full month (30 days) for each additional year.</li>
+      <li><strong>Fractions of the year:</strong> Calculated as a percentage of the full year.</li>
     </ul>
 
-    <div class="example">📝 <strong>مثال:</strong> راتب أساسي 10,000 SAR، خدمة 8 years. أول 5 years: 5 × 5,000 = 25,000. آخر 3 years: 3 × 10,000 = 30,000. الإجمالي = 55,000 SAR.</div>
+    <div class="example">📝 <strong>Example:</strong> Basic salary 10,000 riyals, service 8 years. First 5 years: 5 x 5,000 = 25,000. Last 3 years: 3 x 10,000 = 30,000. Total = SAR 55,000.</div>
 
-    <h3>الاستقالة وتأثيرها – المادة (85)</h3>
+    <h3>Resignation and its impact – Article (85)</h3>
     <ul>
-      <li><strong>أقل من سنتين:</strong> لا يستحق أي مكافأة.</li>
-      <li><strong>من 2 إلى 5 years:</strong> يستحق ثلث المكافأة.</li>
-      <li><strong>من 5 إلى 10 years:</strong> يستحق ثلثي المكافأة.</li>
-      <li><strong>أكثر من 10 years:</strong> يستحق كامل المكافأة.</li>
+      <li><strong>Less than two years</strong> He is not worthy of any reward.</li>
+      <li><strong>~2-5 Years</strong> Worth a third of the reward.</li>
+      <li><strong>~5-10 Years</strong> Worth two-thirds of the reward.</li>
+      <li><strong>More than 10 years. </strong> He deserves the full reward.</li>
     </ul>
 
-    <h3>حالات تستحق فيها كامل المكافأة</h3>
+    <h3>Cases in which the full reward is due</h3>
     <ul>
-      <li>انتهاء العقد بمده – المادة (74).</li>
-      <li>إغلاق المنشأة – المادة (74).</li>
-      <li>بلوغ سن التقاعد – المادة (74).</li>
-      <li>إنهاء العقد دون سبب مشروع – المادة (77).</li>
-      <li>وفاة العامل أو عجزه – المادة (79).</li>
-      <li>إصابة العمل – المادة (137).</li>
+      <li>Expiry of the contract – Article (74).</li>
+      <li>Closure of the facility – Article (74).</li>
+      <li>Reaching retirement age – Article (74).</li>
+      <li>Termination of the contract without a legitimate reason – Article (77).</li>
+      <li>Death or disability of the worker – Article (79).</li>
+      <li>Work injury – Article (137).</li>
     </ul>
 
-    <h3>حالات لا تستحق فيها المكافأة</h3>
-    <div class="warning">⚠️ <strong>هام:</strong> يسقط حق العامل في المكافأة في هذه الحالات:</div>
+    <h3>Cases where the reward is not worthy</h3>
+    <div class="warning">⚠️ <strong>Important</strong> The worker's right to remuneration shall be forfeited in these cases:</div>
     <ul>
-      <li>الفصل التأديبي – المادة (80).</li>
-      <li>فسخ العامل للعقد دون سبب – المادة (81).</li>
-      <li>خلال فترة التجربة – المادة (53).</li>
+      <li>Disciplinary dismissal – Article (80).</li>
+      <li>Termination of the contract by the worker without a reason – Article (81).</li>
+      <li>During the probationary period – Article (53).</li>
     </ul>
 
-    <h3>نصائح لضمان حقوقك</h3>
+    <h3>Tips to ensure your rights</h3>
     <ul>
-      <li>وثق عقدك في منصة قوى (Qiwa.sa).</li>
-      <li>احتفظ بكشوف الرواتب والمراسلات.</li>
-      <li>تأكد من تحديد الراتب الأساسي بوضوح في العقد.</li>
-      <li>لا توقع على استقالة مسبقة أو ورقة بيضاء.</li>
-      <li>استخدم الحاسبة أعلاه قبل مراجعة الموارد البشرية.</li>
+      <li>Trust your contract to Qiwa.sa.</li>
+      <li>Keep payroll and correspondence.</li>
+      <li>Ensure that the basic salary is clearly stated in the contract.</li>
+      <li>Do not sign a prior resignation or blank paper.</li>
+      <li>Use the calculator above before reviewing HR.</li>
     </ul>
 
-    <h3>كيف تتصرف إذا لم تصرف المكافأة؟</h3>
+    <h3>How do you behave if the reward is not disbursed?</h3>
     <ol>
-      <li>قدم طلباً ودياً لصاحب العمل كتابياً.</li>
-      <li>ارفع دعوى في منصة "ودي" (moj.gov.sa).</li>
-      <li>إذا تعذرت التسوية، تحال القضية للمحكمة العمالية.</li>
+      <li>Submit an amicable application to the employer in writing.</li>
+      <li>File a lawsuit in the Wedi platform (moj.gov.sa).</li>
+      <li>If the settlement is not possible, the case shall be referred to the Labor Court.</li>
     </ol>
 
-    <p class="ref"><strong>المراجع الرسمية:</strong> وزارة الموارد البشرية (HRSD.gov.sa) | نظام العمل السعودي | منصة قوى (Qiwa.sa) | منصة ودي (moj.gov.sa) | التأمينات الاجتماعية (GOSI.gov.sa)</p>
+    <p class="ref"><strong>Official References:</strong> Ministry of Human Resources (HRSD.gov.sa) | Saudi Labor Law | Qiwa.sa Platform | Wadi Platform (moj.gov.sa) | Social Insurance (GOSI.gov.sa)</p>
   </div>
 </div>
 </main>

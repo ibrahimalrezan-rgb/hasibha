@@ -108,24 +108,24 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>🧾 VAT Calculator</h1>
-    <p class="subtitle">أضف أو أزل ضريبة القيمة المضافة 15% على أي مبلغ</p>
+    <p class="subtitle">Add or remove 15% VAT on any amount</p>
 
-<div class="vat-badge"><span>نسبة الضريبة 15%</span></div>
+<div class="vat-badge"><span>Tax 15%</span></div>
 
-    <label>نوع العملية</label>
+    <label>operation type</label>
     <div class="radio-group">
       <div class="radio-option">
         <input type="radio" name="vatMode" id="modeAdd" value="add" checked onchange="updateAll()">
-        <label for="modeAdd">➕ إضافة الضريبة</label>
+        <label for="modeAdd">➕ Add tax</label>
       </div>
       <div class="radio-option">
         <input type="radio" name="vatMode" id="modeRemove" value="remove" onchange="updateAll()">
-        <label for="modeRemove">➖ إزالة الضريبة</label>
+        <label for="modeRemove">Remove Tax Rate</label>
       </div>
     </div>
 
-    <label id="amountLabel" for="amountInput">المبلغ (بدون ضريبة)</label>
-    <p class="hint" id="amountHint">أدخل المبلغ بدون الضريبة</p>
+    <label id="amountLabel" for="amountInput">Amount (excl. tax)</label>
+    <p class="hint" id="amountHint">Amount Excl. of Tax</p>
     <div class="input-row">
       <input type="number" id="amountInput" placeholder="أدخل المبلغ" oninput="updateAll()">
       <span style="font-weight:600;color:var(--text-2)">SAR</span>
@@ -134,32 +134,32 @@
     <button class="calc-btn" onclick="updateAll()">Calculate</button>
 
     <div class="result-card" id="resultCard" style="display:block">
-<div class="result-row"><span class="result-label">قيمة الضريبة 15%</span><span class="result-value" id="vatAmount">0 ريال</span></div>
-      <div class="result-row"><span class="result-label" id="baseLabel">المبلغ قبل الضريبة</span><span class="result-value" id="baseAmount">0 ريال</span></div>
-      <div class="result-row"><span class="result-label" id="totalLabel">المبلغ بعد الضريبة</span><span class="result-value big" id="totalAmount">0 ريال</span></div>
+<div class="result-row"><span class="result-label">قيمة الضريبة 15%</span><span class="result-value" id="vatAmount">0 SAR</span></div>
+      <div class="result-row"><span class="result-label" id="baseLabel">المبلغ قبل الضريبة</span><span class="result-value" id="baseAmount">0 SAR</span></div>
+      <div class="result-row"><span class="result-label" id="totalLabel">المبلغ بعد الضريبة</span><span class="result-value big" id="totalAmount">0 SAR</span></div>
     </div>
 
     <a href="/index-en" class="back-link">↩ Back to Home</a>
   </div>
 
   <div class="article-box">
-<h2>🗂️ الدليل الشامل لضريبة القيمة المضافة في Saudi Arabia</h2>
+<h2>Comprehensive 🗂️ Guide to Value Added Tax in Saudi Arabia</h2>
 
-    <h3>ما هي ضريبة القيمة المضافة؟</h3>
-    <p>ضريبة القيمة المضافة هي ضريبة غير مباشرة تُفرض على جميع السلع والخدمات. تم تطبيقها في Saudi Arabia 2018 بنسبة 5%، ثم رفعت إلى 15% في 1 يوليو 2020. تديرها هيئة الزكاة والضريبة والجمارك.</p>
+    <h3>What is VAT?</h3>
+    <p>VAT is an indirect tax levied on all goods and services. It was applied in Saudi Arabia 2018 by 5%, then raised to 15% on July 1, 2020. Managed by ZATCA.</p>
 
-    <h3>طريقة إضافة الضريبة</h3>
-    <p>قيمة الضريبة = المبلغ × 0.15</p>
-    <p>المبلغ بعد الضريبة = المبلغ × 1.15</p>
-    <div class="example">📝 <strong>مثال:</strong> مبلغ 1,000 SAR + ضريبة = 1,150 SAR</div>
+    <h3>How to add tax</h3>
+    <p>Tax Value = Amount x 0.15</p>
+    <p>Amount after tax = Amount x 1.15</p>
+    <div class="example">📝 <strong>Example:</strong> SAR 1,000 + tax = SAR 1,150</div>
 
-    <h3>طريقة إزالة الضريبة</h3>
-    <p>المبلغ قبل الضريبة = المبلغ ÷ 1.15</p>
-    <div class="example">📝 <strong>مثال:</strong> مبلغ 1,150 SAR شامل ضريبة = 1,000 SAR قبل الضريبة</div>
+    <h3>How to remove tax</h3>
+    <p>Amount before tax = Amount ÷ 1.15</p>
+    <div class="example">📝 <strong>Example:</strong> SAR 1,150 including tax = SAR 1,000 before tax</div>
 
-    <div class="tip">💡 <strong>نصيحة:</strong> لمعرفة السعر قبل الضريبة بسرعة، اقسم على 1.15.</div>
+    <div class="tip">💡 <strong>Advice:</strong> To quickly find the pre-tax price, divide by 1.15.</div>
 
-    <p class="ref"><strong>المراجع الرسمية:</strong> هيئة الزكاة والضريبة والجمارك (ZATCA.gov.sa) | وزارة المالية (mof.gov.sa)</p>
+    <p class="ref"><strong>Official References:</strong> Zakat, Tax and Customs Authority (ZATCA.gov.sa) | Ministry of Finance (mof.gov.sa)</p>
   </div>
 </div>
 </main>

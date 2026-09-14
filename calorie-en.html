@@ -108,40 +108,40 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>🍎 Calorie Calculator</h1>
-    <p class="subtitle">اعرف احتياجك اليومي من السعرات الحرارية</p>
+    <p class="subtitle">Know Your Daily Calorie Needs</p>
 
-<label>الجنس</label>
+<label>Sex</label>
     <div class="radio-group">
-      <div class="radio-option"><input type="radio" name="gender" id="male" value="male" checked onchange="calculateCalories()"><label for="male">👨 ذكر</label></div>
-      <div class="radio-option"><input type="radio" name="gender" id="female" value="female" onchange="calculateCalories()"><label for="female">👩 أنثى</label></div>
+      <div class="radio-option"><input type="radio" name="gender" id="male" value="male" checked onchange="calculateCalories()"><label for="male">Male</label></div>
+      <div class="radio-option"><input type="radio" name="gender" id="female" value="female" onchange="calculateCalories()"><label for="female">Female </label></div>
     </div>
 
     <label for="ageInput">العمر</label>
     <div class="input-row">
       <input type="number" id="ageInput" placeholder="أدخل عمرك" oninput="calculateCalories()">
-      <span style="font-weight:600;color:var(--text-2)">years</span>
+      <span style="font-weight:600;color:var(--text-2)">1 Year</span>
     </div>
 
-    <label for="weightInput">الوزن (كيلوجرام)</label>
+    <label for="weightInput">Weight (kg)</label>
     <div class="input-row">
       <input type="number" id="weightInput" placeholder="أدخل وزنك" oninput="calculateCalories()">
-      <span style="font-weight:600;color:var(--text-2)">كجم</span>
+      <span style="font-weight:600;color:var(--text-2)">kg</span>
     </div>
 
-    <label for="heightInput">الطول (سنتيمتر)</label>
+    <label for="heightInput">Length (Centimeters)</label>
     <div class="input-row">
       <input type="number" id="heightInput" placeholder="أدخل طولك" oninput="calculateCalories()">
-      <span style="font-weight:600;color:var(--text-2)">سم</span>
+      <span style="font-weight:600;color:var(--text-2)">cm</span>
     </div>
 
-    <label for="activityLevel">مستوى النشاط</label>
+    <label for="activityLevel">Activity Level</label>
     <div class="full-width">
       <select id="activityLevel" onchange="calculateCalories()">
-        <option value="1.2">خامل (لا تمارس الرياضة)</option>
-        <option value="1.375">نشاط خفيف (1-3 days أسبوعياً)</option>
-        <option value="1.55" selected>نشاط متوسط (3-5 days أسبوعياً)</option>
-        <option value="1.725">نشاط عالي (6-7 days أسبوعياً)</option>
-        <option value="1.9">نشاط شديد جداً (رياضي محترف)</option>
+        <option value="1.2">Idle (do not exercise)</option>
+        <option value="1.375">Light activity (1-3 days a week)</option>
+        <option value="1.55" selected>Moderate activity (3-5 days per week)</option>
+        <option value="1.725">High activity (6-7 days a week)</option>
+        <option value="1.9">Very intense activity (professional athlete)</option>
       </select>
     </div>
 
@@ -149,7 +149,7 @@
 
     <div class="result-card" id="resultCard" style="display:block">
 <div class="calorie-value" id="tdeeValue">0</div>
-      <div class="calorie-label">سعرة حرارية يومياً للحفاظ على وزنك</div>
+      <div class="calorie-label">سعرة حرارية daysياً للحفاظ على وزنك</div>
       <div class="goals">
         <div class="goal-box lose"><div class="val" id="loseCalories">0</div><div class="lbl">للتنحيف (نقص 500 سعرة)</div></div>
         <div class="goal-box maintain"><div class="val" id="maintainCalories">0</div><div class="lbl">للحفاظ</div></div>
@@ -161,26 +161,26 @@
   </div>
 
   <div class="article-box">
-<h2>🗂️ دليل السعرات الحرارية والاحتياج الdaysي</h2>
-    <h3>ما هي السعرات الحرارية؟</h3>
-    <p>السعرة الحرارية هي وحدة قياس الطاقة التي يحصل عليها الجسم من الطعام. يحتاج جسمك لعدد معين من السعرات daysياً لأداء وظائفه الأساسية والأنشطة الdaysية.</p>
+<h2>Calories and Daily Needs 🗂️ Guide</h2>
+    <h3>What are calories?</h3>
+    <p>Calorie is the unit of energy the body gets from food. Your body needs a certain number of calories per day to perform its basic functions and daily activities.</p>
 
-    <h3>معدل الأيض الأساسي (BMR)</h3>
-    <p>هو عدد السعرات التي يحرقها جسمك في الراحة التامة. تحسب باستخدام معادلة Mifflin-St Jeor المعتمدة عالمياً.</p>
+    <h3>BMR</h3>
+    <p>It is the number of calories your body burns at complete rest. Calculated using the globally approved Mifflin-St Jeor equation.</p>
 
-    <h3>إجمالي احتياجك الdaysي (TDEE)</h3>
-    <p>هو BMR مضروب في معامل النشاط. هذه هي السعرات التي تحتاجها daysياً للحفاظ على وزنك الحالي.</p>
+    <h3>Your Total Daily Needs (TDEE)</h3>
+    <p>is BMR multiplied by the activity coefficient. These are the calories you need daily to maintain your current weight.</p>
 
-    <h3>كيفية التنحيف وزيادة الوزن</h3>
+    <h3>How to slim down and gain weight</h3>
     <ul>
-      <li><strong>للتنحيف:</strong> اطرح 500-1000 سعرة من TDEE daysياً لفقدان 0.5-1 كجم أسبوعياً.</li>
-      <li><strong>للزيادة:</strong> أضف 500 سعرة فوق TDEE daysياً لزيادة 0.5 كجم أسبوعياً.</li>
-      <li><strong>للحفاظ:</strong> استهلك نفس TDEE.</li>
+      <li><strong>For slimming:</strong> Subtract 500-1000 kcal from TDEE daily to lose 0.5-1 kg weekly.</li>
+      <li><strong>To increase:</strong> Add 500 calories over TDEE daily to increase 0.5 kg weekly.</li>
+      <li><strong>To maintain:</strong> Consume the same TDEE.</li>
     </ul>
 
-    <div class="tip">💡 <strong>نصيحة:</strong> لا تنزل عن 1200 سعرة daysياً للنساء أو 1500 للرجال بدون إشراف طبي.</div>
+    <div class="tip">💡 <strong>Advice:</strong> Do not drop below 1200 calories per day for women or 1500 for men without medical supervision.</div>
 
-    <p class="ref"><strong>المرجع:</strong> منظمة الصحة العالمية (WHO.int) | وزارة الصحة Saudi Arabia (moh.gov.sa)</p>
+    <p class="ref"><strong>Ref:</strong> World Health Organization (WHO.int) | Saudi Ministry of Health (moh.gov.sa)</p>
   </div>
 </div>
 </main>
