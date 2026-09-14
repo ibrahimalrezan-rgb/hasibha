@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 تحديث الصفحات الإنجليزية من العربية
-Google Translate + MyMemory (احتياطي) + تصحيحات JavaScript
+Google Translate + MyMemory + ترجمة placeholders
 """
 
 import os
@@ -106,8 +106,24 @@ def fix_arabic(text):
 
 
 def translate_html(html):
+    """يترجم HTML + placeholders داخل input"""
     if not html:
         return ""
+    
+    # 1) ترجمة placeholder داخل input
+    def replace_placeholder(match):
+        quote = match.group(1)
+        value = match.group(2)
+        if not value.strip():
+            return match.group(0)
+        if not re.search(r'[\u0600-\u06FF]', value):
+            return match.group(0)
+        translated = translate(value)
+        return f'placeholder={quote}{translated}{quote}'
+    
+    html = re.sub(r'placeholder=([\'"])([^\'"]+)\1', replace_placeholder, html)
+    
+    # 2) ترجمة النصوص العادية بين الوسوم
     def replace_text(match):
         text = match.group(1)
         if not text.strip():
@@ -122,6 +138,7 @@ def translate_html(html):
             time.sleep(0.2)
             return '>' + ' ' * leading + translated + ' ' * trailing + '<'
         return '>' + text + '<'
+    
     html = re.sub(r'>([^<>]+)<', replace_text, html)
     html = fix_arabic(html)
     return html
@@ -129,13 +146,11 @@ def translate_html(html):
 
 def fix_javascript(script):
     """تصحيح JavaScript: locale, عملة, نصوص عربية"""
-    # locale
     script = script.replace("'ar-SA'", "'en-US'")
     script = script.replace('"ar-SA"', '"en-US"')
     script = script.replace("'ar-sa'", "'en-US'")
     script = script.replace('"ar-sa"', '"en-US"')
     
-    # العملة - كل الأشكال
     script = script.replace("+ ' ريال'", "+ ' SAR'")
     script = script.replace("+' ريال'", "+' SAR'")
     script = script.replace('+ " ريال"', '+ " SAR"')
@@ -148,7 +163,6 @@ def fix_javascript(script):
     script = script.replace("'ر.س'", "'SAR'")
     script = script.replace('"ر.س"', '"SAR"')
     
-    # نصوص عربية شائعة داخل JavaScript
     replacements = {
         "'نحيف'": "'Underweight'",
         '"نحيف"': '"Underweight"',
@@ -193,6 +207,14 @@ def fix_javascript(script):
         "'صافي الراتب'": "'Net Salary'",
         "'الراتب الإجمالي'": "'Gross Salary'",
         "'قيمة الخصم'": "'Deduction Amount'",
+        "'المبلغ قبل الضريبة'": "'Amount Before Tax'",
+        "'المبلغ بعد الضريبة'": "'Amount After Tax'",
+        "'قيمة الضريبة'": "'VAT Amount'",
+        "'المكافأة المحسوبة'": "'Calculated Benefit'",
+        "'نوع العقد'": "'Contract Type'",
+        "'سبب الإنهاء'": "'Termination Reason'",
+        "'تاريخ بداية العقد'": "'Start Date'",
+        "'تاريخ انتهاء العقد'": "'End Date'",
     }
     
     for ar, en in replacements.items():
@@ -412,7 +434,7 @@ def generate_en_page(page):
     article_en = translate_html(data['article'])
     print(f"  ✅ مقال ({len(article_en)} حرف)")
     
-    print(f"  🌐 ترجمة الحقول...")
+    print(f"  🌐 ترجمة الحقول + placeholders...")
     fields_en = translate_html(data['fields_html'])
     print(f"  ✅ حقول ({len(fields_en)} حرف)")
     
@@ -469,7 +491,8 @@ def main():
             return
     
     print(f"📊 عدد الصفحات: {len(pages_to_update)}")
-    print("🌐 Google Translate + MyMemory (احتياطي)")
+    print("🌐 Google Translate + MyMemory")
+    print("✅ ترجمة placeholders + JavaScript")
     
     for i, page in enumerate(pages_to_update, 1):
         print(f"\n[{i}/{len(pages_to_update)}] 🔨 {page['slug']}-en.html")
