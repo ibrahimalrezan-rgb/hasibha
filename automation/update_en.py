@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 تحديث الصفحات الإنجليزية من العربية - بدون AI
-Google Translate + حماية JavaScript من الترجمة
+يستخرج اسم الدالة و id النتيجة من الصفحة العربية
 """
 
 import os
@@ -37,7 +37,6 @@ PAGES = [
 
 
 def translate_google(text):
-    """يترجم باستخدام Google Translate المجاني"""
     if not text or not text.strip():
         return text
     
@@ -61,11 +60,9 @@ def translate_google(text):
     
     try:
         url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ar&tl=en&dt=t&q=" + urllib.parse.quote(text)
-        
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         with urllib.request.urlopen(req, timeout=30) as response:
             data = json.loads(response.read().decode('utf-8'))
-            
             if data and data[0]:
                 result = ""
                 for item in data[0]:
@@ -74,24 +71,14 @@ def translate_google(text):
                 return result
     except Exception as e:
         print(f"    ⚠️ خطأ ترجمة: {e}")
-    
     return text
 
 
 def fix_arabic(text):
-    """تصحيحات يدوية"""
     fixes = {
-        'ريال': 'SAR',
-        'ر.س': 'SAR',
-        'سنة': 'years',
-        'سنوات': 'years',
-        'شهر': 'months',
-        'أشهر': 'months',
-        'يوم': 'days',
-        'أيام': 'days',
-        '٪': '%',
-        'السعودية': 'Saudi Arabia',
-        'حاسبها': 'Hasibha',
+        'ريال': 'SAR', 'ر.س': 'SAR', 'سنة': 'years', 'سنوات': 'years',
+        'شهر': 'months', 'أشهر': 'months', 'يوم': 'days', 'أيام': 'days',
+        '٪': '%', 'السعودية': 'Saudi Arabia', 'حاسبها': 'Hasibha',
     }
     for ar, en in fixes.items():
         text = text.replace(ar, en)
@@ -99,10 +86,8 @@ def fix_arabic(text):
 
 
 def translate_html(html):
-    """يترجم HTML فقط (بدون JavaScript)"""
     if not html:
         return ""
-    
     def replace_text(match):
         text = match.group(1)
         if not text.strip():
@@ -114,54 +99,9 @@ def translate_html(html):
             translated = translate_google(core)
             return '>' + ' ' * leading + translated + ' ' * trailing + '<'
         return '>' + text + '<'
-    
     html = re.sub(r'>([^<>]+)<', replace_text, html)
     html = fix_arabic(html)
-    
     return html
-
-
-def translate_js_safely(script):
-    """يترجم JavaScript بحذر - فقط النصوص بين علامات التنصيص"""
-    if not script:
-        return ""
-    
-    # نترجم فقط النصوص العربية داخل علامات التنصيص ' أو "
-    def replace_string(match):
-        quote = match.group(1)
-        text = match.group(2)
-        if not text.strip():
-            return match.group(0)
-        # نتحقق أنها تحتوي عربي
-        if re.search(r'[\u0600-\u06FF]', text):
-            translated = translate_google(text)
-            return quote + translated + quote
-        return match.group(0)
-    
-    # نطبق فقط على النصوص القصيرة (أقل من 200 حرف)
-    def safe_replace(match):
-        quote = match.group(1)
-        text = match.group(2)
-        if len(text) > 200 or not text.strip():
-            return match.group(0)
-        if not re.search(r'[\u0600-\u06FF]', text):
-            return match.group(0)
-        translated = translate_google(text)
-        return quote + translated + quote
-    
-    script = re.sub(r"(['\"])([^'\"]{1,200})\1", safe_replace, script)
-    
-    # تصحيحات JavaScript
-    script = script.replace("'ريال'", "'SAR'")
-    script = script.replace('"ريال"', '"SAR"')
-    script = script.replace("' سنة'", "' years'")
-    script = script.replace('" سنة"', '" years"')
-    script = script.replace("'ar-SA'", "'en-US'")
-    script = script.replace('"ar-SA"', '"en-US"')
-    script = script.replace(" ريال", " SAR")
-    script = script.replace("ر.س", "SAR")
-    
-    return script
 
 
 def read_ar_page(slug):
@@ -174,25 +114,26 @@ def read_ar_page(slug):
     
     result = {}
     
+    # subtitle
     subtitle_match = re.search(r'<p class="subtitle">([^<]+)</p>', content)
     result['subtitle'] = subtitle_match.group(1).strip() if subtitle_match else ''
     
+    # fields
     start_match = re.search(r'</p>', content)
     end_match = re.search(r'<button class="calc-btn"', content)
-    
     if start_match and end_match:
-        start_pos = start_match.end()
-        end_pos = end_match.start()
-        result['fields_html'] = content[start_pos:end_pos].strip()
+        result['fields_html'] = content[start_match.end():end_match.start()].strip()
     else:
         result['fields_html'] = ''
     
+    # article
     article_match = re.search(
         r'<div class="article-box">(.*?)</div>\s*</div>\s*</main>',
         content, re.DOTALL
     )
     result['article'] = article_match.group(1).strip() if article_match else ''
     
+    # السكربت كامل
     scripts = re.findall(r'<script>(.*?)</script>', content, re.DOTALL)
     all_scripts = []
     for s in scripts:
@@ -201,13 +142,34 @@ def read_ar_page(slug):
         if not s.strip():
             continue
         all_scripts.append(s.strip())
-    
     result['script'] = '\n\n'.join(all_scripts)
+    
+    # استخراج اسم الدالة الرئيسية من السكربت
+    main_func = 'calculate'
+    # نبحث في onclick
+    onclick_match = re.search(r'onclick="(\w+)\(\)"', content)
+    if onclick_match:
+        main_func = onclick_match.group(1)
+    else:
+        # نبحث في oninput
+        oninput_match = re.search(r'oninput="(\w+)\(\)"', content)
+        if oninput_match:
+            main_func = oninput_match.group(1)
+    
+    result['main_func'] = main_func
+    print(f"    🎯 الدالة الرئيسية: {main_func}()")
+    
+    # استخراج نتيجة div (كل ما هو داخل result-card)
+    result_match = re.search(r'<div class="result-card"[^>]*>(.*?)</div>\s*<p[^>]*>\s*\*', content, re.DOTALL)
+    if not result_match:
+        result_match = re.search(r'<div class="result-card"[^>]*>(.*?)</div>\s*<a', content, re.DOTALL)
+    
+    result['result_html'] = result_match.group(1).strip() if result_match else ''
     
     return result
 
 
-def build_en_page(page, fields_html, article_html, subtitle, desc, script, schema):
+def build_en_page(page, fields_html, article_html, subtitle, desc, script, schema, main_func, result_html):
     slug = page['slug']
     title = page['title_en']
     icon = page['icon']
@@ -292,9 +254,10 @@ def build_en_page(page, fields_html, article_html, subtitle, desc, script, schem
 
 {fields_html}
 
-    <button class="calc-btn" onclick="calculate()">Calculate</button>
+    <button class="calc-btn" onclick="{main_func}()">Calculate</button>
 
-    <div class="result-card" id="resultCard">
+    <div class="result-card" id="resultCard" style="display:block">
+{result_html}
     </div>
 
     <a href="/index-en" class="back-link">↩ Back to Home</a>
@@ -364,11 +327,10 @@ def generate_en_page(page):
         print(f"  ⚠️ لا يوجد مقال")
         return None
     
-    print(f"  📊 سكربت: {len(data['script'])} حرف، مقال: {len(data['article'])} حرف")
+    print(f"  📊 مقال: {len(data['article'])} حرف")
     
-    print(f"  🌐 ترجمة العنوان...")
     subtitle_en = translate_google(data['subtitle']) if data['subtitle'] else "Calculate instantly with our free online tool."
-    print(f"  ✅ {subtitle_en[:60]}...")
+    print(f"  ✅ عنوان: {subtitle_en[:60]}")
     
     print(f"  🌐 ترجمة المقال...")
     article_en = translate_html(data['article'])
@@ -378,9 +340,22 @@ def generate_en_page(page):
     fields_en = translate_html(data['fields_html'])
     print(f"  ✅ حقول ({len(fields_en)} حرف)")
     
-    print(f"  🌐 ترجمة JavaScript بحذر...")
-    script = translate_js_safely(data['script'])
-    print(f"  ✅ سكربت")
+    # السكربت - لا نترجمه! فقط نستبدل النصوص العربية المعروفة
+    script = data['script']
+    script = script.replace("'ريال'", "'SAR'")
+    script = script.replace('"ريال"', '"SAR"')
+    script = script.replace("' سنة'", "' years'")
+    script = script.replace("'ar-SA'", "'en-US'")
+    script = script.replace('"ar-SA"', '"en-US"')
+    script = script.replace("+ ' ريال'", "+ ' SAR'")
+    script = script.replace("' ريال'", "' SAR'")
+    script = script.replace("+ ' ريال'", "+ ' SAR'")
+    script = script.replace("formatNumber(a)+' ريال'", "formatNumber(a)+' SAR'")
+    script = script.replace("formatNumber(a) + ' ريال'", "formatNumber(a) + ' SAR'")
+    script = script.replace("formatNumber(x)+' ريال'", "formatNumber(x)+' SAR'")
+    script = script.replace("formatNumber(x) + ' ريال'", "formatNumber(x) + ' SAR'")
+    
+    print(f"  ✅ سكربت محدث")
     
     desc = f"Free online {page['title_en']}. Instant, accurate results - no registration required."
     
@@ -407,7 +382,7 @@ def generate_en_page(page):
         ]
     }
     
-    html = build_en_page(page, fields_en, article_en, subtitle_en, desc, script, schema)
+    html = build_en_page(page, fields_en, article_en, subtitle_en, desc, script, schema, data['main_func'], data['result_html'])
     
     output = f"{slug}-en.html"
     output_path = os.path.join(ROOT_DIR, output)
@@ -428,8 +403,6 @@ def main():
             return
     
     print(f"📊 عدد الصفحات: {len(pages_to_update)}")
-    print("🌐 استخدام Google Translate (بدون AI)")
-    print("🔒 حماية JavaScript من الترجمة")
     
     for i, page in enumerate(pages_to_update, 1):
         print(f"\n[{i}/{len(pages_to_update)}] 🔨 {page['slug']}-en.html")
