@@ -110,49 +110,49 @@
     <h1>📋 End of Service Calculator</h1>
     <p class="subtitle">Calculate the end of service gratuity according to the Saudi Labor Law</p>
 
-<label for="eosSalary">Total salary </label>
-    <p class="hint">Latest gross salary inclusive of basic and allowances.</p>
+<label for="eosSalary">Gross salary</label>
+    <p class="hint">Latest gross salary including basic and allowances.</p>
     <div class="input-row">
-      <input type="number" id="eosSalary" placeholder="Total salary " oninput="updateAll()">
+      <input type="number" id="eosSalary" placeholder="Enter gross salary" oninput="updateAll()">
       <span style="font-weight:600;color:var(--text-2)">SAR</span>
     </div>
 
-    <label for="eosStartDate">Date of Work Starting</label>
+    <label for="eosStartDate">Date of start of work</label>
     <div class="input-row">
       <input type="date" id="eosStartDate" onchange="updateAll()">
     </div>
 
-    <label for="eosEndDate">The Work Completion date</label>
+    <label for="eosEndDate">Work end date</label>
     <div class="input-row">
       <input type="date" id="eosEndDate" onchange="updateAll()">
     </div>
 
-    <label for="eosContractType">Type of Contract</label>
+    <label for="eosContractType">Contract type</label>
     <div class="full-width">
       <select id="eosContractType" onchange="updateAll()">
-        <option value="">Select Contract Type</option>
-        <option value="limited">Fixed-term</option>
-        <option value="unlimited">No specific duration</option>
+        <option value="">--Choose contract type--</option>
+        <option value="limited">Fixed term</option>
+        <option value="unlimited">Indefinite duration</option>
       </select>
     </div>
 
-    <label for="eosReason">Termination of the employment relationship</label>
+    <label for="eosReason">The reason for the termination of the employment relationship</label>
     <div class="full-width">
       <select id="eosReason" onchange="updateAll()">
-        <option value="">-- Select Termination Reason --</option>
-        <option value="resign">Employee Resignation</option>
-        <option value="end_contract">Expiry of the contract at the end of its term</option>
+        <option value="">--Choose the reason for termination--</option>
+        <option value="resign">Employee resignation</option>
+        <option value="end_contract">The contract expires at the end of its term</option>
         <option value="mutual_74">Agreement of the Parties - Article (74)</option>
-        <option value="terminate_80">Termination of the Contract by the Employer - Article (80)</option>
+        <option value="terminate_80">Termination of the contract by the employer - Article (80)</option>
         <option value="probation_53">Termination of the contract during the trial - Article (53)</option>
-        <option value="activity_end_74">Termination of Activity - Article (74)</option>
-        <option value="close_business_74">Closure of the facility - Article (74)</option>
+        <option value="activity_end_74">Termination of activity - Article (74)</option>
+        <option value="close_business_74">Closing the facility - Article (74)</option>
         <option value="retirement_74">Reaching retirement age - Article (74)</option>
-        <option value="unlawful_77">Termination without a legitimate reason - Article (77)</option>
+        <option value="unlawful_77">Termination without legitimate reason - Article (77)</option>
         <option value="worker_terminate_81">Termination of the contract by the worker - Article (81)</option>
         <option value="worker_death_79">Death of the worker - Article (79)</option>
-        <option value="disability_79">Worker disability - Article (79)</option>
-        <option value="work_injury_137">Disability due to work injury - Article (137)</option>
+        <option value="disability_79">Worker’s disability - Article (79)</option>
+        <option value="work_injury_137">Disability due to a work injury - Article (137)</option>
         <option value="marriage_87">Termination of the contract due to marriage - Article (87)</option>
         <option value="childbirth_87">Termination of the contract due to childbirth - Article (87)</option>
       </select>
@@ -161,17 +161,17 @@
     <button class="calc-btn" onclick="updateAll()">Calculate</button>
 
     <div class="result-card" id="resultCard" style="display:block">
-<h4 style="text-align:center;color:var(--c-health);font-size:16px;margin-bottom:20px">Bonus Account 📋 Summary</h4>
-      <div class="result-row"><span class="result-label">Type of Contract</span><span class="result-value" id="eosContractDisplay">—</span></div>
-      <div class="result-row"><span class="result-label">Reason for Termination</span><span class="result-value" id="eosReasonDisplay">—</span></div>
-      <div class="result-row"><span class="result-label">Total salary </span><span class="result-value" id="eosSalaryDisplay">—</span></div>
-      <div class="result-row"><span class="result-label">Contract Start Date </span><span class="result-value" id="eosStartDisplay">—</span></div>
-      <div class="result-row"><span class="result-label">تاريخ انتهاء العقد</span><span class="result-value" id="eosEndDisplay">—</span></div>
-      <div class="result-row"><span class="result-label">Calculated Reward</span><span class="result-value big" id="eosAmount">0.00 SAR</span></div>
+<h4 style="text-align:center;color:var(--c-health);font-size:16px;margin-bottom:20px">📋 Bonus calculation summary</h4>
+      <div class="result-row"><span class="result-label">Contract type</span><span class="result-value" id="eosContractDisplay">—</span></div>
+      <div class="result-row"><span class="result-label">Reason for termination</span><span class="result-value" id="eosReasonDisplay">—</span></div>
+      <div class="result-row"><span class="result-label">Gross salary</span><span class="result-value" id="eosSalaryDisplay">—</span></div>
+      <div class="result-row"><span class="result-label">Contract start date</span><span class="result-value" id="eosStartDisplay">—</span></div>
+      <div class="result-row"><span class="result-label">Contract expiry date</span><span class="result-value" id="eosEndDisplay">—</span></div>
+      <div class="result-row"><span class="result-label">Calculated reward</span><span class="result-value big" id="eosAmount">0.00 riyals</span></div>
     </div>
 
     <div class="article-box" style="margin-top:20px;padding:16px">
-      <p style="font-size:13px;color:var(--text-2)"><strong>WARNING:</strong> This calculator provides an estimate of the end of service gratuity according to the Saudi Labor Law. The result may vary in some special cases.</p>
+      <p style="font-size:13px;color:var(--text-2)"><strong>📝 Warning:</strong> This calculator provides an estimate of the end-of-service reward according to the Saudi labor system. The result may vary in some special cases.</p>
     </div>
 
     <a href="/index-en" class="back-link">↩ Back to Home</a>
@@ -206,35 +206,35 @@
       <li>Closure of the facility – Article (74).</li>
       <li>Reaching retirement age – Article (74).</li>
       <li>Termination of the contract without a legitimate reason – Article (77).</li>
-      <li>Death or disability of the worker – Article (79).</li>
+      <li>Death or disability of the worker - Article (79).</li>
       <li>Work injury – Article (137).</li>
     </ul>
 
-    <h3>Cases where the reward is not worthy</h3>
-    <div class="warning">⚠️ <strong>Important</strong> The worker's right to remuneration shall be forfeited in these cases:</div>
+    <h3>Situations in which the reward is not deserved</h3>
+    <div class="warning">⚠️ <strong>Important</strong> The worker's right to the reward shall be forfeited in these cases:</div>
     <ul>
       <li>Disciplinary dismissal – Article (80).</li>
       <li>Termination of the contract by the worker without a reason – Article (81).</li>
-      <li>During the probationary period – Article (53).</li>
+      <li>During the trial period - Article (53).</li>
     </ul>
 
     <h3>Tips to ensure your rights</h3>
     <ul>
-      <li>Trust your contract to Qiwa.sa.</li>
-      <li>Keep payroll and correspondence.</li>
-      <li>Ensure that the basic salary is clearly stated in the contract.</li>
-      <li>Do not sign a prior resignation or blank paper.</li>
+      <li>Document your contract on the Qiwa.sa platform.</li>
+      <li>Maintain payroll and correspondence.</li>
+      <li>Make sure the base salary is clearly stated in the contract.</li>
+      <li>Do not sign a prior resignation or white paper.</li>
       <li>Use the calculator above before reviewing HR.</li>
     </ul>
 
-    <h3>How do you behave if the reward is not disbursed?</h3>
+    <h3>How do you act if the reward is not spent?</h3>
     <ol>
-      <li>Submit an amicable application to the employer in writing.</li>
-      <li>File a lawsuit in the Wedi platform (moj.gov.sa).</li>
-      <li>If the settlement is not possible, the case shall be referred to the Labor Court.</li>
+      <li>Submit a friendly request to the employer in writing.</li>
+      <li>File a lawsuit on the “Wadi” platform (moj.gov.sa).</li>
+      <li>If settlement is not possible, the case is referred to the labor court.</li>
     </ol>
 
-    <p class="ref"><strong>Official References:</strong> Ministry of Human Resources (HRSD.gov.sa) | Saudi Labor Law | Qiwa.sa Platform | Wadi Platform (moj.gov.sa) | Social Insurance (GOSI.gov.sa)</p>
+    <p class="ref"><strong>Official references:</strong> Ministry of Human Resources (HRSD.gov.sa) | Saudi labor system Qiwa platform (Qiwa.sa) | Friendly platform (moj.gov.sa) | Social Insurance (GOSI.gov.sa)</p>
   </div>
 </div>
 </main>

@@ -108,27 +108,27 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>🏷️ Discount Calculator</h1>
-    <p class="subtitle">Calculate the price after discount and how much you save</p>
+    <p class="subtitle">Calculate the price after the discount and how much you save</p>
 
-<label for="priceInput">Original Price (SAR)</label>
+<label for="priceInput">Original price (SAR)</label>
     <div class="input-row">
-      <input type="number" id="priceInput" placeholder="ORIGINAL PRICE" oninput="calculateDiscount()">
+      <input type="number" id="priceInput" placeholder="Enter the original price" oninput="calculateDiscount()">
     </div>
 
-    <label for="discountInput">Deduction Rate</label>
+    <label for="discountInput">Discount percentage (%)</label>
     <div class="input-row">
-      <input type="number" id="discountInput" placeholder="Enter discount percent" oninput="calculateDiscount()">
+      <input type="number" id="discountInput" placeholder="Enter the discount percentage" oninput="calculateDiscount()">
     </div>
 
     <button class="calc-btn" onclick="calculateDiscount()">Calculate</button>
 
     <div class="result-card" id="resultCard" style="display:block">
 <div style="font-size:48px;font-weight:900;color:var(--c-health)" id="finalPrice">0</div>
-      <div style="color:var(--text-2);font-size:14px">Price after discount</div>
+      <div style="color:var(--text-2);font-size:14px">SAR (price after discount)</div>
       <div style="font-size:18px;font-weight:700;color:#ef4444;margin-top:8px" id="savedAmount"></div>
       <div style="background:var(--surface);border-radius:12px;padding:16px;margin-top:16px;text-align:center">
-        <p style="color:var(--text-2);font-size:14px;margin-bottom:4px">Original Rate: <strong id="originalPrice">0</strong> SAR</p>
-        <p style="color:var(--text-2);font-size:14px">Deduction Amount <strong id="discountAmount">0</strong> SAR</p>
+        <p style="color:var(--text-2);font-size:14px;margin-bottom:4px">Original price: <strong id="originalPrice">0</strong> SAR</p>
+        <p style="color:var(--text-2);font-size:14px">Discount value: <strong id="discountAmount">0</strong> SAR</p>
       </div>
     </div>
 
@@ -136,22 +136,22 @@
   </div>
 
   <div class="article-box">
-<h2>Deductions and Discounts Calculation 🗂️ Guide</h2>
-    <h3>How do you calculate the price after discount?</h3>
-    <p>Discounted Price = Original Price - (Original Price x Discount Percentage ÷ 100)</p>
-    <div class="example">📝 <strong>Example:</strong> Price of 200 riyals with a 25% discount = 200 - (200×25÷100) = 200 - 50 = 150 riyals</div>
+<h2>🗂️ Guide to calculating discounts and discounts</h2>
+    <h3>How do you calculate the price after the discount?</h3>
+    <p>Price after discount = original price - (original price x discount percentage ÷ 100)</p>
+    <div class="example">📝 <strong>example:</strong> The price of 200 riyals with a 25% discount = 200 - (200 x 25÷100) = 200 - 50 = 150 riyals</div>
 
     <h3>How do you calculate the value of the savings?</h3>
-    <p>Savings = Original Price x Discount Percentage ÷ 100</p>
+    <p>Saving value = original price x discount percentage ÷ 100</p>
 
-    <h3>Tips when buying on sale</h3>
+    <h3>Tips when purchasing at discounts</h3>
     <ul>
-      <li>Compare the discounted price with the price in other stores.</li>
-      <li>Make sure the original price is real and not overpriced.</li>
-      <li>Do not buy only because of the discount if you do not need the item.</li>
+      <li>Compare the price after the discount with the price in other stores.</li>
+      <li>Make sure the original price is real and not exaggerated.</li>
+      <li>Don't buy just because of the discount if you don't need the item.</li>
     </ul>
 
-    <div class="tip">💡 <strong>Advice:</strong> A 50% discount on something you really need is excellent savings.</div>
+    <div class="tip">💡 <strong>advice:</strong> 50% off something you really need is an excellent saving.</div>
   </div>
 </div>
 </main>

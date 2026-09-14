@@ -110,9 +110,9 @@
     <h1>🧾 VAT Calculator</h1>
     <p class="subtitle">Add or remove 15% VAT on any amount</p>
 
-<div class="vat-badge"><span>Tax 15%</span></div>
+<div class="vat-badge"><span>Tax rate 15%</span></div>
 
-    <label>operation type</label>
+    <label>Operation type</label>
     <div class="radio-group">
       <div class="radio-option">
         <input type="radio" name="vatMode" id="modeAdd" value="add" checked onchange="updateAll()">
@@ -120,12 +120,12 @@
       </div>
       <div class="radio-option">
         <input type="radio" name="vatMode" id="modeRemove" value="remove" onchange="updateAll()">
-        <label for="modeRemove">Remove Tax Rate</label>
+        <label for="modeRemove">➖ Removal of the tax</label>
       </div>
     </div>
 
     <label id="amountLabel" for="amountInput">Amount (excl. tax)</label>
-    <p class="hint" id="amountHint">Amount Excl. of Tax</p>
+    <p class="hint" id="amountHint">Enter the amount without tax</p>
     <div class="input-row">
       <input type="number" id="amountInput" placeholder="Enter Amount" oninput="updateAll()">
       <span style="font-weight:600;color:var(--text-2)">SAR</span>
@@ -134,32 +134,32 @@
     <button class="calc-btn" onclick="updateAll()">Calculate</button>
 
     <div class="result-card" id="resultCard" style="display:block">
-<div class="result-row"><span class="result-label">Tax 15%</span><span class="result-value" id="vatAmount">SAR 0</span></div>
-      <div class="result-row"><span class="result-label" id="baseLabel">Amount before tax</span><span class="result-value" id="baseAmount">SAR 0</span></div>
-      <div class="result-row"><span class="result-label" id="totalLabel">After-tax amount</span><span class="result-value big" id="totalAmount">SAR 0</span></div>
+<div class="result-row"><span class="result-label">The tax value is 15%</span><span class="result-value" id="vatAmount">0 riyals</span></div>
+      <div class="result-row"><span class="result-label" id="baseLabel">Amount before tax</span><span class="result-value" id="baseAmount">0 riyals</span></div>
+      <div class="result-row"><span class="result-label" id="totalLabel">Amount after tax</span><span class="result-value big" id="totalAmount">0 riyals</span></div>
     </div>
 
     <a href="/index-en" class="back-link">↩ Back to Home</a>
   </div>
 
   <div class="article-box">
-<h2>Comprehensive 🗂️ Guide to Value Added Tax in Saudi Arabia</h2>
+<h2>🗂️ Comprehensive guide to value-added tax in Saudi Arabia</h2>
 
-    <h3>What is VAT?</h3>
-    <p>VAT is an indirect tax levied on all goods and services. It was applied in Saudi Arabia 2018 by 5%, then raised to 15% on July 1, 2020. Managed by ZATCA.</p>
+    <h3>What is value added tax?</h3>
+    <p>VAT is an indirect tax imposed on all goods and services. It was implemented in Saudi Arabia in 2018 at a rate of 5%, then raised to 15% on July 1, 2020. It is managed by the Zakat, Tax and Customs Authority.</p>
 
     <h3>How to add tax</h3>
-    <p>Tax Value = Amount x 0.15</p>
+    <p>Tax value = amount x 0.15</p>
     <p>Amount after tax = Amount x 1.15</p>
-    <div class="example">📝 <strong>Example:</strong> SAR 1,000 + tax = SAR 1,150</div>
+    <div class="example">📝 <strong>example:</strong> Amount of 1,000 riyals + tax = 1,150 riyals</div>
 
-    <h3>How to remove tax</h3>
+    <h3>How to remove the tax</h3>
     <p>Amount before tax = Amount ÷ 1.15</p>
-    <div class="example">📝 <strong>Example:</strong> SAR 1,150 including tax = SAR 1,000 before tax</div>
+    <div class="example">📝 <strong>example:</strong> The amount of 1,150 riyals including tax = 1,000 riyals before tax</div>
 
-    <div class="tip">💡 <strong>Advice:</strong> To quickly find the pre-tax price, divide by 1.15.</div>
+    <div class="tip">💡 <strong>advice:</strong> To quickly find the price before tax, divide by 1.15.</div>
 
-    <p class="ref"><strong>Official References:</strong> Zakat, Tax and Customs Authority (ZATCA.gov.sa) | Ministry of Finance (mof.gov.sa)</p>
+    <p class="ref"><strong>Official references:</strong> Zakat, Tax and Customs Authority (ZATCA.gov.sa) | Ministry of Finance (mof.gov.sa)</p>
   </div>
 </div>
 </main>

@@ -265,7 +265,7 @@ function updateAll(){
   if(a<=0||r<=0){
     document.getElementById('monthlyDisplay').textContent='0';
     document.getElementById('ratioDisplay').textContent='—';
-    document.getElementById('statusMsg').textContent='أدخل البيانات لمعرفة التقييم';
+    document.getElementById('statusMsg').textContent='Enter data to see assessment';
     document.getElementById('statusMsg').style.color='var(--text-2)';
     return;
   }
@@ -280,12 +280,12 @@ function updateAll(){
     var rt=(mo/inc)*100;
     document.getElementById('ratioDisplay').textContent=rt.toFixed(1)+'%';
     var s=document.getElementById('statusMsg');
-    if(rt<25){s.textContent='💚 ممتاز — التمويل مناسب جداً.';s.style.color='#22c55e';}
-    else if(rt<=35){s.textContent='💛 مقبول بحذر — راقب ميزانيتك.';s.style.color='#eab308';}
-    else{s.textContent='❤️ تحذير — التمويل قد يشكل ضغطاً مالياً.';s.style.color='#ef4444';}
+    if(rt<25){s.textContent='💚 Excellent — Loan is very suitable.';s.style.color='#22c55e';}
+    else if(rt<=35){s.textContent='💛 Acceptable with caution — Monitor your budget.';s.style.color='#eab308';}
+    else{s.textContent='❤️ Warning — Loan may cause financial stress.';s.style.color='#ef4444';}
   } else {
     document.getElementById('ratioDisplay').textContent='—';
-    document.getElementById('statusMsg').textContent='أدخل الدخل لمعرفة التقييم';
+    document.getElementById('statusMsg').textContent='Enter income to see assessment';
     document.getElementById('statusMsg').style.color='var(--text-2)';
   }
 }

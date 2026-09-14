@@ -110,53 +110,53 @@
     <h1>💼 Salary After Insurance</h1>
     <p class="subtitle">Calculate your net salary according to the old and new system</p>
 
-<label>Duration of the insurance system</label>
+<label>Insurance system</label>
     <div class="radio-group">
-      <div class="radio-option"><input type="radio" name="systemMode" id="systemOld" value="old" onchange="updateAll()"><label for="systemOld">Old 📜 System (9%)</label></div>
-      <div class="radio-option"><input type="radio" name="systemMode" id="systemNew" value="new" checked onchange="updateAll()"><label for="systemNew">New ✨ System (11%)</label></div>
+      <div class="radio-option"><input type="radio" name="systemMode" id="systemOld" value="old" onchange="updateAll()"><label for="systemOld">📜 Old system (9%)</label></div>
+      <div class="radio-option"><input type="radio" name="systemMode" id="systemNew" value="new" checked onchange="updateAll()"><label for="systemNew">✨ New system (11%)</label></div>
     </div>
 
-    <label for="salaryInput">Total salary </label>
-    <p class="hint">Basic Salary + Housing Allowance + Other Allowances</p>
+    <label for="salaryInput">Gross salary</label>
+    <p class="hint">Basic salary + housing allowance + other allowances</p>
     <div class="input-row">
-      <input type="number" id="salaryInput" placeholder="Total salary " oninput="updateAll()">
+      <input type="number" id="salaryInput" placeholder="Enter gross salary" oninput="updateAll()">
       <span style="font-weight:600;color:var(--text-2)">SAR</span>
     </div>
 
     <button class="calc-btn" onclick="updateAll()">Calculate</button>
 
     <div class="result-card" id="resultCard" style="display:block">
-<div class="result-row"><span class="result-label">Total salary </span><span class="result-value" id="grossSalary">SAR 0</span></div>
-      <div class="result-row"><span class="result-label">Das Amount</span><span class="result-value" style="color:#ef4444" id="deductionAmount">SAR 0</span></div>
-      <div class="result-row"><span class="result-label">NET SALARY</span><span class="result-value big" id="netSalary">SAR 0</span></div>
+<div class="result-row"><span class="result-label">Gross salary</span><span class="result-value" id="grossSalary">0 riyals</span></div>
+      <div class="result-row"><span class="result-label">Discount value</span><span class="result-value" style="color:#ef4444" id="deductionAmount">0 riyals</span></div>
+      <div class="result-row"><span class="result-label">💰 Net salary</span><span class="result-value big" id="netSalary">0 riyals</span></div>
     </div>
 
     <a href="/index-en" class="back-link">↩ Back to Home</a>
   </div>
 
   <div class="article-box">
-<h2>Social Insurance Discount 🗂️ Guide in Saudi Arabia</h2>
+<h2>🗂️ Guide to social insurance discounts in Saudi Arabia</h2>
 
-    <h3>What are social insurances?</h3>
-    <p>A mandatory system administered by the General Organization for Social Insurance (GOSI) that provides social protection to Saudi employees in the public and private sectors.</p>
+    <h3>What is social insurance?</h3>
+    <p>A mandatory system administered by the General Organization for Social Insurance (GOSI) that provides social protection for Saudi employees in the public and private sectors.</p>
 
-    <h3>Old System (9%)</h3>
-    <p>9% salary deduction for insurances only.</p>
-    <div class="example">📝 Salary 10,000 riyals: discount = 900 riyals, net = 9,100 riyals</div>
+    <h3>Old system (9%)</h3>
+    <p>9% deduction from salary for insurance only.</p>
+    <div class="example">📝 Salary of 10,000 riyals: discount = 900 riyals, net = 9,100 riyals</div>
 
-    <h3>New System (11%)</h3>
+    <h3>New system (11%)</h3>
     <ul>
       <li>9% insurances</li>
-      <li>2% Sanid (Disruption Compensation)</li>
+      <li>2% SANED (breakdown compensation)</li>
     </ul>
-    <div class="example">📝 Salary 10,000 riyals: discount = 1,100 riyals, net = 8,900 riyals</div>
+    <div class="example">📝 Salary of 10,000 riyals: discount = 1,100 riyals, net = 8,900 riyals</div>
 
-    <h3>Difference between the two systems</h3>
-    <p>The new system adds 2% to the Sanid system, which provides compensation of 60% of the salary for 12 months in the event of disruption.</p>
+    <h3>The difference between the two systems</h3>
+    <p>The new system adds 2% to the Sanid system, which provides compensation of 60% of the salary for a period of 12 months in the event of unemployment.</p>
 
-    <div class="tip">💡 <strong>Advice:</strong> Discount applies only to Saudis. Non-Saudis are subject to a 2% system that is borne by the employer.</div>
+    <div class="tip">💡 <strong>advice:</strong> The discount applies only to Saudis. Non-Saudis are subject to a 2% system borne by the employer.</div>
 
-    <p class="ref"><strong>Official References:</strong> General Organization for Social Insurance (GOSI.gov.sa) | Sanid System | Ministry of Human Resources (HRSD.gov.sa)</p>
+    <p class="ref"><strong>Official references:</strong> General Organization for Social Insurance (GOSI.gov.sa) | Sanad system Ministry of Human Resources (HRSD.gov.sa)</p>
   </div>
 </div>
 </main>
