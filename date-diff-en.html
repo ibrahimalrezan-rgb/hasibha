@@ -108,14 +108,14 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>📅 Date Difference Calculator</h1>
-    <p class="subtitle">Calculate the difference between two dates in years, months and days</p>
+    <p class="subtitle">احسب الفرق بين تاريخين بالسنوات والأشهر والأيام</p>
 
-<label for="startDate">Start date</label>
+<label for="startDate">تاريخ البداية</label>
     <div class="input-row">
       <input type="date" id="startDate" onchange="calculateDiff()">
     </div>
 
-    <label for="endDate">End date</label>
+    <label for="endDate">تاريخ النهاية</label>
     <div class="input-row">
       <input type="date" id="endDate" onchange="calculateDiff()">
     </div>
@@ -129,22 +129,22 @@
   </div>
 
   <div class="article-box">
-<h2>🗂️ Guide to calculating the difference between two dates</h2>
-    <h3>How do you calculate the difference between two dates?</h3>
-    <p>Enter the start date and end date. The calculator calculates the difference in years, months, days, weeks, hours and minutes.</p>
+<h2>🗂️ دليل حساب الفرق بين تاريخين</h2>
+    <h3>كيف تحسب الفرق بين تاريخين؟</h3>
+    <p>أدخل تاريخ البداية وتاريخ النهاية. الحاسبة تحسب الفرق بالyears والأmonths والdays والأسابيع والساعات والدقائق.</p>
 
-    <div class="example">📝 <strong>example:</strong> From 01-01-2024 to 01-01-2025 = 1 year = 12 months = 365 days</div>
+    <div class="example">📝 <strong>مثال:</strong> من 2024-01-01 إلى 2025-01-01 = 1 years = 12 months = 365 days</div>
 
-    <h3>When do you need this calculator?</h3>
+    <h3>متى تحتاج هذه الحاسبة؟</h3>
     <ul>
-      <li>Calculating the length of job service.</li>
-      <li>Calculating the duration of pregnancy.</li>
-      <li>Calculating the duration between two occasions.</li>
-      <li>Calculating the duration of subscriptions.</li>
-      <li>Calculate the warranty period.</li>
+      <li>حساب مدة الخدمة الوظيفية.</li>
+      <li>حساب مدة الحمل.</li>
+      <li>حساب المدة بين مناسبتين.</li>
+      <li>حساب مدة الاشتراكات.</li>
+      <li>حساب مدة الضمان.</li>
     </ul>
 
-    <div class="tip">💡 <strong>advice:</strong> Make sure you enter both dates correctly. The order does not matter because the calculator calculates the absolute difference.</div>
+    <div class="tip">💡 <strong>نصيحة:</strong> تأكد من إدخال التاريخين بشكل صحيح. لا يهم الترتيب لأن الحاسبة تحسب الفرق المطلق.</div>
   </div>
 </div>
 </main>
@@ -238,9 +238,9 @@ function calculateDiff(){
     months += 12;
   }
 
-  var mainText = years > 0 ? years + ' سنة و ' + months + ' شهر و ' + days + ' يوم'
-                            : months > 0 ? months + ' شهر و ' + days + ' يوم'
-                            : days + ' يوم';
+  var mainText = years > 0 ? years + ' years و ' + months + ' months و ' + days + ' days'
+                            : months > 0 ? months + ' months و ' + days + ' days'
+                            : days + ' days';
 
   document.getElementById('mainDiff').textContent = mainText;
   document.getElementById('yearsDiff').textContent = years;

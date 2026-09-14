@@ -108,37 +108,37 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>💵 Personal Loan Calculator</h1>
-    <p class="subtitle">Calculate the monthly installment and the percentage of deduction from the salary</p>
+    <p class="subtitle">احسب القسط الشهري ونسبة الاستقطاع من الراتب</p>
 
-<label for="loanAmount">Personal financing amount</label>
-    <p class="hint">The amount you want to get from the bank.</p>
+<label for="loanAmount">مبلغ التمويل الشخصي</label>
+    <p class="hint">المبلغ الذي تريد الحصول عليه من البنك.</p>
     <div class="input-row">
       <input type="number" id="loanAmount" placeholder="أدخل مبلغ التمويل" oninput="updateAll()">
       <span style="font-weight:600;color:var(--text-2)">SAR</span>
     </div>
 
-    <label for="aprInput">Annual Percentage (APR)</label>
-    <p class="hint">The percentage added by the bank includes fees.</p>
+    <label for="aprInput">النسبة السنوية (APR)</label>
+    <p class="hint">النسبة التي يضيفها البنك شاملة الرسوم.</p>
     <div class="percent-input">
       <input type="number" id="aprInput" placeholder="النسبة السنوية" oninput="updateAll()" step="0.1">
       <span>%</span>
     </div>
 
-    <label for="loanYearsSlider">Repayment period (in years)</label>
-    <p class="hint">The number of years in which the financing will be repaid.</p>
+    <label for="loanYearsSlider">مدة السداد (بالyears)</label>
+    <p class="hint">عدد الyears التي ستسدد فيها التمويل.</p>
     <div class="slider-group">
       <div class="slider-value">
         <span id="loanYearsVal">5</span>
-        <span style="font-size:14px;color:var(--text-2)">year</span>
+        <span style="font-size:14px;color:var(--text-2)">years</span>
       </div>
       <input type="range" id="loanYearsSlider" min="1" max="10" value="5" oninput="updateAll()">
       <div class="labels"><span>1</span><span>10</span></div>
     </div>
 
-    <label for="incomeInput">Monthly income (optional)</label>
-    <p class="hint">To find out if the premium is suitable for your budget.</p>
+    <label for="incomeInput">الدخل الmonthsي (اختياري)</label>
+    <p class="hint">لمعرفة إذا كان القسط مناسباً لميزانيتك.</p>
     <div class="input-row">
-      <input type="number" id="incomeInput" placeholder="الدخل الشهري" oninput="updateAll()">
+      <input type="number" id="incomeInput" placeholder="الدخل الmonthsي" oninput="updateAll()">
       <span style="font-weight:600;color:var(--text-2)">SAR</span>
     </div>
 
@@ -151,44 +151,44 @@
   </div>
 
   <div class="article-box">
-<h2>🗂️ The comprehensive guide to personal finance in Saudi Arabia 2026</h2>
+<h2>🗂️ الدليل الشامل للتمويل الشخصي في Saudi Arabia 2026</h2>
 
-    <h3>What is personal finance?</h3>
-    <p>Personal financing is a contract between the customer and the bank under which he grants a sum of money to be used for his personal purposes (marriage, travel, education, treatment, buying a car), in exchange for paying it in monthly installments that include the original amount plus a profit margin.</p>
+    <h3>ما هو التمويل الشخصي؟</h3>
+    <p>التمويل الشخصي هو عقد بين العميل والبنك يمنح بموجبه مبلغاً مالياً لاستخدامه في أغراضه الشخصية (زواج، سفر، تعليم، علاج، شراء سيارة)، مقابل سداده على أقساط monthsية تشمل المبلغ الأصلي مضافاً إليه هامش ربح.</p>
 
-    <h3>Annual Percentage (APR)</h3>
-    <p>The annual percentage rate includes profit margin + all administrative fees + insurance cost + any additional expenses. The Central Bank of Saudi Arabia requires all banks to clearly disclose the APR.</p>
+    <h3>النسبة السنوية (APR)</h3>
+    <p>النسبة السنوية المئوية تشمل هامش الربح + جميع الرسوم الإدارية + تكلفة التأمين + أي مصاريف إضافية. البنك المركزي السعودي يلزم جميع البنوك بالإفصاح عن APR بوضوح.</p>
 
-    <div class="tip">💡 <strong>Important information:</strong> The nominal rate may be 3.9% but the actual APR is 6.2%. Always ask: “How much is the APR including all fees?”</div>
+    <div class="tip">💡 <strong>معلومة مهمة:</strong> النسبة الاسمية قد تكون 3.9% لكن APR الفعلية 6.2%. اسأل دائماً: "كم النسبة السنوية APR شاملة كل الرسوم؟"</div>
 
-    <h3>Percentage of deduction from salary</h3>
+    <h3>نسبة الاستقطاع من الراتب</h3>
     <ul>
-      <li><strong>Less than 25%:</strong> Comfortable and secure financial situation.</li>
-      <li><strong>Between 25% and 33%:</strong> Acceptable, but watch your budget.</li>
-      <li><strong>Between 33% and 50%:</strong> High and may cause financial pressure.</li>
-      <li><strong>More than 50%:</strong> Rejected by most banks.</li>
+      <li><strong>أقل من 25%:</strong> وضع مالي مريح وآمن.</li>
+      <li><strong>بين 25% و 33%:</strong> مقبول، لكن راقب ميزانيتك.</li>
+      <li><strong>بين 33% و 50%:</strong> مرتفع وقد يسبب ضغطاً مالياً.</li>
+      <li><strong>أكثر من 50%:</strong> مرفوض من معظم البنوك.</li>
     </ul>
 
-    <div class="warning">⚠️ <strong>warning:</strong> Individuals whose premiums exceed 35% of their income are 3 times more likely to default.</div>
+    <div class="warning">⚠️ <strong>تحذير:</strong> الأفراد الذين تتجاوز نسبة أقساطهم 35% من دخلهم هم أكثر عرضة للتخلف عن السداد بمقدار 3 أضعاف.</div>
 
-    <h3>Personal finance fees</h3>
+    <h3>رسوم التمويل الشخصي</h3>
     <ul>
-      <li><strong>Administrative fees:</strong> 1% of the financing amount or 5,000 riyals, whichever is less.</li>
-      <li><strong>Early settlement fees:</strong> Some banks impose it.</li>
-      <li><strong>Late fees:</strong> A fine if the installment is not paid on time.</li>
+      <li><strong>الرسوم الإدارية:</strong> 1% من مبلغ التمويل أو 5,000 SAR أيهما أقل.</li>
+      <li><strong>رسوم السداد المبكر:</strong> بعض البنوك تفرضها.</li>
+      <li><strong>رسوم التأخر:</strong> غرامة عند عدم دفع القسط في موعده.</li>
     </ul>
 
-    <h3>Golden tips</h3>
+    <h3>نصائح ذهبية</h3>
     <ul>
-      <li>Only receive the amount you actually need.</li>
-      <li>Read the entire contract before signing.</li>
-      <li>Avoid multiple financings at the same time.</li>
-      <li>Plan to repay early if you have the opportunity.</li>
+      <li>لا تستلم إلا المبلغ الذي تحتاجه فعلاً.</li>
+      <li>اقرأ العقد كاملاً قبل التوقيع.</li>
+      <li>تجنب التمويلات المتعددة في نفس الوقت.</li>
+      <li>خطط للسداد المبكر إذا سنحت لك الفرصة.</li>
     </ul>
 
-    <div class="example">📝 <strong>example:</strong> Financing of 100,000 riyals, APR 7%, term of 5 years = monthly installment of approximately 1,980 riyals.</div>
+    <div class="example">📝 <strong>مثال:</strong> تمويل 100,000 SAR، APR 7%، مدة 5 years = قسط monthsي 1,980 SAR تقريباً.</div>
 
-    <p class="ref"><strong>Official references:</strong> Central Bank of Saudi Arabia (SAMA.gov.sa) | Ministry of Commerce (mc.gov.sa) | Simah Credit Company (simah.com)</p>
+    <p class="ref"><strong>المراجع الرسمية:</strong> البنك المركزي السعودي (SAMA.gov.sa) | وزارة التجارة (mc.gov.sa) | شركة سمة للائتمان (simah.com)</p>
   </div>
 </div>
 </main>

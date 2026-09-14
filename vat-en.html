@@ -108,24 +108,24 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>🧾 VAT Calculator</h1>
-    <p class="subtitle">Add or remove 15% VAT on any amount</p>
+    <p class="subtitle">أضف أو أزل ضريبة القيمة المضافة 15% على أي مبلغ</p>
 
-<div class="vat-badge"><span>Tax rate 15%</span></div>
+<div class="vat-badge"><span>نسبة الضريبة 15%</span></div>
 
-    <label>Operation type</label>
+    <label>نوع العملية</label>
     <div class="radio-group">
       <div class="radio-option">
         <input type="radio" name="vatMode" id="modeAdd" value="add" checked onchange="updateAll()">
-        <label for="modeAdd">➕ Add tax</label>
+        <label for="modeAdd">➕ إضافة الضريبة</label>
       </div>
       <div class="radio-option">
         <input type="radio" name="vatMode" id="modeRemove" value="remove" onchange="updateAll()">
-        <label for="modeRemove">➖ Removal of the tax</label>
+        <label for="modeRemove">➖ إزالة الضريبة</label>
       </div>
     </div>
 
-    <label id="amountLabel" for="amountInput">Amount (excl. tax)</label>
-    <p class="hint" id="amountHint">Enter the amount without tax</p>
+    <label id="amountLabel" for="amountInput">المبلغ (بدون ضريبة)</label>
+    <p class="hint" id="amountHint">أدخل المبلغ بدون الضريبة</p>
     <div class="input-row">
       <input type="number" id="amountInput" placeholder="أدخل المبلغ" oninput="updateAll()">
       <span style="font-weight:600;color:var(--text-2)">SAR</span>
@@ -140,23 +140,23 @@
   </div>
 
   <div class="article-box">
-<h2>🗂️ Comprehensive guide to value-added tax in Saudi Arabia</h2>
+<h2>🗂️ الدليل الشامل لضريبة القيمة المضافة في Saudi Arabia</h2>
 
-    <h3>What is value added tax?</h3>
-    <p>VAT is an indirect tax imposed on all goods and services. It was implemented in Saudi Arabia in 2018 at a rate of 5%, then raised to 15% on July 1, 2020. It is managed by the Zakat, Tax and Customs Authority.</p>
+    <h3>ما هي ضريبة القيمة المضافة؟</h3>
+    <p>ضريبة القيمة المضافة هي ضريبة غير مباشرة تُفرض على جميع السلع والخدمات. تم تطبيقها في Saudi Arabia 2018 بنسبة 5%، ثم رفعت إلى 15% في 1 يوليو 2020. تديرها هيئة الزكاة والضريبة والجمارك.</p>
 
-    <h3>How to add tax</h3>
-    <p>Tax value = amount x 0.15</p>
-    <p>Amount after tax = Amount x 1.15</p>
-    <div class="example">📝 <strong>example:</strong> Amount of 1,000 riyals + tax = 1,150 riyals</div>
+    <h3>طريقة إضافة الضريبة</h3>
+    <p>قيمة الضريبة = المبلغ × 0.15</p>
+    <p>المبلغ بعد الضريبة = المبلغ × 1.15</p>
+    <div class="example">📝 <strong>مثال:</strong> مبلغ 1,000 SAR + ضريبة = 1,150 SAR</div>
 
-    <h3>How to remove the tax</h3>
-    <p>Amount before tax = Amount ÷ 1.15</p>
-    <div class="example">📝 <strong>example:</strong> The amount of 1,150 riyals including tax = 1,000 riyals before tax</div>
+    <h3>طريقة إزالة الضريبة</h3>
+    <p>المبلغ قبل الضريبة = المبلغ ÷ 1.15</p>
+    <div class="example">📝 <strong>مثال:</strong> مبلغ 1,150 SAR شامل ضريبة = 1,000 SAR قبل الضريبة</div>
 
-    <div class="tip">💡 <strong>advice:</strong> To quickly find the price before tax, divide by 1.15.</div>
+    <div class="tip">💡 <strong>نصيحة:</strong> لمعرفة السعر قبل الضريبة بسرعة، اقسم على 1.15.</div>
 
-    <p class="ref"><strong>Official references:</strong> Zakat, Tax and Customs Authority (ZATCA.gov.sa) | Ministry of Finance (mof.gov.sa)</p>
+    <p class="ref"><strong>المراجع الرسمية:</strong> هيئة الزكاة والضريبة والجمارك (ZATCA.gov.sa) | وزارة Finance (mof.gov.sa)</p>
   </div>
 </div>
 </main>
@@ -234,9 +234,9 @@ function updateAll(){
   }
 
   if(amount<=0){
-    document.getElementById('vatAmount').textContent='0 ريال';
-    document.getElementById('baseAmount').textContent='0 ريال';
-    document.getElementById('totalAmount').textContent='0 ريال';
+    document.getElementById('vatAmount').textContent='0 SAR';
+    document.getElementById('baseAmount').textContent='0 SAR';
+    document.getElementById('totalAmount').textContent='0 SAR';
     document.getElementById('resultCard').style.display='block';
     return;
   }
