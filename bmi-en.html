@@ -231,7 +231,7 @@ function calculateBMI(){
 
   if(bmi < 18.5){
     category = '🔵 نحيف';
-    detail = 'وزنك أقل من الطبيعي';
+    detail = 'Your weight is below normal';
     var needGain = minIdealWeight - weight;
     weightInfo = '<p>تحتاج لزيادة <strong>' + needGain.toFixed(1) + ' كجم</strong> للوصول إلى الوزن الطبيعي</p>';
     idealRange = '<p>وزنك المثالي بين <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كجم</strong></p>';
@@ -242,13 +242,13 @@ function calculateBMI(){
     idealRange = '<p>وزنك المثالي بين <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كجم</strong></p>';
   } else if(bmi < 30){
     category = '🟡 زيادة وزن';
-    detail = 'وزنك أعلى من الطبيعي قليلاً';
+    detail = 'Your weight is slightly above normal';
     var needLose = weight - maxIdealWeight;
     weightInfo = '<p>تحتاج لإنقاص <strong>' + needLose.toFixed(1) + ' كجم</strong> للوصول إلى الوزن الطبيعي</p>';
     idealRange = '<p>وزنك المثالي بين <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كجم</strong></p>';
   } else if(bmi < 35){
     category = '🟠 سمنة درجة أولى';
-    detail = 'وزنك أعلى من الطبيعي بشكل ملحوظ';
+    detail = 'Your weight is significantly above normal';
     var needLose = weight - maxIdealWeight;
     weightInfo = '<p>تحتاج لإنقاص <strong>' + needLose.toFixed(1) + ' كجم</strong> للوصول إلى الوزن الطبيعي</p>';
     idealRange = '<p>وزنك المثالي بين <strong>' + minIdealWeight.toFixed(1) + ' - ' + maxIdealWeight.toFixed(1) + ' كجم</strong></p>';
