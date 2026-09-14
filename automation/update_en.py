@@ -84,24 +84,19 @@ def translate_html(html):
     if not html:
         return ""
     
-    # نستخرج النصوص العربية ونترجمها
-    # نستخدم regex لإيجاد النصوص بين الوسوم
-    
     def replace_text(match):
-        text = match.group(0)
+        text = match.group(1)
         if not text.strip():
-            return text
-        # نحتفظ بالمسافات
+            return '>' + text + '<'
         leading = len(text) - len(text.lstrip())
         trailing = len(text) - len(text.rstrip())
         core = text.strip()
         if core:
             translated = translate_google(core)
-            return " " * leading + translated + " " * trailing
-        return text
+            return '>' + ' ' * leading + translated + ' ' * trailing + '<'
+        return '>' + text + '<'
     
-    # نطبق على النصوص بين الوسوم
-    html = re.sub(r'>([^<>]+)<', lambda m: '>' + replace_text(m.group(1)) + '<', html)
+    html = re.sub(r'>([^<>]+)<', replace_text, html)
     
     return html
 
@@ -119,7 +114,6 @@ def read_ar_page(slug):
     subtitle_match = re.search(r'<p class="subtitle">([^<]+)</p>', content)
     result['subtitle'] = subtitle_match.group(1).strip() if subtitle_match else ''
     
-    # نستخرج الحقول بطريقة أذكى - من بعد subtitle إلى calc-btn
     start_match = re.search(r'</p>', content)
     end_match = re.search(r'<button class="calc-btn"', content)
     
@@ -136,7 +130,6 @@ def read_ar_page(slug):
     )
     result['article'] = article_match.group(1).strip() if article_match else ''
     
-    # السكربت
     scripts = re.findall(r'<script>(.*?)</script>', content, re.DOTALL)
     all_scripts = []
     for s in scripts:
@@ -304,27 +297,24 @@ def generate_en_page(page):
         print(f"  ⚠️ لا توجد حقول")
         return None
     
-    print(f"  📊 سكربت: {len(data['script'])} حرف")
+    if not data['article']:
+        print(f"  ⚠️ لا يوجد مقال")
+        return None
     
-    # ترجمة subtitle
+    print(f"  📊 سكربت: {len(data['script'])} حرف، مقال: {len(data['article'])} حرف")
+    
     print(f"  🌐 ترجمة العنوان...")
     subtitle_en = translate_google(data['subtitle']) if data['subtitle'] else "Calculate instantly with our free online tool."
     print(f"  ✅ {subtitle_en[:60]}...")
     
-    # ترجمة المقال
-    if data['article']:
-        print(f"  🌐 ترجمة المقال...")
-        article_en = translate_html(data['article'])
-        print(f"  ✅ مقال ({len(article_en)} حرف)")
-    else:
-        article_en = ""
+    print(f"  🌐 ترجمة المقال...")
+    article_en = translate_html(data['article'])
+    print(f"  ✅ مقال ({len(article_en)} حرف)")
     
-    # ترجمة الحقول
     print(f"  🌐 ترجمة الحقول...")
     fields_en = translate_html(data['fields_html'])
     print(f"  ✅ حقول ({len(fields_en)} حرف)")
     
-    # السكربت
     script = data['script']
     script = script.replace("'ريال'", "'SAR'")
     script = script.replace('"ريال"', '"SAR"')
@@ -334,10 +324,8 @@ def generate_en_page(page):
     script = script.replace("+ ' ريال'", "+ ' SAR'")
     script = script.replace("' ريال'", "' SAR'")
     
-    # وصف SEO
     desc = f"Free online {page['title_en']}. Instant, accurate results - no registration required."
     
-    # Schema
     schema = {
         "@context": "https://schema.org",
         "@graph": [
