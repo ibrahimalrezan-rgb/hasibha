@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 تحديث الصفحات الإنجليزية من العربية
-Google Translate + MyMemory (احتياطي)
+Google Translate + MyMemory (احتياطي) + تصحيحات JavaScript
 """
 
 import os
@@ -37,10 +37,8 @@ PAGES = [
 
 
 def translate_google(text):
-    """Google Translate المجاني"""
     if not text or not text.strip():
         return text
-    
     try:
         url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ar&tl=en&dt=t&q=" + urllib.parse.quote(text)
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -58,12 +56,9 @@ def translate_google(text):
 
 
 def translate_mymemory(text):
-    """MyMemory API المجاني (احتياطي)"""
     if not text or not text.strip():
         return text
-    
     try:
-        # MyMemory يحد النص بـ 500 حرف
         if len(text) > 500:
             text = text[:500]
         url = "https://api.mymemory.translated.net/get?q=" + urllib.parse.quote(text) + "&langpair=ar|en"
@@ -78,27 +73,19 @@ def translate_mymemory(text):
 
 
 def translate(text):
-    """يترجم مع احتياطي"""
     if not text or not text.strip():
         return text
-    
-    # نجرب Google أولاً
     result = translate_google(text)
     if result and result.strip() and not re.search(r'[\u0600-\u06FF]', result):
         return result
-    
-    # إذا فشل، نجرب MyMemory
     time.sleep(0.3)
     result = translate_mymemory(text)
     if result and result.strip():
         return result
-    
-    # إذا فشل الاثنين، نرجع النص الأصلي
     return text
 
 
 def fix_arabic(text):
-    """تصحيحات يدوية"""
     fixes = {
         'ريال سعودي': 'SAR',
         'ريال': 'SAR',
@@ -119,10 +106,8 @@ def fix_arabic(text):
 
 
 def translate_html(html):
-    """يترجم HTML مع كشف العربي المتبقي"""
     if not html:
         return ""
-    
     def replace_text(match):
         text = match.group(1)
         if not text.strip():
@@ -131,24 +116,26 @@ def translate_html(html):
         trailing = len(text) - len(text.rstrip())
         core = text.strip()
         if core:
-            # نتخطى إذا كان النص قصير جداً
             if len(core) < 2:
                 return '>' + text + '<'
-            
             translated = translate(core)
             time.sleep(0.2)
             return '>' + ' ' * leading + translated + ' ' * trailing + '<'
         return '>' + text + '<'
-    
     html = re.sub(r'>([^<>]+)<', replace_text, html)
     html = fix_arabic(html)
     return html
 
 
 def fix_javascript(script):
-    """تصحيح JavaScript"""
+    """تصحيح JavaScript: locale, عملة, نصوص عربية"""
+    # locale
     script = script.replace("'ar-SA'", "'en-US'")
     script = script.replace('"ar-SA"', '"en-US"')
+    script = script.replace("'ar-sa'", "'en-US'")
+    script = script.replace('"ar-sa"', '"en-US"')
+    
+    # العملة - كل الأشكال
     script = script.replace("+ ' ريال'", "+ ' SAR'")
     script = script.replace("+' ريال'", "+' SAR'")
     script = script.replace('+ " ريال"', '+ " SAR"')
@@ -156,6 +143,61 @@ def fix_javascript(script):
     script = script.replace('" ريال"', '" SAR"')
     script = script.replace("'ريال'", "'SAR'")
     script = script.replace('"ريال"', '"SAR"')
+    script = script.replace("+ ' ر.س'", "+ ' SAR'")
+    script = script.replace("+' ر.س'", "+' SAR'")
+    script = script.replace("'ر.س'", "'SAR'")
+    script = script.replace('"ر.س"', '"SAR"')
+    
+    # نصوص عربية شائعة داخل JavaScript
+    replacements = {
+        "'نحيف'": "'Underweight'",
+        '"نحيف"': '"Underweight"',
+        "'وزن طبيعي'": "'Normal Weight'",
+        '"وزن طبيعي"': '"Normal Weight"',
+        "'زيادة وزن'": "'Overweight'",
+        '"زيادة وزن"': '"Overweight"',
+        "'سمنة درجة أولى'": "'Obesity Class I'",
+        '"سمنة درجة أولى"': '"Obesity Class I"',
+        "'سمنة درجة ثانية'": "'Obesity Class II'",
+        '"سمنة درجة ثانية"': '"Obesity Class II"',
+        "'سمنة مفرطة'": "'Obesity Class III'",
+        '"سمنة مفرطة"': '"Obesity Class III"',
+        "'تحتاج لإنقاص '": "'You need to lose '",
+        '"تحتاج لإنقاص "': '"You need to lose "',
+        "'تحتاج لزيادة '": "'You need to gain '",
+        '"تحتاج لزيادة "': '"You need to gain "',
+        "' كجم'": "' kg'",
+        '" كجم"': '" kg"',
+        "'للوصول إلى الوزن الطبيعي'": "'to reach normal weight'",
+        "'وزنك المثالي بين '": "'Your ideal weight is between '",
+        "'أنت في النطاق الطبيعي'": "'You are in the normal range'",
+        "'استمر في عاداتك الصحية'": "'Keep your healthy habits'",
+        "'ننصح بمراجعة الطبيب'": "'Consult a doctor'",
+        "'ننصح بمراجعة الطبيب فوراً'": "'Consult a doctor immediately'",
+        "'وزنك أقل من الطبيعي'": "'Your weight is below normal'",
+        "'وزنك أعلى من الطبيعي قليلاً'": "'Your weight is slightly above normal'",
+        "'وزنك أعلى من الطبيعي بشكل ملحوظ'": "'Your weight is significantly above normal'",
+        "'وزنك مرتفع جداً'": "'Your weight is very high'",
+        "'وزنك مثالي'": "'Your weight is ideal'",
+        "' سنة'": "' years'",
+        "'سنة'": "'years'",
+        "'شهر'": "'months'",
+        "'أشهر'": "'months'",
+        "'يوم'": "'days'",
+        "'أيام'": "'days'",
+        "'المبلغ الممول'": "'Financed Amount'",
+        "'إجمالي الفوائد'": "'Total Interest'",
+        "'الإجمالي'": "'Total'",
+        "'القسط الشهري'": "'Monthly Payment'",
+        "'النتيجة'": "'Result'",
+        "'صافي الراتب'": "'Net Salary'",
+        "'الراتب الإجمالي'": "'Gross Salary'",
+        "'قيمة الخصم'": "'Deduction Amount'",
+    }
+    
+    for ar, en in replacements.items():
+        script = script.replace(ar, en)
+    
     return script
 
 
@@ -374,10 +416,12 @@ def generate_en_page(page):
     fields_en = translate_html(data['fields_html'])
     print(f"  ✅ حقول ({len(fields_en)} حرف)")
     
+    print(f"  🌐 ترجمة result-card...")
+    result_html = translate_html(data['result_html'])
+    print(f"  ✅ result-card ({len(result_html)} حرف)")
+    
     script = fix_javascript(data['script'])
     print(f"  ✅ سكربت محدث")
-    
-    result_html = fix_arabic(data['result_html'])
     
     desc = f"Free online {page['title_en']}. Instant, accurate results - no registration required."
     
