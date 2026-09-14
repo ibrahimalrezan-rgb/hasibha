@@ -108,9 +108,12 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>🎂 Age Calculator</h1>
-    <p class="subtitle">Calculate instantly with our free online tool.</p>
+    <p class="subtitle">Your age in Gregorian and Hijri + your zodiac sign + facts about your life</p>
 
-
+<label for="birthDate">date of birth</label>
+    <div class="input-row">
+      <input type="date" id="birthDate" onchange="calculateAge()">
+    </div>
 
     <button class="calc-btn" onclick="calculate()">Calculate</button>
 
@@ -121,7 +124,25 @@
   </div>
 
   <div class="article-box">
+<h2>🗂️ Guide to calculating age and the differences between the two calendars</h2>
+    <h3>Why is the Hijri age different from the Gregorian age?</h3>
+    <p>The Hijri year is shorter than the Gregorian year by about 11 days (354.36 days compared to 365.25 days). Therefore, the age in the Hijri year is greater than the age in the Gregorian calendar, and the difference increases as age increases.</p>
 
+    <h3>How do you calculate zodiac signs?</h3>
+    <p>The zodiac sign depends on the Gregorian date of birth. There are 12 signs: Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius, Capricorn, Aquarius, and Pisces.</p>
+
+    <h3>Life stages</h3>
+    <ul>
+      <li>Childhood: 0-12 years</li>
+      <li>Adolescence: 13-17 years</li>
+      <li>Late adolescence: 18-21 years</li>
+      <li>Early youth: 22-35 years</li>
+      <li>Late youth: 36-50 years</li>
+      <li>Old age: 51-65 years</li>
+      <li>Old age: 66+ years</li>
+    </ul>
+
+    <div class="tip">💡 <strong>note:</strong> Calculations are based on Saudi Arabia time (Asia/Riyadh).</div>
   </div>
 </div>
 </main>

@@ -108,9 +108,37 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>🏠 Mortgage Calculator</h1>
-    <p class="subtitle">Calculate the estimated monthly installment before making a decision.</p>
+    <p class="subtitle">Calculate the estimated monthly installment before making a decision</p>
 
+<label for="priceInput">Property price (SAR)</label>
+    <div class="input-row">
+      <input type="number" id="priceInput" placeholder="أدخل سعر العقار" oninput="updateAll()">
+    </div>
 
+    <div class="slider-group">
+      <div class="slider-value">
+        <label>Down payment — <span id="downPercent">20</span>%</label>
+        <span id="downVal">0 riyals</span>
+      </div>
+      <input type="range" id="downSlider" min="5" max="50" value="20" oninput="updateAll()">
+      <div class="labels"><span>5%</span><span>50%</span></div>
+    </div>
+
+    <div class="slider-group">
+      <div class="slider-value">
+        <label>Financing duration — <span id="yearsVal">20</span> year</label>
+      </div>
+      <input type="range" id="yearsSlider" min="5" max="30" value="20" oninput="updateAll()">
+      <div class="labels"><span>5</span><span>30</span></div>
+    </div>
+
+    <div class="slider-group">
+      <div class="slider-value">
+        <label>interest rate — <span id="rateVal">5.0</span>%</label>
+      </div>
+      <input type="range" id="rateSlider" min="2" max="15" step="0.1" value="5" oninput="updateAll()">
+      <div class="labels"><span>2%</span><span>15%</span></div>
+    </div>
 
     <button class="calc-btn" onclick="calculate()">Calculate</button>
 
@@ -121,7 +149,33 @@
   </div>
 
   <div class="article-box">
+<h2>🗂️ Comprehensive guide to real estate financing in Saudi Arabia 2026</h2>
 
+    <h3>What is real estate financing?</h3>
+    <p>Real estate financing is a financial product offered by banks and finance companies to help individuals purchase a home or property. The bank pays the full value of the property to the seller, then the customer pays the amount in monthly installments extending over years, adding an agreed-upon profit margin.</p>
+    <p>According to statistics from the Central Bank of Saudi Arabia (SAMA), the volume of residential real estate financing in the Kingdom exceeded 600 billion riyals by the end of 2025.</p>
+
+    <h3>Types of real estate financing</h3>
+    <ul>
+      <li><strong>Supported financing:</strong> It is provided by the Ministry of Housing in cooperation with banks, and the state bears a portion of the profits.</li>
+      <li><strong>Murabaha financing:</strong> The bank buys the property and then sells it to the customer at a higher price.</li>
+      <li><strong>Ijarah financing:</strong> The bank buys the property and rents it to the customer until the end of the term.</li>
+      <li><strong>Trade Finance:</strong> For investors in commercial real estate.</li>
+    </ul>
+
+    <h3>Down payment</h3>
+    <p>According to the Central Bank of Saudi Arabia: the first residence is a minimum of 10%, the second residence is 30%.</p>
+    <div class="example">📝 <strong>example:</strong> A property worth one million riyals, a down payment of 10% = 100,000 riyals that you pay, and the bank finances 900,000 riyals.</div>
+
+    <h3>Golden tips</h3>
+    <ul>
+      <li>Compare 3 banks before signing.</li>
+      <li>Ask for the APR, not the face rate.</li>
+      <li>The premium does not exceed 30% of your income.</li>
+      <li>Use the calculator to try different scenarios.</li>
+    </ul>
+
+    <p class="ref"><strong>the reviewer:</strong> Central Bank of Saudi Arabia (SAMA.gov.sa) | Ministry of Housing (housing.gov.sa) | Real Estate Development Fund (redf.gov.sa)</p>
   </div>
 </div>
 </main>
@@ -202,7 +256,7 @@ function updateAll(){
   if(mr>0&&f>0)mo=f*mr*Math.pow(1+mr,m)/(Math.pow(1+mr,m)-1);
   else if(f>0)mo=f/m;
   var t=mo*m;
-  document.getElementById('downVal').textContent=formatNumber(Math.round(dp))+' ريال';
+  document.getElementById('downVal').textContent=formatNumber(Math.round(dp))+' SAR';
   document.getElementById('monthlyDisplay').textContent=formatNumber(Math.round(mo));
   document.getElementById('financedDisplay').textContent=formatNumber(Math.round(f));
   document.getElementById('interestDisplay').textContent=formatNumber(Math.round(t-f));

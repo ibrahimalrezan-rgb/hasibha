@@ -108,9 +108,42 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>🍎 Calorie Calculator</h1>
-    <p class="subtitle">Calculate instantly with our free online tool.</p>
+    <p class="subtitle">Know your daily calorie needs</p>
 
+<label>Sex</label>
+    <div class="radio-group">
+      <div class="radio-option"><input type="radio" name="gender" id="male" value="male" checked onchange="calculateCalories()"><label for="male">👨 Male</label></div>
+      <div class="radio-option"><input type="radio" name="gender" id="female" value="female" onchange="calculateCalories()"><label for="female">👩 female</label></div>
+    </div>
 
+    <label for="ageInput">the age</label>
+    <div class="input-row">
+      <input type="number" id="ageInput" placeholder="أدخل عمرك" oninput="calculateCalories()">
+      <span style="font-weight:600;color:var(--text-2)">year</span>
+    </div>
+
+    <label for="weightInput">Weight (kg)</label>
+    <div class="input-row">
+      <input type="number" id="weightInput" placeholder="أدخل وزنك" oninput="calculateCalories()">
+      <span style="font-weight:600;color:var(--text-2)">kg</span>
+    </div>
+
+    <label for="heightInput">Length(cm)</label>
+    <div class="input-row">
+      <input type="number" id="heightInput" placeholder="أدخل طولك" oninput="calculateCalories()">
+      <span style="font-weight:600;color:var(--text-2)">poison</span>
+    </div>
+
+    <label for="activityLevel">Activity level</label>
+    <div class="full-width">
+      <select id="activityLevel" onchange="calculateCalories()">
+        <option value="1.2">Inactive (doesn't exercise)</option>
+        <option value="1.375">Light activity (1-3 days per week)</option>
+        <option value="1.55" selected>Moderate activity (3-5 days per week)</option>
+        <option value="1.725">High activity (6-7 days per week)</option>
+        <option value="1.9">Very intense activity (professional athlete)</option>
+      </select>
+    </div>
 
     <button class="calc-btn" onclick="calculate()">Calculate</button>
 
@@ -121,7 +154,26 @@
   </div>
 
   <div class="article-box">
+<h2>🗂️ Guide to calories and daily needs</h2>
+    <h3>What are calories?</h3>
+    <p>A calorie is a unit of measurement of energy that the body obtains from food. Your body needs a certain number of calories daily to perform its basic functions and daily activities.</p>
 
+    <h3>Basal metabolic rate (BMR)</h3>
+    <p>It is the number of calories your body burns at complete rest. Calculated using the internationally accepted Mifflin-St Jeor equation.</p>
+
+    <h3>Your total daily intake (TDEE)</h3>
+    <p>It is BMR multiplied by the activity factor. These are the calories you need daily to maintain your current weight.</p>
+
+    <h3>How to lose weight and gain weight</h3>
+    <ul>
+      <li><strong>For slimming:</strong> Subtract 500-1000 calories from TDEE per day to lose 0.5-1 kg per week.</li>
+      <li><strong>To increase:</strong> Add 500 calories above TDEE daily to gain 0.5 kg per week.</li>
+      <li><strong>To preserve:</strong> Consume the same TDEE.</li>
+    </ul>
+
+    <div class="tip">💡 <strong>advice:</strong> Do not go below 1,200 calories per day for women or 1,500 for men without medical supervision.</div>
+
+    <p class="ref"><strong>Reference:</strong> World Health Organization (WHO.int) | Saudi Ministry of Health (moh.gov.sa)</p>
   </div>
 </div>
 </main>

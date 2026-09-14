@@ -108,9 +108,20 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>💼 Salary After Insurance</h1>
-    <p class="subtitle">Calculate instantly with our free online tool.</p>
+    <p class="subtitle">Calculate your net salary according to the old and new system</p>
 
+<label>Insurance system</label>
+    <div class="radio-group">
+      <div class="radio-option"><input type="radio" name="systemMode" id="systemOld" value="old" onchange="updateAll()"><label for="systemOld">📜 Old system (9%)</label></div>
+      <div class="radio-option"><input type="radio" name="systemMode" id="systemNew" value="new" checked onchange="updateAll()"><label for="systemNew">✨ New system (11%)</label></div>
+    </div>
 
+    <label for="salaryInput">Gross salary</label>
+    <p class="hint">Basic salary + housing allowance + other allowances</p>
+    <div class="input-row">
+      <input type="number" id="salaryInput" placeholder="أدخل الراتب الإجمالي" oninput="updateAll()">
+      <span style="font-weight:600;color:var(--text-2)">SAR</span>
+    </div>
 
     <button class="calc-btn" onclick="calculate()">Calculate</button>
 
@@ -121,7 +132,28 @@
   </div>
 
   <div class="article-box">
+<h2>🗂️ Guide to social insurance discounts in Saudi Arabia</h2>
 
+    <h3>What is social insurance?</h3>
+    <p>A mandatory system administered by the General Organization for Social Insurance (GOSI) that provides social protection for Saudi employees in the public and private sectors.</p>
+
+    <h3>Old system (9%)</h3>
+    <p>9% deduction from salary for insurance only.</p>
+    <div class="example">📝 Salary of 10,000 riyals: discount = 900 riyals, net = 9,100 riyals</div>
+
+    <h3>New system (11%)</h3>
+    <ul>
+      <li>9% insurances</li>
+      <li>2% SANED (breakdown compensation)</li>
+    </ul>
+    <div class="example">📝 Salary of 10,000 riyals: discount = 1,100 riyals, net = 8,900 riyals</div>
+
+    <h3>The difference between the two systems</h3>
+    <p>The new system adds 2% to the Sanid system, which provides compensation of 60% of the salary for a period of 12 months in the event of unemployment.</p>
+
+    <div class="tip">💡 <strong>advice:</strong> The discount applies only to Saudis. Non-Saudis are subject to a 2% system borne by the employer.</div>
+
+    <p class="ref"><strong>Official references:</strong> General Organization for Social Insurance (GOSI.gov.sa) | Sanad system Ministry of Human Resources (HRSD.gov.sa)</p>
   </div>
 </div>
 </main>
@@ -206,9 +238,9 @@ function updateAll(){
   var deduction=salary*rate;
   var net=salary-deduction;
 
-  document.getElementById('grossSalary').textContent=formatNumber(salary)+' ريال';
-  document.getElementById('deductionAmount').textContent='- '+formatNumber(deduction)+' ريال';
-  document.getElementById('netSalary').textContent=formatNumber(net)+' ريال';
+  document.getElementById('grossSalary').textContent=formatNumber(salary)+' SAR';
+  document.getElementById('deductionAmount').textContent='- '+formatNumber(deduction)+' SAR';
+  document.getElementById('netSalary').textContent=formatNumber(net)+' SAR';
   document.getElementById('resultCard').style.display='block';
 }
 </script>

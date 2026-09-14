@@ -108,9 +108,28 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>🧾 VAT Calculator</h1>
-    <p class="subtitle">Calculate instantly with our free online tool.</p>
+    <p class="subtitle">Add or remove 15% VAT on any amount</p>
 
+<div class="vat-badge"><span>Tax rate 15%</span></div>
 
+    <label>Operation type</label>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" name="vatMode" id="modeAdd" value="add" checked onchange="updateAll()">
+        <label for="modeAdd">➕ Add tax</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" name="vatMode" id="modeRemove" value="remove" onchange="updateAll()">
+        <label for="modeRemove">➖ Removal of the tax</label>
+      </div>
+    </div>
+
+    <label id="amountLabel" for="amountInput">Amount (excl. tax)</label>
+    <p class="hint" id="amountHint">Enter the amount without tax</p>
+    <div class="input-row">
+      <input type="number" id="amountInput" placeholder="أدخل المبلغ" oninput="updateAll()">
+      <span style="font-weight:600;color:var(--text-2)">SAR</span>
+    </div>
 
     <button class="calc-btn" onclick="calculate()">Calculate</button>
 
@@ -121,7 +140,23 @@
   </div>
 
   <div class="article-box">
+<h2>🗂️ Comprehensive guide to value-added tax in Saudi Arabia</h2>
 
+    <h3>What is value added tax?</h3>
+    <p>VAT is an indirect tax imposed on all goods and services. It was implemented in Saudi Arabia in 2018 at a rate of 5%, then raised to 15% on July 1, 2020. It is managed by the Zakat, Tax and Customs Authority.</p>
+
+    <h3>How to add tax</h3>
+    <p>Tax value = amount x 0.15</p>
+    <p>Amount after tax = Amount x 1.15</p>
+    <div class="example">📝 <strong>example:</strong> Amount of 1,000 riyals + tax = 1,150 riyals</div>
+
+    <h3>How to remove the tax</h3>
+    <p>Amount before tax = Amount ÷ 1.15</p>
+    <div class="example">📝 <strong>example:</strong> The amount of 1,150 riyals including tax = 1,000 riyals before tax</div>
+
+    <div class="tip">💡 <strong>advice:</strong> To quickly find the price before tax, divide by 1.15.</div>
+
+    <p class="ref"><strong>Official references:</strong> Zakat, Tax and Customs Authority (ZATCA.gov.sa) | Ministry of Finance (mof.gov.sa)</p>
   </div>
 </div>
 </main>
@@ -217,9 +252,9 @@ function updateAll(){
     totalAmount=amount;
   }
 
-  document.getElementById('vatAmount').textContent=formatNumber(vatAmount)+' ريال';
-  document.getElementById('baseAmount').textContent=formatNumber(baseAmount)+' ريال';
-  document.getElementById('totalAmount').textContent=formatNumber(totalAmount)+' ريال';
+  document.getElementById('vatAmount').textContent=formatNumber(vatAmount)+' SAR';
+  document.getElementById('baseAmount').textContent=formatNumber(baseAmount)+' SAR';
+  document.getElementById('totalAmount').textContent=formatNumber(totalAmount)+' SAR';
   document.getElementById('resultCard').style.display='block';
 }
 </script>

@@ -108,9 +108,17 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>📅 Date Difference Calculator</h1>
-    <p class="subtitle">Calculate instantly with our free online tool.</p>
+    <p class="subtitle">Calculate the difference between two dates in years, months and days</p>
 
+<label for="startDate">Start date</label>
+    <div class="input-row">
+      <input type="date" id="startDate" onchange="calculateDiff()">
+    </div>
 
+    <label for="endDate">End date</label>
+    <div class="input-row">
+      <input type="date" id="endDate" onchange="calculateDiff()">
+    </div>
 
     <button class="calc-btn" onclick="calculate()">Calculate</button>
 
@@ -121,7 +129,22 @@
   </div>
 
   <div class="article-box">
+<h2>🗂️ Guide to calculating the difference between two dates</h2>
+    <h3>How do you calculate the difference between two dates?</h3>
+    <p>Enter the start date and end date. The calculator calculates the difference in years, months, days, weeks, hours and minutes.</p>
 
+    <div class="example">📝 <strong>example:</strong> From 01-01-2024 to 01-01-2025 = 1 year = 12 months = 365 days</div>
+
+    <h3>When do you need this calculator?</h3>
+    <ul>
+      <li>Calculating the length of job service.</li>
+      <li>Calculating the duration of pregnancy.</li>
+      <li>Calculating the duration between two occasions.</li>
+      <li>Calculating the duration of subscriptions.</li>
+      <li>Calculate the warranty period.</li>
+    </ul>
+
+    <div class="tip">💡 <strong>advice:</strong> Make sure you enter both dates correctly. The order does not matter because the calculator calculates the absolute difference.</div>
   </div>
 </div>
 </main>

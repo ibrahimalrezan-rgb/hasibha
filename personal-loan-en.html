@@ -108,9 +108,39 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>💵 Personal Loan Calculator</h1>
-    <p class="subtitle">Calculate instantly with our free online tool.</p>
+    <p class="subtitle">Calculate the monthly installment and the percentage of deduction from the salary</p>
 
+<label for="loanAmount">Personal financing amount</label>
+    <p class="hint">The amount you want to get from the bank.</p>
+    <div class="input-row">
+      <input type="number" id="loanAmount" placeholder="أدخل مبلغ التمويل" oninput="updateAll()">
+      <span style="font-weight:600;color:var(--text-2)">SAR</span>
+    </div>
 
+    <label for="aprInput">Annual Percentage (APR)</label>
+    <p class="hint">The percentage added by the bank includes fees.</p>
+    <div class="percent-input">
+      <input type="number" id="aprInput" placeholder="النسبة السنوية" oninput="updateAll()" step="0.1">
+      <span>%</span>
+    </div>
+
+    <label for="loanYearsSlider">Repayment period (in years)</label>
+    <p class="hint">The number of years in which the financing will be repaid.</p>
+    <div class="slider-group">
+      <div class="slider-value">
+        <span id="loanYearsVal">5</span>
+        <span style="font-size:14px;color:var(--text-2)">year</span>
+      </div>
+      <input type="range" id="loanYearsSlider" min="1" max="10" value="5" oninput="updateAll()">
+      <div class="labels"><span>1</span><span>10</span></div>
+    </div>
+
+    <label for="incomeInput">Monthly income (optional)</label>
+    <p class="hint">To find out if the premium is suitable for your budget.</p>
+    <div class="input-row">
+      <input type="number" id="incomeInput" placeholder="الدخل الشهري" oninput="updateAll()">
+      <span style="font-weight:600;color:var(--text-2)">SAR</span>
+    </div>
 
     <button class="calc-btn" onclick="calculate()">Calculate</button>
 
@@ -121,7 +151,44 @@
   </div>
 
   <div class="article-box">
+<h2>🗂️ The comprehensive guide to personal finance in Saudi Arabia 2026</h2>
 
+    <h3>What is personal finance?</h3>
+    <p>Personal financing is a contract between the customer and the bank under which he grants a sum of money to be used for his personal purposes (marriage, travel, education, treatment, buying a car), in exchange for paying it in monthly installments that include the original amount plus a profit margin.</p>
+
+    <h3>Annual Percentage (APR)</h3>
+    <p>The annual percentage rate includes profit margin + all administrative fees + insurance cost + any additional expenses. The Central Bank of Saudi Arabia requires all banks to clearly disclose the APR.</p>
+
+    <div class="tip">💡 <strong>Important information:</strong> The nominal rate may be 3.9% but the actual APR is 6.2%. Always ask: “How much is the APR including all fees?”</div>
+
+    <h3>Percentage of deduction from salary</h3>
+    <ul>
+      <li><strong>Less than 25%:</strong> Comfortable and secure financial situation.</li>
+      <li><strong>Between 25% and 33%:</strong> Acceptable, but watch your budget.</li>
+      <li><strong>Between 33% and 50%:</strong> High and may cause financial pressure.</li>
+      <li><strong>More than 50%:</strong> Rejected by most banks.</li>
+    </ul>
+
+    <div class="warning">⚠️ <strong>warning:</strong> Individuals whose premiums exceed 35% of their income are 3 times more likely to default.</div>
+
+    <h3>Personal finance fees</h3>
+    <ul>
+      <li><strong>Administrative fees:</strong> 1% of the financing amount or 5,000 riyals, whichever is less.</li>
+      <li><strong>Early settlement fees:</strong> Some banks impose it.</li>
+      <li><strong>Late fees:</strong> A fine if the installment is not paid on time.</li>
+    </ul>
+
+    <h3>Golden tips</h3>
+    <ul>
+      <li>Only receive the amount you actually need.</li>
+      <li>Read the entire contract before signing.</li>
+      <li>Avoid multiple financings at the same time.</li>
+      <li>Plan to repay early if you have the opportunity.</li>
+    </ul>
+
+    <div class="example">📝 <strong>example:</strong> Financing of 100,000 riyals, APR 7%, term of 5 years = monthly installment of approximately 1,980 riyals.</div>
+
+    <p class="ref"><strong>Official references:</strong> Central Bank of Saudi Arabia (SAMA.gov.sa) | Ministry of Commerce (mc.gov.sa) | Simah Credit Company (simah.com)</p>
   </div>
 </div>
 </main>

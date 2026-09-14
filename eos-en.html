@@ -108,9 +108,55 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>📋 End of Service Calculator</h1>
-    <p class="subtitle">Calculate the end-of-service gratuity according to the</p>
+    <p class="subtitle">Calculate the end-of-service bonus according to the Saudi labor system</p>
 
+<label for="eosSalary">Gross salary</label>
+    <p class="hint">Latest gross salary including basic and allowances.</p>
+    <div class="input-row">
+      <input type="number" id="eosSalary" placeholder="أدخل الراتب الإجمالي" oninput="updateAll()">
+      <span style="font-weight:600;color:var(--text-2)">SAR</span>
+    </div>
 
+    <label for="eosStartDate">Date of start of work</label>
+    <div class="input-row">
+      <input type="date" id="eosStartDate" onchange="updateAll()">
+    </div>
+
+    <label for="eosEndDate">Work end date</label>
+    <div class="input-row">
+      <input type="date" id="eosEndDate" onchange="updateAll()">
+    </div>
+
+    <label for="eosContractType">Contract type</label>
+    <div class="full-width">
+      <select id="eosContractType" onchange="updateAll()">
+        <option value="">--Choose contract type--</option>
+        <option value="limited">Fixed term</option>
+        <option value="unlimited">Indefinite duration</option>
+      </select>
+    </div>
+
+    <label for="eosReason">The reason for the termination of the employment relationship</label>
+    <div class="full-width">
+      <select id="eosReason" onchange="updateAll()">
+        <option value="">--Choose the reason for termination--</option>
+        <option value="resign">Employee resignation</option>
+        <option value="end_contract">The contract expires at the end of its term</option>
+        <option value="mutual_74">Agreement of the Parties - Article (74)</option>
+        <option value="terminate_80">Termination of the contract by the employer - Article (80)</option>
+        <option value="probation_53">Termination of the contract during the trial - Article (53)</option>
+        <option value="activity_end_74">Termination of activity - Article (74)</option>
+        <option value="close_business_74">Closing the facility - Article (74)</option>
+        <option value="retirement_74">Reaching retirement age - Article (74)</option>
+        <option value="unlawful_77">Termination without legitimate reason - Article (77)</option>
+        <option value="worker_terminate_81">Termination of the contract by the worker - Article (81)</option>
+        <option value="worker_death_79">Death of the worker - Article (79)</option>
+        <option value="disability_79">Worker’s disability - Article (79)</option>
+        <option value="work_injury_137">Disability due to a work injury - Article (137)</option>
+        <option value="marriage_87">Termination of the contract due to marriage - Article (87)</option>
+        <option value="childbirth_87">Termination of the contract due to childbirth - Article (87)</option>
+      </select>
+    </div>
 
     <button class="calc-btn" onclick="calculate()">Calculate</button>
 
@@ -121,7 +167,63 @@
   </div>
 
   <div class="article-box">
+<h2>🗂️ Comprehensive guide to end-of-service rewards in the Saudi Labor Law 2026</h2>
 
+    <h3>What is the end of service reward?</h3>
+    <p>End-of-service gratuity is a basic financial right guaranteed by the Saudi Labor Law issued by Royal Decree No. (M/51). It is an amount paid by the employer to the worker upon the end of the employment relationship, and is calculated based on the last basic salary, the length of service, and the reason for the end of the employment relationship.</p>
+
+    <h3>How is the reward calculated?</h3>
+    <ul>
+      <li><strong>The first five years:</strong> Half a month (15 days) for each year of service.</li>
+      <li><strong>After five years:</strong> A full month (30 days) for each additional year.</li>
+      <li><strong>Fractions of the year:</strong> It is calculated as a percentage of the full year.</li>
+    </ul>
+
+    <div class="example">📝 <strong>example:</strong> Basic salary 10,000 riyals, 8 years service. First 5 years: 5 x 5,000 = 25,000. Last 3 years: 3 x 10,000 = 30,000. Total = 55,000 riyals.</div>
+
+    <h3>Resignation and its effect - Article (85)</h3>
+    <ul>
+      <li><strong>Less than 2 years:</strong> He does not deserve any reward.</li>
+      <li><strong>From 2 to 5 years:</strong> He is entitled to a third of the reward.</li>
+      <li><strong>From 5 to 10 years:</strong> He is entitled to two-thirds of the reward.</li>
+      <li><strong>More than 10 years:</strong> He deserves the full reward.</li>
+    </ul>
+
+    <h3>Cases in which you deserve the full reward</h3>
+    <ul>
+      <li>Expiration of the contract by its term - Article (74).</li>
+      <li>Closing the facility - Article (74).</li>
+      <li>Reaching retirement age - Article (74).</li>
+      <li>Terminating the contract without a legitimate reason - Article (77).</li>
+      <li>Death or disability of the worker - Article (79).</li>
+      <li>Work injury - Article (137).</li>
+    </ul>
+
+    <h3>Situations in which the reward is not deserved</h3>
+    <div class="warning">⚠️ <strong>significant:</strong> The worker's right to the reward shall be forfeited in these cases:</div>
+    <ul>
+      <li>Disciplinary dismissal - Article (80).</li>
+      <li>The worker terminates the contract without cause - Article (81).</li>
+      <li>During the trial period - Article (53).</li>
+    </ul>
+
+    <h3>Tips to ensure your rights</h3>
+    <ul>
+      <li>Document your contract on the Qiwa.sa platform.</li>
+      <li>Maintain payroll and correspondence.</li>
+      <li>Make sure the base salary is clearly stated in the contract.</li>
+      <li>Do not sign a prior resignation or white paper.</li>
+      <li>Use the calculator above before reviewing HR.</li>
+    </ul>
+
+    <h3>How do you act if the reward is not spent?</h3>
+    <ol>
+      <li>Submit a friendly request to the employer in writing.</li>
+      <li>File a lawsuit on the “Wadi” platform (moj.gov.sa).</li>
+      <li>If settlement is not possible, the case is referred to the labor court.</li>
+    </ol>
+
+    <p class="ref"><strong>Official references:</strong> Ministry of Human Resources (HRSD.gov.sa) | Saudi labor system Qiwa platform (Qiwa.sa) | Friendly platform (moj.gov.sa) | Social Insurance (GOSI.gov.sa)</p>
   </div>
 </div>
 </main>
@@ -192,7 +294,7 @@ function updateAll(){
       ctt=document.getElementById('eosContractType').selectedOptions[0]?.text||'—',
       rt=document.getElementById('eosReason').selectedOptions[0]?.text||'—';
 
-  document.getElementById('eosSalaryDisplay').textContent=s>0?formatInt(s)+' ريال':'—';
+  document.getElementById('eosSalaryDisplay').textContent=s>0?formatInt(s)+' SAR':'—';
   document.getElementById('eosContractDisplay').textContent=ctt;
   document.getElementById('eosReasonDisplay').textContent=rt;
   document.getElementById('eosStartDisplay').textContent=sd||'—';
@@ -208,7 +310,7 @@ function updateAll(){
   if(r==='resign'){if(ty<2)a=0;else if(ty<=5)a=fa*(1/3);else if(ty<=10)a=fa*(2/3)}
   if(r==='probation_53'||r==='terminate_80'||r==='worker_terminate_81')a=0;
 
-  document.getElementById('eosAmount').textContent=formatNumber(a)+' ريال';
+  document.getElementById('eosAmount').textContent=formatNumber(a)+' SAR';
 }
 </script>
 </body>

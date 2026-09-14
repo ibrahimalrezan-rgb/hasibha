@@ -108,9 +108,17 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>🏷️ Discount Calculator</h1>
-    <p class="subtitle">Calculate instantly with our free online tool.</p>
+    <p class="subtitle">Calculate the price after the discount and how much you save</p>
 
+<label for="priceInput">Original price (SAR)</label>
+    <div class="input-row">
+      <input type="number" id="priceInput" placeholder="أدخل السعر الأصلي" oninput="calculateDiscount()">
+    </div>
 
+    <label for="discountInput">Discount percentage (%)</label>
+    <div class="input-row">
+      <input type="number" id="discountInput" placeholder="أدخل نسبة الخصم" oninput="calculateDiscount()">
+    </div>
 
     <button class="calc-btn" onclick="calculate()">Calculate</button>
 
@@ -121,7 +129,22 @@
   </div>
 
   <div class="article-box">
+<h2>🗂️ Guide to calculating discounts and discounts</h2>
+    <h3>How do you calculate the price after the discount?</h3>
+    <p>Price after discount = original price - (original price x discount percentage ÷ 100)</p>
+    <div class="example">📝 <strong>example:</strong> The price of 200 riyals with a 25% discount = 200 - (200 x 25÷100) = 200 - 50 = 150 riyals</div>
 
+    <h3>How do you calculate the value of the savings?</h3>
+    <p>Saving value = original price x discount percentage ÷ 100</p>
+
+    <h3>Tips when purchasing at discounts</h3>
+    <ul>
+      <li>Compare the price after the discount with the price in other stores.</li>
+      <li>Make sure the original price is real and not exaggerated.</li>
+      <li>Don't buy just because of the discount if you don't need the item.</li>
+    </ul>
+
+    <div class="tip">💡 <strong>advice:</strong> 50% off something you really need is an excellent saving.</div>
   </div>
 </div>
 </main>
@@ -193,7 +216,7 @@ function calculateDiscount(){
   var finalPrice = price - discountAmount;
 
   document.getElementById('finalPrice').textContent = finalPrice.toFixed(2);
-  document.getElementById('savedAmount').textContent = 'وفّرت ' + discountAmount.toFixed(2) + ' ريال';
+  document.getElementById('savedAmount').textContent = 'وفّرت ' + discountAmount.toFixed(2) + ' SAR';
   document.getElementById('originalPrice').textContent = price.toFixed(2);
   document.getElementById('discountAmount').textContent = discountAmount.toFixed(2);
   document.getElementById('resultCard').style.display = 'block';

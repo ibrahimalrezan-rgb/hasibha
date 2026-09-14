@@ -108,9 +108,24 @@
 <div class="wrap">
   <div class="calc-wrapper">
     <h1>💧 Water Intake Calculator</h1>
-    <p class="subtitle">Calculate instantly with our free online tool.</p>
+    <p class="subtitle">Know how much water your body needs</p>
 
+<label for="weightInput">Weight (kg)</label>
+    <div class="input-row">
+      <input type="number" id="weightInput" placeholder="أدخل وزنك" oninput="calculateWater()">
+      <span style="font-weight:600;color:var(--text-2)">kg</span>
+    </div>
 
+    <label for="activityLevel">Activity level</label>
+    <div class="full-width">
+      <select id="activityLevel" onchange="calculateWater()">
+        <option value="35">Inactive (doesn't exercise)</option>
+        <option value="40" selected>Light activity (1-3 days per week)</option>
+        <option value="45">Moderate activity (3-5 days per week)</option>
+        <option value="50">High activity (6-7 days per week)</option>
+        <option value="55">Professional athlete</option>
+      </select>
+    </div>
 
     <button class="calc-btn" onclick="calculate()">Calculate</button>
 
@@ -121,7 +136,25 @@
   </div>
 
   <div class="article-box">
+<h2>🗂️ Guide to drinking water and daily needs</h2>
+    <h3>Why is water important?</h3>
+    <p>Water makes up 60% of the human body and plays a vital role in regulating temperature, transporting nutrients, expelling toxins, and moisturizing the joints.</p>
 
+    <h3>How to calculate daily needs</h3>
+    <p>General rule: 35-55 ml of water per kilogram of weight depending on activity. The more active you are, the more water you need.</p>
+
+    <h3>Signs of dehydration</h3>
+    <ul>
+      <li>Extreme thirst</li>
+      <li>Dark colored urine</li>
+      <li>Headache</li>
+      <li>Dizziness</li>
+      <li>Dry mouth and skin</li>
+    </ul>
+
+    <div class="tip">💡 <strong>advice:</strong> Drink water regularly throughout the day, and do not wait until you feel thirsty.</div>
+
+    <p class="ref"><strong>Reference:</strong> Saudi Ministry of Health (moh.gov.sa) | World Health Organization (WHO.int)</p>
   </div>
 </div>
 </main>
