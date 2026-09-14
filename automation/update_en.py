@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 تحديث الصفحات الإنجليزية من العربية
-Google Translate + MyMemory + ترجمة placeholders
+Google Translate + MyMemory + تصحيحات شاملة
 """
 
 import os
@@ -106,11 +106,11 @@ def fix_arabic(text):
 
 
 def translate_html(html):
-    """يترجم HTML + placeholders داخل input"""
+    """يترجم HTML + placeholders"""
     if not html:
         return ""
     
-    # 1) ترجمة placeholder داخل input
+    # 1) placeholder
     def replace_placeholder(match):
         quote = match.group(1)
         value = match.group(2)
@@ -123,7 +123,7 @@ def translate_html(html):
     
     html = re.sub(r'placeholder=([\'"])([^\'"]+)\1', replace_placeholder, html)
     
-    # 2) ترجمة النصوص العادية بين الوسوم
+    # 2) النصوص بين الوسوم
     def replace_text(match):
         text = match.group(1)
         if not text.strip():
@@ -145,12 +145,14 @@ def translate_html(html):
 
 
 def fix_javascript(script):
-    """تصحيح JavaScript: locale, عملة, نصوص عربية"""
+    """تصحيح JavaScript: locale, عملة, نصوص عربية شاملة"""
+    # locale
     script = script.replace("'ar-SA'", "'en-US'")
     script = script.replace('"ar-SA"', '"en-US"')
     script = script.replace("'ar-sa'", "'en-US'")
     script = script.replace('"ar-sa"', '"en-US"')
     
+    # العملة
     script = script.replace("+ ' ريال'", "+ ' SAR'")
     script = script.replace("+' ريال'", "+' SAR'")
     script = script.replace('+ " ريال"', '+ " SAR"')
@@ -163,58 +165,67 @@ def fix_javascript(script):
     script = script.replace("'ر.س'", "'SAR'")
     script = script.replace('"ر.س"', '"SAR"')
     
+    # استبدالات شاملة (نصوص فقط، بدون علامات تنصيص)
     replacements = {
-        "'نحيف'": "'Underweight'",
-        '"نحيف"': '"Underweight"',
-        "'وزن طبيعي'": "'Normal Weight'",
-        '"وزن طبيعي"': '"Normal Weight"',
-        "'زيادة وزن'": "'Overweight'",
-        '"زيادة وزن"': '"Overweight"',
-        "'سمنة درجة أولى'": "'Obesity Class I'",
-        '"سمنة درجة أولى"': '"Obesity Class I"',
-        "'سمنة درجة ثانية'": "'Obesity Class II'",
-        '"سمنة درجة ثانية"': '"Obesity Class II"',
-        "'سمنة مفرطة'": "'Obesity Class III'",
-        '"سمنة مفرطة"': '"Obesity Class III"',
-        "'تحتاج لإنقاص '": "'You need to lose '",
-        '"تحتاج لإنقاص "': '"You need to lose "',
-        "'تحتاج لزيادة '": "'You need to gain '",
-        '"تحتاج لزيادة "': '"You need to gain "',
-        "' كجم'": "' kg'",
-        '" كجم"': '" kg"',
-        "'للوصول إلى الوزن الطبيعي'": "'to reach normal weight'",
-        "'وزنك المثالي بين '": "'Your ideal weight is between '",
-        "'أنت في النطاق الطبيعي'": "'You are in the normal range'",
-        "'استمر في عاداتك الصحية'": "'Keep your healthy habits'",
-        "'ننصح بمراجعة الطبيب'": "'Consult a doctor'",
-        "'ننصح بمراجعة الطبيب فوراً'": "'Consult a doctor immediately'",
-        "'وزنك أقل من الطبيعي'": "'Your weight is below normal'",
-        "'وزنك أعلى من الطبيعي قليلاً'": "'Your weight is slightly above normal'",
-        "'وزنك أعلى من الطبيعي بشكل ملحوظ'": "'Your weight is significantly above normal'",
-        "'وزنك مرتفع جداً'": "'Your weight is very high'",
-        "'وزنك مثالي'": "'Your weight is ideal'",
-        "' سنة'": "' years'",
-        "'سنة'": "'years'",
-        "'شهر'": "'months'",
-        "'أشهر'": "'months'",
-        "'يوم'": "'days'",
-        "'أيام'": "'days'",
-        "'المبلغ الممول'": "'Financed Amount'",
-        "'إجمالي الفوائد'": "'Total Interest'",
-        "'الإجمالي'": "'Total'",
-        "'القسط الشهري'": "'Monthly Payment'",
-        "'النتيجة'": "'Result'",
-        "'صافي الراتب'": "'Net Salary'",
-        "'الراتب الإجمالي'": "'Gross Salary'",
-        "'قيمة الخصم'": "'Deduction Amount'",
-        "'المبلغ قبل الضريبة'": "'Amount Before Tax'",
-        "'المبلغ بعد الضريبة'": "'Amount After Tax'",
-        "'قيمة الضريبة'": "'VAT Amount'",
-        "'المكافأة المحسوبة'": "'Calculated Benefit'",
-        "'نوع العقد'": "'Contract Type'",
-        "'سبب الإنهاء'": "'Termination Reason'",
-        "'تاريخ بداية العقد'": "'Start Date'",
-        "'تاريخ انتهاء العقد'": "'End Date'",
+        # BMI التصنيفات
+        "🔵 نحيف": "🔵 Underweight",
+        "🟢 وزن طبيعي": "🟢 Normal Weight",
+        "🟡 زيادة وزن": "🟡 Overweight",
+        "🟠 سمنة درجة أولى": "🟠 Obesity Class I",
+        "🔴 سمنة درجة ثانية": "🔴 Obesity Class II",
+        "⚫ سمنة مفرطة": "⚫ Obesity Class III",
+        
+        # الجمل الديناميكية
+        "تحتاج لإنقاص ": "You need to lose ",
+        "تحتاج لزيادة ": "You need to gain ",
+        "من أجل الوصول إلى الوزن الطبيعي": "to reach normal weight",
+        "للوصول إلى الوزن الطبيعي": "to reach normal weight",
+        "وزنك المثالي بين ": "Your ideal weight is between ",
+        " كجم": " kg",
+        " كغم": " kg",
+        " كيلوجرام": " kg",
+        
+        # النصوص الثابتة
+        "وزنك أقل من الطبيعي": "Your weight is below normal",
+        "وزنك أعلى من الطبيعي قليلاً": "Your weight is slightly above normal",
+        "وزنك أعلى من الطبيعي بشكل ملحوظ": "Your weight is significantly above normal",
+        "وزنك مرتفع جداً": "Your weight is very high",
+        "ننصح بمراجعة الطبيب فوراً": "Consult a doctor immediately",
+        "ننصح بمراجعة الطبيب": "Consult a doctor",
+        "وزنك مثالي": "Your weight is ideal",
+        "أنت في النطاق الطبيعي": "You are in the normal range",
+        "استمر في عاداتك الصحية": "Keep your healthy habits",
+        
+        # الوحدات
+        " سنة": " years",
+        "سنة": "years",
+        "شهر": "months",
+        "أشهر": "months",
+        "يوم": "days",
+        "أيام": "days",
+        
+        # حقول الحاسبات
+        "المبلغ الممول": "Financed Amount",
+        "إجمالي الفوائد": "Total Interest",
+        "الإجمالي": "Total",
+        "القسط الشهري": "Monthly Payment",
+        "النتيجة": "Result",
+        "صافي الراتب": "Net Salary",
+        "الراتب الإجمالي": "Gross Salary",
+        "قيمة الخصم": "Deduction Amount",
+        "المبلغ قبل الضريبة": "Amount Before Tax",
+        "المبلغ بعد الضريبة": "Amount After Tax",
+        "قيمة الضريبة": "VAT Amount",
+        "المكافأة المحسوبة": "Calculated Benefit",
+        "نوع العقد": "Contract Type",
+        "سبب الإنهاء": "Termination Reason",
+        "تاريخ بداية العقد": "Start Date",
+        "تاريخ انتهاء العقد": "End Date",
+        "المبلغ شامل الضريبة": "Amount Including VAT",
+        "المبلغ (بدون ضريبة)": "Amount (Excluding VAT)",
+        "المبلغ (شامل الضريبة)": "Amount (Including VAT)",
+        "إضافة الضريبة": "Add VAT",
+        "إزالة الضريبة": "Remove VAT",
     }
     
     for ar, en in replacements.items():
@@ -492,7 +503,7 @@ def main():
     
     print(f"📊 عدد الصفحات: {len(pages_to_update)}")
     print("🌐 Google Translate + MyMemory")
-    print("✅ ترجمة placeholders + JavaScript")
+    print("✅ ترجمة placeholders + JavaScript شاملة")
     
     for i, page in enumerate(pages_to_update, 1):
         print(f"\n[{i}/{len(pages_to_update)}] 🔨 {page['slug']}-en.html")
