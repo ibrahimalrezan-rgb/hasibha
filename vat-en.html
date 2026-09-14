@@ -225,15 +225,15 @@ function updateAll(){
   var amount=parseFloat(document.getElementById('amountInput').value)||0;
 
   if(mode==='add'){
-    document.getElementById('amountLabel').textContent='المبلغ (بدون ضريبة)';
+    document.getElementById('amountLabel').textContent='Amount (Excluding VAT)';
     document.getElementById('amountHint').textContent='أدخل المبلغ بدون الضريبة';
     document.getElementById('baseLabel').textContent='Amount Before Tax';
     document.getElementById('totalLabel').textContent='Amount After Tax';
   } else {
-    document.getElementById('amountLabel').textContent='المبلغ (شامل الضريبة)';
-    document.getElementById('amountHint').textContent='أدخل المبلغ شامل الضريبة';
+    document.getElementById('amountLabel').textContent='Amount (Including VAT)';
+    document.getElementById('amountHint').textContent='أدخل Amount Including VAT';
     document.getElementById('baseLabel').textContent='Amount Before Tax';
-    document.getElementById('totalLabel').textContent='المبلغ شامل الضريبة';
+    document.getElementById('totalLabel').textContent='Amount Including VAT';
   }
 
   if(amount<=0){

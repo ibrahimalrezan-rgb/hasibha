@@ -247,9 +247,9 @@ function calculateDiff(){
     months += 12;
   }
 
-  var mainText = years > 0 ? years + ' سنة و ' + months + ' شهر و ' + days + ' يوم'
-                            : months > 0 ? months + ' شهر و ' + days + ' يوم'
-                            : days + ' يوم';
+  var mainText = years > 0 ? years + ' years و ' + months + ' months و ' + days + ' days'
+                            : months > 0 ? months + ' months و ' + days + ' days'
+                            : days + ' days';
 
   document.getElementById('mainDiff').textContent = mainText;
   document.getElementById('yearsDiff').textContent = years;
