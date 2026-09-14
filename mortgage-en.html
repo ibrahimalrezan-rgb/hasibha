@@ -140,9 +140,17 @@
       <div class="labels"><span>2%</span><span>15%</span></div>
     </div>
 
-    <button class="calc-btn" onclick="calculate()">Calculate</button>
+    <button class="calc-btn" onclick="updateAll()">Calculate</button>
 
-    <div class="result-card" id="resultCard">
+    <div class="result-card" id="resultCard" style="display:block">
+<p style="color:var(--text-2);font-size:14px">القسط الشهري التقديري</p>
+      <div style="font-size:42px;font-weight:900;color:var(--c-health)" id="monthlyDisplay">0</div>
+      <p style="color:var(--text-2)">ر.س</p>
+      <div class="goals">
+        <div class="goal-box"><div class="val" id="financedDisplay">0</div><div class="lbl">المبلغ الممول</div></div>
+        <div class="goal-box"><div class="val" id="interestDisplay">0</div><div class="lbl">إجمالي الفوائد</div></div>
+        <div class="goal-box"><div class="val" id="totalDisplay">0</div><div class="lbl">الإجمالي</div></div>
+      </div>
     </div>
 
     <a href="/index-en" class="back-link">↩ Back to Home</a>
@@ -245,7 +253,7 @@ function updateAll(){
   document.getElementById('yearsVal').textContent=y;
   document.getElementById('rateVal').textContent=r.toFixed(1);
   if(p<=0){
-    document.getElementById('downVal').textContent='0 SAR';
+    document.getElementById('downVal').textContent='0 ريال';
     document.getElementById('monthlyDisplay').textContent='0';
     document.getElementById('financedDisplay').textContent='0';
     document.getElementById('interestDisplay').textContent='0';

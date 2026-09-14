@@ -123,9 +123,12 @@
       <span style="font-weight:600;color:var(--text-2)">SAR</span>
     </div>
 
-    <button class="calc-btn" onclick="calculate()">Calculate</button>
+    <button class="calc-btn" onclick="updateAll()">Calculate</button>
 
-    <div class="result-card" id="resultCard">
+    <div class="result-card" id="resultCard" style="display:block">
+<div class="result-row"><span class="result-label">الراتب الإجمالي</span><span class="result-value" id="grossSalary">0 ريال</span></div>
+      <div class="result-row"><span class="result-label">قيمة الخصم</span><span class="result-value" style="color:#ef4444" id="deductionAmount">0 ريال</span></div>
+      <div class="result-row"><span class="result-label">💰 صافي الراتب</span><span class="result-value big" id="netSalary">0 ريال</span></div>
     </div>
 
     <a href="/index-en" class="back-link">↩ Back to Home</a>
@@ -227,9 +230,9 @@ function updateAll(){
   }
 
   if(salary<=0){
-    document.getElementById('grossSalary').textContent='0 SAR';
-    document.getElementById('deductionAmount').textContent='0 SAR';
-    document.getElementById('netSalary').textContent='0 SAR';
+    document.getElementById('grossSalary').textContent='0 ريال';
+    document.getElementById('deductionAmount').textContent='0 ريال';
+    document.getElementById('netSalary').textContent='0 ريال';
     document.getElementById('resultCard').style.display='block';
     return;
   }

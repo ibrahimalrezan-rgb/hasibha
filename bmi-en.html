@@ -122,9 +122,14 @@
       <span style="font-weight:600;color:var(--text-2)">سم</span>
     </div>
 
-    <button class="calc-btn" onclick="calculate()">Calculate</button>
+    <button class="calc-btn" onclick="calculateBMI()">Calculate</button>
 
-    <div class="result-card" id="resultCard">
+    <div class="result-card" id="resultCard" style="display:block">
+<div class="bmi-value" id="bmiValue">0</div>
+      <div class="bmi-category" id="bmiCategory"></div>
+      <div class="bmi-detail" id="bmiDetail"></div>
+      <div class="weight-info" id="weightInfo"></div>
+      <div class="ideal-range" id="idealRange"></div>
     </div>
 
     <a href="/index-en" class="back-link">↩ Back to Home</a>
@@ -135,7 +140,7 @@
     <h3>ما هو BMI؟</h3>
     <p>مؤشر كتلة الجسم هو مقياس يحدد إذا كان وزنك مناسباً لطولك. يحسب بقسمة الوزن بالكيلوجرام على مربع الطول بالمتر.</p>
 
-    <h3>فئات BMI حسب منظمة Health العالمية</h3>
+    <h3>فئات BMI حسب منظمة الصحة العالمية</h3>
     <ul>
       <li><strong>أقل من 18.5:</strong> 🔵 نحيف</li>
       <li><strong>18.5 - 24.9:</strong> 🟢 وزن طبيعي</li>
@@ -149,7 +154,7 @@
 
     <div class="tip">💡 <strong>نصيحة:</strong> BMI لا يفرق بين العضلات والدهون. الرياضيون قد يظهرون كأصحاب وزن زائد بسبب كتلة العضلات.</div>
 
-    <p class="ref"><strong>المرجع:</strong> منظمة Health العالمية (WHO.int) | وزارة Health Saudi Arabia (moh.gov.sa)</p>
+    <p class="ref"><strong>المرجع:</strong> منظمة الصحة العالمية (WHO.int) | وزارة الصحة Saudi Arabia (moh.gov.sa)</p>
   </div>
 </div>
 </main>

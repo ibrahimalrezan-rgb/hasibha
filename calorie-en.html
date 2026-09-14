@@ -145,9 +145,16 @@
       </select>
     </div>
 
-    <button class="calc-btn" onclick="calculate()">Calculate</button>
+    <button class="calc-btn" onclick="calculateCalories()">Calculate</button>
 
-    <div class="result-card" id="resultCard">
+    <div class="result-card" id="resultCard" style="display:block">
+<div class="calorie-value" id="tdeeValue">0</div>
+      <div class="calorie-label">سعرة حرارية يومياً للحفاظ على وزنك</div>
+      <div class="goals">
+        <div class="goal-box lose"><div class="val" id="loseCalories">0</div><div class="lbl">للتنحيف (نقص 500 سعرة)</div></div>
+        <div class="goal-box maintain"><div class="val" id="maintainCalories">0</div><div class="lbl">للحفاظ</div></div>
+        <div class="goal-box gain"><div class="val" id="gainCalories">0</div><div class="lbl">للزيادة (+500 سعرة)</div></div>
+      </div>
     </div>
 
     <a href="/index-en" class="back-link">↩ Back to Home</a>
@@ -173,7 +180,7 @@
 
     <div class="tip">💡 <strong>نصيحة:</strong> لا تنزل عن 1200 سعرة daysياً للنساء أو 1500 للرجال بدون إشراف طبي.</div>
 
-    <p class="ref"><strong>المرجع:</strong> منظمة Health العالمية (WHO.int) | وزارة Health Saudi Arabia (moh.gov.sa)</p>
+    <p class="ref"><strong>المرجع:</strong> منظمة الصحة العالمية (WHO.int) | وزارة الصحة Saudi Arabia (moh.gov.sa)</p>
   </div>
 </div>
 </main>

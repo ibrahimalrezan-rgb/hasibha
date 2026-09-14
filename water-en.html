@@ -127,9 +127,15 @@
       </select>
     </div>
 
-    <button class="calc-btn" onclick="calculate()">Calculate</button>
+    <button class="calc-btn" onclick="calculateWater()">Calculate</button>
 
-    <div class="result-card" id="resultCard">
+    <div class="result-card" id="resultCard" style="display:block">
+<div class="water-value" id="waterValue">0</div>
+      <div class="water-label">لتر ماء يومياً</div>
+      <div class="cups-info">
+        <p>يعادل تقريباً</p>
+        <strong id="cupsValue">0</strong> <span style="color:var(--text-2)">كوب (250 مل)</span>
+      </div>
     </div>
 
     <a href="/index-en" class="back-link">↩ Back to Home</a>
@@ -154,7 +160,7 @@
 
     <div class="tip">💡 <strong>نصيحة:</strong> اشرب الماء بانتظام طوال الdays، ولا تنتظر حتى تشعر بالعطش.</div>
 
-    <p class="ref"><strong>المرجع:</strong> وزارة Health Saudi Arabia (moh.gov.sa) | منظمة Health العالمية (WHO.int)</p>
+    <p class="ref"><strong>المرجع:</strong> وزارة الصحة Saudi Arabia (moh.gov.sa) | منظمة الصحة العالمية (WHO.int)</p>
   </div>
 </div>
 </main>

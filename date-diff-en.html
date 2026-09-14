@@ -120,9 +120,18 @@
       <input type="date" id="endDate" onchange="calculateDiff()">
     </div>
 
-    <button class="calc-btn" onclick="calculate()">Calculate</button>
+    <button class="calc-btn" onclick="calculateDiff()">Calculate</button>
 
-    <div class="result-card" id="resultCard">
+    <div class="result-card" id="resultCard" style="display:block">
+<div class="main-diff" id="mainDiff"></div>
+      <div class="details-grid">
+        <div class="diff-item"><div class="val" id="yearsDiff">0</div><div class="lbl">سنة</div></div>
+        <div class="diff-item"><div class="val" id="monthsDiff">0</div><div class="lbl">شهر</div></div>
+        <div class="diff-item"><div class="val" id="daysDiff">0</div><div class="lbl">يوم</div></div>
+        <div class="diff-item"><div class="val" id="weeksDiff">0</div><div class="lbl">أسبوع</div></div>
+        <div class="diff-item"><div class="val" id="hoursDiff">0</div><div class="lbl">ساعة</div></div>
+        <div class="diff-item"><div class="val" id="minutesDiff">0</div><div class="lbl">دقيقة</div></div>
+      </div>
     </div>
 
     <a href="/index-en" class="back-link">↩ Back to Home</a>
@@ -238,9 +247,9 @@ function calculateDiff(){
     months += 12;
   }
 
-  var mainText = years > 0 ? years + ' years و ' + months + ' months و ' + days + ' days'
-                            : months > 0 ? months + ' months و ' + days + ' days'
-                            : days + ' days';
+  var mainText = years > 0 ? years + ' سنة و ' + months + ' شهر و ' + days + ' يوم'
+                            : months > 0 ? months + ' شهر و ' + days + ' يوم'
+                            : days + ' يوم';
 
   document.getElementById('mainDiff').textContent = mainText;
   document.getElementById('yearsDiff').textContent = years;

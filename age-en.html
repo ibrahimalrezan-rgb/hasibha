@@ -115,9 +115,10 @@
       <input type="date" id="birthDate" onchange="calculateAge()">
     </div>
 
-    <button class="calc-btn" onclick="calculate()">Calculate</button>
+    <button class="calc-btn" onclick="calculateAge()">Calculate</button>
 
-    <div class="result-card" id="resultCard">
+    <div class="result-card" id="resultCard" style="display:block">
+
     </div>
 
     <a href="/index-en" class="back-link">↩ Back to Home</a>
@@ -264,12 +265,12 @@ function calculateAge(){
   else lifeStage = 'الشيخوخة';
 
   var sleepHours = '';
-  if(ageYears <= 3) sleepHours = 'من 11 إلى 14 ساعة daysياً';
-  else if(ageYears <= 5) sleepHours = 'من 10 إلى 13 ساعة daysياً';
-  else if(ageYears <= 12) sleepHours = 'من 9 إلى 12 ساعة daysياً';
-  else if(ageYears <= 17) sleepHours = 'من 8 إلى 10 ساعات daysياً';
-  else if(ageYears <= 64) sleepHours = 'من 7 إلى 9 ساعات daysياً';
-  else sleepHours = 'من 7 إلى 8 ساعات daysياً';
+  if(ageYears <= 3) sleepHours = 'من 11 إلى 14 ساعة يومياً';
+  else if(ageYears <= 5) sleepHours = 'من 10 إلى 13 ساعة يومياً';
+  else if(ageYears <= 12) sleepHours = 'من 9 إلى 12 ساعة يومياً';
+  else if(ageYears <= 17) sleepHours = 'من 8 إلى 10 ساعات يومياً';
+  else if(ageYears <= 64) sleepHours = 'من 7 إلى 9 ساعات يومياً';
+  else sleepHours = 'من 7 إلى 8 ساعات يومياً';
 
   var hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', {
     year: 'numeric', month: 'numeric', day: 'numeric'
@@ -306,26 +307,26 @@ function calculateAge(){
 
   html += '<div class="section-title">📅 العمر بالميلادي</div>';
   html += '<p><strong>تاريخ الميلاد:</strong> ' + birthDate.toISOString().split('T')[0] + '</p>';
-  html += '<p><strong>months الميلاد:</strong> ' + bornMonth + '</p>';
-  html += '<p><strong>العمر:</strong> <span class="highlight">' + ageYears + ' years و ' + ageMonths + ' months و ' + ageDays + ' days</span></p>';
-  html += '<p><strong>باقي لعيد ميلادك القادم:</strong> ' + daysToBirthday + ' days و ' + hoursToBirthday + ' ساعة و ' + minutesToBirthday + ' دقيقة</p>';
-  html += '<p><strong>سيكون عيد ميلادك days:</strong> ' + weekDays[nextBirthday.getDay()] + ' الموافق ' + nextBirthday.toISOString().split('T')[0] + '</p>';
+  html += '<p><strong>شهر الميلاد:</strong> ' + bornMonth + '</p>';
+  html += '<p><strong>العمر:</strong> <span class="highlight">' + ageYears + ' سنة و ' + ageMonths + ' شهر و ' + ageDays + ' يوم</span></p>';
+  html += '<p><strong>باقي لعيد ميلادك القادم:</strong> ' + daysToBirthday + ' يوم و ' + hoursToBirthday + ' ساعة و ' + minutesToBirthday + ' دقيقة</p>';
+  html += '<p><strong>سيكون عيد ميلادك يوم:</strong> ' + weekDays[nextBirthday.getDay()] + ' الموافق ' + nextBirthday.toISOString().split('T')[0] + '</p>';
 
   html += '<div class="divider"></div>';
   html += '<div class="section-title">🕌 العمر بالهجري</div>';
   html += '<p><strong>تاريخ الميلاد الهجري:</strong> ' + hijriDay + '/' + hijriMonth + '/' + hijriYear + ' (' + hijriMonthName + ')</p>';
-  html += '<p><strong>العمر الهجري:</strong> <span class="highlight">' + hijriAgeYears + ' years و ' + hijriAgeMonths + ' months و ' + hijriAgeDays + ' days</span></p>';
+  html += '<p><strong>العمر الهجري:</strong> <span class="highlight">' + hijriAgeYears + ' سنة و ' + hijriAgeMonths + ' شهر و ' + hijriAgeDays + ' يوم</span></p>';
 
   html += '<div class="divider"></div>';
   html += '<div class="section-title">📊 عمرك بصيغ مختلفة</div>';
-  html += '<p><strong>بالأmonths:</strong> ' + totalMonths + ' months و ' + (totalDays % 30) + ' days</p>';
-  html += '<p><strong>بالأسابيع:</strong> ' + totalWeeks + ' أسبوع و ' + (totalDays % 7) + ' days</p>';
-  html += '<p><strong>بالdays:</strong> ' + totalDays + ' days</p>';
+  html += '<p><strong>بالأشهر:</strong> ' + totalMonths + ' شهر و ' + (totalDays % 30) + ' يوم</p>';
+  html += '<p><strong>بالأسابيع:</strong> ' + totalWeeks + ' أسبوع و ' + (totalDays % 7) + ' يوم</p>';
+  html += '<p><strong>بالأيام:</strong> ' + totalDays + ' يوم</p>';
   html += '<p><strong>بالساعات:</strong> حوالي ' + totalHours + ' ساعة</p>';
 
   html += '<div class="divider"></div>';
   html += '<div class="section-title">📋 معلومات أكثر عن عمرك</div>';
-  html += '<p><strong>ولدت days:</strong> ' + bornDay + '</p>';
+  html += '<p><strong>ولدت يوم:</strong> ' + bornDay + '</p>';
   html += '<p><strong>ولدت في فصل:</strong> ' + season + '</p>';
   html += '<p><strong>برجك:</strong> ' + zodiac + '</p>';
   html += '<p><strong>مرحلة حياتك:</strong> ' + lifeStage + '</p>';
@@ -336,8 +337,8 @@ function calculateAge(){
   html += '<p><strong>تَنَفَستَ حوالي:</strong> ' + breaths.toLocaleString() + ' مرة</p>';
   html += '<p><strong>نَبَضَ قلبك حوالي:</strong> ' + heartbeats.toLocaleString() + ' نبضة</p>';
   html += '<p><strong>ضَحِكتَ حوالي:</strong> ' + laughs.toLocaleString() + ' مرة</p>';
-  html += '<p><strong>نِمتَ حوالي:</strong> ' + sleepY + ' years و ' + sleepM + ' months و ' + sleepD + ' days</p>';
-  html += '<p><strong>أمضيتَ في تناول الطعام:</strong> ' + eatY + ' years و ' + eatM + ' months و ' + eatD + ' days</p>';
+  html += '<p><strong>نِمتَ حوالي:</strong> ' + sleepY + ' سنة و ' + sleepM + ' شهر و ' + sleepD + ' يوم</p>';
+  html += '<p><strong>أمضيتَ في تناول الطعام:</strong> ' + eatY + ' سنة و ' + eatM + ' شهر و ' + eatD + ' يوم</p>';
 
   html += '<div class="divider"></div>';
   html += '<p><a class="zodiac-btn" onclick="showZodiacInfo(\'' + zodiac + '\')">عرض صفات برج ' + zodiac + '</a></p>';
