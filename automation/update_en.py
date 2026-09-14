@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 تحديث الصفحات الإنجليزية من العربية - بدون AI
-يستخدم Google Translate المجاني
+يستخدم Google Translate المجاني + تصحيحات يدوية
 """
 
 import os
@@ -41,7 +41,6 @@ def translate_google(text):
     if not text or not text.strip():
         return text
     
-    # إذا النص طويل، نقسمه
     if len(text) > 4000:
         parts = []
         current = ""
@@ -79,8 +78,34 @@ def translate_google(text):
     return text
 
 
+def fix_arabic(text):
+    """تصحيحات يدوية للنصوص العربية"""
+    fixes = {
+        'ريال': 'SAR',
+        'ر.س': 'SAR',
+        'سنة': 'years',
+        'سنوات': 'years',
+        'شهر': 'months',
+        'أشهر': 'months',
+        'يوم': 'days',
+        'أيام': 'days',
+        '٪': '%',
+        'السعودية': 'Saudi Arabia',
+        'حاسبها': 'Hasibha',
+        'الرئيسية': 'Home',
+        'المالية': 'Finance',
+        'الحاسبات': 'Calculators',
+        'الصحة': 'Health',
+        'التحويلات': 'Conversion',
+        'المميزات': 'Features',
+    }
+    for ar, en in fixes.items():
+        text = text.replace(ar, en)
+    return text
+
+
 def translate_html(html):
-    """يترجم HTML مع الحفاظ على الوسوم"""
+    """يترجم HTML مع الحفاظ على الوسوم + تصحيحات يدوية"""
     if not html:
         return ""
     
@@ -97,6 +122,7 @@ def translate_html(html):
         return '>' + text + '<'
     
     html = re.sub(r'>([^<>]+)<', replace_text, html)
+    html = fix_arabic(html)
     
     return html
 
@@ -315,14 +341,26 @@ def generate_en_page(page):
     fields_en = translate_html(data['fields_html'])
     print(f"  ✅ حقول ({len(fields_en)} حرف)")
     
+    # تصحيحات JavaScript
     script = data['script']
     script = script.replace("'ريال'", "'SAR'")
     script = script.replace('"ريال"', '"SAR"')
     script = script.replace("' سنة'", "' years'")
+    script = script.replace('" سنة"', '" years"')
     script = script.replace("'ar-SA'", "'en-US'")
     script = script.replace('"ar-SA"', '"en-US"')
     script = script.replace("+ ' ريال'", "+ ' SAR'")
     script = script.replace("' ريال'", "' SAR'")
+    script = script.replace(" ريال", " SAR")
+    script = script.replace("ر.س", "SAR")
+    script = script.replace("سنة", "years")
+    script = script.replace("سنوات", "years")
+    script = script.replace("شهر", "months")
+    script = script.replace("أشهر", "months")
+    script = script.replace("يوم", "days")
+    script = script.replace("أيام", "days")
+    script = script.replace("٪", "%")
+    script = script.replace("SAR' ريال", "SAR")
     
     desc = f"Free online {page['title_en']}. Instant, accurate results - no registration required."
     
