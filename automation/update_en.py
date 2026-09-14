@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 تحديث الصفحات الإنجليزية من العربية - بدون AI
-يستخدم Google Translate المجاني + تصحيحات يدوية
+Google Translate + حماية JavaScript من الترجمة
 """
 
 import os
@@ -79,7 +79,7 @@ def translate_google(text):
 
 
 def fix_arabic(text):
-    """تصحيحات يدوية للنصوص العربية"""
+    """تصحيحات يدوية"""
     fixes = {
         'ريال': 'SAR',
         'ر.س': 'SAR',
@@ -92,12 +92,6 @@ def fix_arabic(text):
         '٪': '%',
         'السعودية': 'Saudi Arabia',
         'حاسبها': 'Hasibha',
-        'الرئيسية': 'Home',
-        'المالية': 'Finance',
-        'الحاسبات': 'Calculators',
-        'الصحة': 'Health',
-        'التحويلات': 'Conversion',
-        'المميزات': 'Features',
     }
     for ar, en in fixes.items():
         text = text.replace(ar, en)
@@ -105,7 +99,7 @@ def fix_arabic(text):
 
 
 def translate_html(html):
-    """يترجم HTML مع الحفاظ على الوسوم + تصحيحات يدوية"""
+    """يترجم HTML فقط (بدون JavaScript)"""
     if not html:
         return ""
     
@@ -125,6 +119,49 @@ def translate_html(html):
     html = fix_arabic(html)
     
     return html
+
+
+def translate_js_safely(script):
+    """يترجم JavaScript بحذر - فقط النصوص بين علامات التنصيص"""
+    if not script:
+        return ""
+    
+    # نترجم فقط النصوص العربية داخل علامات التنصيص ' أو "
+    def replace_string(match):
+        quote = match.group(1)
+        text = match.group(2)
+        if not text.strip():
+            return match.group(0)
+        # نتحقق أنها تحتوي عربي
+        if re.search(r'[\u0600-\u06FF]', text):
+            translated = translate_google(text)
+            return quote + translated + quote
+        return match.group(0)
+    
+    # نطبق فقط على النصوص القصيرة (أقل من 200 حرف)
+    def safe_replace(match):
+        quote = match.group(1)
+        text = match.group(2)
+        if len(text) > 200 or not text.strip():
+            return match.group(0)
+        if not re.search(r'[\u0600-\u06FF]', text):
+            return match.group(0)
+        translated = translate_google(text)
+        return quote + translated + quote
+    
+    script = re.sub(r"(['\"])([^'\"]{1,200})\1", safe_replace, script)
+    
+    # تصحيحات JavaScript
+    script = script.replace("'ريال'", "'SAR'")
+    script = script.replace('"ريال"', '"SAR"')
+    script = script.replace("' سنة'", "' years'")
+    script = script.replace('" سنة"', '" years"')
+    script = script.replace("'ar-SA'", "'en-US'")
+    script = script.replace('"ar-SA"', '"en-US"')
+    script = script.replace(" ريال", " SAR")
+    script = script.replace("ر.س", "SAR")
+    
+    return script
 
 
 def read_ar_page(slug):
@@ -341,26 +378,9 @@ def generate_en_page(page):
     fields_en = translate_html(data['fields_html'])
     print(f"  ✅ حقول ({len(fields_en)} حرف)")
     
-    # تصحيحات JavaScript
-    script = data['script']
-    script = script.replace("'ريال'", "'SAR'")
-    script = script.replace('"ريال"', '"SAR"')
-    script = script.replace("' سنة'", "' years'")
-    script = script.replace('" سنة"', '" years"')
-    script = script.replace("'ar-SA'", "'en-US'")
-    script = script.replace('"ar-SA"', '"en-US"')
-    script = script.replace("+ ' ريال'", "+ ' SAR'")
-    script = script.replace("' ريال'", "' SAR'")
-    script = script.replace(" ريال", " SAR")
-    script = script.replace("ر.س", "SAR")
-    script = script.replace("سنة", "years")
-    script = script.replace("سنوات", "years")
-    script = script.replace("شهر", "months")
-    script = script.replace("أشهر", "months")
-    script = script.replace("يوم", "days")
-    script = script.replace("أيام", "days")
-    script = script.replace("٪", "%")
-    script = script.replace("SAR' ريال", "SAR")
+    print(f"  🌐 ترجمة JavaScript بحذر...")
+    script = translate_js_safely(data['script'])
+    print(f"  ✅ سكربت")
     
     desc = f"Free online {page['title_en']}. Instant, accurate results - no registration required."
     
@@ -409,6 +429,7 @@ def main():
     
     print(f"📊 عدد الصفحات: {len(pages_to_update)}")
     print("🌐 استخدام Google Translate (بدون AI)")
+    print("🔒 حماية JavaScript من الترجمة")
     
     for i, page in enumerate(pages_to_update, 1):
         print(f"\n[{i}/{len(pages_to_update)}] 🔨 {page['slug']}-en.html")
