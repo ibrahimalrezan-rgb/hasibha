@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-تحديث الصفحات الإنجليزية من العربية - بدون AI
-يستخرج اسم الدالة و id النتيجة من الصفحة العربية
+تحديث الصفحات الإنجليزية من العربية
+يستخرج اسم الدالة و result-card ويصحّح JS
 """
 
 import os
@@ -51,7 +51,6 @@ def translate_google(text):
                 current = line + "\n"
         if current:
             parts.append(current)
-        
         translated_parts = []
         for part in parts:
             translated_parts.append(translate_google(part))
@@ -76,9 +75,18 @@ def translate_google(text):
 
 def fix_arabic(text):
     fixes = {
-        'ريال': 'SAR', 'ر.س': 'SAR', 'سنة': 'years', 'سنوات': 'years',
-        'شهر': 'months', 'أشهر': 'months', 'يوم': 'days', 'أيام': 'days',
-        '٪': '%', 'السعودية': 'Saudi Arabia', 'حاسبها': 'Hasibha',
+        'ريال سعودي': 'SAR',
+        'ريال': 'SAR',
+        'ر.س': 'SAR',
+        'سنة': 'years',
+        'سنوات': 'years',
+        'شهر': 'months',
+        'أشهر': 'months',
+        'يوم': 'days',
+        'أيام': 'days',
+        '٪': '%',
+        'السعودية': 'Saudi Arabia',
+        'حاسبها': 'Hasibha',
     }
     for ar, en in fixes.items():
         text = text.replace(ar, en)
@@ -104,6 +112,33 @@ def translate_html(html):
     return html
 
 
+def fix_javascript(script):
+    """يصحح JavaScript: locale, عملة, أرقام عربية"""
+    # تغيير locale من ar-SA إلى en-US
+    script = script.replace("'ar-SA'", "'en-US'")
+    script = script.replace('"ar-SA"', '"en-US"')
+    script = script.replace("'ar-sa'", "'en-US'")
+    script = script.replace('"ar-sa"', '"en-US"')
+    
+    # تغيير العملة
+    script = script.replace("+ ' ريال'", "+ ' SAR'")
+    script = script.replace("+' ريال'", "+' SAR'")
+    script = script.replace('+ " ريال"', '+ " SAR"')
+    script = script.replace("' ريال'", "' SAR'")
+    script = script.replace('" ريال"', '" SAR"')
+    script = script.replace("'ريال'", "'SAR'")
+    script = script.replace('"ريال"', '"SAR"')
+    script = script.replace("+ ' ر.س'", "+ ' SAR'")
+    script = script.replace("'ر.س'", "'SAR'")
+    
+    # replace كلمات عربية
+    script = script.replace("' سنة'", "' years'")
+    script = script.replace("'سنة'", "'years'")
+    script = script.replace("+ ' سنة'", "+ ' years'")
+    
+    return script
+
+
 def read_ar_page(slug):
     path = os.path.join(ROOT_DIR, f"{slug}.html")
     if not os.path.exists(path):
@@ -114,11 +149,9 @@ def read_ar_page(slug):
     
     result = {}
     
-    # subtitle
     subtitle_match = re.search(r'<p class="subtitle">([^<]+)</p>', content)
     result['subtitle'] = subtitle_match.group(1).strip() if subtitle_match else ''
     
-    # fields
     start_match = re.search(r'</p>', content)
     end_match = re.search(r'<button class="calc-btn"', content)
     if start_match and end_match:
@@ -126,14 +159,12 @@ def read_ar_page(slug):
     else:
         result['fields_html'] = ''
     
-    # article
     article_match = re.search(
         r'<div class="article-box">(.*?)</div>\s*</div>\s*</main>',
         content, re.DOTALL
     )
     result['article'] = article_match.group(1).strip() if article_match else ''
     
-    # السكربت كامل
     scripts = re.findall(r'<script>(.*?)</script>', content, re.DOTALL)
     all_scripts = []
     for s in scripts:
@@ -144,26 +175,17 @@ def read_ar_page(slug):
         all_scripts.append(s.strip())
     result['script'] = '\n\n'.join(all_scripts)
     
-    # استخراج اسم الدالة الرئيسية من السكربت
+    # اسم الدالة من onclick
     main_func = 'calculate'
-    # نبحث في onclick
     onclick_match = re.search(r'onclick="(\w+)\(\)"', content)
     if onclick_match:
         main_func = onclick_match.group(1)
-    else:
-        # نبحث في oninput
-        oninput_match = re.search(r'oninput="(\w+)\(\)"', content)
-        if oninput_match:
-            main_func = oninput_match.group(1)
     
     result['main_func'] = main_func
-    print(f"    🎯 الدالة الرئيسية: {main_func}()")
+    print(f"    🎯 الدالة: {main_func}()")
     
-    # استخراج نتيجة div (كل ما هو داخل result-card)
-    result_match = re.search(r'<div class="result-card"[^>]*>(.*?)</div>\s*<p[^>]*>\s*\*', content, re.DOTALL)
-    if not result_match:
-        result_match = re.search(r'<div class="result-card"[^>]*>(.*?)</div>\s*<a', content, re.DOTALL)
-    
+    # result-card
+    result_match = re.search(r'<div class="result-card"[^>]*>(.*?)(?:</div>\s*<p[^>]*>\s*\*|</div>\s*<a)', content, re.DOTALL)
     result['result_html'] = result_match.group(1).strip() if result_match else ''
     
     return result
@@ -327,8 +349,6 @@ def generate_en_page(page):
         print(f"  ⚠️ لا يوجد مقال")
         return None
     
-    print(f"  📊 مقال: {len(data['article'])} حرف")
-    
     subtitle_en = translate_google(data['subtitle']) if data['subtitle'] else "Calculate instantly with our free online tool."
     print(f"  ✅ عنوان: {subtitle_en[:60]}")
     
@@ -340,22 +360,12 @@ def generate_en_page(page):
     fields_en = translate_html(data['fields_html'])
     print(f"  ✅ حقول ({len(fields_en)} حرف)")
     
-    # السكربت - لا نترجمه! فقط نستبدل النصوص العربية المعروفة
-    script = data['script']
-    script = script.replace("'ريال'", "'SAR'")
-    script = script.replace('"ريال"', '"SAR"')
-    script = script.replace("' سنة'", "' years'")
-    script = script.replace("'ar-SA'", "'en-US'")
-    script = script.replace('"ar-SA"', '"en-US"')
-    script = script.replace("+ ' ريال'", "+ ' SAR'")
-    script = script.replace("' ريال'", "' SAR'")
-    script = script.replace("+ ' ريال'", "+ ' SAR'")
-    script = script.replace("formatNumber(a)+' ريال'", "formatNumber(a)+' SAR'")
-    script = script.replace("formatNumber(a) + ' ريال'", "formatNumber(a) + ' SAR'")
-    script = script.replace("formatNumber(x)+' ريال'", "formatNumber(x)+' SAR'")
-    script = script.replace("formatNumber(x) + ' ريال'", "formatNumber(x) + ' SAR'")
+    # تصحيح JavaScript
+    script = fix_javascript(data['script'])
+    print(f"  ✅ سكربت محدث (locale= en-US, currency= SAR)")
     
-    print(f"  ✅ سكربت محدث")
+    # تصحيح result-card أيضاً
+    result_html = fix_arabic(data['result_html'])
     
     desc = f"Free online {page['title_en']}. Instant, accurate results - no registration required."
     
@@ -382,7 +392,7 @@ def generate_en_page(page):
         ]
     }
     
-    html = build_en_page(page, fields_en, article_en, subtitle_en, desc, script, schema, data['main_func'], data['result_html'])
+    html = build_en_page(page, fields_en, article_en, subtitle_en, desc, script, schema, data['main_func'], result_html)
     
     output = f"{slug}-en.html"
     output_path = os.path.join(ROOT_DIR, output)
