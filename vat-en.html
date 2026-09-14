@@ -127,7 +127,7 @@
     <label id="amountLabel" for="amountInput">Amount (excl. tax)</label>
     <p class="hint" id="amountHint">Amount Excl. of Tax</p>
     <div class="input-row">
-      <input type="number" id="amountInput" placeholder="أدخل المبلغ" oninput="updateAll()">
+      <input type="number" id="amountInput" placeholder="Enter Amount" oninput="updateAll()">
       <span style="font-weight:600;color:var(--text-2)">SAR</span>
     </div>
 
@@ -227,12 +227,12 @@ function updateAll(){
   if(mode==='add'){
     document.getElementById('amountLabel').textContent='المبلغ (بدون ضريبة)';
     document.getElementById('amountHint').textContent='أدخل المبلغ بدون الضريبة';
-    document.getElementById('baseLabel').textContent='المبلغ قبل الضريبة';
-    document.getElementById('totalLabel').textContent='المبلغ بعد الضريبة';
+    document.getElementById('baseLabel').textContent='Amount Before Tax';
+    document.getElementById('totalLabel').textContent='Amount After Tax';
   } else {
     document.getElementById('amountLabel').textContent='المبلغ (شامل الضريبة)';
     document.getElementById('amountHint').textContent='أدخل المبلغ شامل الضريبة';
-    document.getElementById('baseLabel').textContent='المبلغ قبل الضريبة';
+    document.getElementById('baseLabel').textContent='Amount Before Tax';
     document.getElementById('totalLabel').textContent='المبلغ شامل الضريبة';
   }
 
