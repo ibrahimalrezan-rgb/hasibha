@@ -1,44 +1,358 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- الصفحات العربية -->
-  <url><loc>https://hasibha.com/</loc><priority>1.0</priority></url>
-  <url><loc>https://hasibha.com/mortgage</loc><priority>0.9</priority></url>
-  <url><loc>https://hasibha.com/personal-loan</loc><priority>0.9</priority></url>
-  <url><loc>https://hasibha.com/eos</loc><priority>0.9</priority></url>
-  <url><loc>https://hasibha.com/vat</loc><priority>0.9</priority></url>
-  <url><loc>https://hasibha.com/salary</loc><priority>0.9</priority></url>
-  <url><loc>https://hasibha.com/currency</loc><priority>0.9</priority></url>
-  <url><loc>https://hasibha.com/length</loc><priority>0.8</priority></url>
-  <url><loc>https://hasibha.com/weight</loc><priority>0.8</priority></url>
-  <url><loc>https://hasibha.com/area</loc><priority>0.8</priority></url>
-  <url><loc>https://hasibha.com/bmi</loc><priority>0.8</priority></url>
-  <url><loc>https://hasibha.com/calorie</loc><priority>0.8</priority></url>
-  <url><loc>https://hasibha.com/water</loc><priority>0.8</priority></url>
-  <url><loc>https://hasibha.com/age</loc><priority>0.8</priority></url>
-  <url><loc>https://hasibha.com/discount</loc><priority>0.8</priority></url>
-  <url><loc>https://hasibha.com/date-diff</loc><priority>0.8</priority></url>
-  <url><loc>https://hasibha.com/privacy</loc><priority>0.5</priority></url>
-  <url><loc>https://hasibha.com/about</loc><priority>0.5</priority></url>
-  <url><loc>https://hasibha.com/contact</loc><priority>0.5</priority></url>
-
-  <!-- الصفحات الإنجليزية -->
-  <url><loc>https://hasibha.com/index-en</loc><priority>1.0</priority></url>
-  <url><loc>https://hasibha.com/mortgage-en</loc><priority>0.9</priority></url>
-  <url><loc>https://hasibha.com/personal-loan-en</loc><priority>0.9</priority></url>
-  <url><loc>https://hasibha.com/eos-en</loc><priority>0.9</priority></url>
-  <url><loc>https://hasibha.com/vat-en</loc><priority>0.9</priority></url>
-  <url><loc>https://hasibha.com/salary-en</loc><priority>0.9</priority></url>
-  <url><loc>https://hasibha.com/currency-en</loc><priority>0.9</priority></url>
-  <url><loc>https://hasibha.com/length-en</loc><priority>0.8</priority></url>
-  <url><loc>https://hasibha.com/weight-en</loc><priority>0.8</priority></url>
-  <url><loc>https://hasibha.com/area-en</loc><priority>0.8</priority></url>
-  <url><loc>https://hasibha.com/bmi-en</loc><priority>0.8</priority></url>
-  <url><loc>https://hasibha.com/calorie-en</loc><priority>0.8</priority></url>
-  <url><loc>https://hasibha.com/water-en</loc><priority>0.8</priority></url>
-  <url><loc>https://hasibha.com/age-en</loc><priority>0.8</priority></url>
-  <url><loc>https://hasibha.com/discount-en</loc><priority>0.8</priority></url>
-  <url><loc>https://hasibha.com/date-diff-en</loc><priority>0.8</priority></url>
-  <url><loc>https://hasibha.com/privacy-en</loc><priority>0.5</priority></url>
-  <url><loc>https://hasibha.com/about-en</loc><priority>0.5</priority></url>
-  <url><loc>https://hasibha.com/contact-en</loc><priority>0.5</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://hasibha.com/</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://hasibha.com/index-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://hasibha.com/privacy</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://hasibha.com/privacy-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://hasibha.com/about</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://hasibha.com/about-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://hasibha.com/contact</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://hasibha.com/contact-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://hasibha.com/mortgage</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/mortgage"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/mortgage-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/mortgage"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/mortgage-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/mortgage"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/mortgage-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/mortgage"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/personal-loan</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/personal-loan"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/personal-loan-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/personal-loan"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/personal-loan-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/personal-loan"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/personal-loan-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/personal-loan"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/eos</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/eos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/eos-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/eos"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/eos-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/eos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/eos-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/eos"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/vat</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/vat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/vat-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/vat"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/vat-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/vat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/vat-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/vat"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/salary</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/salary"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/salary-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/salary"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/salary-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/salary"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/salary-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/salary"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/zakat</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/zakat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/zakat-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/zakat"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/zakat-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/zakat"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/zakat-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/zakat"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/gold-value</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/gold-value"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/gold-value-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/gold-value"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/gold-value-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/gold-value"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/gold-value-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/gold-value"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/currency</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/currency"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/currency-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/currency"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/currency-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/currency"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/currency-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/currency"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/length</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/length"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/length-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/length"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/length-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/length"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/length-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/length"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/weight</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/weight"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/weight-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/weight"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/weight-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/weight"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/weight-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/weight"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/area</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/area"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/area-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/area"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/area-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/area"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/area-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/area"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/bmi</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/bmi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/bmi-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/bmi"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/bmi-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/bmi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/bmi-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/bmi"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/calorie</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/calorie"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/calorie-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/calorie"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/calorie-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/calorie"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/calorie-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/calorie"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/water</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/water"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/water-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/water"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/water-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/water"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/water-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/water"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/age</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/age"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/age-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/age"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/age-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/age"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/age-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/age"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/discount</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/discount"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/discount-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/discount"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/discount-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/discount"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/discount-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/discount"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/date-diff</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/date-diff"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/date-diff-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/date-diff"/>
+  </url>
+  <url>
+    <loc>https://hasibha.com/date-diff-en</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://hasibha.com/date-diff"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hasibha.com/date-diff-en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hasibha.com/date-diff"/>
+  </url>
 </urlset>
