@@ -16,62 +16,62 @@ on:
 jobs:
   ai-seo:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-    
+
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
-    
+
     - name: Install dependencies
       run: pip install requests
-    
-        - name: Check if content generator exists
+
+    - name: Run AI SEO Optimizer
+      if: "github.event.inputs.task == 'all' || github.event.inputs.task == 'seo_only'"
+      run: |
+        cd automation
+        python ai_seo_optimizer.py
+      env:
+        DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+
+    - name: Check if content generator exists
       id: check_content
       run: |
         if [ -f "automation/ai_content_generator.py" ]; then
           echo "exists=true" >> $GITHUB_OUTPUT
         else
           echo "exists=false" >> $GITHUB_OUTPUT
-          echo "⚠️ ai_content_generator.py غير موجود - سأتخطى"
+          echo "ai_content_generator.py not found - will skip"
         fi
 
     - name: Run AI Content Generator
-      if: (github.event.inputs.task == 'all' || github.event.inputs.task == 'content_only') && steps.check_content.outputs.exists == 'true'
+      if: "(github.event.inputs.task == 'all' || github.event.inputs.task == 'content_only') && steps.check_content.outputs.exists == 'true'"
       run: |
         cd automation
         python ai_content_generator.py
       env:
         DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-    
-    - name: Run AI Content Generator
-      if: github.event.inputs.task == 'all' || github.event.inputs.task == 'content_only'
-      run: |
-        cd automation
-        python ai_content_generator.py
-      env:
-        DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-    
+
     - name: Update English Pages
       run: |
         cd automation
         python update_en.py
-    
+
     - name: Generate Index
       run: |
         cd automation
         python generate_index.py
-    
+
     - name: Generate Sitemap
       run: |
         cd automation
         python generate_sitemap.py
-    
+
     - name: Commit and Push
       run: |
         git config user.name "Hasibha Bot"
