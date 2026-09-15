@@ -23,6 +23,8 @@ PAGES = [
     {"slug": "eos", "title_en": "End of Service Calculator", "category": "finance", "icon": "📋"},
     {"slug": "vat", "title_en": "VAT Calculator", "category": "finance", "icon": "🧾"},
     {"slug": "salary", "title_en": "Salary After Insurance", "category": "finance", "icon": "💼"},
+    {"slug": "zakat", "title_en": "Zakat Calculator", "category": "finance", "icon": "🕌"},
+    {"slug": "gold-value", "title_en": "Gold Value Calculator", "category": "finance", "icon": "🥇"},
     {"slug": "currency", "title_en": "Currency Converter", "category": "conversion", "icon": "💱"},
     {"slug": "length", "title_en": "Length Converter", "category": "conversion", "icon": "📏"},
     {"slug": "weight", "title_en": "Weight Converter", "category": "conversion", "icon": "⚖️"},
@@ -34,7 +36,6 @@ PAGES = [
     {"slug": "discount", "title_en": "Discount Calculator", "category": "general", "icon": "🏷️"},
     {"slug": "date-diff", "title_en": "Date Difference Calculator", "category": "general", "icon": "📅"},
 ]
-
 
 def translate_google(text):
     if not text or not text.strip():
@@ -54,7 +55,6 @@ def translate_google(text):
         print(f"    ⚠️ Google: {e}")
     return None
 
-
 def translate_mymemory(text):
     if not text or not text.strip():
         return text
@@ -71,7 +71,6 @@ def translate_mymemory(text):
         print(f"    ⚠️ MyMemory: {e}")
     return None
 
-
 def translate(text):
     if not text or not text.strip():
         return text
@@ -83,7 +82,6 @@ def translate(text):
     if result and result.strip():
         return result
     return text
-
 
 def fix_arabic(text):
     fixes = {
@@ -103,7 +101,6 @@ def fix_arabic(text):
     for ar, en in fixes.items():
         text = text.replace(ar, en)
     return text
-
 
 def translate_html(html):
     """يترجم HTML + placeholders"""
@@ -140,7 +137,6 @@ def translate_html(html):
     html = re.sub(r'>([^<>]+)<', replace_text, html)
     html = fix_arabic(html)
     return html
-
 
 def fix_javascript(script):
     """تصحيح JavaScript: locale, عملة, نصوص عربية شاملة"""
@@ -201,6 +197,35 @@ def fix_javascript(script):
         "❤️ تحذير — التمويل قد يشكل ضغطاً مالياً.": "❤️ Warning — Loan may cause financial stress.",
         "نسبة القسط إلى الدخل": "Debt-to-Income Ratio",
         
+        # حاسبة الزكاة
+        "النقد والمدخرات": "Cash and Savings",
+        "قيمة الذهب": "Gold Value",
+        "قيمة الفضة": "Silver Value",
+        "الاستثمارات": "Investments",
+        "النصاب": "Nisab",
+        "نصاب": "Nisab",
+        "زكاة": "Zakat",
+        "الحول": "Hawl",
+        "حول": "Hawl",
+        "الوعاء الزكوي": "Zakatable Wealth",
+        "مبلغ الزكاة": "Zakat Amount",
+        "الزكاة المستحقة": "Zakat Due",
+        "لا تجب عليك الزكاة": "Zakat is not due on you",
+        "تجب عليك الزكاة": "Zakat is due on you",
+        "نسبة الزكاة": "Zakat Rate",
+        
+        # حاسبة الذهب
+        "الوزن بالجرام": "Weight (grams)",
+        "العيار (24، 22، 21، 18)": "Karat (24, 22, 21, 18)",
+        "العيار": "Karat",
+        "عيار": "Karat",
+        "سعر الجرام الواحد": "Price per gram",
+        "سعر الجرام": "Price per gram",
+        " جرام": " grams",
+        "جرام": "grams",
+        "قيمة الذهب": "Gold Value",
+        "القيمة الإجمالية": "Total Value",
+        
         # الوحدات
         " سنة": " years",
         "سنة": "years",
@@ -238,12 +263,10 @@ def fix_javascript(script):
     
     return script
 
-
 def read_ar_page(slug):
     path = os.path.join(ROOT_DIR, f"{slug}.html")
     if not os.path.exists(path):
         return None
-    
     with open(path, 'r', encoding='utf-8') as f:
         content = f.read()
     
@@ -273,7 +296,7 @@ def read_ar_page(slug):
         if not s.strip():
             continue
         all_scripts.append(s.strip())
-    result['script'] = '\n\n'.join(all_scripts)
+    result['script'] = '\n'.join(all_scripts)
     
     main_func = 'calculate'
     onclick_match = re.search(r'onclick="(\w+)\(\)"', content)
@@ -286,7 +309,6 @@ def read_ar_page(slug):
     
     return result
 
-
 def build_en_page(page, fields_html, article_html, subtitle, desc, script, schema, main_func, result_html):
     slug = page['slug']
     title = page['title_en']
@@ -298,7 +320,6 @@ def build_en_page(page, fields_html, article_html, subtitle, desc, script, schem
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>{title} - Hasibha</title>
 <meta name="description" content="{desc}">
 <meta name="keywords" content="{title}, free calculator, online calculator">
@@ -310,7 +331,6 @@ def build_en_page(page, fields_html, article_html, subtitle, desc, script, schem
 <link rel="alternate" hreflang="ar" href="{SITE_URL}/{slug}">
 <link rel="alternate" hreflang="en" href="{SITE_URL}/{slug}-en">
 <link rel="alternate" hreflang="x-default" href="{SITE_URL}/{slug}">
-
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{SITE_URL}/{slug}-en">
@@ -323,110 +343,95 @@ def build_en_page(page, fields_html, article_html, subtitle, desc, script, schem
 <meta name="twitter:description" content="{desc}">
 <meta name="twitter:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
 <meta name="theme-color" content="#0b0d10">
-
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
-
 <script type="application/ld+json">
 {json.dumps(schema, ensure_ascii=False, indent=2)}
 </script>
-
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-
 <header class="site-header">
-  <div class="wrap header-in">
-    <a class="logo" href="/index-en" aria-label="Hasibha">
-      <img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha" style="height:36px;vertical-align:middle">
-      Hasibha
-    </a>
-    <nav class="main-nav" aria-label="Main navigation">
-      <a href="/index-en#calculators">Calculators</a>
-      <a href="/index-en#features">Features</a>
-      <a href="/index-en#faq">FAQ</a>
-    </nav>
-    <div class="header-actions">
-      <button class="theme-btn" id="themeBtn" aria-label="Theme">
-        <svg id="iconMoon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
-        <svg id="iconSun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-      </button>
-      <a class="lang-btn" href="/{slug}" hreflang="ar" lang="ar">عربي</a>
-    </div>
-  </div>
-</header>
-
-<nav class="breadcrumb">
-  <div class="wrap">
-    <a href="/index-en">🏠 Home</a>
-    <span>←</span>
-    <span style="color:var(--text);font-weight:600">{title}</span>
-  </div>
+<div class="wrap header-in">
+<a class="logo" href="/index-en" aria-label="Hasibha">
+<img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha" style="height:36px;vertical-align:middle">
+Hasibha
+</a>
+<nav class="main-nav" aria-label="Main navigation">
+<a href="/index-en#calculators">Calculators</a>
+<a href="/index-en#features">Features</a>
+<a href="/index-en#faq">FAQ</a>
 </nav>
-
+<div class="header-actions">
+<button class="theme-btn" id="themeBtn" aria-label="Theme">
+<svg id="iconMoon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+<svg id="iconSun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+</button>
+<a class="lang-btn" href="/{slug}" hreflang="ar" lang="ar">عربي</a>
+</div>
+</div>
+</header>
+<nav class="breadcrumb">
+<div class="wrap">
+<a href="/index-en">🏠 Home</a>
+<span>←</span>
+<span style="color:var(--text);font-weight:600">{title}</span>
+</div>
+</nav>
 <main>
 <div class="wrap">
-  <div class="calc-wrapper">
-    <h1>{icon} {title}</h1>
-    <p class="subtitle">{subtitle}</p>
-
+<div class="calc-wrapper">
+<h1>{icon} {title}</h1>
+<p class="subtitle">{subtitle}</p>
 {fields_html}
-
-    <button class="calc-btn" onclick="{main_func}()">Calculate</button>
-
-    <div class="result-card" id="resultCard" style="display:block">
+<button class="calc-btn" onclick="{main_func}()">Calculate</button>
+<div class="result-card" id="resultCard" style="display:block">
 {result_html}
-    </div>
-
-    <a href="/index-en" class="back-link">↩ Back to Home</a>
-  </div>
-
-  <div class="article-box">
+</div>
+<a href="/index-en" class="back-link">↩ Back to Home</a>
+</div>
+<div class="article-box">
 {article_html}
-  </div>
+</div>
 </div>
 </main>
-
 <footer class="site-footer">
-  <div class="wrap footer-in">
-    <a class="logo" href="/index-en" style="font-size:16px">
-      <img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha" style="height:28px;vertical-align:middle">
-      Hasibha
-    </a>
-    <nav aria-label="Footer">
-      <a href="/privacy-en">Privacy Policy</a>
-      <a href="/contact-en">Contact Us</a>
-      <a href="/about-en">About Us</a>
-    </nav>
-    <p>Hasibha © {year} — All Rights Reserved</p>
-  </div>
+<div class="wrap footer-in">
+<a class="logo" href="/index-en" style="font-size:16px">
+<img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha" style="height:28px;vertical-align:middle">
+Hasibha
+</a>
+<nav aria-label="Footer">
+<a href="/privacy-en">Privacy Policy</a>
+<a href="/contact-en">Contact Us</a>
+<a href="/about-en">About Us</a>
+</nav>
+<p>Hasibha © {year} — All Rights Reserved</p>
+</div>
 </footer>
-
 <script>
 (function(){{
-  var root=document.documentElement, btn=document.getElementById('themeBtn');
-  var moon=document.getElementById('iconMoon'), sun=document.getElementById('iconSun');
-  function apply(t){{
-    if(t==='dark'){{root.setAttribute('data-theme','dark');moon.style.display='none';sun.style.display='block';}}
-    else{{root.removeAttribute('data-theme');moon.style.display='block';sun.style.display='none';}}
-  }}
-  var saved=null;
-  try{{saved=localStorage.getItem('hs-theme');}}catch(e){{}}
-  if(!saved){{saved=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}}
-  apply(saved);
-  btn.addEventListener('click',function(){{
-    var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
-    apply(next);
-    try{{localStorage.setItem('hs-theme',next);}}catch(e){{}}
-  }});
+var root=document.documentElement, btn=document.getElementById('themeBtn');
+var moon=document.getElementById('iconMoon'), sun=document.getElementById('iconSun');
+function apply(t){{
+if(t==='dark'){{root.setAttribute('data-theme','dark');moon.style.display='none';sun.style.display='block';}}
+else{{root.removeAttribute('data-theme');moon.style.display='block';sun.style.display='none';}}
+}}
+var saved=null;
+try{{saved=localStorage.getItem('hs-theme');}}catch(e){{}}
+if(!saved){{saved=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}}
+apply(saved);
+btn.addEventListener('click',function(){{
+var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+apply(next);
+try{{localStorage.setItem('hs-theme',next);}}catch(e){{}}
+}});
 }})();
-
 {script}
 </script>
 </body>
 </html>
 '''
-
 
 def generate_en_page(page):
     slug = page['slug']
@@ -492,13 +497,12 @@ def generate_en_page(page):
     output_path = os.path.join(ROOT_DIR, output)
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html)
-    
     print(f"  ✅ تم إنشاء {output}")
     return output
 
-
 def main():
     pages_to_update = PAGES
+    
     if len(sys.argv) > 1 and sys.argv[1]:
         target = sys.argv[1]
         pages_to_update = [p for p in PAGES if p['slug'] == target]
@@ -518,7 +522,6 @@ def main():
             print(f"  ❌ خطأ: {e}")
     
     print("\n🎉 اكتمل!")
-
 
 if __name__ == "__main__":
     main()
