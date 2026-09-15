@@ -31,11 +31,21 @@ jobs:
     - name: Install dependencies
       run: pip install requests
     
-    - name: Run AI SEO Optimizer
-      if: github.event.inputs.task == 'all' || github.event.inputs.task == 'seo_only'
+        - name: Check if content generator exists
+      id: check_content
+      run: |
+        if [ -f "automation/ai_content_generator.py" ]; then
+          echo "exists=true" >> $GITHUB_OUTPUT
+        else
+          echo "exists=false" >> $GITHUB_OUTPUT
+          echo "⚠️ ai_content_generator.py غير موجود - سأتخطى"
+        fi
+
+    - name: Run AI Content Generator
+      if: (github.event.inputs.task == 'all' || github.event.inputs.task == 'content_only') && steps.check_content.outputs.exists == 'true'
       run: |
         cd automation
-        python ai_seo_optimizer.py
+        python ai_content_generator.py
       env:
         DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
     
