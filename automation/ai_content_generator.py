@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-توليد المحتوى الفريد بالذكاء الاصطناعي - Gemini
+توليد المحتوى الفريد - النسخة النهائية
 """
 
 import os
@@ -36,65 +36,75 @@ except ImportError:
     ]
 
 def call_gemini(prompt, max_tokens=2500):
-    """استدعاء Gemini API بنفس طريقة curl الناجحة"""
+    """استدعاء Gemini بالطريقة المؤكدة"""
     if not GEMINI_API_KEY:
         return None
     
-    models = ["gemini-1.5-flash", "gemini-flash-latest", "gemini-1.5-flash-latest"]
+    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent"
     
-    for model in models:
-        try:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
-            
-            data = json.dumps({
-                "contents": [{"parts": [{"text": prompt}]}],
-                "generationConfig": {"temperature": 0.7, "maxOutputTokens": max_tokens}
-            }).encode('utf-8')
-            
-            req = urllib.request.Request(
-                url, 
-                data=data, 
-                headers={
-                    "Content-Type": "application/json",
-                    "x-goog-api-key": GEMINI_API_KEY
-                }
-            )
-            
-            with urllib.request.urlopen(req, timeout=120) as response:
-                result = json.loads(response.read().decode('utf-8'))
-                if 'candidates' in result and result['candidates']:
-                    print(f"    ✓ نجح باستخدام {model}")
-                    return result['candidates'][0]['content']['parts'][0]['text']
-                    
-        except urllib.error.HTTPError as e:
+    try:
+        data = json.dumps({
+            "contents": [{"parts": [{"text": prompt}]}],
+            "generationConfig": {
+                "temperature": 0.7,
+                "maxOutputTokens": max_tokens
+            }
+        }).encode('utf-8')
+        
+        req = urllib.request.Request(
+            url,
+            data=data,
+            headers={
+                "Content-Type": "application/json",
+                "x-goog-api-key": GEMINI_API_KEY
+            }
+        )
+        
+        with urllib.request.urlopen(req, timeout=120) as response:
+            result = json.loads(response.read().decode('utf-8'))
+            if 'candidates' in result and result['candidates']:
+                return result['candidates'][0]['content']['parts'][0]['text']
+                
+    except urllib.error.HTTPError as e:
+        if e.code == 503:
+            print(f"    ⏳ السيرفر مزدحم، انتظار 15 ثانية...")
+            time.sleep(15)
+            try:
+                with urllib.request.urlopen(req, timeout=120) as response:
+                    result = json.loads(response.read().decode('utf-8'))
+                    if 'candidates' in result and result['candidates']:
+                        return result['candidates'][0]['content']['parts'][0]['text']
+            except:
+                pass
+        else:
             error_body = e.read().decode('utf-8', errors='ignore')
-            print(f"    ⚠️ {model} فشل: {e.code} - {error_body[:100]}")
-            continue
-        except Exception as e:
-            continue
-            
+            print(f"    ⚠️ خطأ {e.code}: {error_body[:150]}")
+    except Exception as e:
+        print(f"    ⚠️ خطأ: {e}")
+    
     return None
 
 def generate_content(page):
     prompt = f"""أنت كاتب محتوى محترف متخصص في السوق السعودي.
-اكتب مقالاً شاملاً عن "{page['title_ar']}" باللغة العربية.
+اكتب مقالاً شاملاً عن "{page['title_ar']}" باللغة العربية الفصحى.
 
 المتطلبات:
 1. عنوان رئيسي جذاب (H2) يتضمن الكلمة المفتاحية والسنة 2026
-2. مقدمة جذابة (100 كلمة) تشرح أهمية الحاسبة
-3. شرح مفصل لكيفية عمل الحاسبة (200 كلمة)
-4. مثال عملي بالأرقام الحقيقية من السوق السعودي (100 كلمة)
-5. 3 نصائح مهمة للمستخدم السعودي (100 كلمة)
-6. 3 أسئلة شائعة مع إجابات مختصرة
+2. مقدمة جذابة (100 كلمة) تشرح أهمية الحاسبة للمستخدم السعودي
+3. شرح مفصل لكيفية عمل الحاسبة (200 كلمة) مع خطوات واضحة
+4. مثال عملي بأرقام حقيقية من السوق السعودي (100 كلمة)
+5. ثلاث نصائح مهمة للمستخدم السعودي (100 كلمة)
+6. ثلاثة أسئلة شائعة مع إجابات مختصرة ودقيقة
 
 القواعد:
-- استخدم لغة عربية فصحى واضحة
-- اذكر الأرقام والنسب السعودية الحقيقية
-- اجعل المحتوى مفيد ومختلف عن المنافسين
+- اذكر الأنظمة السعودية ذات الصلة (نظام العمل، التأمينات الاجتماعية، هيئة الزكاة والضريبة والجمارك)
+- استخدم أرقام ونسب واقعية من السوق السعودي 2026
+- اجعل المحتوى فريداً ومفيداً ومختلفاً عن المنافسين
+- اكتب بأسلوب احترافي وسهل الفهم
 
-أجب فقط بمحتوى HTML صالح باستخدام الوسوم: h2, h3, p, ul, li, strong, em
-لا تستخدم أي تعليقات أو شرح إضافي.
-"""
+أجب فقط بمحتوى HTML صالح باستخدام: h2, h3, p, ul, ol, li, strong, em
+لا تستخدم أي تعليقات أو شرح خارج الوسوم."""
+    
     return call_gemini(prompt)
 
 def add_related_links(page, all_pages):
@@ -113,17 +123,23 @@ def add_related_links(page, all_pages):
     return links_html
 
 def main():
-    print("📝 توليد المحتوى الفريد...")
+    print("📝 توليد المحتوى الفريد (النسخة النهائية)...")
+    print(f"📊 عدد الحاسبات: {len(PAGES)}")
+    print(f"🎯 الموديل: gemini-flash-latest")
     
     if not GEMINI_API_KEY:
         print("❌ خطأ: GEMINI_API_KEY غير موجود")
         return
+    
+    success = 0
+    skipped = 0
     
     for i, page in enumerate(PAGES, 1):
         print(f"\n[{i}/{len(PAGES)}] 🔨 {page['title_ar']}")
         
         ar_path = os.path.join(ROOT_DIR, f"{page['slug']}.html")
         if not os.path.exists(ar_path):
+            print(f"    ⚠️ الملف غير موجود")
             continue
         
         with open(ar_path, 'r', encoding='utf-8') as f:
@@ -131,18 +147,24 @@ def main():
         
         if 'ai-content' in html:
             print(f"    ℹ️ المحتوى موجود مسبقاً")
+            skipped += 1
             continue
         
-        print(f"    🤖 جاري توليد المحتوى...")
+        print(f"    🤖 جاري التوليد...")
         content = generate_content(page)
         
         if content:
+            # تنظيف المحتوى
             content = content.strip()
-            if content.startswith('```html'): content = content[7:]
-            if content.startswith('```'): content = content[3:]
-            if content.endswith('```'): content = content[:-3]
+            if content.startswith('```html'):
+                content = content[7:]
+            if content.startswith('```'):
+                content = content[3:]
+            if content.endswith('```'):
+                content = content[:-3]
             content = content.strip()
             
+            # البحث عن مكان الإضافة
             insert_point = html.find('</div>\n</div>\n</main>')
             if insert_point == -1:
                 insert_point = html.find('</main>')
@@ -155,10 +177,19 @@ def main():
                 with open(ar_path, 'w', encoding='utf-8') as f:
                     f.write(html)
                 print(f"    ✅ تم ({len(content)} حرف)")
+                success += 1
+            else:
+                print(f"    ⚠️ لم أجد مكان للإضافة")
+        else:
+            print(f"    ❌ فشل التوليد")
         
         time.sleep(3)
     
-    print("\n🎉 اكتمل!")
+    print(f"\n{'='*60}")
+    print(f"📊 النتيجة النهائية:")
+    print(f"  ✅ تم التوليد: {success}")
+    print(f"  ℹ️ تم التخطي: {skipped}")
+    print(f"🎉 اكتمل!")
 
 if __name__ == "__main__":
     main()
