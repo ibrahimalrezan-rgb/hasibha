@@ -7,6 +7,7 @@ import os
 import json
 import time
 import urllib.request
+import urllib.error
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
@@ -35,40 +36,44 @@ except ImportError:
     ]
 
 def call_gemini(prompt):
-    """استدعاء Gemini API المجاني"""
+    """استدعاء Gemini API مع عدة موديلات"""
     if not GEMINI_API_KEY:
         print("  ⚠️ لا يوجد GEMINI_API_KEY")
         return None
     
-    try:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}"
-        
-        data = json.dumps({
-            "contents": [{
-                "parts": [{"text": prompt}]
-            }],
-            "generationConfig": {
-                "temperature": 0.7,
-                "maxOutputTokens": 2500,
-            }
-        }).encode('utf-8')
-        
-        req = urllib.request.Request(
-            url,
-            data=data,
-            headers={"Content-Type": "application/json"}
-        )
-        
-        with urllib.request.urlopen(req, timeout=120) as response:
-            result = json.loads(response.read().decode('utf-8'))
+    # قائمة الموديلات المتاحة (نجرب كل واحد حتى ينجح)
+    models = [
+        "gemini-2.5-flash",
+        "gemini-2.5-flash-lite",
+        "gemini-2.0-flash",
+        "gemini-1.5-flash",
+        "gemini-1.5-pro",
+    ]
+    
+    for model in models:
+        try:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={GEMINI_API_KEY}"
             
-            if 'candidates' in result and len(result['candidates']) > 0:
-                return result['candidates'][0]['content']['parts'][0]['text']
-            return None
+            data = json.dumps({
+                "contents": [{"parts": [{"text": prompt}]}],
+                "generationConfig": {"temperature": 0.7, "maxOutputTokens": 2500}
+            }).encode('utf-8')
             
-    except Exception as e:
-        print(f"  ⚠️ خطأ Gemini: {e}")
-        return None
+            req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
+            
+            with urllib.request.urlopen(req, timeout=120) as response:
+                result = json.loads(response.read().decode('utf-8'))
+                if 'candidates' in result and result['candidates']:
+                    print(f"    ✓ باستخدام {model}")
+                    return result['candidates'][0]['content']['parts'][0]['text']
+        except urllib.error.HTTPError as e:
+            # جرب الموديل التالي
+            continue
+        except Exception as e:
+            continue
+    
+    print("  ⚠️ فشلت جميع الموديلات")
+    return None
 
 def generate_content(page):
     """توليد محتوى فريد للحاسبة"""
