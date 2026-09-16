@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-تحسين السيو بالذكاء الاصطناعي - Gemini (مجاني) - مع تشخيص الأخطاء
+تحسين السيو بالذكاء الاصطناعي - Gemini
 """
 
 import os
@@ -36,66 +36,31 @@ except ImportError:
         {"slug": "date-diff", "title_ar": "الوقت بين تاريخين", "title_en": "Date Difference", "desc_ar": "الفارق بين أي تاريخين بالأيام والشهور والسنوات.", "desc_en": "The gap between any two dates."},
     ]
 
-def test_api_key():
-    """اختبار المفتاح أولاً"""
-    print("🔍 اختبار API Key...")
-    
-    if not GEMINI_API_KEY:
-        print("❌ المفتاح فارغ")
-        return False
-    
-    print(f"📌 طول المفتاح: {len(GEMINI_API_KEY)}")
-    print(f"📌 أول 10 أحرف: {GEMINI_API_KEY[:10]}...")
-    
-    if not GEMINI_API_KEY.startswith('AIza'):
-        print("⚠️ المفتاح لا يبدأ بـ AIza (شكل مفتاح Gemini)")
-        print("   تأكد أنك نسخت مفتاح Gemini من: aistudio.google.com/apikey")
-        return False
-    
-    # جرب قائمة الموديلات المتاحة
-    url = f"https://generativelanguage.googleapis.com/v1beta/models?key={GEMINI_API_KEY}"
-    try:
-        req = urllib.request.Request(url)
-        with urllib.request.urlopen(req, timeout=30) as response:
-            data = json.loads(response.read().decode('utf-8'))
-            if 'models' in data:
-                print(f"✅ المفتاح يعمل! عدد الموديلات المتاحة: {len(data['models'])}")
-                print("📋 الموديلات المتاحة:")
-                for m in data['models'][:10]:
-                    print(f"   - {m['name']}")
-                return True
-    except urllib.error.HTTPError as e:
-        error_body = e.read().decode('utf-8', errors='ignore')
-        print(f"❌ خطأ {e.code}: {error_body[:500]}")
-        return False
-    except Exception as e:
-        print(f"❌ خطأ: {e}")
-        return False
-
-def call_gemini(prompt):
-    """استدعاء Gemini API مع طباعة الأخطاء الحقيقية"""
+def call_gemini(prompt, max_tokens=1000):
+    """استدعاء Gemini API بنفس طريقة curl الناجحة"""
     if not GEMINI_API_KEY:
         return None
     
-    # قائمة الموديلات (نجرب كل واحد)
-    models = [
-        "gemini-2.5-flash",
-        "gemini-2.0-flash",
-        "gemini-1.5-flash",
-        "gemini-1.5-flash-latest",
-        "gemini-pro",
-    ]
+    models = ["gemini-1.5-flash", "gemini-flash-latest", "gemini-1.5-flash-latest"]
     
     for model in models:
         try:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={GEMINI_API_KEY}"
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
             
             data = json.dumps({
                 "contents": [{"parts": [{"text": prompt}]}],
-                "generationConfig": {"temperature": 0.3, "maxOutputTokens": 1000}
+                "generationConfig": {"temperature": 0.3, "maxOutputTokens": max_tokens}
             }).encode('utf-8')
             
-            req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
+            # تمرير المفتاح في الـ Header كما في curl
+            req = urllib.request.Request(
+                url, 
+                data=data, 
+                headers={
+                    "Content-Type": "application/json",
+                    "x-goog-api-key": GEMINI_API_KEY
+                }
+            )
             
             with urllib.request.urlopen(req, timeout=60) as response:
                 result = json.loads(response.read().decode('utf-8'))
@@ -104,31 +69,15 @@ def call_gemini(prompt):
                     return result['candidates'][0]['content']['parts'][0]['text']
                     
         except urllib.error.HTTPError as e:
-            # طباعة الخطأ الحقيقي
-            try:
-                error_body = e.read().decode('utf-8', errors='ignore')
-                # نطبع الخطأ فقط لأول موديل (لتجنب التكرار)
-                if model == models[0]:
-                    print(f"    ⚠️ {model}: HTTP {e.code}")
-                    print(f"       {error_body[:300]}")
-            except:
-                pass
+            error_body = e.read().decode('utf-8', errors='ignore')
+            print(f"    ⚠️ {model} فشل: {e.code} - {error_body[:100]}")
             continue
-            
-        except urllib.error.URLError as e:
-            if model == models[0]:
-                print(f"    ⚠️ خطأ شبكة: {e.reason}")
-            continue
-            
         except Exception as e:
-            if model == models[0]:
-                print(f"    ⚠️ خطأ غير متوقع: {e}")
             continue
-    
+            
     return None
 
 def generate_seo_metadata(page):
-    """توليد عنوان ووصف محسّن"""
     prompt = f"""أنت خبير سيو متخصص في السوق السعودي.
 لدي حاسبة اسمها: {page['title_ar']}
 وصفها الحالي: {page['desc_ar']}
@@ -140,7 +89,7 @@ def generate_seo_metadata(page):
 4. وصف إنجليزي محسّن (150-160 حرف)
 5. كلمات مفتاحية (5 كلمات مفصولة بفاصلة)
 
-أجب فقط بصيغة JSON صالحة بدون أي شرح:
+أجب فقط بصيغة JSON صالحة:
 {{
   "title_ar": "...",
   "description_ar": "...",
@@ -160,18 +109,15 @@ def generate_seo_metadata(page):
     return None
 
 def update_meta_tag(html, tag_name, new_value, attr='name'):
-    """تحديث وسم meta"""
     pattern = rf'<meta {attr}="{tag_name}" content="[^"]*"'
     replacement = f'<meta {attr}="{tag_name}" content="{new_value}"'
     return re.sub(pattern, replacement, html)
 
 def optimize_page(page, lang='ar'):
-    """تحسين صفحة واحدة"""
     slug = page['slug'] if lang == 'ar' else f"{page['slug']}-en"
     path = os.path.join(ROOT_DIR, f"{slug}.html")
     
     if not os.path.exists(path):
-        print(f"    ⚠️ الملف غير موجود: {slug}.html")
         return None
     
     with open(path, 'r', encoding='utf-8') as f:
@@ -206,28 +152,16 @@ def optimize_page(page, lang='ar'):
     return seo_data
 
 def main():
-    print("🤖 بدء تحسين السيو بالذكاء الاصطناعي (Gemini)...")
-    print(f"📊 عدد الحاسبات: {len(PAGES)}")
+    print("🤖 بدء تحسين السيو بالذكاء الاصطناعي...")
     
-    # اختبار المفتاح أولاً
-    if not test_api_key():
-        print("\n❌ فشل اختبار المفتاح!")
-        print("الحلول:")
-        print("1. تأكد من نسخ المفتاح من: https://aistudio.google.com/apikey")
-        print("2. تأكد من تفعيل Generative Language API في Google Cloud")
-        print("3. تأكد أن اسم الـ Secret في GitHub: GEMINI_API_KEY")
+    if not GEMINI_API_KEY:
+        print("❌ خطأ: GEMINI_API_KEY غير موجود")
         return
-    
-    print("\n✅ المفتاح يعمل! بدء التوليد...\n")
     
     for i, page in enumerate(PAGES, 1):
         print(f"\n[{i}/{len(PAGES)}] 🔨 {page['title_ar']}")
-        
-        # تحسين الصفحة العربية
         optimize_page(page, 'ar')
         time.sleep(2)
-        
-        # تحسين الصفحة الإنجليزية
         optimize_page(page, 'en')
         time.sleep(2)
     
