@@ -131,4 +131,107 @@ def generate_seo_metadata(page):
     """توليد عنوان ووصف محسّن"""
     prompt = f"""أنت خبير سيو متخصص في السوق السعودي.
 لدي حاسبة اسمها: {page['title_ar']}
-وصفها الحالي: {page['desc
+وصفها الحالي: {page['desc_ar']}
+
+أريدك تولد:
+1. عنوان عربي محسّن (50-60 حرف) يتضمن الكلمة المفتاحية والسنة 2026
+2. وصف عربي محسّن (150-160 حرف) مع دعوة للفعل
+3. عنوان إنجليزي محسّن (50-60 حرف) مع السنة 2026
+4. وصف إنجليزي محسّن (150-160 حرف)
+5. كلمات مفتاحية (5 كلمات مفصولة بفاصلة)
+
+أجب فقط بصيغة JSON صالحة بدون أي شرح:
+{{
+  "title_ar": "...",
+  "description_ar": "...",
+  "title_en": "...",
+  "description_en": "...",
+  "keywords": "..."
+}}
+"""
+    result = call_gemini(prompt)
+    if result:
+        json_match = re.search(r'\{.*\}', result, re.DOTALL)
+        if json_match:
+            try:
+                return json.loads(json_match.group())
+            except:
+                pass
+    return None
+
+def update_meta_tag(html, tag_name, new_value, attr='name'):
+    """تحديث وسم meta"""
+    pattern = rf'<meta {attr}="{tag_name}" content="[^"]*"'
+    replacement = f'<meta {attr}="{tag_name}" content="{new_value}"'
+    return re.sub(pattern, replacement, html)
+
+def optimize_page(page, lang='ar'):
+    """تحسين صفحة واحدة"""
+    slug = page['slug'] if lang == 'ar' else f"{page['slug']}-en"
+    path = os.path.join(ROOT_DIR, f"{slug}.html")
+    
+    if not os.path.exists(path):
+        print(f"    ⚠️ الملف غير موجود: {slug}.html")
+        return None
+    
+    with open(path, 'r', encoding='utf-8') as f:
+        html = f.read()
+    
+    print(f"  🤖 توليد سيو محسّن لـ {page['title_ar']}...")
+    seo_data = generate_seo_metadata(page)
+    
+    if not seo_data:
+        print(f"    ⚠️ فشل التوليد")
+        return None
+    
+    title = seo_data.get('title_ar' if lang == 'ar' else 'title_en', '')
+    desc = seo_data.get('description_ar' if lang == 'ar' else 'description_en', '')
+    keywords = seo_data.get('keywords', '')
+    
+    if title:
+        title_match = re.search(r'<title>.*?</title>', html)
+        if title_match:
+            html = re.sub(r'<title>.*?</title>', f'<title>{title}</title>', html)
+    
+    if desc:
+        html = update_meta_tag(html, 'description', desc)
+    
+    if keywords:
+        html = update_meta_tag(html, 'keywords', keywords)
+    
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(html)
+    
+    print(f"    ✅ تم التحديث: {title[:50]}")
+    return seo_data
+
+def main():
+    print("🤖 بدء تحسين السيو بالذكاء الاصطناعي (Gemini)...")
+    print(f"📊 عدد الحاسبات: {len(PAGES)}")
+    
+    # اختبار المفتاح أولاً
+    if not test_api_key():
+        print("\n❌ فشل اختبار المفتاح!")
+        print("الحلول:")
+        print("1. تأكد من نسخ المفتاح من: https://aistudio.google.com/apikey")
+        print("2. تأكد من تفعيل Generative Language API في Google Cloud")
+        print("3. تأكد أن اسم الـ Secret في GitHub: GEMINI_API_KEY")
+        return
+    
+    print("\n✅ المفتاح يعمل! بدء التوليد...\n")
+    
+    for i, page in enumerate(PAGES, 1):
+        print(f"\n[{i}/{len(PAGES)}] 🔨 {page['title_ar']}")
+        
+        # تحسين الصفحة العربية
+        optimize_page(page, 'ar')
+        time.sleep(2)
+        
+        # تحسين الصفحة الإنجليزية
+        optimize_page(page, 'en')
+        time.sleep(2)
+    
+    print("\n🎉 اكتمل تحسين السيو!")
+
+if __name__ == "__main__":
+    main()
