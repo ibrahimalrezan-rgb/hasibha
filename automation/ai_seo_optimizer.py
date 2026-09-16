@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-تحسين السيو بالذكاء الاصطناعي - Gemini (مجاني)
+تحسين السيو بالذكاء الاصطناعي - Gemini (مجاني) - مع تشخيص الأخطاء
 """
 
 import os
@@ -36,19 +36,54 @@ except ImportError:
         {"slug": "date-diff", "title_ar": "الوقت بين تاريخين", "title_en": "Date Difference", "desc_ar": "الفارق بين أي تاريخين بالأيام والشهور والسنوات.", "desc_en": "The gap between any two dates."},
     ]
 
-def call_gemini(prompt):
-    """استدعاء Gemini API مع عدة موديلات"""
+def test_api_key():
+    """اختبار المفتاح أولاً"""
+    print("🔍 اختبار API Key...")
+    
     if not GEMINI_API_KEY:
-        print("  ⚠️ لا يوجد GEMINI_API_KEY")
+        print("❌ المفتاح فارغ")
+        return False
+    
+    print(f"📌 طول المفتاح: {len(GEMINI_API_KEY)}")
+    print(f"📌 أول 10 أحرف: {GEMINI_API_KEY[:10]}...")
+    
+    if not GEMINI_API_KEY.startswith('AIza'):
+        print("⚠️ المفتاح لا يبدأ بـ AIza (شكل مفتاح Gemini)")
+        print("   تأكد أنك نسخت مفتاح Gemini من: aistudio.google.com/apikey")
+        return False
+    
+    # جرب قائمة الموديلات المتاحة
+    url = f"https://generativelanguage.googleapis.com/v1beta/models?key={GEMINI_API_KEY}"
+    try:
+        req = urllib.request.Request(url)
+        with urllib.request.urlopen(req, timeout=30) as response:
+            data = json.loads(response.read().decode('utf-8'))
+            if 'models' in data:
+                print(f"✅ المفتاح يعمل! عدد الموديلات المتاحة: {len(data['models'])}")
+                print("📋 الموديلات المتاحة:")
+                for m in data['models'][:10]:
+                    print(f"   - {m['name']}")
+                return True
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode('utf-8', errors='ignore')
+        print(f"❌ خطأ {e.code}: {error_body[:500]}")
+        return False
+    except Exception as e:
+        print(f"❌ خطأ: {e}")
+        return False
+
+def call_gemini(prompt):
+    """استدعاء Gemini API مع طباعة الأخطاء الحقيقية"""
+    if not GEMINI_API_KEY:
         return None
     
-    # قائمة الموديلات المتاحة (نجرب كل واحد حتى ينجح)
+    # قائمة الموديلات (نجرب كل واحد)
     models = [
         "gemini-2.5-flash",
-        "gemini-2.5-flash-lite",
         "gemini-2.0-flash",
         "gemini-1.5-flash",
-        "gemini-1.5-pro",
+        "gemini-1.5-flash-latest",
+        "gemini-pro",
     ]
     
     for model in models:
@@ -65,117 +100,35 @@ def call_gemini(prompt):
             with urllib.request.urlopen(req, timeout=60) as response:
                 result = json.loads(response.read().decode('utf-8'))
                 if 'candidates' in result and result['candidates']:
-                    print(f"    ✓ باستخدام {model}")
+                    print(f"    ✓ نجح باستخدام {model}")
                     return result['candidates'][0]['content']['parts'][0]['text']
+                    
         except urllib.error.HTTPError as e:
-            # جرب الموديل التالي
+            # طباعة الخطأ الحقيقي
+            try:
+                error_body = e.read().decode('utf-8', errors='ignore')
+                # نطبع الخطأ فقط لأول موديل (لتجنب التكرار)
+                if model == models[0]:
+                    print(f"    ⚠️ {model}: HTTP {e.code}")
+                    print(f"       {error_body[:300]}")
+            except:
+                pass
             continue
+            
+        except urllib.error.URLError as e:
+            if model == models[0]:
+                print(f"    ⚠️ خطأ شبكة: {e.reason}")
+            continue
+            
         except Exception as e:
+            if model == models[0]:
+                print(f"    ⚠️ خطأ غير متوقع: {e}")
             continue
     
-    print("  ⚠️ فشلت جميع الموديلات")
     return None
 
 def generate_seo_metadata(page):
     """توليد عنوان ووصف محسّن"""
     prompt = f"""أنت خبير سيو متخصص في السوق السعودي.
 لدي حاسبة اسمها: {page['title_ar']}
-وصفها الحالي: {page['desc_ar']}
-
-أريدك تولد:
-1. عنوان عربي محسّن (50-60 حرف) يتضمن الكلمة المفتاحية والسنة 2026
-2. وصف عربي محسّن (150-160 حرف) مع دعوة للفعل
-3. عنوان إنجليزي محسّن (50-60 حرف) مع السنة 2026
-4. وصف إنجليزي محسّن (150-160 حرف)
-5. كلمات مفتاحية (5 كلمات مفصولة بفاصلة)
-
-أجب فقط بصيغة JSON صالحة:
-{{
-  "title_ar": "...",
-  "description_ar": "...",
-  "title_en": "...",
-  "description_en": "...",
-  "keywords": "..."
-}}
-"""
-    result = call_gemini(prompt)
-    if result:
-        json_match = re.search(r'\{.*\}', result, re.DOTALL)
-        if json_match:
-            try:
-                return json.loads(json_match.group())
-            except:
-                pass
-    return None
-
-def update_meta_tag(html, tag_name, new_value, attr='name'):
-    """تحديث وسم meta"""
-    pattern = rf'<meta {attr}="{tag_name}" content="[^"]*"'
-    replacement = f'<meta {attr}="{tag_name}" content="{new_value}"'
-    return re.sub(pattern, replacement, html)
-
-def optimize_page(page, lang='ar'):
-    """تحسين صفحة واحدة"""
-    slug = page['slug'] if lang == 'ar' else f"{page['slug']}-en"
-    path = os.path.join(ROOT_DIR, f"{slug}.html")
-    
-    if not os.path.exists(path):
-        print(f"    ⚠️ الملف غير موجود: {slug}.html")
-        return None
-    
-    with open(path, 'r', encoding='utf-8') as f:
-        html = f.read()
-    
-    print(f"  🤖 توليد سيو محسّن لـ {page['title_ar']}...")
-    seo_data = generate_seo_metadata(page)
-    
-    if not seo_data:
-        print(f"    ⚠️ فشل التوليد")
-        return None
-    
-    title = seo_data.get('title_ar' if lang == 'ar' else 'title_en', '')
-    desc = seo_data.get('description_ar' if lang == 'ar' else 'description_en', '')
-    keywords = seo_data.get('keywords', '')
-    
-    if title:
-        # تحديث <title>
-        title_match = re.search(r'<title>.*?</title>', html)
-        if title_match:
-            html = re.sub(r'<title>.*?</title>', f'<title>{title}</title>', html)
-    
-    if desc:
-        html = update_meta_tag(html, 'description', desc)
-    
-    if keywords:
-        html = update_meta_tag(html, 'keywords', keywords)
-    
-    with open(path, 'w', encoding='utf-8') as f:
-        f.write(html)
-    
-    print(f"    ✅ تم التحديث: {title[:50]}")
-    return seo_data
-
-def main():
-    print("🤖 بدء تحسين السيو بالذكاء الاصطناعي (Gemini)...")
-    print(f"📊 عدد الحاسبات: {len(PAGES)}")
-    
-    if not GEMINI_API_KEY:
-        print("❌ خطأ: GEMINI_API_KEY غير موجود")
-        print("   أضفه في: Settings → Secrets and variables → Actions")
-        return
-    
-    for i, page in enumerate(PAGES, 1):
-        print(f"\n[{i}/{len(PAGES)}] 🔨 {page['title_ar']}")
-        
-        # تحسين الصفحة العربية
-        optimize_page(page, 'ar')
-        time.sleep(2)
-        
-        # تحسين الصفحة الإنجليزية
-        optimize_page(page, 'en')
-        time.sleep(2)
-    
-    print("\n🎉 اكتمل تحسين السيو!")
-
-if __name__ == "__main__":
-    main()
+وصفها الحالي: {page['desc
