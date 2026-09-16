@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-توليد المحتوى الفريد بالذكاء الاصطناعي - Gemini (مجاني)
+توليد المحتوى الفريد بالذكاء الاصطناعي - Gemini
 """
 
 import os
@@ -35,48 +35,47 @@ except ImportError:
         {"slug": "date-diff", "title_ar": "الوقت بين تاريخين", "category": "general"},
     ]
 
-def call_gemini(prompt):
-    """استدعاء Gemini API مع عدة موديلات"""
+def call_gemini(prompt, max_tokens=2500):
+    """استدعاء Gemini API بنفس طريقة curl الناجحة"""
     if not GEMINI_API_KEY:
-        print("  ⚠️ لا يوجد GEMINI_API_KEY")
         return None
     
-    # قائمة الموديلات المتاحة (نجرب كل واحد حتى ينجح)
-    models = [
-        "gemini-2.5-flash",
-        "gemini-2.5-flash-lite",
-        "gemini-2.0-flash",
-        "gemini-1.5-flash",
-        "gemini-1.5-pro",
-    ]
+    models = ["gemini-1.5-flash", "gemini-flash-latest", "gemini-1.5-flash-latest"]
     
     for model in models:
         try:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={GEMINI_API_KEY}"
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
             
             data = json.dumps({
                 "contents": [{"parts": [{"text": prompt}]}],
-                "generationConfig": {"temperature": 0.7, "maxOutputTokens": 2500}
+                "generationConfig": {"temperature": 0.7, "maxOutputTokens": max_tokens}
             }).encode('utf-8')
             
-            req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
+            req = urllib.request.Request(
+                url, 
+                data=data, 
+                headers={
+                    "Content-Type": "application/json",
+                    "x-goog-api-key": GEMINI_API_KEY
+                }
+            )
             
             with urllib.request.urlopen(req, timeout=120) as response:
                 result = json.loads(response.read().decode('utf-8'))
                 if 'candidates' in result and result['candidates']:
-                    print(f"    ✓ باستخدام {model}")
+                    print(f"    ✓ نجح باستخدام {model}")
                     return result['candidates'][0]['content']['parts'][0]['text']
+                    
         except urllib.error.HTTPError as e:
-            # جرب الموديل التالي
+            error_body = e.read().decode('utf-8', errors='ignore')
+            print(f"    ⚠️ {model} فشل: {e.code} - {error_body[:100]}")
             continue
         except Exception as e:
             continue
-    
-    print("  ⚠️ فشلت جميع الموديلات")
+            
     return None
 
 def generate_content(page):
-    """توليد محتوى فريد للحاسبة"""
     prompt = f"""أنت كاتب محتوى محترف متخصص في السوق السعودي.
 اكتب مقالاً شاملاً عن "{page['title_ar']}" باللغة العربية.
 
@@ -91,22 +90,17 @@ def generate_content(page):
 القواعد:
 - استخدم لغة عربية فصحى واضحة
 - اذكر الأرقام والنسب السعودية الحقيقية
-- اذكر الأنظمة السعودية ذات الصلة (نظام العمل، التأمينات، إلخ)
 - اجعل المحتوى مفيد ومختلف عن المنافسين
 
 أجب فقط بمحتوى HTML صالح باستخدام الوسوم: h2, h3, p, ul, li, strong, em
 لا تستخدم أي تعليقات أو شرح إضافي.
-لا تضع أي نص خارج الوسوم HTML.
 """
     return call_gemini(prompt)
 
 def add_related_links(page, all_pages):
-    """توليد روابط داخلية ذات صلة"""
     related = [p for p in all_pages if p.get('category') == page.get('category') and p['slug'] != page['slug']][:3]
-    
     if not related:
         related = [p for p in all_pages if p['slug'] != page['slug']][:3]
-    
     if not related:
         return ""
     
@@ -116,16 +110,13 @@ def add_related_links(page, all_pages):
     for rel in related:
         links_html += f'<li style="margin-bottom:8px"><a href="/{rel["slug"]}" style="color:var(--accent, #059669);text-decoration:none">← {rel["title_ar"]}</a></li>\n'
     links_html += '</ul>\n</div>\n'
-    
     return links_html
 
 def main():
-    print("📝 توليد المحتوى الفريد (Gemini - مجاني)...")
-    print(f"📊 عدد الحاسبات: {len(PAGES)}")
+    print("📝 توليد المحتوى الفريد...")
     
     if not GEMINI_API_KEY:
         print("❌ خطأ: GEMINI_API_KEY غير موجود")
-        print("   أضفه في: Settings → Secrets and variables → Actions")
         return
     
     for i, page in enumerate(PAGES, 1):
@@ -133,31 +124,25 @@ def main():
         
         ar_path = os.path.join(ROOT_DIR, f"{page['slug']}.html")
         if not os.path.exists(ar_path):
-            print(f"    ⚠️ الملف غير موجود: {page['slug']}.html")
             continue
         
         with open(ar_path, 'r', encoding='utf-8') as f:
             html = f.read()
         
         if 'ai-content' in html:
-            print(f"    ℹ️ المحتوى موجود مسبقاً - تم التخطي")
+            print(f"    ℹ️ المحتوى موجود مسبقاً")
             continue
         
         print(f"    🤖 جاري توليد المحتوى...")
         content = generate_content(page)
         
         if content:
-            # تنظيف المحتوى من أي markdown أو نص خارج HTML
             content = content.strip()
-            if content.startswith('```html'):
-                content = content[7:]
-            if content.startswith('```'):
-                content = content[3:]
-            if content.endswith('```'):
-                content = content[:-3]
+            if content.startswith('```html'): content = content[7:]
+            if content.startswith('```'): content = content[3:]
+            if content.endswith('```'): content = content[:-3]
             content = content.strip()
             
-            # البحث عن مكان الإضافة
             insert_point = html.find('</div>\n</div>\n</main>')
             if insert_point == -1:
                 insert_point = html.find('</main>')
@@ -170,12 +155,8 @@ def main():
                 with open(ar_path, 'w', encoding='utf-8') as f:
                     f.write(html)
                 print(f"    ✅ تم ({len(content)} حرف)")
-            else:
-                print(f"    ⚠️ لم أجد مكان للإضافة")
-        else:
-            print(f"    ❌ فشل التوليد")
         
-        time.sleep(3)  # تجنب rate limit
+        time.sleep(3)
     
     print("\n🎉 اكتمل!")
 
