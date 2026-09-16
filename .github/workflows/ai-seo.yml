@@ -37,7 +37,7 @@ jobs:
         cd automation
         python ai_seo_optimizer.py
       env:
-        DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
     - name: Check if content generator exists
       id: check_content
@@ -55,7 +55,7 @@ jobs:
         cd automation
         python ai_content_generator.py
       env:
-        DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
     - name: Update English Pages
       run: |
