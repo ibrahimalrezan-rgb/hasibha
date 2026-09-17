@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-توليد المحتوى الفريد - النسخة النهائية
+توليد المحتوى الفريد - DeepSeek (مدفوع + مضمون)
 """
 
 import os
@@ -8,9 +8,10 @@ import json
 import time
 import urllib.request
 import urllib.error
+import re
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
+DEEPSEEK_API_KEY = os.environ.get('DEEPSEEK_API_KEY', '')
 
 try:
     from config import PAGES
@@ -35,20 +36,22 @@ except ImportError:
         {"slug": "date-diff", "title_ar": "الوقت بين تاريخين", "category": "general"},
     ]
 
-def call_gemini(prompt, max_tokens=2500):
-    """استدعاء Gemini بالطريقة المؤكدة"""
-    if not GEMINI_API_KEY:
+def call_deepseek(prompt, max_tokens=2500):
+    """استدعاء DeepSeek API"""
+    if not DEEPSEEK_API_KEY:
         return None
     
-    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent"
+    url = "https://api.deepseek.com/chat/completions"
     
     try:
         data = json.dumps({
-            "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {
-                "temperature": 0.7,
-                "maxOutputTokens": max_tokens
-            }
+            "model": "deepseek-chat",
+            "messages": [
+                {"role": "system", "content": "أنت كاتب محتوى محترف متخصص في السوق السعودي. تكتب محتوى فريد ومفيد باللغة العربية الفصحى."},
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.7,
+            "max_tokens": max_tokens
         }).encode('utf-8')
         
         req = urllib.request.Request(
@@ -56,37 +59,25 @@ def call_gemini(prompt, max_tokens=2500):
             data=data,
             headers={
                 "Content-Type": "application/json",
-                "x-goog-api-key": GEMINI_API_KEY
+                "Authorization": f"Bearer {DEEPSEEK_API_KEY}"
             }
         )
         
         with urllib.request.urlopen(req, timeout=120) as response:
             result = json.loads(response.read().decode('utf-8'))
-            if 'candidates' in result and result['candidates']:
-                return result['candidates'][0]['content']['parts'][0]['text']
+            if 'choices' in result and result['choices']:
+                return result['choices'][0]['message']['content']
                 
     except urllib.error.HTTPError as e:
-        if e.code == 503:
-            print(f"    ⏳ السيرفر مزدحم، انتظار 15 ثانية...")
-            time.sleep(15)
-            try:
-                with urllib.request.urlopen(req, timeout=120) as response:
-                    result = json.loads(response.read().decode('utf-8'))
-                    if 'candidates' in result and result['candidates']:
-                        return result['candidates'][0]['content']['parts'][0]['text']
-            except:
-                pass
-        else:
-            error_body = e.read().decode('utf-8', errors='ignore')
-            print(f"    ⚠️ خطأ {e.code}: {error_body[:150]}")
+        error_body = e.read().decode('utf-8', errors='ignore')
+        print(f"    ⚠️ خطأ {e.code}: {error_body[:200]}")
     except Exception as e:
         print(f"    ⚠️ خطأ: {e}")
     
     return None
 
 def generate_content(page):
-    prompt = f"""أنت كاتب محتوى محترف متخصص في السوق السعودي.
-اكتب مقالاً شاملاً عن "{page['title_ar']}" باللغة العربية الفصحى.
+    prompt = f"""اكتب مقالاً شاملاً باللغة العربية الفصحى عن "{page['title_ar']}" للسوق السعودي.
 
 المتطلبات:
 1. عنوان رئيسي جذاب (H2) يتضمن الكلمة المفتاحية والسنة 2026
@@ -105,7 +96,7 @@ def generate_content(page):
 أجب فقط بمحتوى HTML صالح باستخدام: h2, h3, p, ul, ol, li, strong, em
 لا تستخدم أي تعليقات أو شرح خارج الوسوم."""
     
-    return call_gemini(prompt)
+    return call_deepseek(prompt)
 
 def add_related_links(page, all_pages):
     related = [p for p in all_pages if p.get('category') == page.get('category') and p['slug'] != page['slug']][:3]
@@ -123,12 +114,11 @@ def add_related_links(page, all_pages):
     return links_html
 
 def main():
-    print("📝 توليد المحتوى الفريد (النسخة النهائية)...")
+    print("📝 توليد المحتوى الفريد (DeepSeek)...")
     print(f"📊 عدد الحاسبات: {len(PAGES)}")
-    print(f"🎯 الموديل: gemini-flash-latest")
     
-    if not GEMINI_API_KEY:
-        print("❌ خطأ: GEMINI_API_KEY غير موجود")
+    if not DEEPSEEK_API_KEY:
+        print("❌ خطأ: DEEPSEEK_API_KEY غير موجود")
         return
     
     success = 0
@@ -154,7 +144,6 @@ def main():
         content = generate_content(page)
         
         if content:
-            # تنظيف المحتوى
             content = content.strip()
             if content.startswith('```html'):
                 content = content[7:]
@@ -164,7 +153,6 @@ def main():
                 content = content[:-3]
             content = content.strip()
             
-            # البحث عن مكان الإضافة
             insert_point = html.find('</div>\n</div>\n</main>')
             if insert_point == -1:
                 insert_point = html.find('</main>')
@@ -178,12 +166,10 @@ def main():
                     f.write(html)
                 print(f"    ✅ تم ({len(content)} حرف)")
                 success += 1
-            else:
-                print(f"    ⚠️ لم أجد مكان للإضافة")
         else:
             print(f"    ❌ فشل التوليد")
         
-        time.sleep(3)
+        time.sleep(1)
     
     print(f"\n{'='*60}")
     print(f"📊 النتيجة النهائية:")
