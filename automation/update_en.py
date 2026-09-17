@@ -2,6 +2,7 @@
 """
 تحديث الصفحات الإنجليزية من العربية
 Google Translate + MyMemory + تصحيحات شاملة
+يدعم الحاسبات بدون زر احسب (تحويل فوري)
 """
 
 import os
@@ -106,7 +107,7 @@ def translate_html(html):
     """يترجم HTML + placeholders"""
     if not html:
         return ""
-    
+
     def replace_placeholder(match):
         quote = match.group(1)
         value = match.group(2)
@@ -116,9 +117,9 @@ def translate_html(html):
             return match.group(0)
         translated = translate(value)
         return f'placeholder={quote}{translated}{quote}'
-    
+
     html = re.sub(r'placeholder=([\'"])([^\'"]+)\1', replace_placeholder, html)
-    
+
     def replace_text(match):
         text = match.group(1)
         if not text.strip():
@@ -133,7 +134,7 @@ def translate_html(html):
             time.sleep(0.2)
             return '>' + ' ' * leading + translated + ' ' * trailing + '<'
         return '>' + text + '<'
-    
+
     html = re.sub(r'>([^<>]+)<', replace_text, html)
     html = fix_arabic(html)
     return html
@@ -145,7 +146,6 @@ def fix_javascript(script):
     script = script.replace('"ar-SA"', '"en-US"')
     script = script.replace("'ar-sa'", "'en-US'")
     script = script.replace('"ar-sa"', '"en-US"')
-    
     # العملة
     script = script.replace("+ ' ريال'", "+ ' SAR'")
     script = script.replace("+' ريال'", "+' SAR'")
@@ -158,7 +158,7 @@ def fix_javascript(script):
     script = script.replace("+' ر.س'", "+' SAR'")
     script = script.replace("'ر.س'", "'SAR'")
     script = script.replace('"ر.س"', '"SAR"')
-    
+
     replacements = {
         # BMI التصنيفات
         "🔵 نحيف": "🔵 Underweight",
@@ -167,7 +167,6 @@ def fix_javascript(script):
         "🟠 سمنة درجة أولى": "🟠 Obesity Class I",
         "🔴 سمنة درجة ثانية": "🔴 Obesity Class II",
         "⚫ سمنة مفرطة": "⚫ Obesity Class III",
-        
         # BMI جمل ديناميكية
         "تحتاج لإنقاص ": "You need to lose ",
         "تحتاج لزيادة ": "You need to gain ",
@@ -177,7 +176,6 @@ def fix_javascript(script):
         " كجم": " kg",
         " كغم": " kg",
         " كيلوجرام": " kg",
-        
         # BMI نصوص ثابتة
         "وزنك أقل من الطبيعي": "Your weight is below normal",
         "وزنك أعلى من الطبيعي قليلاً": "Your weight is slightly above normal",
@@ -188,7 +186,6 @@ def fix_javascript(script):
         "وزنك مثالي": "Your weight is ideal",
         "أنت في النطاق الطبيعي": "You are in the normal range",
         "استمر في عاداتك الصحية": "Keep your healthy habits",
-        
         # التمويل الشخصي
         "أدخل الدخل لمعرفة التقييم": "Enter income to see assessment",
         "أدخل البيانات لمعرفة التقييم": "Enter data to see assessment",
@@ -196,36 +193,16 @@ def fix_javascript(script):
         "💛 مقبول بحذر — راقب ميزانيتك.": "💛 Acceptable with caution — Monitor your budget.",
         "❤️ تحذير — التمويل قد يشكل ضغطاً مالياً.": "❤️ Warning — Loan may cause financial stress.",
         "نسبة القسط إلى الدخل": "Debt-to-Income Ratio",
-        
+        # حاسبة الذهب
+        "الوزن بالجرام": "Weight (grams)",
+        "العيار (24، 22، 21، 18)": "Karat (24, 22, 21, 18)",
+        "سعر الجرام الواحد": "Price per gram",
+        " جرام": " grams",
         # حاسبة الزكاة
         "النقد والمدخرات": "Cash and Savings",
         "قيمة الذهب": "Gold Value",
         "قيمة الفضة": "Silver Value",
         "الاستثمارات": "Investments",
-        "النصاب": "Nisab",
-        "نصاب": "Nisab",
-        "زكاة": "Zakat",
-        "الحول": "Hawl",
-        "حول": "Hawl",
-        "الوعاء الزكوي": "Zakatable Wealth",
-        "مبلغ الزكاة": "Zakat Amount",
-        "الزكاة المستحقة": "Zakat Due",
-        "لا تجب عليك الزكاة": "Zakat is not due on you",
-        "تجب عليك الزكاة": "Zakat is due on you",
-        "نسبة الزكاة": "Zakat Rate",
-        
-        # حاسبة الذهب
-        "الوزن بالجرام": "Weight (grams)",
-        "العيار (24، 22، 21، 18)": "Karat (24, 22, 21, 18)",
-        "العيار": "Karat",
-        "عيار": "Karat",
-        "سعر الجرام الواحد": "Price per gram",
-        "سعر الجرام": "Price per gram",
-        " جرام": " grams",
-        "جرام": "grams",
-        "قيمة الذهب": "Gold Value",
-        "القيمة الإجمالية": "Total Value",
-        
         # الوحدات
         " سنة": " years",
         "سنة": "years",
@@ -233,7 +210,6 @@ def fix_javascript(script):
         "أشهر": "months",
         "يوم": "days",
         "أيام": "days",
-        
         # حقول الحاسبات المالية
         "المبلغ الممول": "Financed Amount",
         "إجمالي الفوائد": "Total Interest",
@@ -257,10 +233,8 @@ def fix_javascript(script):
         "إضافة الضريبة": "Add VAT",
         "إزالة الضريبة": "Remove VAT",
     }
-    
     for ar, en in replacements.items():
         script = script.replace(ar, en)
-    
     return script
 
 def read_ar_page(slug):
@@ -269,25 +243,36 @@ def read_ar_page(slug):
         return None
     with open(path, 'r', encoding='utf-8') as f:
         content = f.read()
-    
+
     result = {}
-    
+
     subtitle_match = re.search(r'<p class="subtitle">([^<]+)</p>', content)
     result['subtitle'] = subtitle_match.group(1).strip() if subtitle_match else ''
-    
-    start_match = re.search(r'</p>', content)
+
+    # بداية الحقول: بعد الـ subtitle مباشرة
+    start_match = re.search(r'<p class="subtitle">[^<]*</p>', content)
+    if not start_match:
+        start_match = re.search(r'</p>', content)
+
+    # نهاية الحقول: الزر إن وجد، وإلا result-card، وإلا article-box
     end_match = re.search(r'<button class="calc-btn"', content)
+    result['has_button'] = end_match is not None
+    if not end_match:
+        end_match = re.search(r'<div class="result-card"', content)
+    if not end_match:
+        end_match = re.search(r'<div class="article-box"', content)
+
     if start_match and end_match:
         result['fields_html'] = content[start_match.end():end_match.start()].strip()
     else:
         result['fields_html'] = ''
-    
+
     article_match = re.search(
         r'<div class="article-box">(.*?)</div>\s*</div>\s*</main>',
         content, re.DOTALL
     )
     result['article'] = article_match.group(1).strip() if article_match else ''
-    
+
     scripts = re.findall(r'<script>(.*?)</script>', content, re.DOTALL)
     all_scripts = []
     for s in scripts:
@@ -297,16 +282,17 @@ def read_ar_page(slug):
             continue
         all_scripts.append(s.strip())
     result['script'] = '\n'.join(all_scripts)
-    
-    main_func = 'calculate'
+
+    # الدالة الرئيسية: None إذا ما فيه زر (حاسبات التحويل الفوري)
+    main_func = None
     onclick_match = re.search(r'onclick="(\w+)\(\)"', content)
     if onclick_match:
         main_func = onclick_match.group(1)
     result['main_func'] = main_func
-    
+
     result_match = re.search(r'<div class="result-card"[^>]*>(.*?)(?:</div>\s*<p[^>]*>\s*\*|</div>\s*<a)', content, re.DOTALL)
     result['result_html'] = result_match.group(1).strip() if result_match else ''
-    
+
     return result
 
 def build_en_page(page, fields_html, article_html, subtitle, desc, script, schema, main_func, result_html):
@@ -314,7 +300,7 @@ def build_en_page(page, fields_html, article_html, subtitle, desc, script, schem
     title = page['title_en']
     icon = page['icon']
     year = datetime.now().year
-    
+    button_html = f'<button class="calc-btn" onclick="{main_func}()">Calculate</button>' if main_func else ''
     return f'''<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -384,7 +370,7 @@ Hasibha
 <h1>{icon} {title}</h1>
 <p class="subtitle">{subtitle}</p>
 {fields_html}
-<button class="calc-btn" onclick="{main_func}()">Calculate</button>
+{button_html}
 <div class="result-card" id="resultCard" style="display:block">
 {result_html}
 </div>
@@ -436,38 +422,31 @@ try{{localStorage.setItem('hs-theme',next);}}catch(e){{}}
 def generate_en_page(page):
     slug = page['slug']
     print(f"  📖 قراءة {slug}.html...")
-    
     data = read_ar_page(slug)
     if not data:
         print(f"  ⚠️ لم أجد {slug}.html")
         return None
-    
     if not data['fields_html']:
         print(f"  ⚠️ لا توجد حقول")
         return None
-    
-    print(f"    🎯 الدالة: {data['main_func']}()")
-    
+    if data['main_func']:
+        print(f"    🎯 الدالة: {data['main_func']}()")
+    else:
+        print(f"    🎯 بدون زر (تحويل فوري)")
     subtitle_en = translate(data['subtitle']) if data['subtitle'] else "Calculate instantly with our free online tool."
     print(f"  ✅ عنوان: {subtitle_en[:60]}")
-    
     print(f"  🌐 ترجمة المقال...")
     article_en = translate_html(data['article'])
     print(f"  ✅ مقال ({len(article_en)} حرف)")
-    
     print(f"  🌐 ترجمة الحقول + placeholders...")
     fields_en = translate_html(data['fields_html'])
     print(f"  ✅ حقول ({len(fields_en)} حرف)")
-    
     print(f"  🌐 ترجمة result-card...")
     result_html = translate_html(data['result_html'])
     print(f"  ✅ result-card ({len(result_html)} حرف)")
-    
     script = fix_javascript(data['script'])
     print(f"  ✅ سكربت محدث")
-    
     desc = f"Free online {page['title_en']}. Instant, accurate results - no registration required."
-    
     schema = {
         "@context": "https://schema.org",
         "@graph": [
@@ -490,9 +469,7 @@ def generate_en_page(page):
             }
         ]
     }
-    
     html = build_en_page(page, fields_en, article_en, subtitle_en, desc, script, schema, data['main_func'], result_html)
-    
     output = f"{slug}-en.html"
     output_path = os.path.join(ROOT_DIR, output)
     with open(output_path, 'w', encoding='utf-8') as f:
@@ -502,25 +479,22 @@ def generate_en_page(page):
 
 def main():
     pages_to_update = PAGES
-    
     if len(sys.argv) > 1 and sys.argv[1]:
         target = sys.argv[1]
         pages_to_update = [p for p in PAGES if p['slug'] == target]
         if not pages_to_update:
             print(f"⚠️ لم أجد صفحة: {target}")
             return
-    
     print(f"📊 عدد الصفحات: {len(pages_to_update)}")
     print("🌐 Google Translate + MyMemory")
     print("✅ ترجمة placeholders + JavaScript شاملة")
-    
+    print("✅ دعم الحاسبات بدون زر (تحويل فوري)")
     for i, page in enumerate(pages_to_update, 1):
         print(f"\n[{i}/{len(pages_to_update)}] 🔨 {page['slug']}-en.html")
         try:
             generate_en_page(page)
         except Exception as e:
             print(f"  ❌ خطأ: {e}")
-    
     print("\n🎉 اكتمل!")
 
 if __name__ == "__main__":
