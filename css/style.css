@@ -1,648 +1,65 @@
-/* ============================================================
-   حاسبها — ملف الأنماط الموحد
-   يدعم التصميم الجديد + الصفحات القديمة + الإنجليزية
-   ============================================================ */
-
-/* ============ متغيرات التصميم ============ */
-:root{
-  --bg:#ffffff;
-  --surface:#ffffff;
-  --surface-muted:#f6f7f8;
-  --text:#0b0d10;
-  --text-2:#4b5563;
-  --text-3:#8b95a1;
-  --border:#e6e8eb;
-  --brand:#0b0d10;
-  --on-brand:#ffffff;
-  --c-fin:#2563eb;
-  --c-fin-bg:#eaf1fe;
-  --c-conv:#7c3aed;
-  --c-conv-bg:#f2ecfd;
-  --c-health:#059669;
-  --c-health-bg:#e8f6f0;
-  --c-gen:#475569;
-  --c-gen-bg:#eef0f3;
-  --radius:12px;
-  --shadow:0 1px 2px rgba(11,13,16,.05);
-  --maxw:1060px;
-  --container:700px;
-}
-
-[data-theme="dark"]{
-  --bg:#0e1116;
-  --surface:#161a21;
-  --surface-muted:#12151b;
-  --text:#f3f4f6;
-  --text-2:#aab3bf;
-  --text-3:#6b7480;
-  --border:#262c36;
-  --brand:#f3f4f6;
-  --on-brand:#0b0d10;
-  --c-fin-bg:rgba(37,99,235,.16);
-  --c-conv-bg:rgba(124,58,237,.16);
-  --c-health-bg:rgba(5,150,105,.16);
-  --c-gen-bg:rgba(148,163,184,.14);
-  --shadow:none;
-}
-
-/* ============ أساسيات ============ */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:"Segoe UI",Tahoma,"Noto Kufi Arabic","Helvetica Neue",Arial,sans-serif;
-  background:var(--bg);color:var(--text);
-  line-height:1.7;-webkit-font-smoothing:antialiased;
-}
-a{color:inherit;text-decoration:none}
-button{font:inherit;cursor:pointer;background:none;border:0;color:inherit}
-svg{display:block}
-img{max-width:100%;height:auto}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
-.container{max-width:var(--container);margin:0 auto;padding:0 20px}
-:focus-visible{outline:2px solid var(--c-fin);outline-offset:2px;border-radius:4px}
-
-/* ============ الهيدر ============ */
-.site-header{
-  position:sticky;top:0;z-index:50;
-  background:color-mix(in srgb,var(--bg) 86%,transparent);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--border);
-}
-.header-in{display:flex;align-items:center;gap:20px;height:60px}
-.header-content{display:flex;justify-content:space-between;align-items:center;padding:16px 0}
-.logo{display:flex;align-items:center;gap:8px;font-size:20px;font-weight:700;color:var(--text)}
-.logo img{height:35px;vertical-align:middle;margin-inline-end:8px}
-.logo-mark{
-  width:34px;height:34px;border-radius:9px;flex:none;
-  background:var(--brand);color:var(--on-brand);
-  display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;
-}
-.main-nav{display:flex;gap:4px;margin-inline-start:8px}
-.main-nav a{padding:6px 12px;border-radius:8px;font-size:14px;color:var(--text-2);transition:.15s}
-.main-nav a:hover{background:var(--surface-muted);color:var(--text)}
-.header-actions{margin-inline-start:auto;display:flex;align-items:center;gap:8px}
-.lang-btn,.theme-btn{
-  border:1px solid var(--border);border-radius:8px;padding:6px 12px;
-  font-size:13px;color:var(--text);background:var(--surface);transition:.15s;
-}
-.lang-btn:hover,.theme-btn:hover{border-color:var(--text)}
-.theme-btn{width:34px;height:34px;padding:0;display:flex;align-items:center;justify-content:center}
-
-/* ============ Hero ============ */
-.hero{padding:72px 0 48px;text-align:center;background:linear-gradient(135deg,#ecfdf5,#f0fdf4)}
-[data-theme="dark"] .hero{background:linear-gradient(135deg,#0e1116,#12151b)}
-.badge{
-  display:inline-flex;align-items:center;gap:6px;
-  border:1px solid var(--border);border-radius:999px;
-  padding:4px 14px;font-size:12.5px;color:var(--text-2);
-  background:var(--surface);
-}
-.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--c-health)}
-.hero h1,.hero-title{font-size:clamp(30px,5.4vw,48px);font-weight:800;line-height:1.25;margin:18px 0 10px;color:var(--text)}
-.hero .lead,.hero-desc{color:var(--text-2);font-size:17px;max-width:560px;margin:0 auto 28px;line-height:1.8}
-.hero-logo{height:80px;margin-bottom:20px}
-.hero-sub{font-size:18px;color:var(--text-3);font-style:italic}
-
-/* شريط البحث */
-.searchbox{
-  display:flex;align-items:center;gap:8px;max-width:580px;margin:0 auto;
-  background:var(--surface);border:1.5px solid var(--border);border-radius:14px;
-  padding:6px 6px 6px 18px;box-shadow:var(--shadow);transition:border-color .15s;
-}
-.searchbox:focus-within{border-color:var(--text)}
-.searchbox svg{flex:none;color:var(--text-3)}
-.searchbox input{
-  flex:1;border:0;outline:0;background:transparent;font-size:15.5px;
-  color:var(--text);padding:10px 0;min-width:0;
-}
-.searchbox input::placeholder{color:var(--text-3)}
-.search-go{
-  background:var(--brand);color:var(--on-brand);border-radius:10px;
-  padding:10px 24px;font-size:14.5px;font-weight:600;transition:.15s;
-}
-.search-go:hover{opacity:.85}
-.kbd-hint{font-size:11.5px;color:var(--text-3);margin-top:8px}
-.kbd{
-  border:1px solid var(--border);border-bottom-width:2px;border-radius:5px;
-  padding:0 6px;font-size:11px;background:var(--surface-muted);
-}
-
-/* الاقتراحات */
-.quick-chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px}
-.chip{
-  border:1px solid var(--border);border-radius:999px;background:var(--surface);
-  padding:6px 15px;font-size:13px;color:var(--text-2);transition:.15s;
-}
-.chip:hover{border-color:var(--text);color:var(--text)}
-
-/* الإحصائيات */
-.stats{display:flex;gap:0;justify-content:center;margin-top:40px;flex-wrap:wrap}
-.stat{padding:0 32px;text-align:center}
-.stat + .stat{border-inline-start:1px solid var(--border)}
-.stat b{display:block;font-size:21px;font-weight:700;font-variant-numeric:tabular-nums}
-.stat span{font-size:12.5px;color:var(--text-3)}
-
-/* ============ أقسام الحاسبات ============ */
-.calc-section{padding:36px 0 8px}
-.main-content{padding:40px 0}
-.category-section{margin-bottom:48px}
-.section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px}
-.section-head h2,.category-title{font-size:23px;font-weight:700;margin-bottom:18px}
-.section-head span{font-size:13px;color:var(--text-3)}
-.tabs{
-  display:flex;gap:4px;flex-wrap:wrap;
-  border-bottom:1px solid var(--border);margin-bottom:20px;
-}
-.tab{
-  padding:10px 16px;font-size:14.5px;color:var(--text-2);
-  border-bottom:2px solid transparent;margin-bottom:-1px;transition:.15s;
-}
-.tab:hover{color:var(--text)}
-.tab.on{color:var(--text);border-bottom-color:var(--text);font-weight:600}
-
-/* شبكة البطاقات */
-.grid,.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:14px}
-.card,.calc-card{
-  display:flex;flex-direction:column;gap:12px;
-  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-  padding:18px;transition:border-color .15s,transform .15s;
-}
-.card:hover,.calc-card:hover{border-color:var(--text);transform:translateY(-2px);box-shadow:0 8px 24px rgba(5,150,105,0.12)}
-.card-top{display:flex;align-items:center;gap:12px}
-.card-icon{
-  width:42px;height:42px;border-radius:10px;flex:none;
-  display:flex;align-items:center;justify-content:center;font-size:22px;
-}
-.card-icon svg{width:21px;height:21px}
-.fin  .card-icon{background:var(--c-fin-bg);color:var(--c-fin)}
-.conv .card-icon{background:var(--c-conv-bg);color:var(--c-conv)}
-.health .card-icon{background:var(--c-health-bg);color:var(--c-health)}
-.gen  .card-icon{background:var(--c-gen-bg);color:var(--c-gen)}
-.card h3,.calc-card h3{font-size:15.5px;font-weight:600;color:var(--text)}
-.card p,.calc-card p{font-size:13px;color:var(--text-3);line-height:1.6}
-.card-cta{
-  margin-top:auto;display:inline-flex;align-items:center;gap:6px;
-  font-size:13.5px;font-weight:600;color:var(--text-2);transition:gap .15s,color .15s;
-}
-.card:hover .card-cta{gap:10px;color:var(--text)}
-.empty-msg{
-  grid-column:1/-1;text-align:center;padding:44px 20px;
-  border:1.5px dashed var(--border);border-radius:var(--radius);
-  color:var(--text-3);font-size:14.5px;
-}
-
-/* ============ المميزات ============ */
-.features{padding:56px 0 8px}
-.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:22px}
-.feature{background:var(--surface-muted);border-radius:var(--radius);padding:20px}
-.feature .f-ic{width:38px;height:38px;border-radius:9px;background:var(--surface);
-  border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
-.feature .f-ic svg{width:19px;height:19px;color:var(--text-2)}
-.feature b{display:block;font-size:14.5px;margin-bottom:4px}
-.feature span{font-size:13px;color:var(--text-3);line-height:1.7}
-
-/* ============ FAQ ============ */
-.faq{padding:56px 0}
-.faq details{
-  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-  margin-bottom:10px;overflow:hidden;
-}
-.faq summary{
-  list-style:none;cursor:pointer;padding:16px 20px;font-size:15px;font-weight:600;
-  display:flex;justify-content:space-between;align-items:center;gap:12px;
-}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{
-  content:"+";font-size:20px;color:var(--text-3);flex:none;transition:transform .2s;
-}
-.faq details[open] summary::after{transform:rotate(45deg)}
-.faq .faq-a{padding:0 20px 16px;color:var(--text-2);font-size:14px;line-height:1.8}
-
-/* ============ الفوتر ============ */
-.site-footer{border-top:1px solid var(--border);padding:32px 0;margin-top:24px;background:var(--surface)}
-.footer-in{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-.footer-in nav,.footer-links{display:flex;gap:18px;flex-wrap:wrap}
-.footer-in nav a,.footer-in p,.footer-links a{font-size:13px;color:var(--text-3)}
-.footer-in nav a:hover,.footer-links a:hover{color:var(--text)}
-
-/* ============ صفحات الحاسبات ============ */
-.breadcrumb{background:var(--surface);padding:12px 0;font-size:13px;color:var(--text-3);border-bottom:1px solid var(--border)}
-.breadcrumb a{color:var(--c-health);text-decoration:none}
-.breadcrumb span{margin:0 4px}
-.calc-wrapper{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px 24px;margin:30px auto;max-width:700px}
-.calc-wrapper h1{text-align:center;color:var(--c-health);font-size:22px;margin-bottom:4px}
-.subtitle{text-align:center;color:var(--text-2);font-size:14px;margin-bottom:28px}
-label{display:block;font-weight:600;margin-bottom:6px;font-size:15px;color:var(--text)}
-.hint{font-size:12px;color:var(--text-3);margin-bottom:10px}
-.input-row{display:flex;gap:10px;margin-bottom:20px;align-items:center}
-.input-row input{padding:14px 16px;border:2px solid var(--border);border-radius:12px;font-size:16px;text-align:right;flex:1;background:var(--surface);color:var(--text)}
-.input-row input:focus{outline:none;border-color:var(--c-health)}
-.unit-select{width:100%;padding:14px 16px;border:2px solid var(--border);border-radius:12px;font-size:15px;background:var(--surface);color:var(--text);cursor:pointer;margin-bottom:16px}
-.full-width{margin-bottom:20px}
-.full-width select{width:100%;padding:14px 16px;border:2px solid var(--border);border-radius:12px;font-size:15px;background:var(--surface);color:var(--text);cursor:pointer}
-.calc-btn{width:100%;background:var(--c-health);color:#fff;border:none;padding:16px;border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;margin-top:8px;transition:.15s}
-.calc-btn:hover{opacity:.9}
-.result-card{background:var(--c-health-bg);border:2px solid var(--c-health);border-radius:16px;padding:28px;text-align:center;margin-top:24px;display:none}
-.result-card.show{display:block}
-.result-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
-.result-row:last-child{border-bottom:none;margin-top:8px;padding-top:16px;border-top:2px solid var(--c-health)}
-.result-label{color:var(--text-2);font-size:14px}
-.result-value{font-weight:700;font-size:18px;color:var(--text)}
-.result-value.big{font-size:24px;color:var(--c-health)}
-.slider-group{margin-bottom:24px}
-.slider-value{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.slider-value span{font-size:20px;font-weight:700;color:var(--c-health)}
-input[type=range]{width:100%;height:6px;background:var(--border);border-radius:3px;outline:none;-webkit-appearance:none}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;background:var(--c-health);border-radius:50%;cursor:pointer;border:3px solid var(--surface);box-shadow:0 2px 6px rgba(0,0,0,0.2)}
-.labels{display:flex;justify-content:space-between;font-size:12px;color:var(--text-3);margin-top:4px}
-.percent-input{display:flex;align-items:center;gap:8px;margin-bottom:20px}
-.percent-input input{flex:1;padding:14px 16px;border:2px solid var(--border);border-radius:12px;font-size:16px;text-align:right;background:var(--surface);color:var(--text)}
-.percent-input input:focus{outline:none;border-color:var(--c-health)}
-.percent-input span{font-size:24px;font-weight:700;color:var(--text-2)}
-.radio-group{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
-.radio-option{flex:1;min-width:100px}
-.radio-option input{display:none}
-.radio-option label{display:block;text-align:center;padding:14px;border:2px solid var(--border);border-radius:12px;cursor:pointer;font-weight:600;font-size:14px;transition:.2s;background:var(--surface);color:var(--text-2)}
-.radio-option input:checked+label{border-color:var(--c-health);background:var(--c-health-bg);color:var(--c-health)}
-.vat-badge{text-align:center;margin-bottom:24px}
-.vat-badge span{background:var(--c-health-bg);color:var(--c-health);font-weight:700;font-size:24px;padding:8px 20px;border-radius:12px;border:2px solid var(--c-health);display:inline-block}
-
-/* BMI + عناصر مشتركة */
-.bmi-value,.calorie-value,.water-value{font-size:48px;font-weight:900;color:var(--c-health)}
-.bmi-category{font-size:20px;font-weight:700;margin-top:8px}
-.bmi-detail{color:var(--text-2);font-size:15px;margin-top:12px;line-height:2}
-.weight-info,.ideal-range,.cups-info{background:var(--surface);border-radius:12px;padding:16px;margin-top:16px}
-.weight-info p,.ideal-range p,.cups-info p{color:var(--text-2);font-size:14px;margin-bottom:8px}
-.weight-info strong,.ideal-range strong,.cups-info strong{color:var(--c-health)}
-.ideal-range strong{font-size:18px}
-.calorie-label,.water-label{color:var(--text-2);font-size:14px}
-.goals{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:20px}
-.goal-box{background:var(--surface);border-radius:10px;padding:16px 8px}
-.goal-box .val{font-weight:700;font-size:20px;color:var(--text)}
-.goal-box .lbl{font-size:11px;color:var(--text-3);margin-top:4px}
-.goal-box.lose .val{color:#ef4444}
-.goal-box.maintain .val{color:var(--c-health)}
-.goal-box.gain .val{color:#eab308}
-.result-box{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin-top:24px;display:none;line-height:2}
-.result-box.show{display:block}
-.section-title{font-size:18px;font-weight:700;color:var(--c-health);margin-bottom:12px;border-bottom:2px solid var(--c-health);padding-bottom:8px}
-.highlight{color:var(--c-health);font-weight:700;font-size:16px}
-.divider{margin:20px 0;border-top:1px dashed var(--border)}
-.zodiac-btn{display:inline-block;margin-top:12px;background:var(--c-health);color:#fff;padding:10px 20px;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;cursor:pointer;border:none}
-.age-main{font-size:40px;font-weight:900;color:var(--c-health)}
-.age-details{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
-.age-item,.diff-item{background:var(--surface);border-radius:10px;padding:16px 8px;text-align:center}
-.age-item .val,.diff-item .val{font-weight:700;font-size:22px;color:var(--text)}
-.age-item .lbl,.diff-item .lbl{font-size:11px;color:var(--text-3);margin-top:4px}
-.main-diff{font-size:36px;font-weight:900;color:var(--c-health)}
-.details-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
-.live-badge{text-align:center;margin-bottom:20px}
-.live-badge span{background:var(--c-health-bg);color:var(--c-health);font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600;display:inline-block}
-.search-box{position:relative;margin-bottom:16px}
-.search-box input{width:100%;padding:14px 16px;border:2px solid var(--border);border-radius:12px;font-size:15px;text-align:right;background:var(--surface);color:var(--text)}
-.search-box input:focus{outline:none;border-color:var(--c-health)}
-.currency-select{width:100%;padding:14px 16px;border:2px solid var(--border);border-radius:12px;font-size:15px;background:var(--surface);color:var(--text);cursor:pointer;margin-bottom:16px;max-height:200px}
-.swap-btn{text-align:center;margin:12px 0}
-.swap-btn button{background:var(--surface-muted);border:2px solid var(--border);border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;color:var(--text)}
-.converted-amount{font-size:36px;font-weight:900;color:var(--c-health);word-break:break-all}
-.rate-info{color:var(--text-2);font-size:13px;margin-top:8px}
-.loading{text-align:center;color:var(--text-3);font-size:14px;padding:12px}
-
-/* المقالات */
-.article-box,.seo-text{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;margin-top:32px;text-align:right;line-height:2.3}
-.article-box h2,.seo-text h2{font-size:22px;color:var(--c-health);margin-bottom:24px;border-bottom:3px solid var(--c-health);padding-bottom:12px}
-.article-box h3{font-size:18px;color:var(--text);margin:24px 0 12px}
-.article-box p,.seo-text p{color:var(--text-2);font-size:15px;margin-bottom:14px}
-.article-box ul,.article-box ol{color:var(--text-2);font-size:14px;padding-right:20px;margin-bottom:14px}
-.article-box .tip{background:var(--c-health-bg);border-right:4px solid var(--c-health);padding:16px;margin:16px 0;border-radius:8px}
-.article-box .warning{background:#fef3c7;border-right:4px solid #eab308;padding:16px;margin:16px 0;border-radius:8px;color:#92400e}
-.article-box .example{background:var(--surface-muted);border:1px solid var(--border);border-radius:12px;padding:16px;margin:16px 0}
-.article-box .ref{color:var(--text-3);font-size:13px;margin-top:24px;padding-top:16px;border-top:1px solid var(--border)}
-.back-link{display:inline-block;margin-top:20px;color:var(--c-health);text-decoration:underline;font-size:14px}
-
-/* ============ تجاوب ============ */
-@media (max-width:720px){
-  .main-nav{display:none}
-  .stats{gap:16px}
-  .stat{padding:0 16px}
-  .hero{padding:48px 0 32px}
-  .search-go{padding:10px 16px}
-}
-
-@media (max-width:600px){
-  .hero-title,.hero h1{font-size:30px}
-  .grid,.cards-grid{grid-template-columns:1fr 1fr;gap:10px}
-  .card,.calc-card{padding:14px 12px}
-  .card h3,.calc-card h3{font-size:14px}
-  .card p,.calc-card p{font-size:12px}
-  .calc-wrapper{padding:20px 16px}
-  .article-box,.seo-text{padding:20px 16px}
-  .bmi-value,.calorie-value,.water-value{font-size:36px}
-  .age-main{font-size:32px}
-  .main-diff{font-size:28px}
-  .goals{grid-template-columns:1fr}
-  .age-details{grid-template-columns:1fr 1fr}
-  .details-grid{grid-template-columns:1fr}
-  .result-box{padding:16px}
-}
-
-/* ============ دعم الصفحات الإنجليزية (LTR) ============ */
-html[dir="ltr"],
-html[lang="en"]{
-  direction:ltr;
-}
-
-html[dir="ltr"] body,
-html[lang="en"] body{
-  direction:ltr;
-  text-align:left;
-}
-
-/* الحقول */
-html[dir="ltr"] .input-row input,
-html[lang="en"] .input-row input,
-html[dir="ltr"] .percent-input input,
-html[lang="en"] .percent-input input{
-  text-align:left;
-}
-
-/* المقالات */
-html[dir="ltr"] .article-box,
-html[lang="en"] .article-box,
-html[dir="ltr"] .seo-text,
-html[lang="en"] .seo-text{
-  text-align:left;
-  direction:ltr;
-}
-
-html[dir="ltr"] .article-box ul,
-html[lang="en"] .article-box ul,
-html[dir="ltr"] .article-box ol,
-html[lang="en"] .article-box ol{
-  padding-right:0;
-  padding-left:20px;
-}
-
-html[dir="ltr"] .article-box .tip,
-html[lang="en"] .article-box .tip{
-  border-right:none;
-  border-left:4px solid var(--c-health);
-}
-
-html[dir="ltr"] .article-box .warning,
-html[lang="en"] .article-box .warning{
-  border-right:none;
-  border-left:4px solid #eab308;
-}
-
-/* الفوتر */
-html[dir="ltr"] .footer-in nav,
-html[lang="en"] .footer-in nav{
-  direction:ltr;
-}
-
-/* أزرار الإذاعة */
-html[dir="ltr"] .radio-option label,
-html[lang="en"] .radio-option label{
-  direction:ltr;
-}
-
-/* الموقع الرئيسي */
-html[dir="ltr"] .hero,
-html[lang="en"] .hero,
-html[dir="ltr"] .section-head,
-html[lang="en"] .section-head,
-html[dir="ltr"] .category-title,
-html[lang="en"] .category-title{
-  text-align:left;
-}
-
-html[dir="ltr"] .hero,
-html[lang="en"] .hero{
-  text-align:center;
-}
-/* ================================
-   AI Generated Content
-   ================================ */
-
-.ai-content {
-    margin-top: 32px;
-    padding: 32px;
-    background: var(--card);
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    line-height: 1.9;
-}
-
-.ai-content h2 {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--text);
-    margin-bottom: 20px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid var(--accent);
-}
-
-.ai-content h3 {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text);
-    margin-top: 24px;
-    margin-bottom: 12px;
-}
-
-.ai-content p {
-    color: var(--text-secondary);
-    margin-bottom: 16px;
-    font-size: 15px;
-}
-
-.ai-content ul,
-.ai-content ol {
-    padding-right: 20px;
-    margin-bottom: 16px;
-}
-
-.ai-content li {
-    color: var(--text-secondary);
-    margin-bottom: 8px;
-    font-size: 15px;
-}
-
-.ai-content strong {
-    color: var(--text);
-    font-weight: 700;
-}
-
-.ai-content em {
-    color: var(--accent);
-    font-style: normal;
-}
-
-/* Related Calculators Section */
-.related-calculators {
-    margin-top: 32px;
-    padding: 24px;
-    background: var(--card);
-    border-radius: 20px;
-    border: 1px solid var(--border);
-}
-
-.related-calculators h3 {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.related-calculators ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px;
-}
-
-.related-calculators li {
-    margin: 0;
-}
-
-.related-calculators a {
-    display: block;
-    padding: 12px 16px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    color: var(--text);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.related-calculators a:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* Dark Mode Support */
-[data-theme="dark"] .ai-content,
-[data-theme="dark"] .related-calculators {
-    background: var(--card);
-    border-color: var(--border);
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .ai-content {
-        padding: 20px;
-    }
-    
-    .ai-content h2 {
-        font-size: 20px;
-    }
-    
-    .ai-content h3 {
-        font-size: 16px;
-    }
-    
-    .related-calculators ul {
-        grid-template-columns: 1fr;
-    }
-    /* =====================================================
-   المحتوى المولد بالذكاء الاصطناعي + دعم الوضع الداكن
+/* =====================================================
+   AI CONTENT FIX v3 - المحتوى المولد + إصلاح الوضع الداكن
+   (ألوان صريحة بدون متغيرات + !important لتجاوز الستايل الداخلي)
    ===================================================== */
-:root {
-    --ai-card: #ffffff;
-    --ai-border: #e2e8f0;
-    --ai-text: #1e293b;
-    --ai-soft: #475569;
-    --ai-accent: #059669;
-}
-
-[data-theme="dark"] {
-    --ai-card: #141920;
-    --ai-border: #2a313b;
-    --ai-text: #e8edf3;
-    --ai-soft: #a6b0bb;
-    --ai-accent: #10b981;
-}
-
-.ai-content {
+.ai-content,
+.related-calculators {
     margin-top: 32px;
-    padding: 32px;
-    background: var(--ai-card) !important;
-    border: 1px solid var(--ai-border) !important;
+    padding: 28px;
     border-radius: 20px;
-    color: var(--ai-text) !important;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
     line-height: 1.9;
 }
 
 .ai-content h2 {
     font-size: 24px;
     font-weight: 800;
-    color: var(--ai-text) !important;
     margin-bottom: 20px;
     padding-bottom: 12px;
-    border-bottom: 2px solid var(--ai-accent);
+    border-bottom: 2px solid #059669;
+    color: #1e293b;
 }
 
 .ai-content h3 {
     font-size: 18px;
     font-weight: 700;
-    color: var(--ai-text) !important;
-    margin-top: 24px;
-    margin-bottom: 12px;
+    margin: 24px 0 12px;
+    color: #1e293b;
 }
 
 .ai-content p {
-    color: var(--ai-soft) !important;
     margin-bottom: 16px;
     font-size: 15px;
+    color: #475569;
 }
 
 .ai-content ul,
 .ai-content ol {
-    padding-right: 20px;
-    padding-left: 20px;
+    padding: 0 20px;
     margin-bottom: 16px;
 }
 
 .ai-content li {
-    color: var(--ai-soft) !important;
     margin-bottom: 8px;
     font-size: 15px;
+    color: #475569;
 }
 
 .ai-content strong {
-    color: var(--ai-text) !important;
-    font-weight: 700;
+    color: #1e293b;
 }
 
 .ai-content em {
-    color: var(--ai-accent) !important;
+    color: #059669;
     font-style: normal;
-}
-
-.related-calculators {
-    margin-top: 32px;
-    padding: 24px;
-    background: var(--ai-card) !important;
-    border: 1px solid var(--ai-border) !important;
-    border-radius: 20px;
 }
 
 .related-calculators h3 {
     font-size: 18px;
     font-weight: 700;
-    color: var(--ai-text) !important;
     margin-bottom: 16px;
+    color: #1e293b;
 }
 
 .related-calculators ul {
@@ -661,22 +78,62 @@ html[lang="en"] .hero{
 .related-calculators a {
     display: block;
     padding: 12px 16px;
-    background: transparent !important;
-    border: 1px solid var(--ai-border) !important;
+    border: 1px solid #e2e8f0;
     border-radius: 12px;
-    color: var(--ai-text) !important;
+    color: #1e293b;
     text-decoration: none;
     font-size: 14px;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: all .3s ease;
+    background: transparent;
 }
 
 .related-calculators a:hover {
-    border-color: var(--ai-accent) !important;
-    color: var(--ai-accent) !important;
+    border-color: #059669;
+    color: #059669;
     transform: translateY(-2px);
 }
 
+/* ========== الوضع الداكن - الإصلاح النهائي ========== */
+html[data-theme="dark"] .ai-content,
+html[data-theme="dark"] .related-calculators {
+    background: #12161c !important;
+    border-color: #262c35 !important;
+    color: #e8edf3 !important;
+}
+
+html[data-theme="dark"] .ai-content h2,
+html[data-theme="dark"] .ai-content h3,
+html[data-theme="dark"] .ai-content strong,
+html[data-theme="dark"] .related-calculators h3 {
+    color: #f2f5f8 !important;
+}
+
+html[data-theme="dark"] .ai-content h2 {
+    border-bottom-color: #10b981 !important;
+}
+
+html[data-theme="dark"] .ai-content p,
+html[data-theme="dark"] .ai-content li {
+    color: #b7c1cc !important;
+}
+
+html[data-theme="dark"] .ai-content em {
+    color: #10b981 !important;
+}
+
+html[data-theme="dark"] .related-calculators a {
+    background: transparent !important;
+    border-color: #262c35 !important;
+    color: #e8edf3 !important;
+}
+
+html[data-theme="dark"] .related-calculators a:hover {
+    border-color: #10b981 !important;
+    color: #10b981 !important;
+}
+
+/* ========== الجوال ========== */
 @media (max-width: 768px) {
     .ai-content {
         padding: 20px;
@@ -690,4 +147,4 @@ html[lang="en"] .hero{
     .related-calculators ul {
         grid-template-columns: 1fr;
     }
-} 
+}
