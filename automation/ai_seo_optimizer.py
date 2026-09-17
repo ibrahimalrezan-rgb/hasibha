@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-تحسين السيو بالذكاء الاصطناعي - النسخة النهائية
+تحسين السيو بالذكاء الاصطناعي - DeepSeek (مدفوع + مضمون)
 """
 
 import os
@@ -11,7 +11,7 @@ import urllib.request
 import urllib.error
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
+DEEPSEEK_API_KEY = os.environ.get('DEEPSEEK_API_KEY', '')
 
 try:
     from config import PAGES
@@ -36,21 +36,24 @@ except ImportError:
         {"slug": "date-diff", "title_ar": "الوقت بين تاريخين", "title_en": "Date Difference", "desc_ar": "الفارق بين أي تاريخين بالأيام والشهور والسنوات.", "desc_en": "The gap between any two dates."},
     ]
 
-def call_gemini(prompt, max_tokens=1000):
-    """استدعاء Gemini بالطريقة المؤكدة: Header + gemini-flash-latest"""
-    if not GEMINI_API_KEY:
+def call_deepseek(prompt, max_tokens=1000):
+    """استدعاء DeepSeek API"""
+    if not DEEPSEEK_API_KEY:
+        print("  ⚠️ DEEPSEEK_API_KEY غير موجود")
         return None
     
-    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent"
+    url = "https://api.deepseek.com/chat/completions"
     
     try:
         data = json.dumps({
-            "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {
-                "temperature": 0.3,
-                "maxOutputTokens": max_tokens,
-                "responseMimeType": "application/json"
-            }
+            "model": "deepseek-chat",
+            "messages": [
+                {"role": "system", "content": "أنت خبير سيو متخصص في السوق السعودي. تجيب فقط بالـ JSON المطلوب بدون أي شرح إضافي."},
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.3,
+            "max_tokens": max_tokens,
+            "response_format": {"type": "json_object"}
         }).encode('utf-8')
         
         req = urllib.request.Request(
@@ -58,83 +61,56 @@ def call_gemini(prompt, max_tokens=1000):
             data=data,
             headers={
                 "Content-Type": "application/json",
-                "x-goog-api-key": GEMINI_API_KEY
+                "Authorization": f"Bearer {DEEPSEEK_API_KEY}"
             }
         )
         
         with urllib.request.urlopen(req, timeout=60) as response:
             result = json.loads(response.read().decode('utf-8'))
-            if 'candidates' in result and result['candidates']:
-                return result['candidates'][0]['content']['parts'][0]['text']
+            if 'choices' in result and result['choices']:
+                return result['choices'][0]['message']['content']
                 
     except urllib.error.HTTPError as e:
-        if e.code == 503:
-            print(f"    ⏳ السيرفر مزدحم، انتظار 10 ثواني...")
-            time.sleep(10)
-            try:
-                with urllib.request.urlopen(req, timeout=60) as response:
-                    result = json.loads(response.read().decode('utf-8'))
-                    if 'candidates' in result and result['candidates']:
-                        return result['candidates'][0]['content']['parts'][0]['text']
-            except:
-                pass
-        else:
-            error_body = e.read().decode('utf-8', errors='ignore')
-            print(f"    ⚠️ خطأ {e.code}: {error_body[:150]}")
+        error_body = e.read().decode('utf-8', errors='ignore')
+        print(f"    ⚠️ خطأ {e.code}: {error_body[:200]}")
     except Exception as e:
         print(f"    ⚠️ خطأ: {e}")
     
     return None
 
 def generate_seo_metadata(page):
-    prompt = f"""You are an SEO expert for the Saudi Arabian market.
-Generate optimized SEO metadata for this calculator:
+    prompt = f"""أنت خبير سيو متخصص في السوق السعودي.
+لدي حاسبة اسمها: {page['title_ar']}
+وصفها الحالي: {page['desc_ar']}
 
-Arabic Name: {page['title_ar']}
-Arabic Description: {page['desc_ar']}
-English Name: {page['title_en']}
-English Description: {page['desc_en']}
+أولد لي:
+1. title_ar: عنوان عربي محسّن (50-60 حرف) يتضمن الكلمة المفتاحية والسنة 2026
+2. description_ar: وصف عربي محسّن (150-160 حرف) مع دعوة للفعل
+3. title_en: عنوان إنجليزي محسّن (50-60 حرف) مع السنة 2026
+4. description_en: وصف إنجليزي محسّن (150-160 حرف) مع دعوة للفعل
+5. keywords: 5 كلمات مفتاحية مفصولة بفاصلة
 
-Return valid JSON with these exact fields:
+أجب فقط بصيغة JSON صالحة بهذا الشكل:
 {{
-  "title_ar": "Arabic title 50-60 chars, include 2026 and main keyword",
-  "description_ar": "Arabic description 150-160 chars with call to action",
-  "title_en": "English title 50-60 chars, include 2026 and main keyword",
-  "description_en": "English description 150-160 chars with call to action",
-  "keywords": "5 keywords separated by comma"
-}}
-
-Rules:
-- Include year 2026 in titles
-- Main keyword at the beginning
-- Add compelling call-to-action
-- Target Saudi users specifically"""
+  "title_ar": "...",
+  "description_ar": "...",
+  "title_en": "...",
+  "description_en": "...",
+  "keywords": "..."
+}}"""
     
-    result = call_gemini(prompt)
+    result = call_deepseek(prompt)
     if result:
-        # تنظيف الرد من أي علامات
-        result = result.strip()
-        if result.startswith('```json'):
-            result = result[7:]
-        if result.startswith('```'):
-            result = result[3:]
-        if result.endswith('```'):
-            result = result[:-3]
-        result = result.strip()
-        
-        # البحث عن JSON
-        json_match = re.search(r'\{[\s\S]*\}', result)
-        if json_match:
-            try:
-                return json.loads(json_match.group())
-            except:
-                pass
-        # محاولة مباشرة
         try:
             return json.loads(result)
         except:
-            pass
-    
+            # محاولة استخراج JSON من النص
+            match = re.search(r'\{[\s\S]*\}', result)
+            if match:
+                try:
+                    return json.loads(match.group())
+                except:
+                    pass
     return None
 
 def update_meta_tag(html, tag_name, new_value):
@@ -188,12 +164,11 @@ def optimize_page(page, lang='ar'):
     return None
 
 def main():
-    print("🤖 بدء تحسين السيو (النسخة النهائية)...")
+    print("🤖 بدء تحسين السيو (DeepSeek)...")
     print(f"📊 عدد الحاسبات: {len(PAGES)}")
-    print(f"🎯 الموديل: gemini-flash-latest")
     
-    if not GEMINI_API_KEY:
-        print("❌ خطأ: GEMINI_API_KEY غير موجود")
+    if not DEEPSEEK_API_KEY:
+        print("❌ خطأ: DEEPSEEK_API_KEY غير موجود")
         return
     
     success = 0
@@ -202,23 +177,21 @@ def main():
     for i, page in enumerate(PAGES, 1):
         print(f"\n[{i}/{len(PAGES)}] 🔨 {page['title_ar']}")
         
-        # العربية
         print(f"  📄 الصفحة العربية...")
         if optimize_page(page, 'ar'):
             success += 1
         else:
             fail += 1
         
-        time.sleep(2)
+        time.sleep(1)
         
-        # الإنجليزية
         print(f"  📄 الصفحة الإنجليزية...")
         if optimize_page(page, 'en'):
             success += 1
         else:
             fail += 1
         
-        time.sleep(2)
+        time.sleep(1)
     
     print(f"\n{'='*60}")
     print(f"📊 النتيجة النهائية:")
