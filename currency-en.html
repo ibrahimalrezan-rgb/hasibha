@@ -1,136 +1,294 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Currency Converter 2026: Live Exchange Rates</title>
-    <meta name="description" content="Convert between SAR, USD, EUR and 150+ currencies with real-time rates. Fast, accurate, and free. Try it now!">
-    <meta name="keywords" content="تحويل العملات, سعر الصرف, ريال سعودي, دولار, يورو">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://hasibha.com/currency-en">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
-        .container{max-width:700px;margin:0 auto;padding:0 20px}
-        .site-header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 0}
-        .header-content{display:flex;justify-content:space-between;align-items:center}
-        .logo{font-size:26px;font-weight:800;color:#059669;text-decoration:none}
-        .logo img{height:35px;vertical-align:middle;margin-right:8px}
-        .lang-btn{background:#f1f5f9;border:1px solid #e2e8f0;padding:8px 16px;border-radius:8px;font-size:14px;color:#475569;text-decoration:none}
-        .calc-wrapper{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:28px 24px;margin:30px auto}
-        .calc-wrapper h1{text-align:center;color:#064e3b;font-size:22px;margin-bottom:4px}
-        .subtitle{text-align:center;color:#64748b;font-size:14px;margin-bottom:20px}
-        .live-badge{text-align:center;margin-bottom:20px}
-        .live-badge span{background:#f0fdf4;color:#059669;font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600}
-        label{display:block;font-weight:600;margin-bottom:6px;font-size:15px}
-        .input-row{display:flex;gap:10px;margin-bottom:16px;align-items:center}
-        .input-row input{padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:18px;text-align:left;flex:1;font-weight:700}
-        .input-row input:focus{outline:none;border-color:#059669}
-        .search-box{position:relative;margin-bottom:16px}
-        .search-box input{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;text-align:left}
-        .search-box input:focus{outline:none;border-color:#059669}
-        .currency-select{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;background:#fff;color:#1e293b;cursor:pointer;margin-bottom:16px;max-height:200px}
-        .swap-btn{text-align:center;margin:12px 0}
-        .swap-btn button{background:#f1f5f9;border:2px solid #e2e8f0;border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer}
-        .result-card{background:#f0fdf4;border:2px solid #059669;border-radius:16px;padding:24px;text-align:center;margin-top:20px;display:none}
-        .result-card .converted-amount{font-size:36px;font-weight:900;color:#059669;word-break:break-all}
-        .result-card .rate-info{color:#64748b;font-size:13px;margin-top:8px}
-        .article-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin-top:32px;text-align:left;line-height:2.3}
-        .article-box h2{font-size:22px;color:#064e3b;margin-bottom:24px;border-bottom:3px solid #059669;padding-bottom:12px}
-        .article-box h3{font-size:18px;color:#1e293b;margin:24px 0 12px}
-        .article-box p{color:#475569;font-size:15px;margin-bottom:14px}
-        .article-box .tip{background:#f0fdf4;border-left:4px solid #059669;padding:16px;margin:16px 0;border-radius:8px}
-        .article-box .ref{color:#64748b;font-size:13px;margin-top:24px;padding-top:16px;border-top:1px solid #e2e8f0}
-        .back-link{display:inline-block;margin-top:20px;color:#059669;text-decoration:underline;font-size:14px}
-        .loading{text-align:center;color:#94a3b8;font-size:14px;padding:12px}
-        @media(max-width:600px){.calc-wrapper{padding:20px 16px}.article-box{padding:20px 16px}}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Currency Converter - Hasibha</title>
+<meta name="description" content="Free online Currency Converter. Instant, accurate results - no registration required.">
+<meta name="keywords" content="Currency Converter, free calculator, online calculator">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="Hasibha">
+<link rel="canonical" href="https://hasibha.com/currency-en">
+<link rel="icon" type="image/png" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+<link rel="apple-touch-icon" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+<link rel="alternate" hreflang="ar" href="https://hasibha.com/currency">
+<link rel="alternate" hreflang="en" href="https://hasibha.com/currency-en">
+<link rel="alternate" hreflang="x-default" href="https://hasibha.com/currency">
+<meta property="og:title" content="Currency Converter">
+<meta property="og:description" content="Free online Currency Converter. Instant, accurate results - no registration required.">
+<meta property="og:url" content="https://hasibha.com/currency-en">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+<meta property="og:site_name" content="Hasibha">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Currency Converter">
+<meta name="twitter:description" content="Free online Currency Converter. Instant, accurate results - no registration required.">
+<meta name="twitter:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+<meta name="theme-color" content="#0b0d10">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hasibha.com/index-en"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Currency Converter",
+          "item": "https://hasibha.com/currency-en"
+        }
+      ]
+    },
+    {
+      "@type": "WebApplication",
+      "name": "Currency Converter",
+      "description": "Free online Currency Converter. Instant, accurate results - no registration required.",
+      "url": "https://hasibha.com/currency-en",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "inLanguage": "en-US",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "SAR"
+      }
+    }
+  ]
+}
+</script>
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<header class="site-header">
+<div class="wrap header-in">
+<a class="logo" href="/index-en" aria-label="Hasibha">
+<img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha" style="height:36px;vertical-align:middle">
+Hasibha
+</a>
+<nav class="main-nav" aria-label="Main navigation">
+<a href="/index-en#calculators">Calculators</a>
+<a href="/index-en#features">Features</a>
+<a href="/index-en#faq">FAQ</a>
+</nav>
+<div class="header-actions">
+<button class="theme-btn" id="themeBtn" aria-label="Theme">
+<svg id="iconMoon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+<svg id="iconSun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+</button>
+<a class="lang-btn" href="/currency" hreflang="ar" lang="ar">عربي</a>
+</div>
+</div>
+</header>
+<nav class="breadcrumb">
+<div class="wrap">
+<a href="/index-en">🏠 Home</a>
+<span>←</span>
+<span style="color:var(--text);font-weight:600">Currency Converter</span>
+</div>
+</nav>
+<main>
+<div class="wrap">
+<div class="calc-wrapper">
+<h1>💱 Currency Converter</h1>
+<p class="subtitle">Live exchange rates - search by country or currency</p>
+<div class="live-badge"><span>🟢 Prices are live</span></div>
 
-<header class="site-header"><div class="container"><div class="header-content">
-    <a href="/index-en" class="logo"><img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha"> Hasibha</a>
-    <div style="display:flex;gap:12px;align-items:center">
-        <a href="/currency" class="lang-btn">عربي</a>
-        <a href="/index-en" class="lang-btn">Home</a>
+    <label for="amountInput">Amount</label>
+    <div class="input-row">
+      <input type="number" id="amountInput" value="1" oninput="convert()" placeholder="Enter the amount">
     </div>
-</div></div></header>
 
-<main><div class="container"><div class="calc-wrapper">
-    <h1>💱 Currency Converter</h1>
-    <p class="subtitle">Live Exchange Rates - Search by Country or Currency</p>
-    <div class="live-badge"><span>🟢 Live Rates</span></div>
-    
-    <label>Amount</label>
-    <div class="input-row"><input type="number" id="amountInput" value="1" oninput="convert()" placeholder="Enter amount"></div>
-    
-    <label>From Currency</label>
-    <div class="search-box"><input type="text" id="searchFrom" placeholder="🔍 Search country or currency..." oninput="filterCurrencies('from')"></div>
+    <label for="searchFrom">Of currency</label>
+    <div class="search-box">
+      <input type="text" id="searchFrom" placeholder="🔍 Search by country or currency..." oninput="filterCurrencies('from')">
+    </div>
     <select class="currency-select" id="fromCurrency" onchange="convert()" size="5"></select>
-    
-    <div class="swap-btn"><button onclick="swapCurrencies()">↕️</button></div>
-    
-    <label>To Currency</label>
-    <div class="search-box"><input type="text" id="searchTo" placeholder="🔍 Search country or currency..." oninput="filterCurrencies('to')"></div>
-    <select class="currency-select" id="toCurrency" onchange="convert()" size="5"></select>
-    
-    <div class="result-card" id="resultCard">
-        <div class="converted-amount" id="convertedAmount">0</div>
-        <div class="rate-info" id="rateInfo">Exchange Rate: --</div>
-    </div>
-    
-    <div class="loading" id="loading">⏳ Loading rates...</div>
-    
-    <div class="article-box">
-        <h2>🗂️ Currency Converter Guide</h2>
-        <h3>How It Works</h3>
-        <p>Hasibha's currency converter uses live and updated exchange rates from reliable sources. Search by country name or currency name and select from the list.</p>
-        <h3>Supported Currencies</h3>
-        <p>We support over 160 world currencies including all Arab and global currencies. Search by country like "Saudi" or by currency like "Riyal".</p>
-        <div class="tip">💡 <strong>Tip:</strong> Type part of the country or currency name in the search box and results will appear instantly.</div>
-        <p class="ref"><strong>Rate Source:</strong> ExchangeRate-API | Saudi Central Bank (SAMA.gov.sa)</p>
-    </div>
-    
-    <a href="/index-en" class="back-link">↩ Back to Home</a>
-</div></div></main>
 
+    <div class="swap-btn"><button onclick="swapCurrencies()">↕️</button></div>
+
+    <label for="searchTo">To currency</label>
+    <div class="search-box">
+      <input type="text" id="searchTo" placeholder="🔍 Search by country or currency..." oninput="filterCurrencies('to')">
+    </div>
+    <select class="currency-select" id="toCurrency" onchange="convert()" size="5"></select>
+<button class="calc-btn" onclick="swapCurrencies()">Calculate</button>
+<div class="result-card" id="resultCard" style="display:block">
+<div class="converted-amount" id="convertedAmount">0</div>
+      <div class="rate-info" id="rateInfo">Exchange rate: --</div>
+    </div>
+
+    <div class="loading" id="loading">⏳ جاري تحميل الأسعار...
+</div>
+<a href="/index-en" class="back-link">↩ Back to Home</a>
+</div>
+<div class="article-box">
+<h2>🗂️ Currency conversion and exchange rates guide</h2>
+
+    <h3>How does a currency converter work?</h3>
+    <p>The currency converter from its computer uses direct exchange rates from reliable sources. Search for the country or currency you want in the search box and choose it from the list.</p>
+
+    <h3>Supported currencies</h3>
+    <p>We support more than 160 global currencies, including all Arab and international countries. Search by country name, such as “Saudi Arabia,” or by currency name, such as “SAR.”</p>
+
+    <div class="tip">💡 <strong>advice:</strong> Type part of the name of the country or currency in the search box and the results will appear directly to you.</div>
+
+    <h3>Factors affecting exchange rates</h3>
+    <ul>
+      <li>Interest rates in central banks.</li>
+      <li>Inflation rates.</li>
+      <li>Political and economic stability.</li>
+      <li>Supply and demand in the currency market.</li>
+    </ul>
+
+    <p class="ref"><strong>Price source:</strong> ExchangeRate-API | Central Bank of Saudi Arabia (SAMA.gov.sa)</p>
+  
+<div class="ai-content" style="margin-top:32px;padding:24px;background:var(--card, #fff);border-radius:16px;border:1px solid var(--border, #e2e8f0)">
+<h2>Currency conversion calculator in Saudi Arabia 2026: Your comprehensive guide to converting riyals, dollars, and euros</h2>
+
+<p>With the growth of e-commerce and the rise in resident conversions, it has become <strong>Currency conversion calculator</strong> An essential tool for every user in the Kingdom of Saudi Arabia. Whether you are a merchant importing goods in dollars, a resident transferring money to his family in Egyptian pounds or Pakistani rupees, or a traveler planning his trip budget in euros, knowing the spot exchange rate saves you unjustified financial losses. In 2026, with the Saudi riyal linked to the dollar at a fixed rate of approximately 3.75 riyals, the prices of other currencies will remain variable daily, making relying on a digital calculator indispensable for making an accurate financial decision.</p>
+
+<h3>How does the currency conversion calculator work?</h3>
+
+<p>The currency conversion calculator is based on the real-time exchange rate set by central banks and exchange companies, usually updated every minutes via reliable APIs. The mechanism of action is simple but precise, and takes place through the following steps:</p>
+
+<ol>
+<li><strong>Choose source currency:</strong> Select the currency you have, such as the Saudi Riyal (SAR).</li>
+<li><strong>Choose the target currency:</strong> Choose the currency you want to convert to, such as dollars (USD) or UAE dirhams (AED).</li>
+<li><strong>Enter amount:</strong> Type the value to be converted digitally.</li>
+<li><strong>Exchange rate application:</strong> The calculator multiplies the amount by the current exchange rate, adding the profit margin charged by banks or exchange companies.</li>
+<li><strong>Show result:</strong> The final value is shown in the target currency, with the ability to reverse the process with one click.</li>
+</ol>
+
+<p>It is important to note that the exchange rate displayed in the calculator may differ from the actual price upon implementation, because Saudi banks such as Al Rajhi and Al Ahli add a margin ranging between 0.5% and 1.5% on international transfers. Some platforms also impose fixed fees starting from 10 riyals per transaction. According to instructions <strong>Zakat, Tax and Customs Authority</strong>The 15% VAT is calculated on the transfer fee, not on the transferred amount itself. As for companies, <strong>Work system</strong> Saudi Arabia requires establishments to document employee salary transfers through the Wage Protection System, which makes the accuracy of the transfer a regulatory matter and not optional.</p>
+
+<h3>A practical example from the Saudi market</h3>
+
+<p>Suppose that a resident of Riyadh wants to transfer 5,000 Saudi riyals to his family in Egypt through one of the licensed exchange companies. If the exchange rate of the US dollar is 3.75 riyals, and the exchange rate of the Egyptian pound against the dollar is 49.50 pounds, the calculator first calculates: 5000 ÷ 3.75 = 1333.33 dollars. Then multiply the result by the Egyptian exchange rate: 1333.33 x 49.50 = 65,999.84 Egyptian pounds. By adding a transfer fee of 15 riyals and a value-added tax of 2.25 riyals, the total paid becomes 5,017.25 riyals, while the beneficiary receives about 65,999 pounds. This example shows how fees and margins affect the final value.</p>
+
+<h3>Three important tips for the Saudi user</h3>
+
+<ul>
+<li><strong>Compare providers:</strong> Don't rely on one bank; Licensed exchange companies often offer better rates than banks by up to 0.8%.</li>
+<li><strong>Monitor the transfer timing:</strong> Avoid transferring on Fridays and public holidays, as spreads widen and settlement is delayed.</li>
+<li><strong>Document large conversions:</strong> If the amount exceeds SAR 50,000, keep the transfer receipt for purposes <strong>Social insurance</strong> Or tax audit, especially for companies subject to the electronic invoicing system.</li>
+</ul>
+
+<h3>Frequently asked questions</h3>
+
+<p><strong>Is the exchange rate fixed in Saudi Arabia?</strong><br> The riyal is linked to the dollar at approximately 3.75, but the prices of other currencies, such as the euro and the pound, change daily according to the global market.</p>
+
+<p><strong>Does the Zakat, Tax and Customs Authority impose a tax on currency transfer?</strong><br> Yes, a 15% VAT is charged on the transfer fee only, not on the original amount transferred.</p>
+
+<p><strong>What is the best way to transfer salaries to employees?</strong><br> It is recommended to use the wage protection system through local banks, to ensure compliance with the labor system and avoid fines that may reach 10,000 riyals.</p>
+</div>
+
+<div class="related-calculators" style="margin-top:32px;padding:24px;background:var(--card, #fff);border-radius:16px;border:1px solid var(--border, #e2e8f0)">
+<h3 style="margin-bottom:16px;font-size:18px">Related calculators</h3>
+<ul style="list-style:none;padding:0;margin:0">
+<li style="margin-bottom:8px"><a href="/length" style="color:var(--accent, #059669);text-decoration:none">← Length conversion</a></li>
+<li style="margin-bottom:8px"><a href="/weight" style="color:var(--accent, #059669);text-decoration:none">← Weight conversion</a></li>
+<li style="margin-bottom:8px"><a href="/area" style="color:var(--accent, #059669);text-decoration:none">← Convert space</a></li>
+</ul>
+</div>
+</div>
+</div>
+</main>
+<footer class="site-footer">
+<div class="wrap footer-in">
+<a class="logo" href="/index-en" style="font-size:16px">
+<img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha" style="height:28px;vertical-align:middle">
+Hasibha
+</a>
+<nav aria-label="Footer">
+<a href="/privacy-en">Privacy Policy</a>
+<a href="/contact-en">Contact Us</a>
+<a href="/about-en">About Us</a>
+</nav>
+<p>Hasibha © 2026 — All Rights Reserved</p>
+</div>
+</footer>
 <script>
+(function(){
+var root=document.documentElement, btn=document.getElementById('themeBtn');
+var moon=document.getElementById('iconMoon'), sun=document.getElementById('iconSun');
+function apply(t){
+if(t==='dark'){root.setAttribute('data-theme','dark');moon.style.display='none';sun.style.display='block';}
+else{root.removeAttribute('data-theme');moon.style.display='block';sun.style.display='none';}
+}
+var saved=null;
+try{saved=localStorage.getItem('hs-theme');}catch(e){}
+if(!saved){saved=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}
+apply(saved);
+btn.addEventListener('click',function(){
+var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+apply(next);
+try{localStorage.setItem('hs-theme',next);}catch(e){}
+});
+})();
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  var moon=document.getElementById('iconMoon'), sun=document.getElementById('iconSun');
+  function apply(t){
+    if(t==='dark'){root.setAttribute('data-theme','dark');moon.style.display='none';sun.style.display='block';}
+    else{root.removeAttribute('data-theme');moon.style.display='block';sun.style.display='none';}
+  }
+  var saved=null;
+  try{saved=localStorage.getItem('hs-theme');}catch(e){}
+  if(!saved){saved=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}
+  apply(saved);
+  btn.addEventListener('click',function(){
+    var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    apply(next);
+    try{localStorage.setItem('hs-theme',next);}catch(e){}
+  });
+})();
+
+document.getElementById('year').textContent=new Date().getFullYear();
+
 var rates = {};
 var currencyNames = {
-    AED: "UAE - Dirham", AFN: "Afghanistan - Afghani", ALL: "Albania - Lek", AMD: "Armenia - Dram", ANG: "Netherlands Antilles - Guilder",
-    AOA: "Angola - Kwanza", ARS: "Argentina - Peso", AUD: "Australia - Dollar", AWG: "Aruba - Florin", AZN: "Azerbaijan - Manat",
-    BAM: "Bosnia - Mark", BBD: "Barbados - Dollar", BDT: "Bangladesh - Taka", BGN: "Bulgaria - Lev", BHD: "Bahrain - Dinar",
-    BIF: "Burundi - Franc", BMD: "Bermuda - Dollar", BND: "Brunei - Dollar", BOB: "Bolivia - Boliviano", BRL: "Brazil - Real",
-    BSD: "Bahamas - Dollar", BTN: "Bhutan - Ngultrum", BWP: "Botswana - Pula", BYN: "Belarus - Ruble", BZD: "Belize - Dollar",
-    CAD: "Canada - Dollar", CDF: "Congo - Franc", CHF: "Switzerland - Franc", CLP: "Chile - Peso", CNY: "China - Yuan",
-    COP: "Colombia - Peso", CRC: "Costa Rica - Colon", CUP: "Cuba - Peso", CVE: "Cape Verde - Escudo", CZK: "Czech - Koruna",
-    DJF: "Djibouti - Franc", DKK: "Denmark - Krone", DOP: "Dominican Republic - Peso", DZD: "Algeria - Dinar", EGP: "Egypt - Pound",
-    ERN: "Eritrea - Nakfa", ETB: "Ethiopia - Birr", EUR: "Europe - Euro", FJD: "Fiji - Dollar", FKP: "Falkland - Pound",
-    FOK: "Faroe - Krona", GBP: "UK - Pound Sterling", GEL: "Georgia - Lari", GHS: "Ghana - Cedi",
-    GIP: "Gibraltar - Pound", GMD: "Gambia - Dalasi", GNF: "Guinea - Franc", GTQ: "Guatemala - Quetzal", GYD: "Guyana - Dollar",
-    HKD: "Hong Kong - Dollar", HNL: "Honduras - Lempira", HRK: "Croatia - Kuna", HTG: "Haiti - Gourde", HUF: "Hungary - Forint",
-    IDR: "Indonesia - Rupiah", INR: "India - Rupee", IQD: "Iraq - Dinar", IRR: "Iran - Rial",
-    ISK: "Iceland - Krona", JMD: "Jamaica - Dollar", JOD: "Jordan - Dinar", JPY: "Japan - Yen", KES: "Kenya - Shilling",
-    KGS: "Kyrgyzstan - Som", KHR: "Cambodia - Riel", KMF: "Comoros - Franc", KRW: "South Korea - Won",
-    KWD: "Kuwait - Dinar", KYD: "Cayman - Dollar", KZT: "Kazakhstan - Tenge", LAK: "Laos - Kip", LBP: "Lebanon - Pound",
-    LKR: "Sri Lanka - Rupee", LRD: "Liberia - Dollar", LSL: "Lesotho - Loti", LYD: "Libya - Dinar", MAD: "Morocco - Dirham",
-    MDL: "Moldova - Leu", MGA: "Madagascar - Ariary", MKD: "Macedonia - Denar", MMK: "Myanmar - Kyat", MNT: "Mongolia - Tugrik",
-    MOP: "Macau - Pataca", MRU: "Mauritania - Ouguiya", MUR: "Mauritius - Rupee", MVR: "Maldives - Rufiyaa", MWK: "Malawi - Kwacha",
-    MXN: "Mexico - Peso", MYR: "Malaysia - Ringgit", MZN: "Mozambique - Metical", NAD: "Namibia - Dollar", NGN: "Nigeria - Naira",
-    NIO: "Nicaragua - Cordoba", NOK: "Norway - Krone", NPR: "Nepal - Rupee", NZD: "New Zealand - Dollar", OMR: "Oman - Rial",
-    PAB: "Panama - Balboa", PEN: "Peru - Sol", PGK: "Papua New Guinea - Kina", PHP: "Philippines - Peso", PKR: "Pakistan - Rupee",
-    PLN: "Poland - Zloty", PYG: "Paraguay - Guarani", QAR: "Qatar - Riyal", RON: "Romania - Leu", RSD: "Serbia - Dinar",
-    RUB: "Russia - Ruble", RWF: "Rwanda - Franc", SAR: "Saudi Arabia - Riyal", SBD: "Solomon Islands - Dollar", SCR: "Seychelles - Rupee",
-    SDG: "Sudan - Pound", SEK: "Sweden - Krona", SGD: "Singapore - Dollar", SLE: "Sierra Leone - Leone",
-    SOS: "Somalia - Shilling", SRD: "Suriname - Dollar", SSP: "South Sudan - Pound", STN: "Sao Tome - Dobra", SYP: "Syria - Pound",
-    SZL: "Eswatini - Lilangeni", THB: "Thailand - Baht", TJS: "Tajikistan - Somoni", TMT: "Turkmenistan - Manat", TND: "Tunisia - Dinar",
-    TOP: "Tonga - Pa'anga", TRY: "Turkey - Lira", TTD: "Trinidad - Dollar", TWD: "Taiwan - Dollar",
-    TZS: "Tanzania - Shilling", UAH: "Ukraine - Hryvnia", UGX: "Uganda - Shilling", USD: "USA - Dollar", UYU: "Uruguay - Peso",
-    UZS: "Uzbekistan - Som", VES: "Venezuela - Bolivar", VND: "Vietnam - Dong", VUV: "Vanuatu - Vatu", WST: "Samoa - Tala",
-    XAF: "Central Africa - CFA Franc", XCD: "East Caribbean - Dollar", XOF: "West Africa - CFA Franc", XPF: "Polynesia - CFP Franc",
-    YER: "Yemen - Rial", ZAR: "South Africa - Rand", ZMW: "Zambia - Kwacha", ZWL: "Zimbabwe - Dollar"
+    AED: "الإمارات - درهم إماراتي", AFN: "أفغانستان - أفغاني", ALL: "ألبانيا - ليك ألباني", AMD: "أرمينيا - درام أرميني", ANG: "أنتيل هولندي - جلدر",
+    AOA: "أنغولا - كوانزا أنجولي", ARS: "الأرجنتين - بيزو أرجنتيني", AUD: "أستراليا - دولار أسترالي", AWG: "أروبا - فلورن أروبي", AZN: "أذربيجان - مانات أذربيجاني",
+    BAM: "البوyears - مارك بوسني", BBD: "باربادوس - دولار باربادوسي", BDT: "بنجلاديش - تاكا بنجلاديشي", BGN: "بلغاريا - ليف بلغاري", BHD: "البحرين - دينار بحريني",
+    BIF: "بوروندي - فرنك بوروندي", BMD: "برمودا - دولار برمودي", BND: "بروناي - دولار بروناي", BOB: "بوليفيا - بوليفيانو", BRL: "البرازيل - ريال برازيلي",
+    BSD: "الباهاماس - دولار باهامي", BTN: "بوتان - نولترم بوتاني", BWP: "بوتسوانا - بولا بوتسواني", BYN: "بيلاروسيا - روبل بيلاروسي", BZD: "بليز - دولار بليزي",
+    CAD: "كندا - دولار كندي", CDF: "الكونغو - فرنك كونغولي", CHF: "سويسرا - فرنك سويسري", CLP: "تشيلي - بيزو تشيلي", CNY: "الصين - يوان صيني",
+    COP: "كولومبيا - بيزو كولومبي", CRC: "كوستاريكا - كولون كوستاريكي", CUP: "كوبا - بيزو كوبي", CVE: "رأس الأخضر - اسكودو", CZK: "التشيك - كرونة تشيكية",
+    DJF: "جيبوتي - فرنك جيبوتي", DKK: "الدنمارك - كرونة دنماركية", DOP: "الدومنيكان - بيزو دومنيكاني", DZD: "الجزائر - دينار جزائري", EGP: "مصر - جنيه مصري",
+    ERN: "إريتريا - ناكفا إريتري", ETB: "إثيوبيا - بير إثيوبي", EUR: "أوروبا - يورو", FJD: "فيجي - دولار فيجي", FKP: "فوكلاند - جنيه فوكلاند",
+    FOK: "فارو - كرونة فاروية", GBP: "بريطانيا - جنيه استرليني", GEL: "جورجيا - لاري جورجي", GHS: "غانا - سيدي غاني",
+    GIP: "جبل طارق - جنيه جبل طارق", GMD: "غامبيا - دالاسي غامبي", GNF: "غينيا - فرنك غيني", GTQ: "غواتيمالا - كتزال غواتيمالي", GYD: "غيانا - دولار غياني",
+    HKD: "هونج كونج - دولار هونج كونج", HNL: "هندوراس - لمبيرا هندوراسي", HRK: "كرواتيا - كونا كرواتي", HTG: "هايتي - جوردة هايتي", HUF: "المجر - فورنت مجري",
+    IDR: "إندونيسيا - روبية إندونيسية", INR: "الهند - روبية هندية", IQD: "العراق - دينار عراقي", IRR: "إيران - ريال إيراني",
+    ISK: "أيسلندا - كرونة أيسلندية", JMD: "جامايكا - دولار جامايكي", JOD: "الأردن - دينار أردني", JPY: "اليابان - ين ياباني", KES: "كينيا - شلن كيني",
+    KGS: "قيرغيزستان - سوم قيرغيزستاني", KHR: "كمبوديا - رييل كمبودي", KMF: "جزر القمر - فرنك قمري", KRW: "كوريا الجنوبية - وون كوري",
+    KWD: "الكويت - دينار كويتي", KYD: "جزر كايمان - دولار كايمان", KZT: "كازاخستان - تنج كازاخستاني", LAK: "لاوس - كيب لاوسي", LBP: "لبنان - ليرة لبنانية",
+    LKR: "سريلانكا - روبية سريلانكية", LRD: "ليبيريا - دولار ليبيري", LSL: "ليسوتو - لوتي ليسوتو", LYD: "ليبيا - دينار ليبي", MAD: "المغرب - درهم مغربي",
+    MDL: "مولدوفا - ليو مولدوفي", MGA: "مدغشقر - أرياري مدغشقري", MKD: "مقدونيا - دينار مقدوني", MMK: "ميانمار - كيات ميانماري", MNT: "منغوليا - توغروغ منغولي",
+    MOP: "ماكاو - باتاكا ماكاوي", MRU: "موريتانيا - أوقية موريتانية", MUR: "موريشيوس - روبية موريشيوسية", MVR: "المالديف - روفيا مالديفية", MWK: "ملاوي - كواشا ملاوية",
+    MXN: "المكسيك - بيزو مكسيكي", MYR: "ماليزيا - رينجيت ماليزي", MZN: "موزمبيق - ميتيكال موزمبيقي", NAD: "ناميبيا - دولار ناميبي", NGN: "نيجيريا - نايرا نيجيري",
+    NIO: "نيكاراغوا - كوردوبا نيكاراغوي", NOK: "النرويج - كرونة نرويجية", NPR: "نيبال - روبية نيبالية", NZD: "نيوزيلندا - دولار نيوزيلندي", OMR: "عُمان - ريال عماني",
+    PAB: "بنما - بالبوا بنمي", PEN: "بيرو - سول بيروفي", PGK: "بابوا غينيا - كينا", PHP: "الفلبين - بيزو فلبيني", PKR: "باكستان - روبية باكستانية",
+    PLN: "بولندا - زلوتي بولندي", PYG: "باراغواي - غواراني باراغوياني", QAR: "قطر - ريال قطري", RON: "رومانيا - ليو روماني", RSD: "صربيا - دينار صربي",
+    RUB: "روسيا - روبل روسي", RWF: "رواندا - فرنك رواندي", SAR: "السعودية - ريال سعودي", SBD: "جزر سليمان - دولار سليماني", SCR: "سيشيل - روبية سيشيلية",
+    SDG: "السودان - جنيه سوداني", SEK: "السويد - كرونة سويدية", SGD: "سنغافورة - دولار سنغافوري", SLE: "سيراليون - ليون سيراليوني",
+    SOS: "الصومال - شلن صومالي", SRD: "سورينام - دولار سورينامي", SSP: "جنوب السودان - جنيه جنوب السودان", STN: "ساو تومي - دوبرا ساو تومي", SYP: "سوريا - ليرة سورية",
+    SZL: "سوازيلاند - ليلانجيني سوازيلندي", THB: "تايلند - بات تايلندي", TJS: "طاجيكستان - سوموني طاجيكي", TMT: "تركمانستان - مانات تركماني", TND: "تونس - دينار تونسي",
+    TOP: "تونجا - بانجا تونجي", TRY: "تركيا - ليرة تركية", TTD: "ترينيداد - دولار ترينيدادي", TWD: "تايوان - دولار تايواني",
+    TZS: "تنزانيا - شلن تنزاني", UAH: "أوكرانيا - هريفنيا أوكرانية", UGX: "أوغندا - شلن أوغندي", USD: "أمريكا - دولار أمريكي", UYU: "أوروغواي - بيزو أوروغوياني",
+    UZS: "أوزبكستان - سوم أوزبكي", VES: "فنزويلا - بوليفار فنزويلي", VND: "فيتنام - دونج فيتنامي", VUV: "فانواتو - فاتو فانواتو", WST: "ساموا - تالا ساموي",
+    XAF: "وسط أفريقيا - فرنك وسط أفريقي", XCD: "شرق الكاريبي - دولار شرق الكاريبي", XOF: "غرب أفريقيا - فرنك غرب أفريقي", XPF: "بولينيزيا - فرنك سي إف بي",
+    YER: "اليمن - ريال يمني", ZAR: "جنوب أفريقيا - راند جنوب أفريقي", ZMW: "زامبيا - كواشا زامبي", ZWL: "زيمبابوي - دولار زيمبابوي"
 };
 
 function populateCurrencies(){
@@ -150,7 +308,7 @@ function filterCurrencies(type){
     var select = document.getElementById(type === 'from' ? 'fromCurrency' : 'toCurrency');
     var searchTerm = searchInput.value.toLowerCase();
     var selectedValue = select.value;
-    
+
     select.innerHTML = '';
     var sorted = Object.keys(currencyNames).sort();
     sorted.forEach(function(code){
@@ -159,7 +317,7 @@ function filterCurrencies(type){
             select.innerHTML += '<option value="'+code+'">'+name+' ('+code+')</option>';
         }
     });
-    
+
     if(select.options.length > 0){
         var exists = false;
         for(var i=0; i<select.options.length; i++){
@@ -171,7 +329,7 @@ function filterCurrencies(type){
         }
         if(!exists) select.selectedIndex = 0;
     }
-    
+
     convert();
 }
 
@@ -187,7 +345,7 @@ async function loadRates(){
         document.getElementById('resultCard').style.display = 'block';
         convert();
     } catch(e) {
-        document.getElementById('loading').textContent = '⚠️ Error loading rates. Please try again.';
+        document.getElementById('loading').textContent = '⚠️ خطأ في تحميل الأسعار. حاول مرة أخرى.';
     }
 }
 
