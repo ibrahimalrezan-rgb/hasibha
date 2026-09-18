@@ -1,15 +1,10 @@
-name: Update English Pages
+name: Generate Index & Sitemap
 
 on:
   workflow_dispatch:
-    inputs:
-      slug:
-        description: 'Slug of the page to update (leave empty for all pages)'
-        required: false
-        default: ''
 
 jobs:
-  update-en:
+  generate:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,10 +18,15 @@ jobs:
       with:
         python-version: '3.11'
 
-    - name: Update English Pages
+    - name: Generate Index
       run: |
         cd automation
-        python update_en.py "${{ github.event.inputs.slug || '' }}"
+        python generate_index.py
+
+    - name: Generate Sitemap
+      run: |
+        cd automation
+        python generate_sitemap.py
 
     - name: Clean Python cache
       run: |
@@ -41,6 +41,6 @@ jobs:
         if git diff --cached --quiet; then
           echo "ℹ️ لا توجد تغييرات للرفع"
         else
-          git commit -m "🌐 تحديث تلقائي للصفحات الإنجليزية"
+          git commit -m "🏗️ تحديث تلقائي للفهرس وخريطة الموقع"
           git push
         fi
