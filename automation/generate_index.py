@@ -1,270 +1,202 @@
 #!/usr/bin/env python3
-"""
-توليد صفحات index.html و index-en.html تلقائياً
-"""
+"""توليد الفهرس العربي والإنجليزي - التبويبات تُبنى من config تلقائياً"""
 
 import os
-import sys
+import json
 from datetime import datetime
-from config import PAGES, CATEGORIES, SITE_URL, SITE_NAME, SITE_NAME_EN
+from config import PAGES, CATEGORIES, SITE_URL
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+YEAR = datetime.now().year
 
-def generate_cards_html(pages, lang='ar'):
-    """يولد HTML للبطاقات بلغة معينة"""
-    is_ar = lang == 'ar'
-    cta_text = "احسب الآن ←" if is_ar else "Calculate Now ←"
-    cta_conv = "حوّل الآن ←" if is_ar else "Convert Now ←"
-    
-    html_parts = []
-    for page in pages:
-        title = page['title_ar'] if is_ar else page['title_en']
-        desc = page['desc_ar'] if is_ar else page['desc_en']
-        slug = page['slug'] if is_ar else f"{page['slug']}-en"
-        cta = cta_conv if page['category'] == 'conversion' else cta_text
-        
-        html_parts.append(f'''<a class="card {page['category']}" href="/{slug}" data-cat="{page['category'][:3] if page['category'] != 'finance' else 'fin'}" data-title="{title} {desc}">
-<span class="card-icon">{page['icon']}</span>
+def build_tabs(lang):
+    all_label = "الكل" if lang == "ar" else "All"
+    tabs = f'<button class="tab on" data-cat="all">{all_label} ({len(PAGES)})</button>\n'
+    for key, meta in CATEGORIES.items():
+        count = len([p for p in PAGES if p["category"] == key])
+        if count == 0:
+            continue
+        label = meta["ar"] if lang == "ar" else meta["en"]
+        tabs += f'<button class="tab" data-cat="{key}">{meta["icon"]} {label} ({count})</button>\n'
+    return tabs
+
+def build_cards(lang):
+    html = ""
+    for p in PAGES:
+        title = p["title_ar"] if lang == "ar" else p["title_en"]
+        desc = p["desc_ar"] if lang == "ar" else p["desc_en"]
+        href = f"/{p['slug']}" if lang == "ar" else f"/{p['slug']}-en"
+        cta = "استخدم الحاسبة ←" if lang == "ar" else "← Use Calculator"
+        html += f'''<a class="card {p['category']}" data-cat="{p['category']}" href="{href}">
+<span class="card-icon">{p['icon']}</span>
 <div><h3>{title}</h3><p>{desc}</p></div>
 <span class="card-cta">{cta}</span>
-</a>''')
-    
-    return '\n'.join(html_parts)
+</a>
+'''
+    return html
 
-def generate_arabic_index():
-    """يولد index.html بالعربية"""
-    cards_html = generate_cards_html(PAGES, 'ar')
-    year = datetime.now().year
-    
+def build_index(lang):
+    ar = lang == "ar"
+    title = "حاسبها — كل الحاسبات المالية والصحية في مكان واحد" if ar else "Hasibha — All Financial & Health Calculators in One Place"
+    desc = "17 حاسبة مجانية: تمويل، زكاة، ذهب، تأمينات، BMI والمزيد. نتائج فورية بدون تسجيل." if ar else "17 free calculators: mortgage, zakat, gold, GOSI, BMI and more. Instant results."
+    other = "index-en" if ar else "index"
+    other_label = "EN" if ar else "عربي"
+    nav = [("calculators", "الحاسبات" if ar else "Calculators"), ("features", "المميزات" if ar else "Features"), ("faq", "الأسئلة الشائعة" if ar else "FAQ")]
+    nav_html = "\n".join(f'<a href="#{i}">{t}</a>' for i, t in nav)
+    stats = [
+        (str(len(PAGES)) + ("+" if ar else ""), "حاسبة مجانية" if ar else "Free Calculators"),
+        ("2", "لغة" if ar else "Languages"),
+        ("4", "تصنيفات" if ar else "Categories"),
+        ("100%", "مجاني" if ar else "Free"),
+    ]
+    stats_html = "\n".join(f'<div class="stat"><b>{v}</b><span>{s}</span></div>' for v, s in stats)
+    features = [
+        ("⚡", "سرعة فورية", "نتائج لحظية بدون انتظار أو تحميل.") if ar else ("⚡", "Instant Speed", "Real-time results with zero waiting."),
+        ("🔒", "خصوصية تامة", "لا نحفظ أي بيانات — كل شيء في متصفحك.") if ar else ("🔒", "Full Privacy", "No data stored — everything runs in your browser."),
+        ("📱", "يعمل على الجوال", "تصميم متجاوب بالكامل مع كل الشاشات.") if ar else ("📱", "Mobile Ready", "Fully responsive on all screens."),
+        ("🌐", "ثنائي اللغة", "عربي وإنجليزي بنفس الدقة والجودة.") if ar else ("🌐", "Bilingual", "Arabic and English with equal quality."),
+    ]
+    feat_html = "\n".join(f'<div class="feature"><b>{i} {t}</b><span>{s}</span></div>' for i, t, s in features)
+    faqs = [
+        ("هل الحاسبات مجانية بالفعل؟", "نعم، جميع الحاسبات مجانية 100% بدون تسجيل أو حدود استخدام."),
+        ("هل بياناتي محفوظة؟", "لا، كل الحسابات تتم داخل متصفحك ولا تُرسل لأي سيرفر."),
+        ("ما مدى دقة النتائج؟", "مبنية على الأنظمة السعودية الرسمية (ساما، التأمينات، هيئة الزكاة)."),
+    ] if ar else [
+        ("Are the calculators really free?", "Yes, 100% free with no registration or limits."),
+        ("Is my data stored?", "No, all calculations run inside your browser."),
+        ("How accurate are results?", "Based on official Saudi regulations (SAMA, GOSI, ZATCA)."),
+    ]
+    faq_html = "\n".join(f'<details><summary>{q}</summary><div class="faq-a">{a}</div></details>' for q, a in faqs)
+    home_href = "/index-en" if ar else "/index"
+    logo_alt = "حاسبها" if ar else "Hasibha"
+    brand = "حاسبها" if ar else "Hasibha"
+    hero_badge = "منصة سعودية موثوقة" if ar else "Trusted Saudi Platform"
+    hero_h1 = "كل حاسباتك المالية والصحية في مكان واحد" if ar else "All Your Financial & Health Calculators in One Place"
+    hero_lead = "مصممة خصيصًا للسوق السعودي — دقيقة، سريعة، ومجانية بالكامل." if ar else "Built for the Saudi market — accurate, fast and completely free."
+    sec_calc = "اختر حاسبتك" if ar else "Pick Your Calculator"
+    sec_feat = "لماذا حاسبها؟" if ar else "Why Hasibha?"
+    sec_faq = "الأسئلة الشائعة" if ar else "FAQ"
+    foot_links = f'<a href="/privacy{"-en" if not ar else ""}">{"سياسة الخصوصية" if ar else "Privacy"}</a>\n<a href="/contact{"-en" if not ar else ""}">{"اتصل بنا" if ar else "Contact"}</a>\n<a href="/about{"-en" if not ar else ""}">{"من نحن" if ar else "About"}</a>'
+    foot_copy = f"حاسبها © {YEAR} — جميع الحقوق محفوظة" if ar else f"Hasibha © {YEAR} — All Rights Reserved"
+
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": brand,
+        "url": SITE_URL + "/" + ("" if ar else "index-en"),
+        "inLanguage": "ar-SA" if ar else "en-US",
+        "description": desc,
+    }
+
     return f'''<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="{"ar" if ar else "en"}" dir="{"rtl" if ar else "ltr"}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{SITE_NAME} | حاسبات مالية وصحية مجانية للسوق السعودي</title>
-<meta name="description" content="{SITE_NAME} — منصة الحاسبات السعودية الأولى: تمويل عقاري، تمويل شخصي، نهاية الخدمة، ضريبة القيمة المضافة، الزكاة، الذهب وأكثر. نتائج فورية ومجانية 100%.">
-<meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="author" content="hasibha">
-<link rel="canonical" href="{SITE_URL}/">
+<title>{title}</title>
+<meta name="description" content="{desc}">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="{SITE_URL}/{"" if ar else "index-en"}">
 <link rel="alternate" hreflang="ar" href="{SITE_URL}/">
 <link rel="alternate" hreflang="en" href="{SITE_URL}/index-en">
 <link rel="alternate" hreflang="x-default" href="{SITE_URL}/">
-<link rel="icon" type="image/png" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{brand}">
+<meta name="theme-color" content="#0b0d10">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
+<script type="application/ld+json">
+{json.dumps(schema, ensure_ascii=False, indent=2)}
+</script>
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <header class="site-header">
 <div class="wrap header-in">
-<a class="logo" href="/" aria-label="{SITE_NAME}">
-<img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="{SITE_NAME}" style="height:36px;vertical-align:middle">
-{SITE_NAME}
-</a>
-<nav class="main-nav" aria-label="التنقل الرئيسي">
-<a href="#calculators">الحاسبات</a>
-<a href="#features">المميزات</a>
-<a href="#faq">الأسئلة الشائعة</a>
-</nav>
+<a class="logo" href="{home_href}"> {brand}</a>
+<nav class="main-nav">{nav_html}</nav>
 <div class="header-actions">
-<button class="theme-btn" id="themeBtn" aria-label="تبديل الوضع الليلي">
-<svg id="iconMoon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
-<svg id="iconSun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-</button>
-<a class="lang-btn" href="/index-en" hreflang="en" lang="en">EN</a>
+<button class="theme-btn" id="themeBtn" aria-label="Theme">🌓</button>
+<a class="lang-btn" href="/{other}">{other_label}</a>
 </div>
 </div>
 </header>
-<main>
-<section class="hero wrap">
-<span class="badge"><span class="dot"></span> نتائج فورية · بدون تسجيل · خصوصية تامة</span>
-<h1>احسبها صحّ… في ثوانٍ</h1>
-<p class="lead">كل حاسباتك المالية والصحية واليومية في مكان واحد — مصممة خصيصًا للسوق السعودي وبنظامه.</p>
-<div class="stats" aria-label="إحصائيات المنصة">
-<div class="stat"><b>{len(PAGES)}+</b><span>حاسبة مجانية</span></div>
-<div class="stat"><b>{len(CATEGORIES)}</b><span>تصنيفات رئيسية</span></div>
-<div class="stat"><b>عربي / EN</b><span>دعم كامل للغتين</span></div>
-<div class="stat"><b>100%</b><span>مجاني للأبد</span></div>
+<section class="hero">
+<div class="badge"><span class="dot"></span>{hero_badge}</div>
+<h1>{hero_h1}</h1>
+<p class="lead">{hero_lead}</p>
+<div class="stats">{stats_html}</div>
+</section>
+<section class="wrap" id="calculators">
+<div class="section-head"><h2>{sec_calc}</h2></div>
+<div class="tabs">
+{build_tabs(lang)}
+</div>
+<div class="grid">
+{build_cards(lang)}
 </div>
 </section>
-<section class="calc-section wrap" id="calculators">
-<div class="section-head">
-<h2>تصفح الحاسبات</h2>
-</div>
-<div class="tabs" role="tablist" aria-label="تصنيفات الحاسبات">
-<button class="tab on" role="tab" aria-selected="true" data-cat="all">الكل</button>
-<button class="tab" role="tab" aria-selected="false" data-cat="fin">مالية</button>
-<button class="tab" role="tab" aria-selected="false" data-cat="conv">تحويلات</button>
-<button class="tab" role="tab" aria-selected="false" data-cat="health">صحة</button>
-<button class="tab" role="tab" aria-selected="false" data-cat="gen">عامة</button>
-</div>
-<div class="grid" id="cardsGrid">
-{cards_html}
-</div>
-</section>
-<section class="features wrap" id="features">
-<div class="section-head"><h2>لماذا {SITE_NAME}؟</h2></div>
+<section class="wrap" id="features">
+<div class="section-head"><h2>{sec_feat}</h2></div>
 <div class="features-grid">
-<div class="feature"><b>دقة موثوقة</b><span>معادلات محدثة بما يتوافق مع الأنظمة السعودية.</span></div>
-<div class="feature"><b>خصوصية تامة</b><span>كل الحسابات تتم داخل متصفحك.</span></div>
-<div class="feature"><b>نتائج فورية</b><span>بدون تسجيل أو إعلانات مزعجة.</span></div>
-<div class="feature"><b>مصمم للسعودية</b><span>نسب التمويل والتأمينات بنظام المملكة.</span></div>
+{feat_html}
 </div>
 </section>
-<section class="faq wrap" id="faq">
-<div class="section-head"><h2>الأسئلة الشائعة</h2></div>
-<details open><summary>هل حاسبات {SITE_NAME} مجانية؟</summary><p class="faq-a">نعم، جميع الحاسبات مجانية 100% وبدون تسجيل.</p></details>
-<details><summary>هل يتم حفظ بياناتي؟</summary><p class="faq-a">لا. جميع الحسابات تتم داخل متصفحك بالكامل.</p></details>
-<details><summary>هل الحاسبات مخصصة للسوق السعودي؟</summary><p class="faq-a">نعم، صممت وفق الأنظمة السعودية.</p></details>
+<section class="wrap faq" id="faq">
+<div class="section-head"><h2>{sec_faq}</h2></div>
+{faq_html}
 </section>
-</main>
 <footer class="site-footer">
 <div class="wrap footer-in">
-<a class="logo" href="/" style="font-size:16px">
-<img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="{SITE_NAME}" style="height:28px;vertical-align:middle">
-{SITE_NAME}
-</a>
-<nav aria-label="روابط الفوتر">
-<a href="/privacy">سياسة الخصوصية</a>
-<a href="/contact">تواصل معنا</a>
-<a href="/about">من نحن</a>
-</nav>
-<p>{SITE_NAME} © {year} — جميع الحقوق محفوظة</p>
+<a class="logo" href="{home_href}">🧮 {brand}</a>
+<nav>{foot_links}</nav>
+<p>{foot_copy}</p>
 </div>
 </footer>
 <script>
-(function(){{var root=document.documentElement,btn=document.getElementById('themeBtn');var moon=document.getElementById('iconMoon'),sun=document.getElementById('iconSun');function apply(t){{if(t==='dark'){{root.setAttribute('data-theme','dark');moon.style.display='none';sun.style.display='block';}}else{{root.removeAttribute('data-theme');moon.style.display='block';sun.style.display='none';}}}}var saved=null;try{{saved=localStorage.getItem('hs-theme');}}catch(e){{}}if(!saved){{saved=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}}apply(saved);btn.addEventListener('click',function(){{var next=root.getAttribute('data-theme')==='dark'?'light':'dark';apply(next);try{{localStorage.setItem('hs-theme',next);}}catch(e){{}}}});}})();
-(function(){{var tabs=document.querySelectorAll('.tab');var cards=document.querySelectorAll('#cardsGrid .card');var curCat='all';function render(){{cards.forEach(function(c){{var okCat=(curCat==='all'||c.dataset.cat===curCat);c.style.display=okCat?'':'none';}});}}tabs.forEach(function(t){{t.addEventListener('click',function(){{curCat=t.dataset.cat;tabs.forEach(function(x){{x.classList.remove('on');x.setAttribute('aria-selected','false');}});t.classList.add('on');t.setAttribute('aria-selected','true');render();}});}});render();}})();
+(function(){{
+var root=document.documentElement, btn=document.getElementById('themeBtn');
+function apply(t){{ if(t==='dark'){{root.setAttribute('data-theme','dark');}}else{{root.removeAttribute('data-theme');}} }}
+var saved=null; try{{saved=localStorage.getItem('hs-theme');}}catch(e){{}}
+if(!saved){{saved=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}}
+apply(saved);
+btn.addEventListener('click',function(){{
+var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+apply(next); try{{localStorage.setItem('hs-theme',next);}}catch(e){{}}
+}});
+}})();
+(function(){{
+var tabs=document.querySelectorAll('.tab');
+var cards=document.querySelectorAll('.card');
+tabs.forEach(function(btn){{
+btn.addEventListener('click',function(){{
+tabs.forEach(function(b){{b.classList.remove('on');}});
+btn.classList.add('on');
+var cat=btn.getAttribute('data-cat');
+cards.forEach(function(card){{
+var show=(cat==='all')||(card.getAttribute('data-cat')===cat);
+if(show){{card.classList.remove('hide');card.style.display='';}}
+else{{card.classList.add('hide');card.style.display='none';}}
+}});
+}});
+}});
+}})();
 </script>
 </body>
-</html>'''
-
-def generate_english_index():
-    """يولد index-en.html بالإنجليزية"""
-    cards_html = generate_cards_html(PAGES, 'en')
-    year = datetime.now().year
-    
-    return f'''<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{SITE_NAME_EN} | Free Financial & Health Calculators</title>
-<meta name="description" content="{SITE_NAME_EN} — The #1 Saudi calculators platform: mortgage, personal loan, end of service, VAT, Zakat, gold and more. Instant results, 100% free.">
-<meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="author" content="hasibha">
-<link rel="canonical" href="{SITE_URL}/index-en">
-<link rel="alternate" hreflang="ar" href="{SITE_URL}/">
-<link rel="alternate" hreflang="en" href="{SITE_URL}/index-en">
-<link rel="alternate" hreflang="x-default" href="{SITE_URL}/">
-<link rel="icon" type="image/png" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
-<link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-<header class="site-header">
-<div class="wrap header-in">
-<a class="logo" href="/index-en" aria-label="{SITE_NAME_EN}">
-<img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="{SITE_NAME_EN}" style="height:36px;vertical-align:middle">
-{SITE_NAME_EN}
-</a>
-<nav class="main-nav" aria-label="Main navigation">
-<a href="#calculators">Calculators</a>
-<a href="#features">Features</a>
-<a href="#faq">FAQ</a>
-</nav>
-<div class="header-actions">
-<button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">
-<svg id="iconMoon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
-<svg id="iconSun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-</button>
-<a class="lang-btn" href="/" hreflang="ar" lang="ar">عربي</a>
-</div>
-</div>
-</header>
-<main>
-<section class="hero wrap">
-<span class="badge"><span class="dot"></span> Instant results · No registration · Complete privacy</span>
-<h1>Calculate it right… in seconds</h1>
-<p class="lead">All your financial, health, and daily calculators in one place — designed for the Saudi market.</p>
-<div class="stats" aria-label="Platform statistics">
-<div class="stat"><b>{len(PAGES)}+</b><span>Free calculators</span></div>
-<div class="stat"><b>{len(CATEGORIES)}</b><span>Main categories</span></div>
-<div class="stat"><b>Arabic / EN</b><span>Full bilingual support</span></div>
-<div class="stat"><b>100%</b><span>Free forever</span></div>
-</div>
-</section>
-<section class="calc-section wrap" id="calculators">
-<div class="section-head">
-<h2>Browse Calculators</h2>
-</div>
-<div class="tabs" role="tablist" aria-label="Calculator categories">
-<button class="tab on" role="tab" aria-selected="true" data-cat="all">All</button>
-<button class="tab" role="tab" aria-selected="false" data-cat="fin">Finance</button>
-<button class="tab" role="tab" aria-selected="false" data-cat="conv">Converters</button>
-<button class="tab" role="tab" aria-selected="false" data-cat="health">Health</button>
-<button class="tab" role="tab" aria-selected="false" data-cat="gen">General</button>
-</div>
-<div class="grid" id="cardsGrid">
-{cards_html}
-</div>
-</section>
-<section class="features wrap" id="features">
-<div class="section-head"><h2>Why {SITE_NAME_EN}?</h2></div>
-<div class="features-grid">
-<div class="feature"><b>Trusted Accuracy</b><span>Updated formulas aligned with Saudi regulations.</span></div>
-<div class="feature"><b>Complete Privacy</b><span>All calculations happen in your browser.</span></div>
-<div class="feature"><b>Instant Results</b><span>No registration, no annoying ads.</span></div>
-<div class="feature"><b>Designed for Saudi</b><span>Financing rates and GOSI for the Kingdom.</span></div>
-</div>
-</section>
-<section class="faq wrap" id="faq">
-<div class="section-head"><h2>Frequently Asked Questions</h2></div>
-<details open><summary>Are {SITE_NAME_EN} calculators free?</summary><p class="faq-a">Yes, all calculators are 100% free with no registration required.</p></details>
-<details><summary>Is my data saved?</summary><p class="faq-a">No. All calculations are performed entirely in your browser.</p></details>
-<details><summary>Are calculators designed for Saudi market?</summary><p class="faq-a">Yes, according to Saudi regulations and standards.</p></details>
-</section>
-</main>
-<footer class="site-footer">
-<div class="wrap footer-in">
-<a class="logo" href="/index-en" style="font-size:16px">
-<img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="{SITE_NAME_EN}" style="height:28px;vertical-align:middle">
-{SITE_NAME_EN}
-</a>
-<nav aria-label="Footer links">
-<a href="/privacy-en">Privacy Policy</a>
-<a href="/contact-en">Contact Us</a>
-<a href="/about-en">About Us</a>
-</nav>
-<p>{SITE_NAME_EN} © {year} — All Rights Reserved</p>
-</div>
-</footer>
-<script>
-(function(){{var root=document.documentElement,btn=document.getElementById('themeBtn');var moon=document.getElementById('iconMoon'),sun=document.getElementById('iconSun');function apply(t){{if(t==='dark'){{root.setAttribute('data-theme','dark');moon.style.display='none';sun.style.display='block';}}else{{root.removeAttribute('data-theme');moon.style.display='block';sun.style.display='none';}}}}var saved=null;try{{saved=localStorage.getItem('hs-theme');}}catch(e){{}}if(!saved){{saved=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}}apply(saved);btn.addEventListener('click',function(){{var next=root.getAttribute('data-theme')==='dark'?'light':'dark';apply(next);try{{localStorage.setItem('hs-theme',next);}}catch(e){{}}}});}})();
-(function(){{var tabs=document.querySelectorAll('.tab');var cards=document.querySelectorAll('#cardsGrid .card');var curCat='all';function render(){{cards.forEach(function(c){{var okCat=(curCat==='all'||c.dataset.cat===curCat);c.style.display=okCat?'':'none';}});}}tabs.forEach(function(t){{t.addEventListener('click',function(){{curCat=t.dataset.cat;tabs.forEach(function(x){{x.classList.remove('on');x.setAttribute('aria-selected','false');}});t.classList.add('on');t.setAttribute('aria-selected','true');render();}});}});render();}})();
-</script>
-</body>
-</html>'''
+</html>
+'''
 
 def main():
-    print("🔥 توليد صفحات الفهرس...")
-    
-    # توليد index.html
-    ar_html = generate_arabic_index()
-    ar_path = os.path.join(ROOT_DIR, 'index.html')
-    with open(ar_path, 'w', encoding='utf-8') as f:
-        f.write(ar_html)
-    print(f"  ✅ تم توليد index.html ({len(PAGES)} حاسبة)")
-    
-    # توليد index-en.html
-    en_html = generate_english_index()
-    en_path = os.path.join(ROOT_DIR, 'index-en.html')
-    with open(en_path, 'w', encoding='utf-8') as f:
-        f.write(en_html)
-    print(f"  ✅ تم توليد index-en.html ({len(PAGES)} calculators)")
-    
-    print("\n🎉 اكتمل!")
+    print("🏗️ توليد الفهرس...")
+    for lang, filename in [("ar", "index.html"), ("en", "index-en.html")]:
+        html = build_index(lang)
+        path = os.path.join(ROOT_DIR, filename)
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(html)
+        print(f"  ✅ {filename} ({len(PAGES)} حاسبة)")
+    print("🎉 اكتمل!")
 
 if __name__ == "__main__":
     main()
