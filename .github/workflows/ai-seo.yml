@@ -68,9 +68,19 @@ jobs:
         cd automation
         python generate_sitemap.py
 
+    - name: Clean Python cache
+      run: |
+        rm -rf automation/__pycache__
+        git rm -r --cached automation/__pycache__ --ignore-unmatch || true
+
     - name: Commit and Push
       run: |
         git config user.name "Hasibha Bot"
         git config user.email "bot@hasibha.com"
-        git add .
-        git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 تحديث تلقائي بالذكاء الاصطناعي (DeepSeek)" && git push)
+        git add -A
+        if git diff --cached --quiet; then
+          echo "ℹ️ لا توجد تغييرات للرفع"
+        else
+          git commit -m "🤖 تحديث تلقائي بالذكاء الاصطناعي"
+          git push
+        fi
