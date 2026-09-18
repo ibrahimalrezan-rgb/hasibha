@@ -4,49 +4,43 @@ on:
   workflow_dispatch:
     inputs:
       slug:
-        description: 'Slug (leave empty for all)'
+        description: 'Slug of the page to update (leave empty for all pages)'
         required: false
         default: ''
 
 jobs:
-  update:
+  update-en:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+
     steps:
-      - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      
-      - name: Update English Pages
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: |
-          if [ -z "${{ github.event.inputs.slug }}" ]; then
-            python automation/update_en.py
-          else
-            python automation/update_en.py "${{ github.event.inputs.slug }}"
-          fi
-      
-      - name: Commit changes
-        run: |
-          git config user.name "Hasibha Bot"
-          git config user.email "bot@hasibha.com"
-          git add .
-          git diff --staged --quiet || git commit -m "🌍 تحديث الصفحات الإنجليزية"
-      
-      - name: Push
-        run: |
-          for i in 1 2 3; do
-            git fetch origin main
-            git rebase origin/main || git rebase --abort
-            if git push origin main; then
-              exit 0
-            fi
-            sleep 10
-          done
-          exit 1
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Update English Pages
+      run: |
+        cd automation
+        python update_en.py "${{ github.event.inputs.slug || '' }}"
+
+    - name: Clean Python cache
+      run: |
+        rm -rf automation/__pycache__
+        git rm -r --cached automation/__pycache__ --ignore-unmatch || true
+
+    - name: Commit and Push
+      run: |
+        git config user.name "Hasibha Bot"
+        git config user.email "bot@hasibha.com"
+        git add -A
+        if git diff --cached --quiet; then
+          echo "ℹ️ لا توجد تغييرات للرفع"
+        else
+          git commit -m "🌐 تحديث تلقائي للصفحات الإنجليزية"
+          git push
+        fi
