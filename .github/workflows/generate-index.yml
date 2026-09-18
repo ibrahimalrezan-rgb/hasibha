@@ -1,42 +1,46 @@
 name: Generate Index & Sitemap
 
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'automation/config.py'
-      - 'automation/generate_index.py'
-      - 'automation/generate_sitemap.py'
   workflow_dispatch:
 
 jobs:
   generate:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-    
+
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
-    
-    - name: Generate Index Pages
+
+    - name: Generate Index
       run: |
         cd automation
         python generate_index.py
-    
+
     - name: Generate Sitemap
       run: |
         cd automation
         python generate_sitemap.py
-    
+
+    - name: Clean Python cache
+      run: |
+        rm -rf automation/__pycache__
+        git rm -r --cached automation/__pycache__ --ignore-unmatch || true
+
     - name: Commit and Push
       run: |
         git config user.name "Hasibha Bot"
         git config user.email "bot@hasibha.com"
-        git add index.html index-en.html sitemap.xml robots.txt
-        git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 تحديث تلقائي للفهرس وخريطة الموقع" && git push)
+        git add -A
+        if git diff --cached --quiet; then
+          echo "ℹ️ لا توجد تغييرات للرفع"
+        else
+          git commit -m "🏗️ تحديث تلقائي للفهرس وخريطة الموقع"
+          git push
+        fi
