@@ -1,84 +1,97 @@
 #!/usr/bin/env python3
 """
-إضافة اللوقو للصفحات الرئيسية (index.html و index-en.html)
-والصفحات الثابتة (privacy, contact, about) ونسخها الإنجليزية
+إضافة اللوقو لكل صفحات الموقع تلقائياً
+يفحص كل ملفات HTML ويضيف اللوقو لأي صفحة ناقصة
 """
 import os
 import re
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LOGO_TAG = '<img src="/images/logo.png" alt="حاسبها" style="height:36px;vertical-align:middle">\n      '
-LOGO_TAG_FOOTER = '<img src="/images/logo.png" alt="حاسبها" style="height:28px;vertical-align:middle">\n      '
-
-# الصفحات التي تحتاج إصلاح
-pages_to_fix = [
-    'index.html',
-    'index-en.html',
-    'privacy.html',
-    'privacy-en.html',
-    'contact.html',
-    'contact-en.html',
-    'about.html',
-    'about-en.html',
-]
+LOGO_HEADER = '<img src="/images/logo.png" alt="حاسبها" style="height:36px;vertical-align:middle">'
+LOGO_FOOTER = '<img src="/images/logo.png" alt="حاسبها" style="height:28px;vertical-align:middle">'
 
 fixed_count = 0
+skipped_count = 0
 
-for page in pages_to_fix:
-    path = os.path.join(ROOT_DIR, page)
-    if not os.path.exists(path):
-        print(f"⚠️ {page} غير موجود")
-        continue
+# المشي على كل ملفات HTML في الريبو
+for root, dirs, files in os.walk(ROOT_DIR):
+    # تجاهل مجلدات معينة
+    dirs[:] = [d for d in dirs if d not in ('.git', '.github', 'automation', 'node_modules')]
     
-    with open(path, 'r', encoding='utf-8') as f:
-        content = f.read()
-    
-    original = content
-    
-    # فحص: هل يحتوي على class="logo" لكن بدون img داخله؟
-    # نبحث عن <a class="logo"...>  ثم نص مباشر (بدون <img)
-    # Header: <a class="logo" href="...">نص</a>
-    # Footer: <a class="logo" href="...">🧮 نص</a>
-    
-    # نمط الهيدر: <a class="logo" href="..."> نص بدون img </a>
-    # نتحقق من أن ما بين > و </a> لا يحتوي على <img
-    
-    def fix_logo_links(html, logo_tag):
-        # البحث عن كل روابط اللوقو
-        pattern = r'(<a\s+class="logo"\s+href="[^"]*">)(.*?)(</a>)'
+    for name in files:
+        if not name.endswith('.html'):
+            continue
         
-        def replacer(match):
+        path = os.path.join(root, name)
+        with open(path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        original = content
+        
+        # ============================================
+        # 1) إصلاح روابط اللوقو في الهيدر والفوتر
+        # ============================================
+        # نبحث عن <a class="logo"...>...</a>
+        # إذا ما فيه <img> داخله، نضيف اللوقو
+        
+        def fix_logo_link(match):
             open_tag = match.group(1)
             inner = match.group(2)
             close_tag = match.group(3)
             
-            # إذا كان هناك img مسبقاً، اتركه
+            # إذا فيه img مسبقاً، اتركه كما هو
             if '<img' in inner:
                 return match.group(0)
             
-            # إذا ما فيه img، أضف اللوقو قبل النص
-            return open_tag + '\n      ' + logo_tag + inner.strip() + '\n    ' + close_tag
+            # حدد إذا هذا هيدر أو فوتر حسب ارتفاع الصورة
+            # الفوتر عادة فيه style="font-size:16px" أو emoji 🧮
+            if 'font-size:16px' in open_tag or '🧮' in inner:
+                logo_tag = LOGO_FOOTER
+            else:
+                logo_tag = LOGO_HEADER
+            
+            # أضف اللوقو قبل النص
+            inner_clean = inner.strip()
+            return f'{open_tag}\n      {logo_tag}\n      {inner_clean}\n    {close_tag}'
         
-        return re.sub(pattern, replacer, html, flags=re.DOTALL)
-    
-    # إصلاح روابط اللوقو في الهيدر (height: 36px)
-    content = fix_logo_links(content, LOGO_TAG)
-    
-    # إضافة favicon في head إذا غير موجود
-    if '/images/logo.png' not in content and '<link rel="icon"' not in content:
-        # إضافة بعد <head> مباشرة
-        content = content.replace(
-            '<head>',
-            '<head>\n<link rel="icon" type="image/png" href="/images/logo.png">\n<link rel="apple-touch-icon" href="/images/logo.png">',
-            1
+        content = re.sub(
+            r'(<a\s+class="logo"[^>]*>)(.*?)(</a>)',
+            fix_logo_link,
+            content,
+            flags=re.DOTALL
         )
-    
-    if content != original:
-        with open(path, 'w', encoding='utf-8') as f:
-            f.write(content)
-        print(f"✅ تم إصلاح: {page}")
-        fixed_count += 1
-    else:
-        print(f"ℹ️ {page}: ما يحتاج تعديل")
+        
+        # ============================================
+        # 2) إضافة favicon في الـ head إذا غير موجود
+        # ============================================
+        if '<link rel="icon"' not in content:
+            # أضف بعد <meta charset="UTF-8"> أو بعد <head>
+            if '<meta charset="UTF-8">' in content:
+                content = content.replace(
+                    '<meta charset="UTF-8">',
+                    '<meta charset="UTF-8">\n<link rel="icon" type="image/png" href="/images/logo.png">\n<link rel="apple-touch-icon" href="/images/logo.png">',
+                    1
+                )
+            elif '<head>' in content:
+                content = content.replace(
+                    '<head>',
+                    '<head>\n<link rel="icon" type="image/png" href="/images/logo.png">\n<link rel="apple-touch-icon" href="/images/logo.png">',
+                    1
+                )
+        
+        # ============================================
+        # حفظ الملف إذا تغير
+        # ============================================
+        if content != original:
+            with open(path, 'w', encoding='utf-8') as f:
+                f.write(content)
+            print(f"✅ تم الإصلاح: {os.path.relpath(path, ROOT_DIR)}")
+            fixed_count += 1
+        else:
+            skipped_count += 1
 
-print(f"\n🎉 عدد الملفات المُصلحة: {fixed_count}")
+print(f"\n{'='*60}")
+print(f"📊 النتيجة النهائية:")
+print(f"  ✅ تم الإصلاح: {fixed_count}")
+print(f"  ℹ️ ما يحتاج تعديل: {skipped_count}")
+print(f"🎉 اكتمل!")
