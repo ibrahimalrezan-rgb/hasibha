@@ -1,0 +1,28 @@
+name: Optimize Speed
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Optimize speed
+      run: python automation/optimize_speed.py
+
+    - name: Commit and Push
+      run: |
+        git config user.name "Hasibha Bot"
+        git config user.email "bot@hasibha.com"
+        git add .
+        git diff --quiet && git diff --staged --quiet || (git commit -m "🏎️ تأجيل GTM + إضافة preconnect" && git push)
