@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""توليد الفهرس العربي والإنجليزي - التبويبات تُبنى من config تلقائياً"""
+"""توليد الفهرس العربي والإنجليزي مع AdSense"""
 
 import os
 import json
@@ -8,6 +8,8 @@ from config import PAGES, CATEGORIES, SITE_URL
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 YEAR = datetime.now().year
+
+ADSENSE_CODE = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4842993238012462" crossorigin="anonymous"></script>'
 
 def build_tabs(lang):
     all_label = "الكل" if lang == "ar" else "All"
@@ -68,7 +70,6 @@ def build_index(lang):
     ]
     faq_html = "\n".join(f'<details><summary>{q}</summary><div class="faq-a">{a}</div></details>' for q, a in faqs)
     home_href = "/index-en" if ar else "/index"
-    logo_alt = "حاسبها" if ar else "Hasibha"
     brand = "حاسبها" if ar else "Hasibha"
     hero_badge = "منصة سعودية موثوقة" if ar else "Trusted Saudi Platform"
     hero_h1 = "كل حاسباتك المالية والصحية في مكان واحد" if ar else "All Your Financial & Health Calculators in One Place"
@@ -100,13 +101,17 @@ def build_index(lang):
 <link rel="alternate" hreflang="ar" href="{SITE_URL}/">
 <link rel="alternate" hreflang="en" href="{SITE_URL}/index-en">
 <link rel="alternate" hreflang="x-default" href="{SITE_URL}/">
+<link rel="icon" type="image/png" href="/images/logo.png">
+<link rel="apple-touch-icon" href="/images/logo.png">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{brand}">
+<meta property="og:image" content="{SITE_URL}/images/logo.png">
 <meta name="theme-color" content="#0b0d10">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
+{ADSENSE_CODE}
 <script type="application/ld+json">
 {json.dumps(schema, ensure_ascii=False, indent=2)}
 </script>
@@ -115,7 +120,10 @@ def build_index(lang):
 <body>
 <header class="site-header">
 <div class="wrap header-in">
-<a class="logo" href="{home_href}"> {brand}</a>
+<a class="logo" href="{home_href}">
+<img src="/images/logo.png" alt="{brand}" style="height:36px;vertical-align:middle">
+{brand}
+</a>
 <nav class="main-nav">{nav_html}</nav>
 <div class="header-actions">
 <button class="theme-btn" id="themeBtn" aria-label="Theme">🌓</button>
@@ -150,7 +158,10 @@ def build_index(lang):
 </section>
 <footer class="site-footer">
 <div class="wrap footer-in">
-<a class="logo" href="{home_href}">🧮 {brand}</a>
+<a class="logo" href="{home_href}">
+<img src="/images/logo.png" alt="{brand}" style="height:28px;vertical-align:middle">
+🧮 {brand}
+</a>
 <nav>{foot_links}</nav>
 <p>{foot_copy}</p>
 </div>
@@ -195,7 +206,7 @@ def main():
         path = os.path.join(ROOT_DIR, filename)
         with open(path, "w", encoding="utf-8") as f:
             f.write(html)
-        print(f"  ✅ {filename} ({len(PAGES)} حاسبة)")
+        print(f"  ✅ {filename} ({len(PAGES)} حاسبة) + AdSense + Logo")
     print("🎉 اكتمل!")
 
 if __name__ == "__main__":
