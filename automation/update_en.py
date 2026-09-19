@@ -312,8 +312,8 @@ def build_en_page(page, fields_html, article_html, subtitle, desc, script, schem
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="author" content="Hasibha">
 <link rel="canonical" href="{SITE_URL}/{slug}-en">
-<link rel="icon" type="image/png" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
-<link rel="apple-touch-icon" href="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+<link rel="icon" type="image/png" href="/images/logo.png">
+<link rel="apple-touch-icon" href="/images/logo.png">
 <link rel="alternate" hreflang="ar" href="{SITE_URL}/{slug}">
 <link rel="alternate" hreflang="en" href="{SITE_URL}/{slug}-en">
 <link rel="alternate" hreflang="x-default" href="{SITE_URL}/{slug}">
@@ -321,13 +321,13 @@ def build_en_page(page, fields_html, article_html, subtitle, desc, script, schem
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{SITE_URL}/{slug}-en">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+<meta property="og:image" content="/images/logo.png">
 <meta property="og:site_name" content="Hasibha">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{title}">
 <meta name="twitter:description" content="{desc}">
-<meta name="twitter:image" content="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png">
+<meta name="twitter:image" content="/images/logo.png">
 <meta name="theme-color" content="#0b0d10">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
@@ -340,7 +340,7 @@ def build_en_page(page, fields_html, article_html, subtitle, desc, script, schem
 <header class="site-header">
 <div class="wrap header-in">
 <a class="logo" href="/index-en" aria-label="Hasibha">
-<img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha" style="height:36px;vertical-align:middle">
+<img src="/images/logo.png" alt="Hasibha" style="height:36px;vertical-align:middle">
 Hasibha
 </a>
 <nav class="main-nav" aria-label="Main navigation">
@@ -384,7 +384,7 @@ Hasibha
 <footer class="site-footer">
 <div class="wrap footer-in">
 <a class="logo" href="/index-en" style="font-size:16px">
-<img src="https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png" alt="Hasibha" style="height:28px;vertical-align:middle">
+<img src="/images/logo.png" alt="Hasibha" style="height:28px;vertical-align:middle">
 Hasibha
 </a>
 <nav aria-label="Footer">

@@ -3,7 +3,7 @@
 import os
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OLD_URL = "https://i.ibb.co/MyCPJW6y/B8947-E27-073-B-4-DE2-8-E7-F-EB2023-A17-E70.png"
+OLD_URL = "/images/logo.png"
 NEW_URL = "/images/logo.png"
 
 changed = 0
