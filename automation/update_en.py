@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """
 تحديث الصفحات الإنجليزية من العربية
-Google Translate + MyMemory + تصحيحات شاملة
-يدعم الحاسبات بدون زر احسب (تحويل فوري)
+يدعم AdSense + الحاسبات بدون زر (تحويل فوري)
 """
 
 import os
@@ -17,6 +16,8 @@ from datetime import datetime
 SITE_URL = "https://hasibha.com"
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AUTOMATION_DIR = os.path.dirname(os.path.abspath(__file__))
+
+ADSENSE_CODE = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4842993238012462" crossorigin="anonymous"></script>'
 
 PAGES = [
     {"slug": "mortgage", "title_en": "Mortgage Calculator", "category": "finance", "icon": "🏠"},
@@ -86,34 +87,23 @@ def translate(text):
 
 def fix_arabic(text):
     fixes = {
-        'ريال سعودي': 'SAR',
-        'ريال': 'SAR',
-        'ر.س': 'SAR',
-        'سنة': 'years',
-        'سنوات': 'years',
-        'شهر': 'months',
-        'أشهر': 'months',
-        'يوم': 'days',
-        'أيام': 'days',
-        '٪': '%',
-        'السعودية': 'Saudi Arabia',
-        'حاسبها': 'Hasibha',
+        'ريال سعودي': 'SAR', 'ريال': 'SAR', 'ر.س': 'SAR',
+        'سنة': 'years', 'سنوات': 'years', 'شهر': 'months', 'أشهر': 'months',
+        'يوم': 'days', 'أيام': 'days', '٪': '%',
+        'السعودية': 'Saudi Arabia', 'حاسبها': 'Hasibha',
     }
     for ar, en in fixes.items():
         text = text.replace(ar, en)
     return text
 
 def translate_html(html):
-    """يترجم HTML + placeholders"""
     if not html:
         return ""
 
     def replace_placeholder(match):
         quote = match.group(1)
         value = match.group(2)
-        if not value.strip():
-            return match.group(0)
-        if not re.search(r'[\u0600-\u06FF]', value):
+        if not value.strip() or not re.search(r'[\u0600-\u06FF]', value):
             return match.group(0)
         translated = translate(value)
         return f'placeholder={quote}{translated}{quote}'
@@ -127,9 +117,7 @@ def translate_html(html):
         leading = len(text) - len(text.lstrip())
         trailing = len(text) - len(text.rstrip())
         core = text.strip()
-        if core:
-            if len(core) < 2:
-                return '>' + text + '<'
+        if core and len(core) >= 2:
             translated = translate(core)
             time.sleep(0.2)
             return '>' + ' ' * leading + translated + ' ' * trailing + '<'
@@ -140,13 +128,10 @@ def translate_html(html):
     return html
 
 def fix_javascript(script):
-    """تصحيح JavaScript: locale, عملة, نصوص عربية شاملة"""
-    # locale
     script = script.replace("'ar-SA'", "'en-US'")
     script = script.replace('"ar-SA"', '"en-US"')
     script = script.replace("'ar-sa'", "'en-US'")
     script = script.replace('"ar-sa"', '"en-US"')
-    # العملة
     script = script.replace("+ ' ريال'", "+ ' SAR'")
     script = script.replace("+' ريال'", "+' SAR'")
     script = script.replace('+ " ريال"', '+ " SAR"')
@@ -160,23 +145,14 @@ def fix_javascript(script):
     script = script.replace('"ر.س"', '"SAR"')
 
     replacements = {
-        # BMI التصنيفات
-        "🔵 نحيف": "🔵 Underweight",
-        "🟢 وزن طبيعي": "🟢 Normal Weight",
-        "🟡 زيادة وزن": "🟡 Overweight",
-        "🟠 سمنة درجة أولى": "🟠 Obesity Class I",
-        "🔴 سمنة درجة ثانية": "🔴 Obesity Class II",
-        "⚫ سمنة مفرطة": "⚫ Obesity Class III",
-        # BMI جمل ديناميكية
-        "تحتاج لإنقاص ": "You need to lose ",
-        "تحتاج لزيادة ": "You need to gain ",
+        "🔵 نحيف": "🔵 Underweight", "🟢 وزن طبيعي": "🟢 Normal Weight",
+        "🟡 زيادة وزن": "🟡 Overweight", "🟠 سمنة درجة أولى": "🟠 Obesity Class I",
+        "🔴 سمنة درجة ثانية": "🔴 Obesity Class II", "⚫ سمنة مفرطة": "⚫ Obesity Class III",
+        "تحتاج لإنقاص ": "You need to lose ", "تحتاج لزيادة ": "You need to gain ",
         "من أجل الوصول إلى الوزن الطبيعي": "to reach normal weight",
         "للوصول إلى الوزن الطبيعي": "to reach normal weight",
         "وزنك المثالي بين ": "Your ideal weight is between ",
-        " كجم": " kg",
-        " كغم": " kg",
-        " كيلوجرام": " kg",
-        # BMI نصوص ثابتة
+        " كجم": " kg", " كغم": " kg", " كيلوجرام": " kg",
         "وزنك أقل من الطبيعي": "Your weight is below normal",
         "وزنك أعلى من الطبيعي قليلاً": "Your weight is slightly above normal",
         "وزنك أعلى من الطبيعي بشكل ملحوظ": "Your weight is significantly above normal",
@@ -186,52 +162,30 @@ def fix_javascript(script):
         "وزنك مثالي": "Your weight is ideal",
         "أنت في النطاق الطبيعي": "You are in the normal range",
         "استمر في عاداتك الصحية": "Keep your healthy habits",
-        # التمويل الشخصي
         "أدخل الدخل لمعرفة التقييم": "Enter income to see assessment",
         "أدخل البيانات لمعرفة التقييم": "Enter data to see assessment",
         "💚 ممتاز — التمويل مناسب جداً.": "💚 Excellent — Loan is very suitable.",
         "💛 مقبول بحذر — راقب ميزانيتك.": "💛 Acceptable with caution — Monitor your budget.",
         "❤️ تحذير — التمويل قد يشكل ضغطاً مالياً.": "❤️ Warning — Loan may cause financial stress.",
         "نسبة القسط إلى الدخل": "Debt-to-Income Ratio",
-        # حاسبة الذهب
-        "الوزن بالجرام": "Weight (grams)",
-        "العيار (24، 22، 21، 18)": "Karat (24, 22, 21, 18)",
-        "سعر الجرام الواحد": "Price per gram",
-        " جرام": " grams",
-        # حاسبة الزكاة
-        "النقد والمدخرات": "Cash and Savings",
-        "قيمة الذهب": "Gold Value",
-        "قيمة الفضة": "Silver Value",
-        "الاستثمارات": "Investments",
-        # الوحدات
-        " سنة": " years",
-        "سنة": "years",
-        "شهر": "months",
-        "أشهر": "months",
-        "يوم": "days",
-        "أيام": "days",
-        # حقول الحاسبات المالية
-        "المبلغ الممول": "Financed Amount",
-        "إجمالي الفوائد": "Total Interest",
-        "الإجمالي": "Total",
-        "القسط الشهري": "Monthly Payment",
-        "النتيجة": "Result",
-        "صافي الراتب": "Net Salary",
-        "الراتب الإجمالي": "Gross Salary",
-        "قيمة الخصم": "Deduction Amount",
-        "المبلغ قبل الضريبة": "Amount Before Tax",
-        "المبلغ بعد الضريبة": "Amount After Tax",
-        "قيمة الضريبة": "VAT Amount",
-        "المكافأة المحسوبة": "Calculated Benefit",
-        "نوع العقد": "Contract Type",
-        "سبب الإنهاء": "Termination Reason",
-        "تاريخ بداية العقد": "Start Date",
-        "تاريخ انتهاء العقد": "End Date",
+        "الوزن بالجرام": "Weight (grams)", "العيار (24، 22، 21، 18)": "Karat (24, 22, 21, 18)",
+        "سعر الجرام الواحد": "Price per gram", " جرام": " grams",
+        "النقد والمدخرات": "Cash and Savings", "قيمة الذهب": "Gold Value",
+        "قيمة الفضة": "Silver Value", "الاستثمارات": "Investments",
+        " سنة": " years", "شهر": "months", "أشهر": "months",
+        "يوم": "days", "أيام": "days",
+        "المبلغ الممول": "Financed Amount", "إجمالي الفوائد": "Total Interest",
+        "الإجمالي": "Total", "القسط الشهري": "Monthly Payment",
+        "النتيجة": "Result", "صافي الراتب": "Net Salary",
+        "الراتب الإجمالي": "Gross Salary", "قيمة الخصم": "Deduction Amount",
+        "المبلغ قبل الضريبة": "Amount Before Tax", "المبلغ بعد الضريبة": "Amount After Tax",
+        "قيمة الضريبة": "VAT Amount", "المكافأة المحسوبة": "Calculated Benefit",
+        "نوع العقد": "Contract Type", "سبب الإنهاء": "Termination Reason",
+        "تاريخ بداية العقد": "Start Date", "تاريخ انتهاء العقد": "End Date",
         "المبلغ شامل الضريبة": "Amount Including VAT",
         "المبلغ (بدون ضريبة)": "Amount (Excluding VAT)",
         "المبلغ (شامل الضريبة)": "Amount (Including VAT)",
-        "إضافة الضريبة": "Add VAT",
-        "إزالة الضريبة": "Remove VAT",
+        "إضافة الضريبة": "Add VAT", "إزالة الضريبة": "Remove VAT",
     }
     for ar, en in replacements.items():
         script = script.replace(ar, en)
@@ -249,12 +203,10 @@ def read_ar_page(slug):
     subtitle_match = re.search(r'<p class="subtitle">([^<]+)</p>', content)
     result['subtitle'] = subtitle_match.group(1).strip() if subtitle_match else ''
 
-    # بداية الحقول: بعد الـ subtitle مباشرة
     start_match = re.search(r'<p class="subtitle">[^<]*</p>', content)
     if not start_match:
         start_match = re.search(r'</p>', content)
 
-    # نهاية الحقول: الزر إن وجد، وإلا result-card، وإلا article-box
     end_match = re.search(r'<button class="calc-btn"', content)
     result['has_button'] = end_match is not None
     if not end_match:
@@ -267,23 +219,19 @@ def read_ar_page(slug):
     else:
         result['fields_html'] = ''
 
-    article_match = re.search(
-        r'<div class="article-box">(.*?)</div>\s*</div>\s*</main>',
-        content, re.DOTALL
-    )
+    article_match = re.search(r'<div class="article-box">(.*?)</div>\s*</div>\s*</main>', content, re.DOTALL)
     result['article'] = article_match.group(1).strip() if article_match else ''
 
     scripts = re.findall(r'<script>(.*?)</script>', content, re.DOTALL)
     all_scripts = []
     for s in scripts:
-        if 'googletagmanager' in s or 'gtag' in s:
+        if 'googletagmanager' in s or 'gtag' in s or 'adsbygoogle' in s:
             continue
         if not s.strip():
             continue
         all_scripts.append(s.strip())
     result['script'] = '\n'.join(all_scripts)
 
-    # الدالة الرئيسية: None إذا ما فيه زر (حاسبات التحويل الفوري)
     main_func = None
     onclick_match = re.search(r'onclick="(\w+)\(\)"', content)
     if onclick_match:
@@ -321,16 +269,17 @@ def build_en_page(page, fields_html, article_html, subtitle, desc, script, schem
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{SITE_URL}/{slug}-en">
 <meta property="og:type" content="website">
-<meta property="og:image" content="/images/logo.png">
+<meta property="og:image" content="{SITE_URL}/images/logo.png">
 <meta property="og:site_name" content="Hasibha">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{title}">
 <meta name="twitter:description" content="{desc}">
-<meta name="twitter:image" content="/images/logo.png">
+<meta name="twitter:image" content="{SITE_URL}/images/logo.png">
 <meta name="theme-color" content="#0b0d10">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
+{ADSENSE_CODE}
 <script type="application/ld+json">
 {json.dumps(schema, ensure_ascii=False, indent=2)}
 </script>
@@ -487,8 +436,7 @@ def main():
             return
     print(f"📊 عدد الصفحات: {len(pages_to_update)}")
     print("🌐 Google Translate + MyMemory")
-    print("✅ ترجمة placeholders + JavaScript شاملة")
-    print("✅ دعم الحاسبات بدون زر (تحويل فوري)")
+    print("💰 AdSense + Logo + دعم الحاسبات بدون زر")
     for i, page in enumerate(pages_to_update, 1):
         print(f"\n[{i}/{len(pages_to_update)}] 🔨 {page['slug']}-en.html")
         try:
