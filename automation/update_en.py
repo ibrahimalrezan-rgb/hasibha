@@ -254,6 +254,9 @@ def build_en_page(page, fields_html, article_html, subtitle, desc, script, schem
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
 <title>{title} - Hasibha</title>
 <meta name="description" content="{desc}">
 <meta name="keywords" content="{title}, free calculator, online calculator">
@@ -277,8 +280,21 @@ def build_en_page(page, fields_html, article_html, subtitle, desc, script, schem
 <meta name="twitter:description" content="{desc}">
 <meta name="twitter:image" content="{SITE_URL}/images/logo.png">
 <meta name="theme-color" content="#0b0d10">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
+<script>
+window.addEventListener('load',function(){{
+var s=document.createElement('script');
+s.src='https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW';
+s.async=true;
+document.head.appendChild(s);
+s.onload=function(){{
+window.dataLayer=window.dataLayer||[];
+function gtag(){{dataLayer.push(arguments)}}
+window.gtag=gtag;
+gtag('js',new Date());
+gtag('config','G-NZLXJFVCDW');
+}};
+}});
+</script>
 {ADSENSE_CODE}
 <script type="application/ld+json">
 {json.dumps(schema, ensure_ascii=False, indent=2)}
