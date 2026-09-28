@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""تحديث فهرس المقالات articles/index.html"""
+"""تحديث فهرس المقالات articles/index.html — ينشئ المجلد تلقائياً"""
 
 import os
 import re
@@ -7,6 +7,9 @@ from datetime import datetime
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ARTICLES_DIR = os.path.join(ROOT_DIR, 'articles')
+
+# ✅ الحل: أنشئ المجلد إذا لم يكن موجوداً
+os.makedirs(ARTICLES_DIR, exist_ok=True)
 
 # جمع كل المقالات
 articles = []
@@ -107,7 +110,7 @@ body{{font-family:"Segoe UI",Tahoma,"Noto Kufi Arabic",sans-serif;background:#f8
 </section>
 <main class="wrap">
 <div class="articles-grid">
-{cards if cards else '<p style="grid-column:1/-1;text-align:center;padding:40px">لا توجد مقالات بعد</p>'}
+{cards if cards else '<p style="grid-column:1/-1;text-align:center;padding:40px;color:#8b95a1">لا توجد مقالات بعد — قريباً!</p>'}
 </div>
 </main>
 <footer class="site-footer">
