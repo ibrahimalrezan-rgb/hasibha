@@ -1,108 +1,115 @@
-#!/usr/bin/env python3
+ #!/usr/bin/env python3
 """
-توليد sitemap.xml احترافي مع hreflang tags
+توليد sitemap.xml شامل:
+- كل صفحات الحاسبات (عربي + إنجليزي)
+- كل المقالات
+- الصفحات الثابتة
 """
 
 import os
+import re
 from datetime import datetime
-from config import PAGES, SITE_URL
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ARTICLES_DIR = os.path.join(ROOT_DIR, 'articles')
+SITE_URL = "https://hasibha.com"
+TODAY = datetime.now().strftime("%Y-%m-%d")
 
-def generate_sitemap():
-    """يولد sitemap.xml كامل مع hreflang tags"""
-    
-    today = datetime.now().strftime('%Y-%m-%d')
-    
-    # الصفحات الثابتة
-    static_pages = [
-        {"url": "/", "priority": "1.0", "changefreq": "weekly"},
-        {"url": "/index-en", "priority": "1.0", "changefreq": "weekly"},
-        {"url": "/privacy", "priority": "0.3", "changefreq": "yearly"},
-        {"url": "/privacy-en", "priority": "0.3", "changefreq": "yearly"},
-        {"url": "/about", "priority": "0.3", "changefreq": "yearly"},
-        {"url": "/about-en", "priority": "0.3", "changefreq": "yearly"},
-        {"url": "/contact", "priority": "0.3", "changefreq": "yearly"},
-        {"url": "/contact-en", "priority": "0.3", "changefreq": "yearly"},
-    ]
-    
-    urls = []
-    
-    # الصفحات الثابتة
-    for page in static_pages:
-        url = f"{SITE_URL}{page['url']}"
-        urls.append(f'''  <url>
-    <loc>{url}</loc>
-    <lastmod>{today}</lastmod>
-    <changefreq>{page['changefreq']}</changefreq>
-    <priority>{page['priority']}</priority>
-  </url>''')
-    
-    # صفحات الحاسبات مع hreflang
-    for page in PAGES:
-        slug = page['slug']
-        url_ar = f"{SITE_URL}/{slug}"
-        url_en = f"{SITE_URL}/{slug}-en"
-        
-        # الصفحة العربية
-        urls.append(f'''  <url>
-    <loc>{url_ar}</loc>
-    <lastmod>{today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="ar" href="{url_ar}"/>
-    <xhtml:link rel="alternate" hreflang="en" href="{url_en}"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="{url_ar}"/>
-  </url>''')
-        
-        # الصفحة الإنجليزية
-        urls.append(f'''  <url>
-    <loc>{url_en}</loc>
-    <lastmod>{today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="ar" href="{url_ar}"/>
-    <xhtml:link rel="alternate" hreflang="en" href="{url_en}"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="{url_ar}"/>
-  </url>''')
-    
-    sitemap_xml = f'''<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-{chr(10).join(urls)}
-</urlset>'''
-    
-    return sitemap_xml
+urls = []
 
-def generate_robots_txt():
-    """يولد robots.txt"""
-    return f'''User-agent: *
-Allow: /
+def add_url(loc, priority, changefreq="weekly", lastmod=None):
+    urls.append({
+        "loc": loc,
+        "priority": priority,
+        "changefreq": changefreq,
+        "lastmod": lastmod or TODAY
+    })
 
-Sitemap: {SITE_URL}/sitemap.xml
+# ============================================
+# 1) الصفحات الرئيسية
+# ============================================
+add_url(f"{SITE_URL}/", "1.0", "daily")
+add_url(f"{SITE_URL}/index-en", "0.9", "daily")
 
-# Disallow admin or private areas if any
-# Disallow: /admin/
-'''
+# ============================================
+# 2) الصفحات الثابتة
+# ============================================
+static_pages = [
+    ("privacy", "0.5"), ("privacy-en", "0.4"),
+    ("contact", "0.5"), ("contact-en", "0.4"),
+    ("about", "0.5"), ("about-en", "0.4"),
+]
+for slug, priority in static_pages:
+    add_url(f"{SITE_URL}/{slug}", priority, "monthly")
 
-def main():
-    print("🗺️ توليد خريطة الموقع...")
+# ============================================
+# 3) صفحات الحاسبات (عربي + إنجليزي)
+# ============================================
+try:
+    from config import PAGES
+except ImportError:
+    PAGES = []
+    # fallback: قراءة من الملفات الموجودة
+    for name in os.listdir(ROOT_DIR):
+        if name.endswith('.html') and not name.startswith('index'):
+            slug = name.replace('.html', '')
+            if slug.endswith('-en'):
+                continue
+            PAGES.append({"slug": slug})
+
+for page in PAGES:
+    slug = page['slug']
+    add_url(f"{SITE_URL}/{slug}", "0.9", "weekly")
+    add_url(f"{SITE_URL}/{slug}-en", "0.8", "weekly")
+
+# ============================================
+# 4) المقالات (جديد!)
+# ============================================
+articles_count = 0
+if os.path.exists(ARTICLES_DIR):
+    add_url(f"{SITE_URL}/articles/", "0.8", "weekly")
     
-    # sitemap.xml
-    sitemap_xml = generate_sitemap()
-    sitemap_path = os.path.join(ROOT_DIR, 'sitemap.xml')
-    with open(sitemap_path, 'w', encoding='utf-8') as f:
-        f.write(sitemap_xml)
-    print(f"  ✅ تم توليد sitemap.xml ({len(PAGES) * 2 + 8} URL)")
-    
-    # robots.txt
-    robots_txt = generate_robots_txt()
-    robots_path = os.path.join(ROOT_DIR, 'robots.txt')
-    with open(robots_path, 'w', encoding='utf-8') as f:
-        f.write(robots_txt)
-    print(f"  ✅ تم توليد robots.txt")
-    
-    print("\n🎉 اكتمل!")
+    for name in os.listdir(ARTICLES_DIR):
+        if name.endswith('.html') and name != 'index.html':
+            slug = name.replace('.html', '')
+            path = os.path.join(ARTICLES_DIR, name)
+            
+            # استخراج تاريخ النشر
+            lastmod = TODAY
+            try:
+                with open(path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                date_match = re.search(r'"datePublished":"([^"]*)"', content)
+                if date_match:
+                    lastmod = date_match.group(1)
+            except:
+                pass
+            
+            add_url(f"{SITE_URL}/articles/{slug}", "0.8", "weekly", lastmod)
+            articles_count += 1
 
-if __name__ == "__main__":
-    main()
+# ============================================
+# 5) بناء ملف XML
+# ============================================
+xml_lines = ['<?xml version="1.0" encoding="UTF-8"?>']
+xml_lines.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+
+for u in urls:
+    xml_lines.append('  <url>')
+    xml_lines.append(f'    <loc>{u["loc"]}</loc>')
+    xml_lines.append(f'    <lastmod>{u["lastmod"]}</lastmod>')
+    xml_lines.append(f'    <changefreq>{u["changefreq"]}</changefreq>')
+    xml_lines.append(f'    <priority>{u["priority"]}</priority>')
+    xml_lines.append('  </url>')
+
+xml_lines.append('</urlset>')
+
+sitemap_path = os.path.join(ROOT_DIR, 'sitemap.xml')
+with open(sitemap_path, 'w', encoding='utf-8') as f:
+    f.write('\n'.join(xml_lines))
+
+print(f"✅ تم توليد sitemap.xml")
+print(f"   📊 إجمالي الروابط: {len(urls)}")
+print(f"   📝 منها مقالات: {articles_count}")
+print(f"   🧮 صفحات الحاسبات: {len(PAGES) * 2}")
+print(f"   📄 صفحات ثابتة: {len(static_pages) + 2}")
