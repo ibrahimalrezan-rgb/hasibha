@@ -259,10 +259,28 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://hasibha.com/articles/index-en</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://hasibha.com/articles/eos-guide-2026-en</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://hasibha.com/articles/vat-guide-2026</loc>
     <lastmod>2026-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hasibha.com/articles/zakat-guide-2026-en</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hasibha.com/articles/zakat-guide-2026</loc>
@@ -277,15 +295,33 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://hasibha.com/articles/vat-guide-2026-en</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://hasibha.com/articles/bmi-guide-2026</loc>
     <lastmod>2026-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://hasibha.com/articles/bmi-guide-2026-en</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://hasibha.com/articles/mortgage-guide-2026</loc>
     <lastmod>2026-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hasibha.com/articles/mortgage-guide-2026-en</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
