@@ -1,0 +1,40 @@
+name: Articles English + Fixes
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Translate articles to English
+      run: python automation/generate_article_en.py
+      env:
+        DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+
+    - name: Fix dark mode + language links
+      run: python automation/fix_articles.py
+
+    - name: Update articles indexes + sitemap
+      run: python automation/update_articles_index.py
+
+    - name: Optimize speed
+      run: python automation/optimize_speed.py
+
+    - name: Commit and Push
+      run: |
+        git config user.name "Hasibha Bot"
+        git config user.email "bot@hasibha.com"
+        git add .
+        git diff --quiet && git diff --staged --quiet || (git commit -m "🌐 مقالات إنجليزية + إصلاح الوضع الداكن" && git push)
+        
