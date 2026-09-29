@@ -1,17 +1,23 @@
 #!/usr/bin/env python3
-"""تحديث فهرس المقالات articles/index.html — ينشئ المجلد تلقائياً"""
+"""
+تحديث فهرس المقالات + استدعاء توليد الـ sitemap
+ينشئ المجلد تلقائياً إذا لم يكن موجوداً
+"""
 
 import os
 import re
+import subprocess
 from datetime import datetime
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ARTICLES_DIR = os.path.join(ROOT_DIR, 'articles')
 
-# ✅ الحل: أنشئ المجلد إذا لم يكن موجوداً
+# إنشاء المجلد إذا لم يكن موجوداً
 os.makedirs(ARTICLES_DIR, exist_ok=True)
 
+# ============================================
 # جمع كل المقالات
+# ============================================
 articles = []
 for name in os.listdir(ARTICLES_DIR):
     if name.endswith('.html') and name != 'index.html':
@@ -22,28 +28,35 @@ for name in os.listdir(ARTICLES_DIR):
         title = re.search(r'<title>(.*?)</title>', content)
         desc = re.search(r'<meta name="description" content="([^"]*)"', content)
         date = re.search(r'"datePublished":"([^"]*)"', content)
+        category = re.search(r'<span style="font-size:12px;color:var\(--text-3\)">([^<]*)</span>', content)
         
         if title:
             articles.append({
                 "slug": name.replace('.html', ''),
                 "title": title.group(1).replace(' | حاسبها', ''),
                 "desc": desc.group(1)[:120] + '...' if desc else '',
-                "date": date.group(1) if date else ''
+                "date": date.group(1) if date else '',
+                "category": category.group(1) if category else '📄 عام'
             })
 
 articles.sort(key=lambda x: x['date'], reverse=True)
 
-# بناء HTML
+# ============================================
+# بناء بطاقات المقالات
+# ============================================
 cards = ""
 for a in articles:
     cards += f'''<a class="article-card" href="/articles/{a['slug']}">
-<span class="date">{a['date']}</span>
+<span class="date">{a['category']} • {a['date']}</span>
 <h3>{a['title']}</h3>
 <p>{a['desc']}</p>
 <span class="read-more">اقرأ المقال ←</span>
 </a>
 '''
 
+# ============================================
+# بناء صفحة الفهرس
+# ============================================
 html = f'''<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -128,3 +141,11 @@ with open(os.path.join(ARTICLES_DIR, 'index.html'), 'w', encoding='utf-8') as f:
     f.write(html)
 
 print(f"✅ تم تحديث فهرس المقالات ({len(articles)} مقال)")
+
+# ============================================
+# استدعاء توليد الـ sitemap تلقائياً
+# ============================================
+sitemap_script = os.path.join(ROOT_DIR, 'automation', 'generate_sitemap.py')
+if os.path.exists(sitemap_script):
+    print("🔄 تحديث sitemap.xml تلقائياً...")
+    subprocess.run(['python', sitemap_script], check=True)
