@@ -22,12 +22,15 @@ jobs:
       env:
         DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
 
-    - name: Update articles index
+    - name: Update articles index + sitemap
       run: python automation/update_articles_index.py
+
+    - name: Optimize speed (inline CSS + move scripts)
+      run: python automation/optimize_speed.py
 
     - name: Commit and Push
       run: |
         git config user.name "Hasibha Bot"
         git config user.email "bot@hasibha.com"
         git add .
-        git diff --quiet && git diff --staged --quiet || (git commit -m "📝 إضافة مقالات جديدة" && git push)
+        git diff --quiet && git diff --staged --quiet || (git commit -m "📝 مقالات جديدة + sitemap محدث" && git push)
