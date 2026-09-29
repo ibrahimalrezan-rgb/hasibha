@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""توليد الفهرس العربي والإنجليزي مع AdSense"""
+"""توليد الفهرس العربي والإنجليزي + قسم أحدث المقالات تلقائياً"""
 
 import os
+import re
 import json
 from datetime import datetime
 from config import PAGES, CATEGORIES, SITE_URL
@@ -10,6 +11,34 @@ ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 YEAR = datetime.now().year
 
 ADSENSE_CODE = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4842993238012462" crossorigin="anonymous"></script>'
+
+def get_latest_articles(limit=3):
+    """قراءة أحدث المقالات من مجلد articles تلقائياً"""
+    articles = []
+    articles_dir = os.path.join(ROOT_DIR, 'articles')
+    if not os.path.exists(articles_dir):
+        return articles
+    for name in os.listdir(articles_dir):
+        if not name.endswith('.html') or name == 'index.html':
+            continue
+        path = os.path.join(articles_dir, name)
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            title = re.search(r'<title>(.*?)</title>', content)
+            desc = re.search(r'<meta name="description" content="([^"]*)"', content)
+            date = re.search(r'"datePublished":"([^"]*)"', content)
+            if title:
+                articles.append({
+                    "slug": name.replace('.html', ''),
+                    "title": title.group(1).replace(' | حاسبها', '').strip(),
+                    "desc": (desc.group(1)[:110] + '...') if desc else '',
+                    "date": date.group(1) if date else ''
+                })
+        except Exception:
+            continue
+    articles.sort(key=lambda x: x['date'], reverse=True)
+    return articles[:limit]
 
 def build_tabs(lang):
     all_label = "الكل" if lang == "ar" else "All"
@@ -37,14 +66,43 @@ def build_cards(lang):
 '''
     return html
 
+def build_articles_section(lang, articles):
+    """قسم أحدث المقالات — يظهر فقط إذا توجد مقالات"""
+    if not articles:
+        return ""
+    ar = lang == "ar"
+    sec_title = "أحدث المقالات" if ar else "Latest Articles"
+    view_all = "عرض الكل ←" if ar else "View All ←"
+    read_cta = "اقرأ المقال ←" if ar else "Read Article ←"
+    cards = ""
+    for a in articles:
+        cards += f'''<a class="card gen" href="/articles/{a['slug']}">
+<span class="card-icon">📝</span>
+<div><h3>{a['title']}</h3><p>{a['desc']}</p></div>
+<span class="card-cta">{read_cta}</span>
+</a>
+'''
+    return f'''<section class="wrap" id="articles">
+<div class="section-head"><h2>{sec_title}</h2><a href="/articles" style="color:var(--c-health);font-size:14px;font-weight:600;text-decoration:none">{view_all}</a></div>
+<div class="grid">
+{cards}
+</div>
+</section>
+'''
+
 def build_index(lang):
     ar = lang == "ar"
     title = "حاسبها — كل الحاسبات المالية والصحية في مكان واحد" if ar else "Hasibha — All Financial & Health Calculators in One Place"
     desc = "17 حاسبة مجانية: تمويل، زكاة، ذهب، تأمينات، BMI والمزيد. نتائج فورية بدون تسجيل." if ar else "17 free calculators: mortgage, zakat, gold, GOSI, BMI and more. Instant results."
     other = "index-en" if ar else "index"
     other_label = "EN" if ar else "عربي"
-    nav = [("calculators", "الحاسبات" if ar else "Calculators"), ("features", "المميزات" if ar else "Features"), ("faq", "الأسئلة الشائعة" if ar else "FAQ")]
-    nav_html = "\n".join(f'<a href="#{i}">{t}</a>' for i, t in nav)
+
+    # القائمة الرئيسية + رابط المقالات
+    if ar:
+        nav_html = '<a href="#calculators">الحاسبات</a>\n<a href="/articles">المقالات</a>\n<a href="#features">المميزات</a>\n<a href="#faq">الأسئلة الشائعة</a>'
+    else:
+        nav_html = '<a href="#calculators">Calculators</a>\n<a href="/articles">Articles</a>\n<a href="#features">Features</a>\n<a href="#faq">FAQ</a>'
+
     stats = [
         (str(len(PAGES)) + ("+" if ar else ""), "حاسبة مجانية" if ar else "Free Calculators"),
         ("2", "لغة" if ar else "Languages"),
@@ -77,8 +135,12 @@ def build_index(lang):
     sec_calc = "اختر حاسبتك" if ar else "Pick Your Calculator"
     sec_feat = "لماذا حاسبها؟" if ar else "Why Hasibha?"
     sec_faq = "الأسئلة الشائعة" if ar else "FAQ"
-    foot_links = f'<a href="/privacy{"-en" if not ar else ""}">{"سياسة الخصوصية" if ar else "Privacy"}</a>\n<a href="/contact{"-en" if not ar else ""}">{"اتصل بنا" if ar else "Contact"}</a>\n<a href="/about{"-en" if not ar else ""}">{"من نحن" if ar else "About"}</a>'
+    articles_link = f'<a href="/articles">{"المقالات" if ar else "Articles"}</a>'
+    foot_links = f'<a href="/privacy{"-en" if not ar else ""}">{"سياسة الخصوصية" if ar else "Privacy"}</a>\n<a href="/contact{"-en" if not ar else ""}">{"اتصل بنا" if ar else "Contact"}</a>\n<a href="/about{"-en" if not ar else ""}">{"من نحن" if ar else "About"}</a>\n{articles_link}'
     foot_copy = f"حاسبها © {YEAR} — جميع الحقوق محفوظة" if ar else f"Hasibha © {YEAR} — All Rights Reserved"
+
+    # قسم المقالات تلقائياً
+    articles_section = build_articles_section(lang, get_latest_articles(3))
 
     schema = {
         "@context": "https://schema.org",
@@ -94,9 +156,6 @@ def build_index(lang):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://www.googletagmanager.com">
-<link rel="preconnect" href="https://www.google-analytics.com">
-<link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <meta name="robots" content="index, follow">
@@ -106,27 +165,17 @@ def build_index(lang):
 <link rel="alternate" hreflang="x-default" href="{SITE_URL}/">
 <link rel="icon" type="image/png" href="/images/logo.png">
 <link rel="apple-touch-icon" href="/images/logo.png">
+<link rel="preload" as="image" href="/images/logo.png">
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://www.google-analytics.com">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{brand}">
 <meta property="og:image" content="{SITE_URL}/images/logo.png">
 <meta name="theme-color" content="#0b0d10">
-<script>
-window.addEventListener('load',function(){{
-var s=document.createElement('script');
-s.src='https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW';
-s.async=true;
-document.head.appendChild(s);
-s.onload=function(){{
-window.dataLayer=window.dataLayer||[];
-function gtag(){{dataLayer.push(arguments)}}
-window.gtag=gtag;
-gtag('js',new Date());
-gtag('config','G-NZLXJFVCDW');
-}};
-}});
-</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
 {ADSENSE_CODE}
 <script type="application/ld+json">
 {json.dumps(schema, ensure_ascii=False, indent=2)}
@@ -137,7 +186,7 @@ gtag('config','G-NZLXJFVCDW');
 <header class="site-header">
 <div class="wrap header-in">
 <a class="logo" href="{home_href}">
-<img src="/images/logo.png" alt="{brand}" style="height:36px;vertical-align:middle">
+<img src="/images/logo.png" alt="{brand}" width="54" height="36" style="height:36px;vertical-align:middle">
 {brand}
 </a>
 <nav class="main-nav">{nav_html}</nav>
@@ -162,6 +211,7 @@ gtag('config','G-NZLXJFVCDW');
 {build_cards(lang)}
 </div>
 </section>
+{articles_section}
 <section class="wrap" id="features">
 <div class="section-head"><h2>{sec_feat}</h2></div>
 <div class="features-grid">
@@ -175,7 +225,7 @@ gtag('config','G-NZLXJFVCDW');
 <footer class="site-footer">
 <div class="wrap footer-in">
 <a class="logo" href="{home_href}">
-<img src="/images/logo.png" alt="{brand}" style="height:28px;vertical-align:middle">
+<img src="/images/logo.png" alt="{brand}" width="42" height="28" style="height:28px;vertical-align:middle">
 🧮 {brand}
 </a>
 <nav>{foot_links}</nav>
@@ -196,7 +246,7 @@ apply(next); try{{localStorage.setItem('hs-theme',next);}}catch(e){{}}
 }})();
 (function(){{
 var tabs=document.querySelectorAll('.tab');
-var cards=document.querySelectorAll('.card');
+var cards=document.querySelectorAll('.card[data-cat]');
 tabs.forEach(function(btn){{
 btn.addEventListener('click',function(){{
 tabs.forEach(function(b){{b.classList.remove('on');}});
@@ -217,12 +267,14 @@ else{{card.classList.add('hide');card.style.display='none';}}
 
 def main():
     print("🏗️ توليد الفهرس...")
+    articles = get_latest_articles(3)
+    print(f"  📚 مقالات سيتم عرضها: {len(articles)}")
     for lang, filename in [("ar", "index.html"), ("en", "index-en.html")]:
         html = build_index(lang)
         path = os.path.join(ROOT_DIR, filename)
         with open(path, "w", encoding="utf-8") as f:
             f.write(html)
-        print(f"  ✅ {filename} ({len(PAGES)} حاسبة) + AdSense + Logo")
+        print(f"  ✅ {filename} ({len(PAGES)} حاسبة + {len(articles)} مقالات)")
     print("🎉 اكتمل!")
 
 if __name__ == "__main__":
