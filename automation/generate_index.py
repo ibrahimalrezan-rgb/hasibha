@@ -12,14 +12,18 @@ YEAR = datetime.now().year
 
 ADSENSE_CODE = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4842993238012462" crossorigin="anonymous"></script>'
 
-def get_latest_articles(limit=3):
-    """قراءة أحدث المقالات من مجلد articles تلقائياً"""
+def get_latest_articles(limit=3, lang="ar"):
+    """قراءة أحدث المقالات حسب اللغة تلقائياً"""
     articles = []
     articles_dir = os.path.join(ROOT_DIR, 'articles')
     if not os.path.exists(articles_dir):
         return articles
     for name in os.listdir(articles_dir):
-        if not name.endswith('.html') or name == 'index.html':
+        if not name.endswith('.html') or name.startswith('index'):
+            continue
+        slug = name[:-5]
+        is_en = slug.endswith('-en')
+        if (lang == "en") != is_en:
             continue
         path = os.path.join(articles_dir, name)
         try:
@@ -30,8 +34,8 @@ def get_latest_articles(limit=3):
             date = re.search(r'"datePublished":"([^"]*)"', content)
             if title:
                 articles.append({
-                    "slug": name.replace('.html', ''),
-                    "title": title.group(1).replace(' | حاسبها', '').strip(),
+                    "slug": slug,
+                    "title": title.group(1).replace(' | حاسبها', '').replace(' | Hasibha', '').strip(),
                     "desc": (desc.group(1)[:110] + '...') if desc else '',
                     "date": date.group(1) if date else ''
                 })
@@ -140,8 +144,7 @@ def build_index(lang):
     foot_copy = f"حاسبها © {YEAR} — جميع الحقوق محفوظة" if ar else f"Hasibha © {YEAR} — All Rights Reserved"
 
     # قسم المقالات تلقائياً
-    articles_section = build_articles_section(lang, get_latest_articles(3))
-
+    articles_section = build_articles_section(lang, get_latest_articles(3, lang))
     schema = {
         "@context": "https://schema.org",
         "@type": "WebSite",
