@@ -1,0 +1,28 @@
+name: Change AdSense Account
+
+on:
+  workflow_dispatch:
+
+jobs:
+  change:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Change AdSense + add verification meta
+      run: python automation/change_adsense.py
+
+    - name: Commit and Push
+      run: |
+        git config user.name "Hasibha Bot"
+        git config user.email "bot@hasibha.com"
+        git add .
+        git diff --quiet && git diff --staged --quiet || (git commit -m "💰 تغيير حساب AdSense + إثبات الملكية" && git push)
