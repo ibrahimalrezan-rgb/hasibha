@@ -34,7 +34,6 @@ if os.path.exists(ARTICLES_DIR):
         )
         
         # 2) إضافة معرفات (id) للعناوين H2 لتعمل الروابط الداخلية
-        # القاموس يربط بين نص العنوان والـ id المطلوب
         id_mappings = [
             (r'(<h2[^>]*>)(.*?الأسئلة الشائعة.*?)(</h2>)', r'\1\2\3'.replace('<h2>', '<h2 id="faq">')),
             (r'(<h2[^>]*>)(.*?FAQ.*?)(</h2>)', r'\1\2\3'.replace('<h2>', '<h2 id="faq">')),
@@ -49,15 +48,15 @@ if os.path.exists(ARTICLES_DIR):
         ]
         
         for pattern, replacement in id_mappings:
-            # نتأكد أننا لا نضيف id إذا كان موجوداً بالفعل
-            if 'id=' not in re.search(pattern, content, re.IGNORECASE | re.DOTALL).group(0) if re.search(pattern, content, re.IGNORECASE | re.DOTALL) else True:
-                content = re.sub(pattern, replacement, content, flags=re.IGNORECASE | re.DOTALL)
+            if re.search(pattern, content, re.IGNORECASE | re.DOTALL):
+                match = re.search(pattern, content, re.IGNORECASE | re.DOTALL).group(0)
+                if 'id=' not in match:
+                    content = re.sub(pattern, replacement, content, flags=re.IGNORECASE | re.DOTALL)
 
         # 3) إضافة رابط hreflang للنسخة الإنجليزية في المقالات العربية
         if not is_en:
             en_url = f"https://hasibha.com/articles/{base_name}-en"
             if 'hreflang="en"' not in content:
-                # نضيفه بعد الـ canonical
                 content = re.sub(
                     r'(<link\s+rel="canonical"[^>]+>)',
                     rf'\1\n<link rel="alternate" hreflang="en" href="{en_url}">',
@@ -77,7 +76,6 @@ if os.path.exists(sitemap_path):
         sitemap_content = f.read()
     
     if '<loc>https://hasibha.com/articles/index</loc>' not in sitemap_content:
-        # نضيفه قبل إغلاق urlset
         new_entry = """  <url>
     <loc>https://hasibha.com/articles/index</loc>
     <lastmod>2026-10-05</lastmod>
