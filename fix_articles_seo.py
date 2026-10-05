@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 """
-إصلاح شامل وسحري لجميع ملاحظات الـ SEO (🔵 و 🟡) في المقالات
-1) إضافة أبعاد للصور (width/height) لمنع اهتزاز الصفحة.
-2) إضافة معرفات (id) للعناوين لتعمل روابط جدول المحتويات.
-3) إضافة روابط hreflang للنسخ الإنجليزية.
+إصلاح شامل وسحري لجميع ملاحظات الـ SEO في المقالات
 """
 import os
 import re
@@ -69,7 +66,7 @@ if os.path.exists(ARTICLES_DIR):
             fixed_count += 1
             print(f"✅ تم إصلاح: {name}")
 
-# 4) إصلاح تحذير الـ sitemap (إضافة /articles/index يدوياً إذا لم يكن موجوداً)
+# 4) إصلاح تحذير الـ sitemap
 sitemap_path = os.path.join(ROOT_DIR, 'sitemap.xml')
 if os.path.exists(sitemap_path):
     with open(sitemap_path, 'r', encoding='utf-8') as f:
