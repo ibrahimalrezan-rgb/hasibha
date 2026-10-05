@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """
-فاحص SEO تلقائي — فحص فقط بدون تطبيق تعديلات
+فاحص SEO تلقائي شامل — فحص فقط بدون تطبيق تعديلات
 1) قراءة الصفحات العربية والإنجليزية
 2) اكتشاف العناوين المفقودة/المكررة والأوصاف الناقصة
 3) فحص الروابط الداخلية والصور والروابط المعطلة
-4) مقارنة الصفحات مع sitemap.xml
-5) تقرير واضح بالتعديلات المقترحة
-6) يُشغل من GitHub Actions دورياً
+4) مقارنة الصفحات مع sitemap.xml ورصد الاختلافات
+5) إخراج تقرير واضح بالتعديلات المقترحة
+6) تشغيل الفحص من GitHub Actions وفق جدول دوري
 """
+
 import os
 import re
 import html as htmllib
@@ -50,17 +51,8 @@ def page_url(rel):
         return '/articles/' + rel[len('articles/'):-5]
     return '/' + rel[:-5]
 
-def collect_pages():
-    pages = []
-    for root, dirs, files in os.walk(ROOT_DIR):
-        dirs[:] = [d for d in dirs if d not in ('.git', '.github', 'automation', 'node_modules', 'reports')]
-        for name in files:
-            if name.endswith('.html'):
-                pages.append(os.path.relpath(os.path.join(root, name), ROOT_DIR))
-    return sorted(pages)
-
 def resolve_exists(path):
-    """هل المسار الداخلي يشير لملف موجود؟"""
+    """هل المسار الداخلي يشير لملف موجود فعلياً؟"""
     path = path.split('#')[0].split('?')[0]
     rel = path.lstrip('/')
     if rel == '':
@@ -68,9 +60,29 @@ def resolve_exists(path):
     candidates = [rel + '.html', rel + '/index.html', rel]
     return any(os.path.isfile(os.path.join(ROOT_DIR, c)) for c in candidates)
 
+def collect_pages():
+    pages = []
+    # أنماط الملفات التي نتجاهلها (ملفات التحقق من محركات البحث)
+    SKIP_PATTERNS = [
+        r'^google[a-f0-9]+\.html$',
+        r'^bing[a-f0-9]+\.html$',
+        r'^yandex_[a-f0-9]+\.html$',
+    ]
+    for root, dirs, files in os.walk(ROOT_DIR):
+        dirs[:] = [d for d in dirs if d not in ('.git', '.github', 'automation', 'node_modules', 'reports')]
+        for name in files:
+            if not name.endswith('.html'):
+                continue
+            # تخطي ملفات التحقق
+            if any(re.match(p, name) for p in SKIP_PATTERNS):
+                continue
+            pages.append(os.path.relpath(os.path.join(root, name), ROOT_DIR))
+    return sorted(pages)
+
 # ============================================
 # 1) قراءة الصفحات واستخراج البيانات
 # ============================================
+print("🔍 جاري قراءة الصفحات واستخراج البيانات...")
 pages = collect_pages()
 for rel in pages:
     with open(os.path.join(ROOT_DIR, rel), 'r', encoding='utf-8') as f:
@@ -105,8 +117,9 @@ for rel in pages:
                        "h1s": h1s, "ids": ids, "imgs": imgs, "links": links}
 
 # ============================================
-# 2) فحوصات العناوين والأوصاف
+# 2) فحوصات العناوين والأوصاف والـ H1
 # ============================================
+print("⚙️ جاري فحص العناوين والأوصاف والـ H1...")
 titles = {}
 for rel, p in pages_data.items():
     if not p['title']:
@@ -157,6 +170,7 @@ for title, rels in titles.items():
 # ============================================
 # 3) فحص الصور والروابط
 # ============================================
+print("🔗 جاري فحص الصور والروابط الداخلية والخارجية...")
 external = set()
 for rel, p in pages_data.items():
     for img in p['imgs']:
@@ -198,7 +212,7 @@ for rel, p in pages_data.items():
                       'صحح الرابط أو استبدله بصفحة موجودة')
 
 if CHECK_EXTERNAL:
-    print(f"🌐 فحص {min(len(external), 40)} رابط خارجي...")
+    print(f"🌐 جاري فحص {min(len(external), 40)} رابط خارجي (قد يستغرق وقتاً)...")
     for url in sorted(external)[:40]:
         try:
             req = urllib.request.Request(url, method='HEAD', headers={'User-Agent': 'Mozilla/5.0'})
@@ -213,6 +227,7 @@ if CHECK_EXTERNAL:
 # ============================================
 # 4) المقارنة مع sitemap.xml
 # ============================================
+print("🗺️ جاري مقارنة الصفحات مع sitemap.xml...")
 sitemap_path = os.path.join(ROOT_DIR, 'sitemap.xml')
 sitemap_paths = set()
 if os.path.exists(sitemap_path):
@@ -235,6 +250,7 @@ for path in sorted(sitemap_paths - actual_paths):
 # ============================================
 # 5) توليد التقرير
 # ============================================
+print("📝 جاري توليد التقرير...")
 os.makedirs(REPORT_DIR, exist_ok=True)
 order = {'🔴': 0, '🟡': 1, '🔵': 2}
 issues.sort(key=lambda x: (order[x['severity']], x['page'], x['kind']))
@@ -275,11 +291,10 @@ with open(report_file, 'w', encoding='utf-8') as f:
 summary_file = os.environ.get('GITHUB_STEP_SUMMARY')
 if summary_file:
     with open(summary_file, 'a', encoding='utf-8') as f:
-        f.write(report[:6000])
+        # نأخذ أول 6000 حرف لتجنب تجاوز حد GitHub
+        f.write(report[:6000] + "\n\n*(تم اقتطاع الباقي، راجع ملف التقرير الكامل في الريبو)*" if len(report) > 6000 else report)
 
-print(f"📊 الصفحات المفحوصة: {len(pages_data)}")
-print(f"🔴 أخطاء: {counts['🔴']} |  تحذيرات: {counts['🟡']} |  معلومات: {counts['']}")
-print(f" التقرير: automation/reports/seo-report.md")
-for i in issues[:15]:
-    print(f"  {i['severity']} [{i['page']}] {i['message']}")
-print("🎉 اكتمل الفحص (بدون تطبيق أي تعديل)")
+print(f"\n📊 الصفحات المفحوصة: {len(pages_data)}")
+print(f"🔴 أخطاء: {counts['🔴']} | 🟡 تحذيرات: {counts['🟡']} | 🔵 معلومات: {counts['🔵']}")
+print(f"📄 التقرير محفوظ في: automation/reports/seo-report.md")
+print("🎉 اكتمل الفحص بنجاح (بدون تطبيق أي تعديل على الملفات)")
