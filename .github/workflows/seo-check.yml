@@ -1,0 +1,42 @@
+name: SEO Checker
+
+on:
+  workflow_dispatch:
+    inputs:
+      check_external:
+        description: 'فحص الروابط الخارجية عبر HTTP (أبطأ)'
+        type: boolean
+        default: false
+  schedule:
+    # كل يوم اثنين الساعة 3:00 صباحاً بتوقيت UTC
+    - cron: '0 3 * * 1'
+
+jobs:
+  seo-check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Run SEO checker
+      run: python automation/seo_checker.py
+      env:
+        CHECK_EXTERNAL: ${{ github.event.inputs.check_external || 'false' }}
+
+    - name: Upload report artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: seo-report
+        path: automation/reports/seo-report.md
+
+    - name: Commit report
+      run: |
+        git config user.name "Hasibha Bot"
+        git config user.email "bot@hasibha.com"
+        git add automation/reports/seo-report.md || true
+        git diff --quiet && git diff --staged --quiet || (git commit -m "🔍 تقرير SEO دوري" && git push)
