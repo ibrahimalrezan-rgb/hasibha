@@ -10,7 +10,7 @@ from config import PAGES, CATEGORIES, SITE_URL
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 YEAR = datetime.now().year
 
-ADSENSE_CODE = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4842993238012462" crossorigin="anonymous"></script>'
+ADSENSE_CODE = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1508132460803414" crossorigin="anonymous"></script>'
 
 def get_latest_articles(limit=3, lang="ar"):
     """قراءة أحدث المقالات حسب اللغة تلقائياً"""

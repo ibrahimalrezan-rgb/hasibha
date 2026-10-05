@@ -9,7 +9,7 @@ import re
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # رمز AdSense الخاص بك
-ADSENSE_CODE = '''<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4842993238012462" crossorigin="anonymous"></script>'''
+ADSENSE_CODE = '''<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1508132460803414" crossorigin="anonymous"></script>'''
 
 fixed_count = 0
 skipped_count = 0
@@ -37,7 +37,7 @@ for root, dirs, files in os.walk(ROOT_DIR):
         # ============================================
         # التحقق من وجود الرمز مسبقاً
         # ============================================
-        if 'ca-pub-4842993238012462' in content:
+        if 'ca-pub-1508132460803414' in content:
             skipped_count += 1
             continue
         

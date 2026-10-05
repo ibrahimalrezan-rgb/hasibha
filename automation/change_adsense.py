@@ -7,7 +7,7 @@ import os
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-OLD_PUB = "ca-pub-4842993238012462"
+OLD_PUB = "ca-pub-1508132460803414"
 NEW_PUB = "ca-pub-1508132460803414"
 
 META_TAG = f'<meta name="google-adsense-account" content="{NEW_PUB}">'

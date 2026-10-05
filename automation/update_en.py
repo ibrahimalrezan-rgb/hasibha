@@ -17,7 +17,7 @@ SITE_URL = "https://hasibha.com"
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AUTOMATION_DIR = os.path.dirname(os.path.abspath(__file__))
 
-ADSENSE_CODE = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4842993238012462" crossorigin="anonymous"></script>'
+ADSENSE_CODE = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1508132460803414" crossorigin="anonymous"></script>'
 
 PAGES = [
     {"slug": "mortgage", "title_en": "Mortgage Calculator", "category": "finance", "icon": "🏠"},

@@ -148,7 +148,7 @@ def build_en_article(ar_slug, en_slug, title_en, desc_en, content_en, calc_slug,
 <meta property="og:url" content="https://hasibha.com/articles/{en_slug}">
 <meta property="og:image" content="https://hasibha.com/images/logo.png">
 <meta name="theme-color" content="#0b0d10">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4842993238012462" crossorigin="anonymous"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1508132460803414" crossorigin="anonymous"></script>
 <script type="application/ld+json">
 {json.dumps(schema, ensure_ascii=False, indent=2)}
 </script>
