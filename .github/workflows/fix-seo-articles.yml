@@ -1,0 +1,23 @@
+name: Fix Articles SEO
+
+on:
+  workflow_dispatch: # هذا ما يصنع زر التشغيل
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+    - name: جلب الملفات
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: تشغيل سكربت الإصلاح
+      run: python automation/fix_articles_seo.py
+
+    - name: حفظ التعديلات
+      run: |
+        git config user.name "Hasibha Bot"
+        git config user.email "bot@hasibha.com"
+        git add .
+        git diff --quiet && git diff --staged --quiet || (git commit -m "🔧 إصلاح شامل لملاحظات SEO في المقالات" && git push)
