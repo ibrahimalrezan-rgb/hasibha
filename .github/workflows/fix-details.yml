@@ -1,0 +1,28 @@
+name: Fix Article Details
+
+on:
+  workflow_dispatch: # هذا السطر هو ما يصنع لك "زر التشغيل" اليدوي
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+    - name: جلب أكواد الموقع
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: تجهيز بيئة بايثون
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: تشغيل سكربت إصلاح الـ SEO
+      run: python automation/fix_article_details.py
+
+    - name: حفظ التعديلات ورفعها للموقع
+      run: |
+        git config user.name "Hasibha Bot"
+        git config user.email "bot@hasibha.com"
+        git add .
+        git diff --quiet && git diff --staged --quiet || (git commit -m "🔧 إصلاح تفاصيل المقالات والصور (SEO)" && git push)
