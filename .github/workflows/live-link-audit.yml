@@ -1,0 +1,39 @@
+name: Live Link Audit
+
+on:
+  workflow_dispatch:
+    inputs:
+      check_external:
+        description: "فحص الروابط الخارجية أيضاً (قد يكون أبطأ)"
+        type: boolean
+        default: false
+  schedule:
+    # أسبوعياً يوم الثلاثاء الساعة 04:00 UTC
+    - cron: "0 4 * * 2"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run live link audit
+        run: python automation/live_link_auditor.py
+        env:
+          CHECK_EXTERNAL: ${{ github.event.inputs.check_external || 'false' }}
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-link-audit
+          path: automation/reports/live-link-audit.md
+          if-no-files-found: warn
+          retention-days: 30
