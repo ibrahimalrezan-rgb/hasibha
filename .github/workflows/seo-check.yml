@@ -34,9 +34,4 @@ jobs:
         name: seo-report
         path: automation/reports/seo-report.md
 
-    - name: Commit report
-      run: |
-        git config user.name "Hasibha Bot"
-        git config user.email "bot@hasibha.com"
-        git add automation/reports/seo-report.md || true
-        git diff --quiet && git diff --staged --quiet || (git commit -m "🔍 تقرير SEO دوري" && git push)
+    # تقرير الفحص يُحفظ كـ artifact فقط؛ لا تُدفع تغييرات تلقائية إلى main.
