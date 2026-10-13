@@ -1,0 +1,40 @@
+name: Lighthouse Performance Audit
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # Weekly on Thursday at 05:00 UTC
+    - cron: "0 5 * * 4"
+
+permissions:
+  contents: read
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Prepare report directory
+        run: mkdir -p automation/reports/lighthouse
+      - name: Audit homepage (mobile)
+        run: npx --yes lighthouse@12 https://hasibha.com/ --chrome-flags="--headless --no-sandbox" --preset=perf --form-factor=mobile --output=html --output=json --output-path=automation/reports/lighthouse/home-mobile
+      - name: Audit calculators landing page (mobile)
+        run: npx --yes lighthouse@12 https://hasibha.com/mortgage --chrome-flags="--headless --no-sandbox" --preset=perf --form-factor=mobile --output=html --output=json --output-path=automation/reports/lighthouse/mortgage-mobile
+      - name: Audit articles index (mobile)
+        run: npx --yes lighthouse@12 https://hasibha.com/articles/ --chrome-flags="--headless --no-sandbox" --preset=perf --form-factor=mobile --output=html --output=json --output-path=automation/reports/lighthouse/articles-mobile
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-performance-reports
+          path: automation/reports/lighthouse/
+          if-no-files-found: warn
+          retention-days: 30
