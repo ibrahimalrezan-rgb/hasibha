@@ -392,7 +392,7 @@ img { max-width: 100%; }
     try{localStorage.setItem('hs-theme',next);}catch(e){}
   });
 })();
-document.getElementById('year').textContent=new Date().getFullYear();
+var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();
 </script>
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1508132460803414" crossorigin="anonymous"></script>

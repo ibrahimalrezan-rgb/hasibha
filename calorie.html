@@ -520,7 +520,7 @@ img { max-width: 100%; }
   });
 })();
 
-document.getElementById('year').textContent=new Date().getFullYear();
+var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();
 
 function calculateCalories(){
   var gender = document.querySelector('input[name="gender"]:checked').value;

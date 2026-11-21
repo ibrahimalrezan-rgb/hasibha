@@ -465,7 +465,7 @@ Hasibha
 <a href="/contact-en">Contact Us</a>
 <a href="/about-en">About Us</a>
 </nav>
-<p>Hasibha © 2026 — All Rights Reserved</p>
+<p>Hasibha © <span id="year">2026</span> — All Rights Reserved</p>
 </div>
 </footer>
 <script>
@@ -503,7 +503,7 @@ try{localStorage.setItem('hs-theme',next);}catch(e){}
     try{localStorage.setItem('hs-theme',next);}catch(e){}
   });
 })();
-document.getElementById('year').textContent=new Date().getFullYear();
+var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();
 
 function formatNumber(n){return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 

@@ -380,7 +380,7 @@ img { max-width: 100%; }
     });
   }
 })();
-document.getElementById('year').textContent = new Date().getFullYear();
+var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();
 
 function toggleBeneficiaryType() {
   var type = document.getElementById('beneficiaryType').value;

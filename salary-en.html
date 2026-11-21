@@ -350,6 +350,10 @@ Hasibha
 <h1>💼 Salary After Insurance</h1>
 <p class="subtitle">Calculate your net salary according to the old and new system</p>
 <label>Insurance system</label>
+    <div style="background:var(--surface-muted);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px;text-align:center">
+      <p id="rateText" style="color:var(--text-2);font-size:13px;margin-bottom:4px">New system: Deduction rate <strong style="color:var(--c-health);font-size:16px">11%</strong></p>
+      <p style="font-size:11px;color:var(--text-2)" id="rateDetail">(9% GOSI + 2% SANED)</p>
+    </div>
     <div class="radio-group">
       <div class="radio-option"><input type="radio" name="systemMode" id="systemOld" value="old" onchange="updateAll()"><label for="systemOld">📜 Old system (9%)</label></div>
       <div class="radio-option"><input type="radio" name="systemMode" id="systemNew" value="new" checked onchange="updateAll()"><label for="systemNew">✨ New system (11%)</label></div>
@@ -465,7 +469,7 @@ Hasibha
 <a href="/contact-en">Contact Us</a>
 <a href="/about-en">About Us</a>
 </nav>
-<p>Hasibha © 2026 — All Rights Reserved</p>
+<p>Hasibha © <span id="year">2026</span> — All Rights Reserved</p>
 </div>
 </footer>
 <script>
@@ -504,7 +508,7 @@ try{localStorage.setItem('hs-theme',next);}catch(e){}
   });
 })();
 
-document.getElementById('year').textContent=new Date().getFullYear();
+var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();
 
 function formatNumber(n){return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
 
@@ -513,17 +517,17 @@ function updateAll(){
   var salary=parseFloat(document.getElementById('salaryInput').value)||0;
 
   if(system==='old'){
-    document.getElementById('rateText').innerHTML='النظام القديم: نسبة الخصم <strong style="color:var(--c-health);font-size:16px">9%</strong>';
-    document.getElementById('rateDetail').textContent='(9% تأمينات)';
+    var rt=document.getElementById('rateText');if(rt)rt.innerHTML='Old system: Deduction rate <strong style="color:var(--c-health);font-size:16px">9%</strong>';
+    var rd=document.getElementById('rateDetail');if(rd)rd.textContent='(9% GOSI)';
   } else {
-    document.getElementById('rateText').innerHTML='النظام الجديد: نسبة الخصم <strong style="color:var(--c-health);font-size:16px">11%</strong>';
-    document.getElementById('rateDetail').textContent='(9% تأمينات + 2% ساند)';
+    var rt=document.getElementById('rateText');if(rt)rt.innerHTML='New system: Deduction rate <strong style="color:var(--c-health);font-size:16px">11%</strong>';
+    var rd=document.getElementById('rateDetail');if(rd)rd.textContent='(9% GOSI + 2% SANED)';
   }
 
   if(salary<=0){
-    document.getElementById('grossSalary').textContent='0 ريال';
-    document.getElementById('deductionAmount').textContent='0 ريال';
-    document.getElementById('netSalary').textContent='0 ريال';
+    document.getElementById('grossSalary').textContent='0 SAR';
+    document.getElementById('deductionAmount').textContent='0 SAR';
+    document.getElementById('netSalary').textContent='0 SAR';
     document.getElementById('resultCard').style.display='block';
     return;
   }

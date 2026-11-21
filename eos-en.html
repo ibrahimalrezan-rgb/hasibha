@@ -397,7 +397,7 @@ Hasibha
       </select>
     </div>
 <button class="calc-btn" onclick="updateAll()">Calculate</button>
-<div class="result-card" id="resultCard" style="display:block">
+<div class="result-card" id="eosResult" style="display:block">
 <h4 style="text-align:center;color:var(--c-health);font-size:16px;margin-bottom:20px">📋 Bonus calculation summary</h4>
       <div class="result-row"><span class="result-label">Contract type</span><span class="result-value" id="eosContractDisplay">—</span></div>
       <div class="result-row"><span class="result-label">Reason for termination</span><span class="result-value" id="eosReasonDisplay">—</span></div>
@@ -531,7 +531,7 @@ Hasibha
 <a href="/contact-en">Contact Us</a>
 <a href="/about-en">About Us</a>
 </nav>
-<p>Hasibha © 2026 — All Rights Reserved</p>
+<p>Hasibha © <span id="year">2026</span> — All Rights Reserved</p>
 </div>
 </footer>
 <script>
@@ -570,7 +570,7 @@ try{localStorage.setItem('hs-theme',next);}catch(e){}
   });
 })();
 
-document.getElementById('year').textContent=new Date().getFullYear();
+var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();
 
 function formatNumber(n){return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
 function formatInt(n){return n.toLocaleString('en-US')}
@@ -591,7 +591,7 @@ function updateAll(){
   document.getElementById('eosEndDisplay').textContent=ed||'—';
   document.getElementById('eosResult').style.display='block';
 
-  if(!s||!sd||!ed||!ct||!r){document.getElementById('eosAmount').textContent='0.00 ريال';return}
+  if(!s||!sd||!ed||!ct||!r){document.getElementById('eosAmount').textContent='0.00 SAR';return}
 
   var st=new Date(sd),en=new Date(ed),td=Math.floor((en-st)/(1000*60*60*24));
   if(td<0)td=0;

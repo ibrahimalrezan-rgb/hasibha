@@ -354,8 +354,8 @@ Hasibha
       <input type="date" id="birthDate" onchange="calculateAge()">
     </div>
 <button class="calc-btn" onclick="calculateAge()">Calculate</button>
-<div class="result-card" id="resultCard" style="display:block">
-
+<div class="result-card" id="resultBox" style="display:none">
+  <div id="resultContent"></div>
 </div>
 <a href="/index-en" class="back-link">↩ Back to Home</a>
 </div>
@@ -441,7 +441,7 @@ Hasibha
 <a href="/contact-en">Contact Us</a>
 <a href="/about-en">About Us</a>
 </nav>
-<p>Hasibha © 2026 — All Rights Reserved</p>
+<p>Hasibha © <span id="year">2026</span> — All Rights Reserved</p>
 </div>
 </footer>
 <script>
@@ -480,12 +480,14 @@ try{localStorage.setItem('hs-theme',next);}catch(e){}
   });
 })();
 
-document.getElementById('year').textContent=new Date().getFullYear();
+var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();
 
 function calculateAge(){
   var birthDate = new Date(document.getElementById('birthDate').value + 'T00:00:00');
+  var rb = document.getElementById('resultBox');
+  var rc = document.getElementById('resultContent');
   if(isNaN(birthDate.getTime())){
-    document.getElementById('resultBox').style.display = 'none';
+    if(rb) rb.style.display = 'none';
     return;
   }
 
@@ -520,48 +522,48 @@ function calculateAge(){
   var totalHours = Math.floor(totalDays * 24);
   var totalMinutes = Math.floor(totalHours * 60);
 
-  var weekDays = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  var weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   var bornDay = weekDays[birthDate.getDay()];
 
-  var monthsNames = ['كانون الثاني - يناير','شباط - فبراير','آذار - مارس','نيسان - أبريل','أيار - مايو','حزيران - يونيو','تموز - يوليو','آب - أغسطس','أيلول - سبتمبر','تشرين الأول - أكتوبر','تشرين الثاني - نوفمبر','كانون الأول - ديسمبر'];
+  var monthsNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   var bornMonth = monthsNames[birthDate.getMonth()];
 
   var month = birthDate.getMonth();
   var season = '';
-  if(month === 11 || month === 0 || month === 1) season = 'الشتاء';
-  else if(month >= 2 && month <= 4) season = 'الربيع';
-  else if(month >= 5 && month <= 7) season = 'الصيف';
-  else season = 'الخريف';
+  if(month === 11 || month === 0 || month === 1) season = 'Winter';
+  else if(month >= 2 && month <= 4) season = 'Spring';
+  else if(month >= 5 && month <= 7) season = 'Summer';
+  else season = 'Autumn';
 
   var zodiac = getZodiac(birthDate);
 
   var lifeStage = '';
-  if(ageYears <= 12) lifeStage = 'الطفولة';
-  else if(ageYears <= 17) lifeStage = 'المراهقة';
-  else if(ageYears <= 21) lifeStage = 'المراهقة المتأخرة';
-  else if(ageYears <= 35) lifeStage = 'الشباب المبكر';
-  else if(ageYears <= 50) lifeStage = 'الشباب المتأخر';
-  else if(ageYears <= 65) lifeStage = 'الكهولة';
-  else lifeStage = 'الشيخوخة';
+  if(ageYears <= 12) lifeStage = 'Childhood';
+  else if(ageYears <= 17) lifeStage = 'Adolescence';
+  else if(ageYears <= 21) lifeStage = 'Late Adolescence';
+  else if(ageYears <= 35) lifeStage = 'Early Adulthood';
+  else if(ageYears <= 50) lifeStage = 'Mature Adulthood';
+  else if(ageYears <= 65) lifeStage = 'Middle Age';
+  else lifeStage = 'Senior / Elderly';
 
   var sleepHours = '';
-  if(ageYears <= 3) sleepHours = 'من 11 إلى 14 ساعة daysياً';
-  else if(ageYears <= 5) sleepHours = 'من 10 إلى 13 ساعة daysياً';
-  else if(ageYears <= 12) sleepHours = 'من 9 إلى 12 ساعة daysياً';
-  else if(ageYears <= 17) sleepHours = 'من 8 إلى 10 ساعات daysياً';
-  else if(ageYears <= 64) sleepHours = 'من 7 إلى 9 ساعات daysياً';
-  else sleepHours = 'من 7 إلى 8 ساعات daysياً';
+  if(ageYears <= 3) sleepHours = '11 to 14 hours daily';
+  else if(ageYears <= 5) sleepHours = '10 to 13 hours daily';
+  else if(ageYears <= 12) sleepHours = '9 to 12 hours daily';
+  else if(ageYears <= 17) sleepHours = '8 to 10 hours daily';
+  else if(ageYears <= 64) sleepHours = '7 to 9 hours daily';
+  else sleepHours = '7 to 8 hours daily';
 
-  var hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', {
+  var hijriDate = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', {
     year: 'numeric', month: 'numeric', day: 'numeric'
   }).format(birthDate);
 
   var hijriParts = hijriDate.split('/');
-  var hijriDay = hijriParts[0];
-  var hijriMonth = hijriParts[1];
+  var hijriMonth = hijriParts[0];
+  var hijriDay = hijriParts[1];
   var hijriYear = hijriParts[2];
 
-  var hijriMonths = ['محرم','صفر','ربيع الأول','ربيع الثاني','جمادى الأولى','جمادى الثانية','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'];
+  var hijriMonths = ['Muharram','Safar','Rabi al-Awwal','Rabi al-Thani','Jumada al-Awwal','Jumada al-Thani','Rajab','Sha’ban','Ramadan','Shawwal','Dhu al-Qi’dah','Dhu al-Hijjah'];
   var hijriMonthName = hijriMonths[parseInt(hijriMonth) - 1] || hijriMonth;
 
   var hijriAgeYears = Math.floor(totalDays / 354.36);
@@ -585,84 +587,84 @@ function calculateAge(){
 
   var html = '';
 
-  html += '<div class="section-title">📅 العمر بالميلادي</div>';
-  html += '<p><strong>تاريخ الميلاد:</strong> ' + birthDate.toISOString().split('T')[0] + '</p>';
-  html += '<p><strong>months الميلاد:</strong> ' + bornMonth + '</p>';
-  html += '<p><strong>العمر:</strong> <span class="highlight">' + ageYears + ' years و ' + ageMonths + ' months و ' + ageDays + ' days</span></p>';
-  html += '<p><strong>باقي لعيد ميلادك القادم:</strong> ' + daysToBirthday + ' days و ' + hoursToBirthday + ' ساعة و ' + minutesToBirthday + ' دقيقة</p>';
-  html += '<p><strong>سيكون عيد ميلادك days:</strong> ' + weekDays[nextBirthday.getDay()] + ' الموافق ' + nextBirthday.toISOString().split('T')[0] + '</p>';
+  html += '<div class="section-title">📅 Gregorian Age</div>';
+  html += '<p><strong>Date of Birth:</strong> ' + birthDate.toISOString().split('T')[0] + '</p>';
+  html += '<p><strong>Birth Month:</strong> ' + bornMonth + '</p>';
+  html += '<p><strong>Exact Age:</strong> <span class="highlight">' + ageYears + ' years, ' + ageMonths + ' months, and ' + ageDays + ' days</span></p>';
+  html += '<p><strong>Time until next birthday:</strong> ' + daysToBirthday + ' days, ' + hoursToBirthday + ' hours, ' + minutesToBirthday + ' minutes</p>';
+  html += '<p><strong>Next birthday will be:</strong> ' + weekDays[nextBirthday.getDay()] + ' (' + nextBirthday.toISOString().split('T')[0] + ')</p>';
 
   html += '<div class="divider"></div>';
-  html += '<div class="section-title">🕌 العمر بالهجري</div>';
-  html += '<p><strong>تاريخ الميلاد الهجري:</strong> ' + hijriDay + '/' + hijriMonth + '/' + hijriYear + ' (' + hijriMonthName + ')</p>';
-  html += '<p><strong>العمر الهجري:</strong> <span class="highlight">' + hijriAgeYears + ' years و ' + hijriAgeMonths + ' months و ' + hijriAgeDays + ' days</span></p>';
+  html += '<div class="section-title">🕌 Hijri Age (Umm al-Qura)</div>';
+  html += '<p><strong>Hijri Date of Birth:</strong> ' + hijriDay + ' ' + hijriMonthName + ' ' + hijriYear + ' AH</p>';
+  html += '<p><strong>Hijri Age:</strong> <span class="highlight">' + hijriAgeYears + ' years, ' + hijriAgeMonths + ' months, and ' + hijriAgeDays + ' days</span></p>';
 
   html += '<div class="divider"></div>';
-  html += '<div class="section-title">📊 عمرك بصيغ مختلفة</div>';
-  html += '<p><strong>بالأmonths:</strong> ' + totalMonths + ' months و ' + (totalDays % 30) + ' days</p>';
-  html += '<p><strong>بالأسابيع:</strong> ' + totalWeeks + ' أسبوع و ' + (totalDays % 7) + ' days</p>';
-  html += '<p><strong>بالdays:</strong> ' + totalDays + ' days</p>';
-  html += '<p><strong>بالساعات:</strong> حوالي ' + totalHours + ' ساعة</p>';
+  html += '<div class="section-title">📊 Your Age in Different Units</div>';
+  html += '<p><strong>In Months:</strong> ' + totalMonths + ' months, ' + (totalDays % 30) + ' days</p>';
+  html += '<p><strong>In Weeks:</strong> ' + totalWeeks + ' weeks, ' + (totalDays % 7) + ' days</p>';
+  html += '<p><strong>In Days:</strong> ' + totalDays.toLocaleString() + ' days</p>';
+  html += '<p><strong>In Hours:</strong> approx. ' + totalHours.toLocaleString() + ' hours</p>';
 
   html += '<div class="divider"></div>';
-  html += '<div class="section-title">📋 معلومات أكثر عن عمرك</div>';
-  html += '<p><strong>ولدت days:</strong> ' + bornDay + '</p>';
-  html += '<p><strong>ولدت في فصل:</strong> ' + season + '</p>';
-  html += '<p><strong>برجك:</strong> ' + zodiac + '</p>';
-  html += '<p><strong>مرحلة حياتك:</strong> ' + lifeStage + '</p>';
-  html += '<p><strong>نومك الصحي:</strong> ' + sleepHours + '</p>';
+  html += '<div class="section-title">📋 Life Insights</div>';
+  html += '<p><strong>Born on:</strong> ' + bornDay + '</p>';
+  html += '<p><strong>Season of birth:</strong> ' + season + '</p>';
+  html += '<p><strong>Zodiac Sign:</strong> ' + zodiac + '</p>';
+  html += '<p><strong>Life Stage:</strong> ' + lifeStage + '</p>';
+  html += '<p><strong>Recommended Daily Sleep:</strong> ' + sleepHours + '</p>';
 
   html += '<div class="divider"></div>';
-  html += '<div class="section-title">✨ حقائق حصلت في حياتك</div>';
-  html += '<p><strong>تَنَفَستَ حوالي:</strong> ' + breaths.toLocaleString() + ' مرة</p>';
-  html += '<p><strong>نَبَضَ قلبك حوالي:</strong> ' + heartbeats.toLocaleString() + ' نبضة</p>';
-  html += '<p><strong>ضَحِكتَ حوالي:</strong> ' + laughs.toLocaleString() + ' مرة</p>';
-  html += '<p><strong>نِمتَ حوالي:</strong> ' + sleepY + ' years و ' + sleepM + ' months و ' + sleepD + ' days</p>';
-  html += '<p><strong>أمضيتَ في تناول الطعام:</strong> ' + eatY + ' years و ' + eatM + ' months و ' + eatD + ' days</p>';
+  html += '<div class="section-title">✨ Estimated Lifetime Milestones</div>';
+  html += '<p><strong>Breaths taken:</strong> approx. ' + breaths.toLocaleString() + ' times</p>';
+  html += '<p><strong>Heartbeats:</strong> approx. ' + heartbeats.toLocaleString() + ' beats</p>';
+  html += '<p><strong>Laughs:</strong> approx. ' + laughs.toLocaleString() + ' times</p>';
+  html += '<p><strong>Time spent sleeping:</strong> ~' + sleepY + ' years, ' + sleepM + ' months, ' + sleepD + ' days</p>';
+  html += '<p><strong>Time spent eating:</strong> ~' + eatY + ' years, ' + eatM + ' months, ' + eatD + ' days</p>';
 
   html += '<div class="divider"></div>';
-  html += '<p><a class="zodiac-btn" onclick="showZodiacInfo(\'' + zodiac + '\')">عرض صفات برج ' + zodiac + '</a></p>';
+  html += '<p><button class="calc-btn" style="margin-top:10px" onclick="showZodiacInfo(\'' + zodiac + '\')">View ' + zodiac + ' Traits</button></p>';
   html += '<div id="zodiacInfo"></div>';
 
-  document.getElementById('resultContent').innerHTML = html;
-  document.getElementById('resultBox').style.display = 'block';
+  if (rc) rc.innerHTML = html;
+  if (rb) rb.style.display = 'block';
 }
 
 function getZodiac(date){
   var day = date.getDate();
   var month = date.getMonth() + 1;
-  if((month === 1 && day >= 20) || (month === 2 && day <= 18)) return 'الجدي';
-  if((month === 2 && day >= 19) || (month === 3 && day <= 20)) return 'الدلو';
-  if((month === 3 && day >= 21) || (month === 4 && day <= 19)) return 'الحمل';
-  if((month === 4 && day >= 20) || (month === 5 && day <= 20)) return 'الثور';
-  if((month === 5 && day >= 21) || (month === 6 && day <= 20)) return 'الجوزاء';
-  if((month === 6 && day >= 21) || (month === 7 && day <= 22)) return 'السرطان';
-  if((month === 7 && day >= 23) || (month === 8 && day <= 22)) return 'الأسد';
-  if((month === 8 && day >= 23) || (month === 9 && day <= 22)) return 'العذراء';
-  if((month === 9 && day >= 23) || (month === 10 && day <= 22)) return 'الميزان';
-  if((month === 10 && day >= 23) || (month === 11 && day <= 21)) return 'العقرب';
-  if((month === 11 && day >= 22) || (month === 12 && day <= 21)) return 'القوس';
-  return 'الجدي';
+  if((month === 1 && day >= 20) || (month === 2 && day <= 18)) return 'Aquarius';
+  if((month === 2 && day >= 19) || (month === 3 && day <= 20)) return 'Pisces';
+  if((month === 3 && day >= 21) || (month === 4 && day <= 19)) return 'Aries';
+  if((month === 4 && day >= 20) || (month === 5 && day <= 20)) return 'Taurus';
+  if((month === 5 && day >= 21) || (month === 6 && day <= 20)) return 'Gemini';
+  if((month === 6 && day >= 21) || (month === 7 && day <= 22)) return 'Cancer';
+  if((month === 7 && day >= 23) || (month === 8 && day <= 22)) return 'Leo';
+  if((month === 8 && day >= 23) || (month === 9 && day <= 22)) return 'Virgo';
+  if((month === 9 && day >= 23) || (month === 10 && day <= 22)) return 'Libra';
+  if((month === 10 && day >= 23) || (month === 11 && day <= 21)) return 'Scorpio';
+  if((month === 11 && day >= 22) || (month === 12 && day <= 21)) return 'Sagittarius';
+  return 'Capricorn';
 }
 
 function showZodiacInfo(zodiac){
   var info = {
-    'الجدي': 'برج الجدي (22 ديسمبر - 19 يناير): عملي، طموح، منضبط، صبور، جاد. من الأبراج الأرضية.',
-    'الدلو': 'برج الدلو (20 يناير - 18 فبراير): مبتكر، مستقل، إنساني، ذكي. من الأبراج الهوائية.',
-    'الحمل': 'برج الحمل (21 مارس - 19 أبريل): شجاع، متحمس، قيادي، سريع البديهة. من الأبراج النارية.',
-    'الثور': 'برج الثور (20 أبريل - 20 مايو): موثوق، صبور، عملي، مخلص. من الأبراج الأرضية.',
-    'الجوزاء': 'برج الجوزاء (21 مايو - 20 يونيو): ذكي، اجتماعي، فضولي، مرن. من الأبراج الهوائية.',
-    'السرطان': 'برج السرطان (21 يونيو - 22 يوليو): عاطفي، حنون، حساس، مخلص. من الأبراج المائية.',
-    'الأسد': 'برج الأسد (23 يوليو - 22 أغسطس): كريم، واثق، قيادي، شجاع. من الأبراج النارية.',
-    'العذراء': 'برج العذراء (23 أغسطس - 22 سبتمبر): دقيق، تحليلي، عملي، منظم. من الأبراج الأرضية.',
-    'الميزان': 'برج الميزان (23 سبتمبر - 22 أكتوبر): متوازن، عادل، اجتماعي، أنيق. من الأبراج الهوائية.',
-    'العقرب': 'برج العقرب (23 أكتوبر - 21 نوفمبر): شغوف، غامض، قوي، حازم. من الأبراج المائية.',
-    'القوس': 'برج القوس (22 نوفمبر - 21 ديسمبر): متفائل، مغامر، صريح، محب للحرية. من الأبراج النارية.'
+    'Capricorn': 'Capricorn (Dec 22 - Jan 19): Practical, ambitious, disciplined, patient, and grounded Earth sign.',
+    'Aquarius': 'Aquarius (Jan 20 - Feb 18): Innovative, independent, humanitarian, and intellectual Air sign.',
+    'Pisces': 'Pisces (Feb 19 - Mar 20): Intuitive, compassionate, artistic, and gentle Water sign.',
+    'Aries': 'Aries (Mar 21 - Apr 19): Courageous, determined, confident, enthusiastic, and bold Fire sign.',
+    'Taurus': 'Taurus (Apr 20 - May 20): Reliable, patient, practical, devoted, and responsible Earth sign.',
+    'Gemini': 'Gemini (May 21 - Jun 20): Adaptable, outgoing, curious, and witty Air sign.',
+    'Cancer': 'Cancer (Jun 21 - Jul 22): Highly intuitive, loyal, emotional, and caring Water sign.',
+    'Leo': 'Leo (Jul 23 - Aug 22): Generous, warmhearted, creative, and passionate Fire sign.',
+    'Virgo': 'Virgo (Aug 23 - Sep 22): Analytical, hardworking, kind, and meticulous Earth sign.',
+    'Libra': 'Libra (Sep 23 - Oct 22): Diplomatic, fair-minded, social, and aesthetic Air sign.',
+    'Scorpio': 'Scorpio (Oct 23 - Nov 21): Resourceful, powerful, brave, and passionate Water sign.',
+    'Sagittarius': 'Sagittarius (Nov 22 - Dec 21): Generous, idealistic, adventurous, and enthusiastic Fire sign.'
   };
-  document.getElementById('zodiacInfo').innerHTML = '<p style="background:var(--c-health-bg);padding:12px;border-radius:10px;margin-top:12px">' + info[zodiac] + '</p>';
+  var zi = document.getElementById('zodiacInfo');
+  if(zi) zi.innerHTML = '<p style="background:var(--c-health-bg);padding:14px;border-radius:10px;margin-top:12px;line-height:1.6">' + (info[zodiac] || '') + '</p>';
 }
 </script>
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1508132460803414" crossorigin="anonymous"></script>
 </body>
 </html>
