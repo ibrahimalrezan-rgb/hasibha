@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<link rel="preload" as="image" href="/images/logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+<title>Calorie Calculator 2026 | Daily Energy Needs for Saudis</title>
+<meta name="description" content="Free online Calorie Calculator. Instant, accurate results - no registration required.">
+<meta name="keywords" content="Calorie Calculator, free calculator, online calculator">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="Hasibha">
+<link rel="canonical" href="https://hasibha.com/calorie-en">
+<link rel="icon" type="image/png" href="/images/logo.png">
+<link rel="apple-touch-icon" href="/images/logo.png">
+<link rel="alternate" hreflang="ar" href="https://hasibha.com/calorie">
+<link rel="alternate" hreflang="en" href="https://hasibha.com/calorie-en">
+<link rel="alternate" hreflang="x-default" href="https://hasibha.com/calorie">
+<meta property="og:title" content="Calorie Calculator">
+<meta property="og:description" content="Free online Calorie Calculator. Instant, accurate results - no registration required.">
+<meta property="og:url" content="https://hasibha.com/calorie-en">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://hasibha.com/images/logo.png">
+<meta property="og:site_name" content="Hasibha">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Calorie Calculator">
+<meta name="twitter:description" content="Free online Calorie Calculator. Instant, accurate results - no registration required.">
+<meta name="twitter:image" content="https://hasibha.com/images/logo.png">
+<meta name="theme-color" content="#0b0d10">
+<script>
+window.addEventListener('load',function(){
+var s=document.createElement('script');
+s.src='https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW';
+s.async=true;
+document.head.appendChild(s);
+s.onload=function(){
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments)}
+window.gtag=gtag;
+gtag('js',new Date());
+gtag('config','G-NZLXJFVCDW');
+};
+});
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hasibha.com/index-en"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Calorie Calculator",
+          "item": "https://hasibha.com/calorie-en"
+        }
+      ]
+    },
+    {
+      "@type": "WebApplication",
+      "name": "Calorie Calculator",
+      "description": "Free online Calorie Calculator. Instant, accurate results - no registration required.",
+      "url": "https://hasibha.com/calorie-en",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "inLanguage": "en-US",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "SAR"
+      }
+    }
+  ]
+}
+</script>
+<style>
+/* =====================================================
+   المتغيرات - الوضع الفاتح والداكن
+   ===================================================== */
+:root {
+    --bg: #f6f8fb;
+    --card: #ffffff;
+    --text: #0f172a;
+    --text-2: #475569;
+    --border: #e2e8f0;
+    --accent: #059669;
+    --accent-soft: #ecfdf5;
+    --header-bg: rgba(255, 255, 255, .88);
+    --shadow: 0 6px 20px rgba(15, 23, 42, .06);
+}
+
+[data-theme="dark"] {
+    --bg: #0b0d10;
+    --card: #12161c;
+    --text: #e8edf3;
+    --text-2: #a6b0bb;
+    --border: #262c35;
+    --accent: #10b981;
+    --accent-soft: #0d1f19;
+    --header-bg: rgba(11, 13, 16, .88);
+    --shadow: 0 6px 20px rgba(0, 0, 0, .35);
+}
+
+/* =====================================================
+   الأساسيات
+   ===================================================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    transition: background .3s, color .3s;
+}
+a { color: inherit; }
+img { max-width: 100%; }
+::selection { background: var(--accent); color: #fff; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+/* =====================================================
+   أدوات الإخفاء (فلترة التصنيفات)
+   ===================================================== */
+.hide, .hidden, .d-none, .is-hidden, [hidden] {
+    display: none !important;
+}
+
+/* =====================================================
+   الهيدر
+   ===================================================== */
+.site-header {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--header-bg);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+}
+.header-in { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 20px; }
+.logo { display: flex; align-items: center; gap: 8px; font-size: 20px; font-weight: 800; color: var(--text); text-decoration: none; }
+.main-nav { display: flex; gap: 22px; }
+.main-nav a { color: var(--text-2); text-decoration: none; font-size: 14px; font-weight: 600; transition: color .2s; }
+.main-nav a:hover { color: var(--accent); }
+.header-actions { display: flex; align-items: center; gap: 10px; }
+.theme-btn, .lang-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 8px 12px; border-radius: 10px;
+    border: 1px solid var(--border); background: var(--card);
+    color: var(--text); cursor: pointer; font-size: 13px; font-weight: 700;
+    text-decoration: none; transition: all .2s;
+}
+.theme-btn:hover, .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* =====================================================
+   مسار التنقل
+   ===================================================== */
+.breadcrumb { padding: 14px 0; font-size: 13px; color: var(--text-2); }
+.breadcrumb .wrap { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+/* =====================================================
+   الهيرو
+   ===================================================== */
+.hero { padding: 70px 20px 40px; text-align: center; }
+.badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 16px; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent);
+    font-size: 13px; font-weight: 700; border: 1px solid var(--border);
+}
+.badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+.hero h1 { font-size: clamp(30px, 5vw, 46px); font-weight: 800; margin: 20px 0 14px; }
+.lead { color: var(--text-2); font-size: 17px; max-width: 640px; margin: 0 auto 30px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; max-width: 760px; margin: 0 auto; }
+.stat { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px 12px; }
+.stat b { display: block; font-size: 22px; color: var(--accent); margin-bottom: 4px; }
+.stat span { font-size: 13px; color: var(--text-2); }
+
+/* =====================================================
+   الأقسام والتبويبات
+   ===================================================== */
+.section-head { margin: 40px 0 20px; }
+.section-head h2 { font-size: 26px; font-weight: 800; }
+.tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+.tab {
+    padding: 9px 18px; border-radius: 999px; border: 1px solid var(--border);
+    background: var(--card); color: var(--text-2); cursor: pointer;
+    font-size: 14px; font-weight: 700; font-family: inherit; transition: all .2s;
+}
+.tab:hover { border-color: var(--accent); color: var(--accent); }
+.tab.on, .tab.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+/* =====================================================
+   شبكة الحاسبات
+   ===================================================== */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+.card {
+    display: flex; flex-direction: column; gap: 10px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 18px; padding: 22px; text-decoration: none;
+    box-shadow: var(--shadow); transition: transform .25s, border-color .25s;
+}
+.card:hover { transform: translateY(-4px); border-color: var(--accent); }
+.card-icon { font-size: 28px; }
+.card h3 { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+.card p { font-size: 13px; color: var(--text-2); }
+.card-cta { margin-top: auto; padding-top: 10px; color: var(--accent); font-size: 13px; font-weight: 800; }
+.card.finance { border-top: 3px solid #059669; }
+.card.conversion { border-top: 3px solid #2563eb; }
+.card.health { border-top: 3px solid #e11d48; }
+.card.general { border-top: 3px solid #7c3aed; }
+
+/* =====================================================
+   المميزات والأسئلة الشائعة
+   ===================================================== */
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.feature { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+.feature b { display: block; color: var(--accent); margin-bottom: 6px; font-size: 15px; }
+.feature span { font-size: 13px; color: var(--text-2); }
+.faq details { background: var(--card); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 12px; overflow: hidden; }
+.faq summary { cursor: pointer; padding: 16px 20px; font-weight: 700; font-size: 15px; color: var(--text); }
+.faq .faq-a { padding: 0 20px 16px; color: var(--text-2); font-size: 14px; }
+
+/* =====================================================
+   صفحات الحاسبات
+   ===================================================== */
+.calc-wrapper { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin: 24px 0; box-shadow: var(--shadow); }
+.calc-wrapper h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+.subtitle { color: var(--text-2); font-size: 15px; margin-bottom: 24px; }
+.calc-wrapper label { display: block; font-size: 14px; font-weight: 700; color: var(--text); margin: 16px 0 6px; }
+.calc-wrapper input, .calc-wrapper select {
+    width: 100%; padding: 12px 14px; font-size: 15px; font-family: inherit;
+    color: var(--text); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 12px; outline: none; transition: border-color .2s;
+}
+.calc-wrapper input:focus, .calc-wrapper select:focus { border-color: var(--accent); }
+.calc-wrapper .row, .calc-wrapper .fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.calc-btn {
+    display: block; width: 100%; margin-top: 22px; padding: 14px;
+    background: var(--accent); color: #fff; border: none; border-radius: 14px;
+    font-size: 16px; font-weight: 800; font-family: inherit; cursor: pointer; transition: opacity .2s;
+}
+.calc-btn:hover { opacity: .9; }
+.result-card { background: var(--accent-soft); border: 1px solid var(--border); border-radius: 16px; padding: 22px; margin-top: 22px; }
+.result-card h3 { font-size: 16px; margin-bottom: 10px; color: var(--text); }
+.result-card p, .result-card div { color: var(--text-2); font-size: 14px; margin: 6px 0; }
+.result-card b, .result-card strong { color: var(--accent); }
+.back-link { display: inline-block; margin: 18px 0 8px; color: var(--accent); font-weight: 700; font-size: 14px; text-decoration: none; }
+
+/* =====================================================
+   المقالات والمحتوى المولد بالذكاء الاصطناعي
+   ===================================================== */
+.article-box, .ai-content {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 30px; margin-top: 28px; line-height: 1.9;
+}
+.article-box h2, .ai-content h2 { font-size: 22px; font-weight: 800; color: var(--text); margin: 20px 0 12px; padding-bottom: 10px; border-bottom: 2px solid var(--accent); }
+.article-box h3, .ai-content h3 { font-size: 17px; font-weight: 700; color: var(--text); margin: 18px 0 8px; }
+.article-box p, .ai-content p { color: var(--text-2); font-size: 15px; margin-bottom: 14px; }
+.article-box ul, .article-box ol, .ai-content ul, .ai-content ol { padding: 0 22px; margin-bottom: 14px; }
+.article-box li, .ai-content li { color: var(--text-2); font-size: 15px; margin-bottom: 6px; }
+.article-box strong, .ai-content strong { color: var(--text); }
+.article-box em, .ai-content em { color: var(--accent); font-style: normal; }
+
+/* =====================================================
+   حاسبات ذات صلة
+   ===================================================== */
+.related-calculators { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 24px; margin-top: 28px; }
+.related-calculators h3 { font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 16px; }
+.related-calculators ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.related-calculators a {
+    display: block; padding: 12px 16px; border-radius: 12px;
+    border: 1px solid var(--border); background: var(--bg);
+    color: var(--text); text-decoration: none; font-size: 14px; font-weight: 700; transition: all .25s;
+}
+.related-calculators a:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+/* =====================================================
+   الفوتر
+   ===================================================== */
+.site-footer { margin-top: 70px; border-top: 1px solid var(--border); background: var(--card); }
+.footer-in { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 34px 20px; text-align: center; }
+.footer-in nav { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+.footer-in nav a { color: var(--text-2); text-decoration: none; font-size: 13px; font-weight: 600; }
+.footer-in nav a:hover { color: var(--accent); }
+.footer-in p { color: var(--text-2); font-size: 13px; }
+
+/* =====================================================
+   الجوال
+   ===================================================== */
+@media (max-width: 860px) {
+    .main-nav { display: none; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .calc-wrapper .row, .calc-wrapper .fields-row { grid-template-columns: 1fr; }
+    .hero { padding: 50px 20px 30px; }
+    .calc-wrapper, .article-box, .ai-content { padding: 20px; }
+}
+</style>
+
+
+<meta name="google-adsense-account" content="ca-pub-1508132460803414">
+</head>
+<body>
+<header class="site-header">
+<div class="wrap header-in">
+<a class="logo" href="/index-en" aria-label="Hasibha">
+<img src="/images/logo.png" alt="Hasibha" width="54" height="36" style="height:36px;vertical-align:middle">
+Hasibha
+</a>
+<nav class="main-nav" aria-label="Main navigation">
+<a href="/index-en#calculators">Calculators</a>
+<a href="/index-en#features">Features</a>
+<a href="/index-en#faq">FAQ</a>
+</nav>
+<div class="header-actions">
+<button class="theme-btn" id="themeBtn" aria-label="Theme">
+<svg id="iconMoon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+<svg id="iconSun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+</button>
+<a class="lang-btn" href="/calorie" hreflang="ar" lang="ar">عربي</a>
+</div>
+</div>
+</header>
+<nav class="breadcrumb">
+<div class="wrap">
+<a href="/index-en">🏠 Home</a>
+<span>←</span>
+<span style="color:var(--text);font-weight:600">Calorie Calculator</span>
+</div>
+</nav>
+<main>
+<div class="wrap">
+<div class="calc-wrapper">
+<h1>🍎 Calorie Calculator</h1>
+<p class="subtitle">Know your daily calorie needs</p>
+<label>Sex</label>
+    <div class="radio-group">
+      <div class="radio-option"><input type="radio" name="gender" id="male" value="male" checked onchange="calculateCalories()"><label for="male">👨 male</label></div>
+      <div class="radio-option"><input type="radio" name="gender" id="female" value="female" onchange="calculateCalories()"><label for="female">👩 female</label></div>
+    </div>
+
+    <label for="ageInput">the age</label>
+    <div class="input-row">
+      <input type="number" id="ageInput" placeholder="Enter your age" oninput="calculateCalories()">
+      <span style="font-weight:600;color:var(--text-2)">year</span>
+    </div>
+
+    <label for="weightInput">Weight (kg)</label>
+    <div class="input-row">
+      <input type="number" id="weightInput" placeholder="Enter your weight" oninput="calculateCalories()">
+      <span style="font-weight:600;color:var(--text-2)">kg</span>
+    </div>
+
+    <label for="heightInput">Length(cm)</label>
+    <div class="input-row">
+      <input type="number" id="heightInput" placeholder="Enter your height" oninput="calculateCalories()">
+      <span style="font-weight:600;color:var(--text-2)">poison</span>
+    </div>
+
+    <label for="activityLevel">Activity level</label>
+    <div class="full-width">
+      <select id="activityLevel" onchange="calculateCalories()">
+        <option value="1.2">Inactive (doesn't exercise)</option>
+        <option value="1.375">Light activity (1-3 days per week)</option>
+        <option value="1.55" selected>Moderate activity (3-5 days per week)</option>
+        <option value="1.725">High activity (6-7 days per week)</option>
+        <option value="1.9">Very intense activity (professional athlete)</option>
+      </select>
+    </div>
+<button class="calc-btn" onclick="calculateCalories()">Calculate</button>
+<div class="result-card" id="resultCard" style="display:block">
+<div class="calorie-value" id="tdeeValue">0</div>
+      <div class="calorie-label">calories daily to maintain your weight</div>
+      <div class="goals">
+        <div class="goal-box lose"><div class="val" id="loseCalories">0</div><div class="lbl">For slimming (lose 500 calories)</div></div>
+        <div class="goal-box maintain"><div class="val" id="maintainCalories">0</div><div class="lbl">To preserve</div></div>
+        <div class="goal-box gain"><div class="val" id="gainCalories">0</div><div class="lbl">To increase (+500 calories)</div></div>
+      </div>
+</div>
+<a href="/index-en" class="back-link">↩ Back to Home</a>
+</div>
+<div class="article-box">
+<h2>🗂️ Guide to calories and daily needs</h2>
+    <h3>What are calories?</h3>
+    <p>A calorie is a unit of measurement of energy that the body obtains from food. Your body needs a certain number of calories daily to perform its basic functions and daily activities.</p>
+
+    <h3>Basal metabolic rate (BMR)</h3>
+    <p>It is the number of calories your body burns at complete rest. Calculated using the internationally accepted Mifflin-St Jeor equation.</p>
+
+    <h3>Your total daily intake (TDEE)</h3>
+    <p>It is BMR multiplied by the activity factor. These are the calories you need daily to maintain your current weight.</p>
+
+    <h3>How to lose weight and gain weight</h3>
+    <ul>
+      <li><strong>For slimming:</strong> Subtract 500-1000 calories from TDEE per day to lose 0.5-1 kg per week.</li>
+      <li><strong>To increase:</strong> Add 500 calories above TDEE daily to gain 0.5 kg per week.</li>
+      <li><strong>To preserve:</strong> Consume the same TDEE.</li>
+    </ul>
+
+    <div class="tip">💡 <strong>advice:</strong> Do not go below 1,200 calories per day for women or 1,500 for men without medical supervision.</div>
+
+    <p class="ref"><strong>Reference:</strong> World Health Organization (WHO.int) | Saudi Ministry of Health (moh.gov.sa)</p>
+  
+<div class="ai-content" style="margin-top:32px;padding:24px;background:var(--card, #fff);border-radius:16px;border:1px solid var(--border, #e2e8f0)">
+<h2>Calorie calculator in Saudi Arabia 2026: Your comprehensive guide to accurately controlling your weight</h2>
+
+<p>In light of the health transformation that the Kingdom is witnessing within <strong>Vision 2030</strong>Obesity rates have risen to about 35% among adults, according to Ministry of Health reports <em>Calorie calculator</em> An essential tool for every Saudi seeking a healthy weight. It is no longer just a matter of “eating less,” but an accurate calculation based on age, weight, height, and daily activity level. With the diversity of local restaurants and the spread of express delivery, it is difficult for the Saudi user to estimate his actual need without a reliable tool. Here comes the role of the calculator that turns numbers into a practical plan that suits the Saudi lifestyle, from kabsa meal to specialty coffee.</p>
+
+<h3>How does the step-by-step calorie calculator work?</h3>
+
+<p>The calculator relies on internationally approved scientific equations, most notably: <strong>Mifflin St. Jorre Equation</strong>, which calculates your basal metabolic rate (BMR) and then multiplies it by your physical activity factor to get your total daily calories (TDEE). Here are the steps:</p>
+
+<ol>
+<li><strong>Basic data entry:</strong> Gender, age, weight in kilograms, and height in centimeters.</li>
+<li><strong>Determine activity level:</strong> Inactive (x1.2), Light (x1.375), Medium (x1.55), High (x1.725), or Sport (x1.9).</li>
+<li><strong>Choose target:</strong> Weight loss (300-500 calorie deficit), stability, or muscle gain (250-400 calorie surplus).</li>
+<li><strong>Automated calculation:</strong> The calculator shows your daily calories and macro breakdown (protein, carbs, fat).</li>
+<li><strong>Weekly follow-up:</strong> Recalibrate every 7-10 days depending on weight change.</li>
+</ol>
+
+<p>It should be noted that the calculator is an estimate, and does not replace the consultation of a nutritionist, especially for patients with diabetes or high blood pressure, who constitute a large percentage of visitors to Saudi health centers.</p>
+
+<h3>A practical example with numbers from the Saudi market</h3>
+
+<p>Suppose a Saudi employee in Riyadh, 32 years old, weight 88 kg, height 175 cm, works on a system. <em>Saudi labor system</em> (8 office hours) and walks 3 times a week. Its basal metabolic rate is ≈ 1,850 calories, and with an activity factor of 1.375, the daily requirement becomes about <strong>2,540 calories</strong>. To lose half a kilo per week, consume 2,100 calories. In practice: a medium chicken kabsa meal (750 calories) + specialty coffee with milk (180 calories) + a shawarma sandwich (450 calories) = 1,380 calories, which leaves 720 calories for a light dinner.</p>
+
+<h3>Three important tips for the Saudi user</h3>
+
+<ul>
+<li><strong>Watch the hidden calories in coffee:</strong> Some specialty drinks exceed 400 calories due to sugar and cream, so replace them with skim milk.</li>
+<li><strong>Balance local meals:</strong> Do not deprive yourself of rice, but reduce the amount and add salad and grilled protein.</li>
+<li><strong>Benefit from health coverage:</strong> Many health insurance policies in the Kingdom include nutrition sessions, so check your policy with the insurance company.</li>
+</ul>
+
+<h3>Frequently asked questions</h3>
+
+<p><strong>Is the calorie calculator 100% accurate?</strong><br> No, it is an estimate with an error ranging between 5% and 10%, and needs to be calibrated according to your body's actual response.</p>
+
+<p><strong>Does the tax affect calorie counting?</strong><br> No direct relationship, but the 15% VAT applied <em>Zakat, Tax and Customs Authority</em> The cost of healthy foods and supplements increases, which may push some people to choose cheaper, higher-calorie options.</p>
+
+<p><strong>Can it be relied upon during Ramadan?</strong><br> Yes, with an adjustment to the distribution between Iftar and Suhoor, and it is preferable to reduce the deficit to 200-300 calories to avoid stress.</p>
+</div>
+
+<div class="related-calculators" style="margin-top:32px;padding:24px;background:var(--card, #fff);border-radius:16px;border:1px solid var(--border, #e2e8f0)">
+<h3 style="margin-bottom:16px;font-size:18px">Related calculators</h3>
+<ul style="list-style:none;padding:0;margin:0">
+<li style="margin-bottom:8px"><a href="/bmi" style="color:var(--accent, #059669);text-decoration:none">← BMI body mass index</a></li>
+<li style="margin-bottom:8px"><a href="/water" style="color:var(--accent, #059669);text-decoration:none">← Water need calculator</a></li>
+</ul>
+</div>
+</div>
+</div>
+</main>
+<footer class="site-footer">
+<div class="wrap footer-in">
+<a class="logo" href="/index-en" style="font-size:16px">
+<img src="/images/logo.png" alt="Hasibha" width="42" height="28" style="height:28px;vertical-align:middle">
+Hasibha
+</a>
+<nav aria-label="Footer">
+<a href="/privacy-en">Privacy Policy</a>
+<a href="/contact-en">Contact Us</a>
+<a href="/about-en">About Us</a>
+</nav>
+<p>Hasibha © 2026 — All Rights Reserved</p>
+</div>
+</footer>
+<script>
+(function(){
+var root=document.documentElement, btn=document.getElementById('themeBtn');
+var moon=document.getElementById('iconMoon'), sun=document.getElementById('iconSun');
+function apply(t){
+if(t==='dark'){root.setAttribute('data-theme','dark');moon.style.display='none';sun.style.display='block';}
+else{root.removeAttribute('data-theme');moon.style.display='block';sun.style.display='none';}
+}
+var saved=null;
+try{saved=localStorage.getItem('hs-theme');}catch(e){}
+if(!saved){saved=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}
+apply(saved);
+btn.addEventListener('click',function(){
+var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+apply(next);
+try{localStorage.setItem('hs-theme',next);}catch(e){}
+});
+})();
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  var moon=document.getElementById('iconMoon'), sun=document.getElementById('iconSun');
+  function apply(t){
+    if(t==='dark'){root.setAttribute('data-theme','dark');moon.style.display='none';sun.style.display='block';}
+    else{root.removeAttribute('data-theme');moon.style.display='block';sun.style.display='none';}
+  }
+  var saved=null;
+  try{saved=localStorage.getItem('hs-theme');}catch(e){}
+  if(!saved){saved=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}
+  apply(saved);
+  btn.addEventListener('click',function(){
+    var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    apply(next);
+    try{localStorage.setItem('hs-theme',next);}catch(e){}
+  });
+})();
+
+document.getElementById('year').textContent=new Date().getFullYear();
+
+function calculateCalories(){
+  var gender = document.querySelector('input[name="gender"]:checked').value;
+  var age = parseFloat(document.getElementById('ageInput').value) || 0;
+  var weight = parseFloat(document.getElementById('weightInput').value) || 0;
+  var heightCm = parseFloat(document.getElementById('heightInput').value) || 0;
+  var activity = parseFloat(document.getElementById('activityLevel').value);
+
+  if(age <= 0 || weight <= 0 || heightCm <= 0){
+    document.getElementById('resultCard').style.display = 'none';
+    return;
+  }
+
+  var bmr;
+  if(gender === 'male'){
+    bmr = 10 * weight + 6.25 * heightCm - 5 * age + 5;
+  } else {
+    bmr = 10 * weight + 6.25 * heightCm - 5 * age - 161;
+  }
+
+  var tdee = bmr * activity;
+
+  document.getElementById('tdeeValue').textContent = Math.round(tdee);
+  document.getElementById('loseCalories').textContent = Math.round(tdee - 500);
+  document.getElementById('maintainCalories').textContent = Math.round(tdee);
+  document.getElementById('gainCalories').textContent = Math.round(tdee + 500);
+  document.getElementById('resultCard').style.display = 'block';
+}
+</script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1508132460803414" crossorigin="anonymous"></script>
+</body>
+</html>

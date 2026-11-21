@@ -1,0 +1,35 @@
+name: Content Opportunity Audit
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "30 4 * * 3"
+
+permissions:
+  contents: read
+
+jobs:
+  content-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate Python syntax
+        run: python -m py_compile automation/content_opportunity_audit.py
+      - name: Generate read-only content opportunity report
+        run: python automation/content_opportunity_audit.py
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: content-opportunity-audit
+          path: automation/reports/content-opportunities.md
+          if-no-files-found: warn
+          retention-days: 30

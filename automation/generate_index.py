@@ -1,0 +1,295 @@
+#!/usr/bin/env python3
+"""توليد الفهرس العربي والإنجليزي + قسم أحدث المقالات تلقائياً"""
+
+import os
+import re
+import json
+from datetime import datetime
+from config import PAGES, CATEGORIES, SITE_URL
+
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+YEAR = datetime.now().year
+
+ADSENSE_CODE = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1508132460803414" crossorigin="anonymous"></script>'
+
+def get_latest_articles(limit=3, lang="ar"):
+    """قراءة أحدث المقالات حسب اللغة تلقائياً"""
+    articles = []
+    articles_dir = os.path.join(ROOT_DIR, 'articles')
+    if not os.path.exists(articles_dir):
+        return articles
+    for name in os.listdir(articles_dir):
+        if not name.endswith('.html') or name.startswith('index'):
+            continue
+        slug = name[:-5]
+        is_en = slug.endswith('-en')
+        if (lang == "en") != is_en:
+            continue
+        path = os.path.join(articles_dir, name)
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            title = re.search(r'<title>(.*?)</title>', content)
+            desc = re.search(r'<meta name="description" content="([^"]*)"', content)
+            date = re.search(r'"datePublished":"([^"]*)"', content)
+            if title:
+                articles.append({
+                    "slug": slug,
+                    "title": title.group(1).replace(' | حاسبها', '').replace(' | Hasibha', '').strip(),
+                    "desc": (desc.group(1)[:110] + '...') if desc else '',
+                    "date": date.group(1) if date else ''
+                })
+        except Exception:
+            continue
+    articles.sort(key=lambda x: x['date'], reverse=True)
+    return articles[:limit]
+
+def build_tabs(lang):
+    all_label = "الكل" if lang == "ar" else "All"
+    tabs = f'<button class="tab on" data-cat="all">{all_label} ({len(PAGES)})</button>\n'
+    for key, meta in CATEGORIES.items():
+        count = len([p for p in PAGES if p["category"] == key])
+        if count == 0:
+            continue
+        label = meta["ar"] if lang == "ar" else meta["en"]
+        tabs += f'<button class="tab" data-cat="{key}">{meta["icon"]} {label} ({count})</button>\n'
+    return tabs
+
+def build_cards(lang):
+    html = ""
+    for p in PAGES:
+        title = p["title_ar"] if lang == "ar" else p["title_en"]
+        desc = p["desc_ar"] if lang == "ar" else p["desc_en"]
+        href = f"/{p['slug']}" if lang == "ar" else f"/{p['slug']}-en"
+        cta = "استخدم الحاسبة ←" if lang == "ar" else "Use Calculator →"
+        html += f'''<a class="card {p['category']}" data-cat="{p['category']}" href="{href}">
+<span class="card-icon">{p['icon']}</span>
+<div><h3>{title}</h3><p>{desc}</p></div>
+<span class="card-cta">{cta}</span>
+</a>
+'''
+    return html
+
+def build_articles_section(lang, articles):
+    """قسم أحدث المقالات — يظهر فقط إذا توجد مقالات"""
+    if not articles:
+        return ""
+    ar = lang == "ar"
+    sec_title = "أحدث الأدلة والمقالات" if ar else "Latest Guides & Articles"
+    view_all = "عرض الكل ←" if ar else "View All →"
+    read_cta = "اقرأ الدليل ←" if ar else "Read Guide →"
+    cards = ""
+    for a in articles:
+        cards += f'''<a class="card gen" href="/articles/{a['slug']}">
+<span class="card-icon">📝</span>
+<div><h3>{a['title']}</h3><p>{a['desc']}</p></div>
+<span class="card-cta">{read_cta}</span>
+</a>
+'''
+    return f'''<section class="wrap" id="articles">
+<div class="section-head" style="display:flex;justify-content:space-between;align-items:center"><h2>{sec_title}</h2><a href="/articles" style="color:var(--accent);font-size:14px;font-weight:700;text-decoration:none">{view_all}</a></div>
+<div class="grid">
+{cards}
+</div>
+</section>
+'''
+
+def build_index(lang):
+    ar = lang == "ar"
+    title = "حاسبها 2026 — أفضل حاسبات مالية وصحية مجانية في السعودية" if ar else "Hasibha — Best Free Financial & Health Calculators in Saudi Arabia"
+    desc = f"{len(PAGES)} حاسبة سعودية مجانية: حساب المواطن، الضمان المطور، التمويل، التأمينات، الزكاة، الحمل والولادة، الذهب والمزيد. نتائج دقيقة فورية بدون تسجيل." if ar else f"{len(PAGES)} free calculators: Citizen Account, Social Security, mortgage, GOSI salary, zakat, pregnancy, gold and more. Instant results."
+    other = "index-en" if ar else ""
+    other_label = "EN" if ar else "عربي"
+
+    if ar:
+        nav_html = '<a href="#calculators">الحاسبات</a>\n<a href="/articles">المقالات</a>\n<a href="#features">المميزات</a>\n<a href="#faq">الأسئلة الشائعة</a>'
+    else:
+        nav_html = '<a href="#calculators">Calculators</a>\n<a href="/articles">Articles</a>\n<a href="#features">Features</a>\n<a href="#faq">FAQ</a>'
+
+    stats = [
+        (f"{len(PAGES)}+", "حاسبة مجانية" if ar else "Free Calculators"),
+        ("2", "لغة" if ar else "Languages"),
+        ("4", "تصنيفات" if ar else "Categories"),
+        ("100%", "مجاني وبدون تسجيل" if ar else "Free & No Sign Up"),
+    ]
+    stats_html = "\n".join(f'<div class="stat"><b>{v}</b><span>{s}</span></div>' for v, s in stats)
+    features = [
+        ("⚡", "سرعة فورية", "نتائج لحظية بدون انتظار أو تحميل.") if ar else ("⚡", "Instant Speed", "Real-time results with zero waiting."),
+        ("🔒", "خصوصية تامة", "لا نحفظ أي بيانات — كل شيء في متصفحك.") if ar else ("🔒", "Full Privacy", "No data stored — everything runs in your browser."),
+        ("📱", "مشاركة سهلة عبر واتساب", "شارك أي نتيجة بضغطة زر مع أصدقائك أو عائلتك.") if ar else ("📱", "One-Click Share", "Easily share results via WhatsApp or copy to clipboard."),
+        ("🇸🇦", "معايير سعودية رسمية", "محدثة وفق أحدث أنظمة ساما، التأمينات، وحساب المواطن.") if ar else ("🇸🇦", "Saudi Regulated", "Updated according to official SAMA, GOSI and Citizen Account rules."),
+    ]
+    feat_html = "\n".join(f'<div class="feature"><b>{i} {t}</b><span>{s}</span></div>' for i, t, s in features)
+    faqs = [
+        ("هل الحاسبات مجانية بالفعل؟", "نعم، جميع الحاسبات مجانية 100% بدون تسجيل أو قيود أو إعلانات مزعجة."),
+        ("هل يتم حفظ بياناتي أو أرقامي المدخلة؟", "لا على الإطلاق! جميع العمليات الحسابية تتم محلياً داخل متصفحك ولا تُرسل لأي خادم."),
+        ("ما مدى دقة النتائج مقارنة بالجهات الرسمية؟", "جميع معادلاتنا مبنية حرفياً على اللوائح الرسمية الصادرة من البنك المركزي السعودي (ساما)، المؤسسة العامة للتأمينات الاجتماعية، وهيئة الزكاة والضريبة والجمارك."),
+    ] if ar else [
+        ("Are the calculators really free?", "Yes, 100% free with no registration or limits."),
+        ("Is my data stored?", "No, all calculations run inside your browser."),
+        ("How accurate are results?", "Based on official Saudi regulations (SAMA, GOSI, ZATCA)."),
+    ]
+    faq_html = "\n".join(f'<details><summary>{q}</summary><div class="faq-a">{a}</div></details>' for q, a in faqs)
+
+    home_href = "/" if ar else "/index-en"
+    brand = "حاسبها" if ar else "Hasibha"
+    hero_badge = "المنصة السعودية الأولى للحاسبات الذكية" if ar else "Saudi Leading Smart Calculators Platform"
+    hero_h1 = "كل حاسباتك المالية والصحية في مكان واحد" if ar else "All Your Financial & Health Calculators in One Place"
+    hero_lead = "مصممة خصيصاً للسوق السعودي — دقيقة، سريعة، ومجانية بالكامل بنتائج فورية." if ar else "Built for the Saudi market — accurate, fast and completely free."
+    sec_calc = "اختر حاسبتك" if ar else "Pick Your Calculator"
+    sec_feat = "لماذا يفضل الآلاف حاسبها؟" if ar else "Why Hasibha?"
+    sec_faq = "الأسئلة الشائعة" if ar else "FAQ"
+    articles_link = f'<a href="/articles">{"المقالات" if ar else "Articles"}</a>'
+    foot_links = f'<a href="/privacy{"-en" if not ar else ""}">{"سياسة الخصوصية" if ar else "Privacy"}</a>\n<a href="/contact{"-en" if not ar else ""}">{"اتصل بنا" if ar else "Contact"}</a>\n<a href="/about{"-en" if not ar else ""}">{"من نحن" if ar else "About"}</a>\n{articles_link}'
+    foot_copy = f"حاسبها © {YEAR} — جميع الحقوق محفوظة" if ar else f"Hasibha © {YEAR} — All Rights Reserved"
+
+    articles_section = build_articles_section(lang, get_latest_articles(3, lang))
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": brand,
+        "url": SITE_URL + ("/" if ar else "/index-en"),
+        "inLanguage": "ar-SA" if ar else "en-US",
+        "description": desc,
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": f"{SITE_URL}/#calculators",
+            "query-input": "required name=search_term_string"
+        }
+    }
+
+    return f'''<!DOCTYPE html>
+<html lang="{"ar" if ar else "en"}" dir="{"rtl" if ar else "ltr"}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title}</title>
+<meta name="description" content="{desc}">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="{SITE_URL}/{"" if ar else "index-en"}">
+<link rel="alternate" hreflang="ar" href="{SITE_URL}/">
+<link rel="alternate" hreflang="en" href="{SITE_URL}/index-en">
+<link rel="alternate" hreflang="x-default" href="{SITE_URL}/">
+<link rel="icon" type="image/png" href="{SITE_URL}/images/logo.png">
+<link rel="apple-touch-icon" href="{SITE_URL}/images/logo.png">
+<link rel="preload" as="image" href="{SITE_URL}/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://www.google-analytics.com">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{brand}">
+<meta property="og:image" content="{SITE_URL}/images/logo.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{desc}">
+<meta name="twitter:image" content="{SITE_URL}/images/logo.png">
+<meta name="theme-color" content="#0b0d10">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
+{ADSENSE_CODE}
+<script type="application/ld+json">
+{json.dumps(schema, ensure_ascii=False, indent=2)}
+</script>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header class="site-header">
+<div class="wrap header-in">
+<a class="logo" href="{home_href}">
+<img src="{SITE_URL}/images/logo.png" alt="{brand}" width="54" height="36" style="height:36px;vertical-align:middle">
+{brand}
+</a>
+<nav class="main-nav">{nav_html}</nav>
+<div class="header-actions">
+<button class="theme-btn" id="themeBtn" aria-label="Theme">🌓</button>
+<a class="lang-btn" href="/{other}">{other_label}</a>
+</div>
+</div>
+</header>
+<section class="hero">
+<div class="badge"><span class="dot"></span>{hero_badge}</div>
+<h1>{hero_h1}</h1>
+<p class="lead">{hero_lead}</p>
+<div class="stats">{stats_html}</div>
+</section>
+<section class="wrap" id="calculators">
+<div class="section-head"><h2>{sec_calc}</h2></div>
+<div class="tabs">
+{build_tabs(lang)}
+</div>
+<div class="grid">
+{build_cards(lang)}
+</div>
+</section>
+{articles_section}
+<section class="wrap" id="features">
+<div class="section-head"><h2>{sec_feat}</h2></div>
+<div class="features-grid">
+{feat_html}
+</div>
+</section>
+<section class="wrap faq" id="faq">
+<div class="section-head"><h2>{sec_faq}</h2></div>
+{faq_html}
+</section>
+<footer class="site-footer">
+<div class="wrap footer-in">
+<a class="logo" href="{home_href}">
+<img src="{SITE_URL}/images/logo.png" alt="{brand}" width="42" height="28" style="height:28px;vertical-align:middle">
+{brand}
+</a>
+<nav>{foot_links}</nav>
+<p>{foot_copy}</p>
+</div>
+</footer>
+<script>
+(function(){{
+var root=document.documentElement, btn=document.getElementById('themeBtn');
+function apply(t){{ if(t==='dark'){{root.setAttribute('data-theme','dark');}}else{{root.removeAttribute('data-theme');}} }}
+var saved=null; try{{saved=localStorage.getItem('hs-theme');}}catch(e){{}}
+if(!saved){{saved=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}}
+apply(saved);
+btn.addEventListener('click',function(){{
+var next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+apply(next); try{{localStorage.setItem('hs-theme',next);}}catch(e){{}}
+}});
+}})();
+(function(){{
+var tabs=document.querySelectorAll('.tab');
+var cards=document.querySelectorAll('.card[data-cat]');
+tabs.forEach(function(btn){{
+btn.addEventListener('click',function(){{
+tabs.forEach(function(b){{b.classList.remove('on');}});
+btn.classList.add('on');
+var cat=btn.getAttribute('data-cat');
+cards.forEach(function(card){{
+var show=(cat==='all')||(card.getAttribute('data-cat')===cat);
+if(show){{card.classList.remove('hide');card.style.display='';}}
+else{{card.classList.add('hide');card.style.display='none';}}
+}});
+}});
+}});
+}})();
+</script>
+</body>
+</html>
+'''
+
+def main():
+    print("🏗️ توليد الفهرس...")
+    for lang, filename in [("ar", "index.html"), ("en", "index-en.html")]:
+        html = build_index(lang)
+        path = os.path.join(ROOT_DIR, filename)
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(html)
+        print(f"  ✅ {filename} ({len(PAGES)} حاسبة)")
+    print("🎉 اكتمل!")
+
+if __name__ == "__main__":
+    main()
