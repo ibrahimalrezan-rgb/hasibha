@@ -2,17 +2,19 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-<link rel="preload" as="image" href="/images/logo.png">
 <link rel="icon" type="image/png" href="/images/logo.png">
 <link rel="apple-touch-icon" href="/images/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--hs:assets-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://www.googletagmanager.com">
-<link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap">
+<link rel="stylesheet" href="/css/style.css?v=3">
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
-    <title>Privacy Policy — Hasibha | Your Data is Safe</title>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<script>try{var t=localStorage.getItem('hs-theme');if(t==='dark'||(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<!--/hs:assets-->
+<title>Privacy Policy — Hasibha | Your Data is Safe</title>
     <meta name="description" content="Discover how we protect your privacy at Hasibha — no data stored, all calculations run in your browser.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://hasibha.com/privacy-en">
@@ -22,28 +24,7 @@
       gtag('js', new Date());
       gtag('config', 'G-NZLXJFVCDW');
     </script>
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
-        .container{max-width:800px;margin:0 auto;padding:0 20px}
-        .site-header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 0}
-        .header-content{display:flex;justify-content:space-between;align-items:center}
-        .logo{font-size:26px;font-weight:800;color:#059669;text-decoration:none}
-        .logo img{height:35px;vertical-align:middle;margin-right:8px}
-        .lang-btn{background:#f1f5f9;border:1px solid #e2e8f0;padding:8px 16px;border-radius:8px;font-size:14px;color:#475569;text-decoration:none}
-        .content-box{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:32px;margin:30px auto;line-height:2.2}
-        .content-box h1{font-size:26px;color:#064e3b;margin-bottom:24px;text-align:center}
-        .content-box h2{font-size:18px;color:#1e293b;margin:24px 0 12px}
-        .content-box p{color:#475569;font-size:15px;margin-bottom:12px}
-        .content-box ul{color:#475569;font-size:14px;padding-left:20px;margin-bottom:12px}
-        .site-footer{background:#fff;border-top:1px solid #e2e8f0;text-align:center;padding:24px 20px;color:#64748b;font-size:14px;margin-top:40px}
-        .footer-links{margin-top:10px;display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
-        .footer-links a{color:#475569;text-decoration:none}
-        @media(max-width:600px){.content-box{padding:20px 16px}}
-    </style>
-
-
-<meta name="google-adsense-account" content="ca-pub-1508132460803414">
+    <meta name="google-adsense-account" content="ca-pub-1508132460803414">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -57,15 +38,19 @@
 <body>
 
 <header class="site-header">
-    <div class="container">
-        <div class="header-content">
-            <a href="/index-en" class="logo"><img src="/images/logo.png" alt="Hasibha"> Hasibha</a>
-            <div style="display:flex;gap:12px;align-items:center">
-                <a href="/privacy" class="lang-btn">عربي</a>
-                <a href="/index-en" class="lang-btn">Home</a>
-            </div>
-        </div>
+  <div class="wrap header-in">
+    <a class="logo" href="/index-en" aria-label="Hasibha — Home"><img src="/images/logo.png" alt="Hasibha" width="54" height="36">Hasibha</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="/index-en#calculators">Calculators</a>
+      <a href="/articles/index-en">Articles</a>
+      <a href="/about-en">About</a>
+      <a href="/contact-en">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Toggle dark mode"><svg class="i-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><svg class="i-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+      <a class="lang-btn" href="/privacy" hreflang="ar" lang="ar">عربي</a>
     </div>
+  </div>
 </header>
 
 <main>
@@ -106,17 +91,20 @@
 </main>
 
 <footer class="site-footer">
-    <div class="container">
-        <p>© <span id="year">2026</span> Hasibha - All Rights Reserved</p>
-        <div class="footer-links">
-            <a href="/privacy-en">Privacy Policy</a>
-            <a href="/about-en">About Us</a>
-            <a href="/contact-en">Contact Us</a>
-        </div>
-    </div>
+  <div class="wrap footer-in">
+    <a class="logo" href="/index-en"><img src="/images/logo.png" alt="Hasibha" width="42" height="28" loading="lazy">Hasibha</a>
+    <nav aria-label="Footer links">
+      <a href="/index-en#calculators">All Calculators</a>
+      <a href="/articles/index-en">Articles</a>
+      <a href="/about-en">About</a>
+      <a href="/contact-en">Contact</a>
+      <a href="/privacy-en">Privacy Policy</a>
+    </nav>
+    <p>Hasibha © <span id="year">2026</span> — All rights reserved</p>
+  </div>
 </footer>
-
-
+<div class="toast" id="toast"></div>
+<script src="/js/app.js?v=3"></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1508132460803414" crossorigin="anonymous"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZLXJFVCDW"></script>
 </body>
