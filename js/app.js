@@ -8,12 +8,25 @@
     : { wa: 'Share on WhatsApp', copy: 'Copy result', copied: 'Result copied ✅', via: 'Calculate it free on Hasibha:', fail: 'Copy failed' };
 
   /* ---------- theme ---------- */
-  function applyTheme(t) { if (t === 'dark') root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme'); }
+  function applyTheme(t) {
+    if (t === 'dark') {
+      root.setAttribute('data-theme', 'dark');
+      root.classList.add('dark');
+    } else {
+      root.removeAttribute('data-theme');
+      root.classList.remove('dark');
+    }
+  }
   var btn = doc.getElementById('themeBtn');
   if (btn) btn.addEventListener('click', function () {
-    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    var isDark = root.classList.contains('dark') || root.getAttribute('data-theme') === 'dark';
+    var next = isDark ? 'light' : 'dark';
     applyTheme(next);
-    try { localStorage.setItem('hs-theme', next); } catch (e) {}
+    try {
+      localStorage.setItem('hs-theme', next);
+      localStorage.setItem('hasibha_theme', next);
+      localStorage.setItem('theme', next);
+    } catch (e) {}
   });
 
   /* ---------- footer year ---------- */

@@ -366,17 +366,15 @@ gtag('config','G-NZLXJFVCDW');
   </div>
 </footer>
 <div class="toast" id="toast"></div>
-<script src="/js/app.js?v=4"></script>
+<script src="/js/app.js?v=5"></script>
 <script>
 function formatNumber(n){return n.toLocaleString('ar-SA',{minimumFractionDigits:2,maximumFractionDigits:2})}
 function formatInt(n){return n.toLocaleString('ar-SA')}
 
 function shareEosWhatsApp(){
   var amount = document.getElementById('eosAmount').textContent;
-  var text = "📋 حسبت مكافأة نهاية الخدمة وفق نظام العمل السعودي عبر موقع حاسبها:
-" +
-             "المكافأة المستحقة: " + amount + "
-" +
+  var text = "📋 حسبت مكافأة نهاية الخدمة وفق نظام العمل السعودي عبر موقع حاسبها:\n" +
+             "المكافأة المستحقة: " + amount + "\n" +
              "احسب مستحقاتك بدقة الآن مجاناً: https://hasibha.com/eos";
   window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(text), '_blank');
 }

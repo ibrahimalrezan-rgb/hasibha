@@ -320,7 +320,7 @@ gtag('config','G-NZLXJFVCDW');
   </div>
 </footer>
 <div class="toast" id="toast"></div>
-<script src="/js/app.js?v=4"></script>
+<script src="/js/app.js?v=5"></script>
 <script>
 function formatNumber(n){return n.toLocaleString('ar-SA',{minimumFractionDigits:2,maximumFractionDigits:2})}
 
@@ -328,14 +328,10 @@ function shareVatWhatsApp(){
   var total = document.getElementById('totalAmount').textContent;
   var vat = document.getElementById('vatAmount').textContent;
   var base = document.getElementById('baseAmount').textContent;
-  var text = "🧾 حساب ضريبة القيمة المضافة 15% عبر موقع حاسبها:
-" +
-             "المبلغ الأساسي: " + base + "
-" +
-             "قيمة الضريبة (15%): " + vat + "
-" +
-             "المبلغ الإجمالي: " + total + "
-" +
+  var text = "🧾 حساب ضريبة القيمة المضافة 15% عبر موقع حاسبها:\n" +
+             "المبلغ الأساسي: " + base + "\n" +
+             "قيمة الضريبة (15%): " + vat + "\n" +
+             "المبلغ الإجمالي: " + total + "\n" +
              "احسب الضريبة بدقة الآن مجاناً: https://hasibha.com/vat";
   window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(text), '_blank');
 }

@@ -319,7 +319,7 @@ gtag('config','G-NZLXJFVCDW');
   </div>
 </footer>
 <div class="toast" id="toast"></div>
-<script src="/js/app.js?v=4"></script>
+<script src="/js/app.js?v=5"></script>
 <script>
 function formatNumber(n){return n.toLocaleString('ar-SA',{minimumFractionDigits:2,maximumFractionDigits:2})}
 
@@ -327,14 +327,10 @@ function shareMortgageWhatsApp(){
   var monthly = document.getElementById('monthlyDisplay').textContent;
   var total = document.getElementById('totalDisplay').textContent;
   var down = document.getElementById('downVal').textContent;
-  var text = "🏠 حسبت القسط الشهري للتمويل العقاري عبر موقع حاسبها:
-" +
-             "القسط الشهري: " + monthly + " ر.س
-" +
-             "الدفعة الأولى: " + down + "
-" +
-             "إجمالي السداد: " + total + " ر.س
-" +
+  var text = "🏠 حسبت القسط الشهري للتمويل العقاري عبر موقع حاسبها:\n" +
+             "القسط الشهري: " + monthly + " ر.س\n" +
+             "الدفعة الأولى: " + down + "\n" +
+             "إجمالي السداد: " + total + " ر.س\n" +
              "احسب قسطك العقاري بدقة الآن مجاناً: https://hasibha.com/mortgage";
   window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(text), '_blank');
 }
