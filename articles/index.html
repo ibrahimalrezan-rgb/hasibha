@@ -6,11 +6,11 @@
 <!--hs:assets-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap">
-<link rel="stylesheet" href="/css/style.css?v=3">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/css/style.css?v=4">
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-<script>try{var t=localStorage.getItem('hs-theme');if(t==='dark'||(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<script>try{var t=localStorage.getItem('hs-theme')||localStorage.getItem('hasibha_theme');if(t==='dark'||(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');document.documentElement.classList.add('dark');}}catch(e){}</script>
 <!--/hs:assets-->
 <title>المقالات | حاسبها — دليلك المالي والصحي الشامل</title>
 <link rel="canonical" href="https://hasibha.com/articles/">
@@ -43,7 +43,18 @@
 <body>
 <header class="site-header">
   <div class="wrap header-in">
-    <a class="logo" href="/" aria-label="حاسبها — الصفحة الرئيسية"><img src="/images/logo.png" alt="حاسبها" width="54" height="36">حاسبها</a>
+    <a class="logo" href="/" aria-label="حاسبها — الصفحة الرئيسية">
+      <div class="logo-mark">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="3" y="3" width="8" height="8" rx="2" fill="white" fill-opacity="0.95"/>
+        <rect x="13" y="3" width="8" height="8" rx="2" fill="white" fill-opacity="0.45"/>
+        <rect x="3" y="13" width="8" height="8" rx="2" fill="white" fill-opacity="0.45"/>
+        <path d="M14 17H20M17 14V20" stroke="white" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+    </div>
+      <span class="logo-text">حاسبها</span>
+      <span class="logo-badge">2026</span>
+    </a>
     <nav class="main-nav" aria-label="التنقل الرئيسي">
       <a href="/#calculators">الحاسبات</a>
       <a href="/articles/">المقالات</a>
@@ -97,19 +108,47 @@
 </main>
 <footer class="site-footer">
   <div class="wrap footer-in">
-    <a class="logo" href="/"><img src="/images/logo.png" alt="حاسبها" width="42" height="28" loading="lazy">حاسبها</a>
-    <nav aria-label="روابط الفوتر">
-      <a href="/#calculators">جميع الحاسبات</a>
-      <a href="/articles/">المقالات</a>
+    <div class="footer-brand">
+      <a class="logo" href="/">
+        <div class="logo-mark">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="3" y="3" width="8" height="8" rx="2" fill="white" fill-opacity="0.95"/>
+        <rect x="13" y="3" width="8" height="8" rx="2" fill="white" fill-opacity="0.45"/>
+        <rect x="3" y="13" width="8" height="8" rx="2" fill="white" fill-opacity="0.45"/>
+        <path d="M14 17H20M17 14V20" stroke="white" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+    </div>
+        <span class="logo-text">حاسبها</span>
+      </a>
+      <p>منصتك السعودية الشاملة للحاسبات المالية، التحويلات، والقياسات الصحية بدقة فورية وخصوصية تامة.</p>
+    </div>
+    <div class="footer-col">
+      <h4>حاسبات سريعة</h4>
+      <ul>
+        <li><a href="/vat">ضريبة القيمة المضافة</a></li>
+        <li><a href="/salary">الراتب بعد التأمينات</a></li>
+        <li><a href="/mortgage">التمويل العقاري</a></li>
+        <li><a href="/eos">نهاية الخدمة</a></li>
+        <li><a href="/zakat">حاسبة الزكاة</a></li>
+        <li><a href="/bmi">مؤشر كتلة الجسم</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>روابط ومعلومات</h4>
+      <p>جميع الحاسبات تعمل محلياً في جهازك بدون تخزين بياناتك. النتائج استرشادية ومحدثة لأنظمة 2026.</p>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>حاسبها © <span id="year">2026</span> — جميع الحقوق محفوظة</p>
+    <div style="display:flex;gap:14px;">
       <a href="/about">من نحن</a>
       <a href="/contact">تواصل معنا</a>
-      <a href="/privacy">سياسة الخصوصية</a>
-    </nav>
-    <p>حاسبها © <span id="year">2026</span> — جميع الحقوق محفوظة</p>
+      <a href="/privacy">الخصوصية</a>
+    </div>
   </div>
 </footer>
 <div class="toast" id="toast"></div>
-<script src="/js/app.js?v=3"></script>
+<script src="/js/app.js?v=4"></script>
 <script>
 function toggleTheme(){var r=document.documentElement,t=r.getAttribute('data-theme')==='dark'?'light':'dark';if(t==='dark')r.setAttribute('data-theme','dark');else r.removeAttribute('data-theme');try{localStorage.setItem('hs-theme',t);}catch(e){}}
 (function(){var t=null;try{t=localStorage.getItem('hs-theme');}catch(e){}if(!t)t=(matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
