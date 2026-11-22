@@ -496,20 +496,20 @@
   </footer>
 
   <!-- ==================== 4. INTERACTIVE CALCULATOR MODAL ==================== -->
-  <div id="calcModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-slate-950/60 backdrop-blur-sm overflow-y-auto" role="dialog" aria-modal="true">
-    <div id="calcModalPanel" class="relative w-full max-w-4xl my-auto rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden transform transition-all">
+  <div id="calcModal" class="fixed inset-0 z-50 hidden items-center justify-center p-2 sm:p-4 md:p-6 bg-slate-950/60 backdrop-blur-sm overflow-y-auto" role="dialog" aria-modal="true">
+    <div id="calcModalPanel" class="relative w-full max-w-4xl my-auto max-h-[94vh] flex flex-col rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden transform transition-all">
       <!-- Modal Header -->
-      <div class="flex items-center justify-between gap-4 px-5 sm:px-7 py-4 sm:py-5 border-b border-slate-200/80 dark:border-slate-800">
+      <div class="flex items-center justify-between gap-4 px-5 sm:px-6 py-3.5 sm:py-4 border-b border-slate-200/80 dark:border-slate-800 shrink-0">
         <div class="flex items-center gap-3.5">
-          <div id="modalIconWrap" class="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0">
+          <div id="modalIconWrap" class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl flex items-center justify-center shrink-0">
             <!-- Icon injected dynamically -->
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h3 id="modalTitle" class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">عنوان الحاسبة</h3>
+              <h3 id="modalTitle" class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">عنوان الحاسبة</h3>
               <span id="modalCategoryBadge" class="hidden sm:inline-block text-[11px] font-semibold px-2.5 py-0.5 rounded-full"></span>
             </div>
-            <p id="modalSubtitle" class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5"></p>
+            <p id="modalSubtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5"></p>
           </div>
         </div>
         <div class="flex items-center gap-2">
@@ -524,16 +524,16 @@
       </div>
 
       <!-- Modal Split-Pane Workspace -->
-      <div class="grid grid-cols-1 lg:grid-cols-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 overflow-y-auto max-h-[calc(94vh-65px)]">
         <!-- Right Pane: Inputs -->
-        <div id="modalInputsPane" class="lg:col-span-7 p-5 sm:p-7 space-y-5 max-h-[65vh] lg:max-h-[72vh] overflow-y-auto">
+        <div id="modalInputsPane" class="lg:col-span-7 p-4 sm:p-6 space-y-4 overflow-y-auto">
           <!-- Dynamic calculator inputs injected here -->
         </div>
 
         <!-- Left Pane: Live Result Dashboard -->
-        <div class="lg:col-span-5 p-5 sm:p-7 bg-slate-50 dark:bg-slate-950/70 border-t lg:border-t-0 lg:border-r border-slate-200/80 dark:border-slate-800 flex flex-col justify-between gap-6">
+        <div class="lg:col-span-5 p-4 sm:p-6 bg-slate-50 dark:bg-slate-950/70 border-t lg:border-t-0 lg:border-r border-slate-200/80 dark:border-slate-800 flex flex-col justify-between gap-4">
           <div>
-            <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center justify-between mb-2.5">
               <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">النتيجة الفورية</span>
               <span class="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 px-2 py-0.5 rounded-full">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
@@ -542,31 +542,31 @@
             </div>
 
             <!-- Main Result Display -->
-            <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm mb-4">
-              <div id="resultPrimaryLabel" class="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">الإجمالي</div>
-              <div id="resultPrimaryValue" class="text-3xl sm:text-4xl font-bold text-emerald-600 dark:text-emerald-400 tabular-nums tracking-tight leading-tight">0</div>
-              <div id="resultPrimaryHint" class="text-xs text-slate-500 dark:text-slate-400 mt-1.5"></div>
+            <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-sm mb-3">
+              <div id="resultPrimaryLabel" class="text-xs font-medium text-slate-500 dark:text-slate-400 mb-0.5">الإجمالي</div>
+              <div id="resultPrimaryValue" class="text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400 tabular-nums tracking-tight leading-tight">0</div>
+              <div id="resultPrimaryHint" class="text-xs text-slate-500 dark:text-slate-400 mt-1"></div>
             </div>
 
             <!-- Visual Breakdown Bar -->
-            <div id="resultBarWrap" class="mb-4 hidden">
-              <div id="resultBarTrack" class="w-full h-3 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden flex"></div>
-              <div id="resultBarLegend" class="flex flex-wrap items-center justify-between gap-2 mt-2 text-[11px] text-slate-600 dark:text-slate-400"></div>
+            <div id="resultBarWrap" class="mb-3 hidden">
+              <div id="resultBarTrack" class="w-full h-2.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden flex"></div>
+              <div id="resultBarLegend" class="flex flex-wrap items-center justify-between gap-2 mt-1.5 text-[11px] text-slate-600 dark:text-slate-400"></div>
             </div>
 
             <!-- Detailed Breakdown Rows -->
-            <div id="resultBreakdownList" class="space-y-2.5 text-sm">
+            <div id="resultBreakdownList" class="space-y-2 text-xs sm:text-sm">
               <!-- Breakdown rows injected dynamically -->
             </div>
           </div>
 
           <!-- Action Buttons: Copy & WhatsApp -->
-          <div class="pt-4 border-t border-slate-200/80 dark:border-slate-800 grid grid-cols-2 gap-2.5">
-            <button id="copyResultBtn" type="button" class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 transition-colors">
+          <div class="pt-3 border-t border-slate-200/80 dark:border-slate-800 grid grid-cols-2 gap-2">
+            <button id="copyResultBtn" type="button" class="flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 transition-colors">
               <i data-lucide="copy" class="w-4 h-4"></i>
               <span>نسخ النتيجة</span>
             </button>
-            <button id="whatsappShareBtn" type="button" class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white transition-colors">
+            <button id="whatsappShareBtn" type="button" class="flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white transition-colors">
               <i data-lucide="message-circle" class="w-4 h-4"></i>
               <span>مشاركة واتساب</span>
             </button>
