@@ -32,7 +32,7 @@
     --radius-sm: 12px;
 }
 
-[data-theme="dark"], html.dark {
+[data-theme="dark"], html.dark, :root.dark, :root[data-theme="dark"], body.dark {
     --bg: #020617;           /* slate-950 */
     --card: #0f172a;         /* slate-900 */
     --surface: #1e293b;      /* slate-800 */
@@ -208,8 +208,8 @@ img, svg { max-width: 100%; display: inline-block; vertical-align: middle; }
 .theme-btn svg { width: 17px; height: 17px; }
 .theme-btn .i-sun { display: none; color: #fbbf24; }
 .theme-btn .i-moon { display: block; color: var(--text-2); }
-[data-theme="dark"] .theme-btn .i-sun, html.dark .theme-btn .i-sun { display: block; }
-[data-theme="dark"] .theme-btn .i-moon, html.dark .theme-btn .i-moon { display: none; }
+[data-theme="dark"] .theme-btn .i-sun, html.dark .theme-btn .i-sun, :root.dark .theme-btn .i-sun, body.dark .theme-btn .i-sun { display: block; }
+[data-theme="dark"] .theme-btn .i-moon, html.dark .theme-btn .i-moon, :root.dark .theme-btn .i-moon, body.dark .theme-btn .i-moon { display: none; }
 
 /* =====================================================
    2. BREADCRUMBS
