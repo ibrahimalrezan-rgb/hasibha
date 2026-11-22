@@ -29,11 +29,12 @@ files.forEach(fpath => {
     const rel = path.relative(baseDir, fpath).replace(/\\/g, '/');
     const content = fs.readFileSync(fpath, 'utf8');
 
-    // 1. Check broken links
-    const linkMatches = content.matchAll(/href=["']([^"'#?]+)["']/g);
+    // 1. Check broken links (ignore template strings in scripts)
+    const contentWithoutScripts = content.replace(/<script[\s\S]*?<\/script>/gi, '');
+    const linkMatches = contentWithoutScripts.matchAll(/href=["']([^"'#?]+)["']/g);
     for (const match of linkMatches) {
         const target = match[1];
-        if (target.startsWith('http://') || target.startsWith('https://') || target.startsWith('mailto:') || target.startsWith('tel:') || target.startsWith('#')) {
+        if (target.startsWith('http://') || target.startsWith('https://') || target.startsWith('mailto:') || target.startsWith('tel:') || target.startsWith('#') || target.includes('${')) {
             continue;
         }
 
