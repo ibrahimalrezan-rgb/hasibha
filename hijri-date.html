@@ -165,9 +165,9 @@ gtag('config','G-NZLXJFVCDW');
     </div>
 
     <div id="h2gInputs">
-      <div class="row">
+      <div class="row three">
         <div>
-          <label for="hDay">اليوم</label>
+          <label for="hDay">اليوم الهجري</label>
           <input type="number" id="hDay" min="1" max="30" value="1" placeholder="1-30" oninput="convertDate()">
         </div>
         <div>
@@ -195,8 +195,33 @@ gtag('config','G-NZLXJFVCDW');
     </div>
 
     <div id="g2hInputs" style="display:none">
-      <label for="gDateInput">اختر التاريخ الميلادي</label>
-      <input type="date" id="gDateInput" onchange="convertDate()">
+      <div class="row three">
+        <div>
+          <label for="gDay">اليوم الميلادي</label>
+          <input type="number" id="gDay" min="1" max="31" value="1" placeholder="1-31" oninput="convertDate()">
+        </div>
+        <div>
+          <label for="gMonth">الشهر الميلادي</label>
+          <select id="gMonth" onchange="convertDate()">
+            <option value="1">1 - يناير (January)</option>
+            <option value="2">2 - فبراير (February)</option>
+            <option value="3">3 - مارس (March)</option>
+            <option value="4">4 - أبريل (April)</option>
+            <option value="5">5 - مايو (May)</option>
+            <option value="6">6 - يونيو (June)</option>
+            <option value="7">7 - يوليو (July)</option>
+            <option value="8">8 - أغسطس (August)</option>
+            <option value="9">9 - سبتمبر (September)</option>
+            <option value="10">10 - أكتوبر (October)</option>
+            <option value="11">11 - نوفمبر (November)</option>
+            <option value="12">12 - ديسمبر (December)</option>
+          </select>
+        </div>
+        <div>
+          <label for="gYear">السنة الميلادية</label>
+          <input type="number" id="gYear" min="1900" max="2100" value="2026" placeholder="مثال: 2026" oninput="convertDate()">
+        </div>
+      </div>
     </div>
 
     <button class="calc-btn" onclick="convertDate()">تحويل التاريخ</button>
@@ -278,18 +303,30 @@ var weekDays = ["الأحد", "الإثنين", "الثلاثاء", "الأرب�
 
 function initToday() {
   var now = new Date();
-  var intlH = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', {day: 'numeric', month: 'long', year: 'numeric', weekday: 'long'});
+  var intlH = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', {day: 'numeric', month: 'numeric', year: 'numeric', weekday: 'long'});
   var intlG = new Intl.DateTimeFormat('ar-SA', {day: 'numeric', month: 'long', year: 'numeric'});
 
-  var hStr = intlH.format(now);
-  var gStr = intlG.format(now);
+  var parts = intlH.formatToParts(now);
+  var hd = 1, hm = 1, hy = 1448;
+  parts.forEach(function(p) {
+    if (p.type === 'day') hd = parseInt(p.value);
+    if (p.type === 'month') hm = parseInt(p.value);
+    if (p.type === 'year') hy = parseInt(p.value.replace(/\D/g, ''));
+  });
 
+  var intlHText = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', {day: 'numeric', month: 'long', year: 'numeric', weekday: 'long'});
+  var hStr = intlHText.format(now);
+  var gStr = intlG.format(now);
   document.getElementById('todayDisplay').textContent = hStr + ' هـ (الموافق ' + gStr + ' م)';
 
-  var yyyy = now.getFullYear();
-  var mm = String(now.getMonth() + 1).padStart(2, '0');
-  var dd = String(now.getDate()).padStart(2, '0');
-  document.getElementById('gDateInput').value = yyyy + '-' + mm + '-' + dd;
+  // Initializing unified fields for both Hijri and Gregorian
+  document.getElementById('hDay').value = hd;
+  document.getElementById('hMonth').value = hm;
+  document.getElementById('hYear').value = hy;
+
+  document.getElementById('gDay').value = now.getDate();
+  document.getElementById('gMonth').value = now.getMonth() + 1;
+  document.getElementById('gYear').value = now.getFullYear();
 }
 
 function setMode(mode) {
@@ -340,10 +377,11 @@ function convertDate() {
     document.getElementById('resultDisplay').textContent = formattedG;
     document.getElementById('dayNameDisplay').textContent = 'يوم ' + dayName;
   } else {
-    var gVal = document.getElementById('gDateInput').value;
-    if (!gVal) return;
-    var parts = gVal.split('-');
-    var gDate = new Date(parts[0], parts[1] - 1, parts[2]);
+    var gd = parseInt(document.getElementById('gDay').value) || 1;
+    var gm = parseInt(document.getElementById('gMonth').value) || 1;
+    var gy = parseInt(document.getElementById('gYear').value) || 2026;
+
+    var gDate = new Date(gy, gm - 1, gd);
 
     try {
       var formatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', {

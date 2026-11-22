@@ -129,7 +129,7 @@ gtag('config','G-NZLXJFVCDW');
     <div id="h2gInputs" style="margin-top:16px">
       <div class="row three">
         <div>
-          <label for="hDay">Day</label>
+          <label for="hDay">Hijri Day</label>
           <input type="number" id="hDay" min="1" max="30" value="1" placeholder="1-30" oninput="convertDate()">
         </div>
         <div>
@@ -157,8 +157,33 @@ gtag('config','G-NZLXJFVCDW');
     </div>
 
     <div id="g2hInputs" style="display:none;margin-top:16px">
-      <label for="gDateInput">Select Gregorian Date</label>
-      <input type="date" id="gDateInput" onchange="convertDate()">
+      <div class="row three">
+        <div>
+          <label for="gDay">Gregorian Day</label>
+          <input type="number" id="gDay" min="1" max="31" value="1" placeholder="1-31" oninput="convertDate()">
+        </div>
+        <div>
+          <label for="gMonth">Gregorian Month</label>
+          <select id="gMonth" onchange="convertDate()">
+            <option value="1">1 - January</option>
+            <option value="2">2 - February</option>
+            <option value="3">3 - March</option>
+            <option value="4">4 - April</option>
+            <option value="5">5 - May</option>
+            <option value="6">6 - June</option>
+            <option value="7">7 - July</option>
+            <option value="8">8 - August</option>
+            <option value="9">9 - September</option>
+            <option value="10">10 - October</option>
+            <option value="11">11 - November</option>
+            <option value="12">12 - December</option>
+          </select>
+        </div>
+        <div>
+          <label for="gYear">Gregorian Year</label>
+          <input type="number" id="gYear" min="1900" max="2100" value="2026" placeholder="e.g. 2026" oninput="convertDate()">
+        </div>
+      </div>
     </div>
 
     <button class="calc-btn" onclick="convertDate()">Convert Date</button>
@@ -231,16 +256,11 @@ function setMode(mode) {
 
 function convertDate() {
   if (currentMode === 'g2h') {
-    var gVal = document.getElementById('gDateInput').value;
-    if (!gVal) {
-      var today = new Date();
-      var yyyy = today.getFullYear();
-      var mm = String(today.getMonth() + 1).padStart(2, '0');
-      var dd = String(today.getDate()).padStart(2, '0');
-      gVal = yyyy + '-' + mm + '-' + dd;
-      document.getElementById('gDateInput').value = gVal;
-    }
-    var d = new Date(gVal + 'T12:00:00Z');
+    var gd = parseInt(document.getElementById('gDay').value) || 1;
+    var gm = parseInt(document.getElementById('gMonth').value) || 1;
+    var gy = parseInt(document.getElementById('gYear').value) || 2026;
+
+    var d = new Date(Date.UTC(gy, gm - 1, gd, 12, 0, 0));
     if (isNaN(d.getTime())) return;
 
     var formatter = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', {
@@ -256,7 +276,7 @@ function convertDate() {
 
     var monthIndex = parseInt(hMonth) - 1;
     var monthName = hijriMonthsEn[monthIndex] || ('Month ' + hMonth);
-    var dayName = weekDaysEn[d.getDay()];
+    var dayName = weekDaysEn[d.getUTCDay()];
 
     document.getElementById('resultTitle').textContent = 'Corresponding Hijri Date:';
     document.getElementById('resultDisplay').textContent = hDay + ' ' + monthName + ' ' + hYear + ' AH';
@@ -329,7 +349,17 @@ function copyResult() {
 
 // Initial default
 var now = new Date();
-document.getElementById('gDateInput').value = now.toISOString().split('T')[0];
+document.getElementById('gDay').value = now.getDate();
+document.getElementById('gMonth').value = now.getMonth() + 1;
+document.getElementById('gYear').value = now.getFullYear();
+
+var intlHInit = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', {day: 'numeric', month: 'numeric', year: 'numeric'});
+var partsInit = intlHInit.formatToParts(now);
+partsInit.forEach(function(p) {
+  if (p.type === 'day') document.getElementById('hDay').value = parseInt(p.value);
+  if (p.type === 'month') document.getElementById('hMonth').value = parseInt(p.value);
+  if (p.type === 'year') document.getElementById('hYear').value = parseInt(p.value.replace(/\D/g, ''));
+});
 convertDate();
 </script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1508132460803414" crossorigin="anonymous"></script>
