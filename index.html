@@ -66,20 +66,127 @@
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-NZLXJFVCDW');</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1508132460803414" crossorigin="anonymous"></script>
 
-  <!-- JSON-LD Structured Data -->
+  <!-- JSON-LD Structured Data: Complete Rich Snippets & FAQ Schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "حاسبها",
-    "url": "https://hasibha.com/",
-    "inLanguage": "ar-SA",
-    "description": "منصة سعودية ذكية تضم 20 حاسبة مالية وصحية وتجارية وفق أحدث لوائح وأنظمة 2026.",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://hasibha.com/#calculators?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://hasibha.com/#organization",
+        "name": "حاسبها",
+        "url": "https://hasibha.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://hasibha.com/images/logo.png",
+          "width": 512,
+          "height": 512
+        },
+        "description": "المنصة السعودية الذكية الأولى للحاسبات المالية، تحويلات العملات، والقياسات الصحية لعام 2026.",
+        "areaServed": "SA"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://hasibha.com/#website",
+        "name": "حاسبها",
+        "url": "https://hasibha.com/",
+        "inLanguage": "ar-SA",
+        "publisher": {
+          "@id": "https://hasibha.com/#organization"
+        },
+        "description": "منصة سعودية ذكية تضم 20 حاسبة مالية وصحية وتجارية وفق أحدث لوائح وأنظمة 2026.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://hasibha.com/#calculators?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://hasibha.com/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "هل حاسبات موقع «حاسبها» مجانية بالكامل؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "نعم، جميع الحاسبات والأدوات في منصة «حاسبها» مجانية 100% للاستخدام المفتوح ولا تتطلب إنشاء حساب أو تسجيل دخول أو اشتراك شهري."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "هل يتم حفظ أو مشاركة أرقامي وبياناتي المالية؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "لا أبداً. جميع العمليات الحسابية تُنفّذ محلياً داخل متصفحك مباشرة (Client-Side)، ولا يتم إرسال أي مبلغ أو راتب أو بيانات شخصية إلى أي خادم خارجي لضمان الخصوصية التامة."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "هل النتائج مطابقة للأنظمة السعودية الرسمية لعام 2026؟",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "نحرص على تحديث المعادلات باستمرار وفق آخر التحديثات الرسمية لنظام العمل السعودي، المؤسسة العامة للتأمينات الاجتماعية، هيئة الزكاة والضريبة والجمارك (ضريبة 15%)، وضوابط التمويل. ومع ذلك، تُعد النتائج تقديرية واسترشادية ويُنصح دائماً بالرجوع للجهة الرسمية عند إبرام العقود."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://hasibha.com/#calculators-list",
+        "name": "حاسبات منصة حاسبها 2026",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "حاسبة ضريبة القيمة المضافة 15%",
+            "url": "https://hasibha.com/vat"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "حاسبة مكافأة نهاية الخدمة نظام العمل السعودي",
+            "url": "https://hasibha.com/eos"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "حاسبة الراتب بعد التأمينات وساند",
+            "url": "https://hasibha.com/salary"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "حاسبة التمويل العقاري والسكني",
+            "url": "https://hasibha.com/mortgage"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "حاسبة حساب المواطن التقديرية",
+            "url": "https://hasibha.com/citizen-account"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "name": "حاسبة الضمان الاجتماعي المطور",
+            "url": "https://hasibha.com/social-security"
+          },
+          {
+            "@type": "ListItem",
+            "position": 7,
+            "name": "حاسبة الزكاة الشرعية",
+            "url": "https://hasibha.com/zakat"
+          },
+          {
+            "@type": "ListItem",
+            "position": 8,
+            "name": "محول التاريخ الهجري والميلادي (أم القرى)",
+            "url": "https://hasibha.com/hijri-date"
+          }
+        ]
+      }
+    ]
   }
   </script>
 

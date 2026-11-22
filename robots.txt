@@ -1,7 +1,38 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://hasibha.com/sitemap.xml
+# Priority Search Engines
+User-agent: Googlebot
+Allow: /
 
-# Disallow admin or private areas if any
-# Disallow: /admin/
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# AI Crawlers & Generative Search Engines (Google AI Overviews, ChatGPT Search, Perplexity)
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# Disallow sensitive or staging paths if any
+Disallow: /automation/
+Disallow: /tmp/
+
+Sitemap: https://hasibha.com/sitemap.xml
+Host: hasibha.com
