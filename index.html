@@ -6,6 +6,11 @@
   <title>حاسبها 2026 — منصتك السعودية الأولى للحاسبات المالية والصحية</title>
   <meta name="description" content="24 حاسبة ذكية مجانية معتمدة في السعودية: حساب المواطن، الضمان المطور، التمويل العقاري، التأمينات والراتب، مكافأة نهاية الخدمة، الزكاة، الضريبة 15%، ومؤشر كتلة الجسم. نتائج فورية بدون تسجيل." />
   <meta name="robots" content="index, follow" />
+    <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#059669" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="حاسبها" />
   <link rel="canonical" href="https://hasibha.com/" />
   <link rel="alternate" hreflang="ar" href="https://hasibha.com/" />
   <link rel="alternate" hreflang="en" href="https://hasibha.com/index-en" />
@@ -805,6 +810,10 @@
               <i data-lucide="message-circle" class="w-4 h-4"></i>
               <span>مشاركة واتساب</span>
             </button>
+            <button id="printReportBtn" type="button" class="col-span-2 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 bg-slate-100 hover:bg-emerald-50 dark:bg-slate-800 dark:hover:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 hover:border-emerald-500/30 transition-all shadow-xs">
+              <i data-lucide="printer" class="w-4 h-4 text-emerald-600 dark:text-emerald-400"></i>
+              <span>طباعة / حفظ تقرير رسمي (PDF)</span>
+            </button>
             <button id="embedCalcBtn" type="button" class="col-span-2 flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 bg-slate-100 hover:bg-emerald-50 dark:bg-slate-800 dark:hover:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 hover:border-emerald-500/30 transition-all">
               <i data-lucide="code-2" class="w-4 h-4 text-emerald-600 dark:text-emerald-400"></i>
               <span>تضمين الحاسبة في موقعك أو مدونتك (Embed Code)</span>
@@ -968,6 +977,59 @@
         paragraphs: [
           'وفق المادة 84 من نظام العمل السعودي، يستحق العامل عند انتهاء العقد أو الفصل غير التأديبي أجر نصف شهر عن كل سنة من السنوات الخمس الأولى، وأجر شهر كامل عن كل سنة تليها.',
           'أما في حالة الاستقالة (المادة 85)، فلا يستحق العامل مكافأة إذا قلّت خدمته عن سنتين، ويستحق ثلث المكافأة بين سنتين و5 سنوات، وثلثيها بين 5 و10 سنوات، والمكافأة كاملة بعد 10 سنوات.'
+        ]
+      }
+    ,
+      {
+        id: 'art-gpa',
+        url: '/articles/gpa-guide-2026',
+        tag: 'التعليم والجامعات',
+        readTime: '3 دقائق قراءة',
+        title: 'دليل حساب المعدل التراكمي (GPA) 2026: الجامعات ونظام المسارات',
+        excerpt: 'شرح حساب المعدل الفصلي والتراكمي من 4 ومن 5، وزن الساعات المعتمدة، وشروط مرتبة الشرف.',
+        calcId: 'gpa',
+        paragraphs: [
+          'يُحسب المعدل الفصلي بضرب نقاط كل مقرر في عدد ساعاته المعتمدة، ثم قسمة المجموع الكلي للنقاط على إجمالي الساعات.',
+          'في نظام مسارات الثانوية العامة والجامعات، التركيز على رفع درجات المقررات ذات الساعات العالية هو المفتاح الأسرع لرفع المعدل التراكمي.'
+        ]
+      },
+      {
+        id: 'art-electricity',
+        url: '/articles/electricity-guide-2026',
+        tag: 'الفواتير والطاقة',
+        readTime: '3 دقائق قراءة',
+        title: 'فاتورة الكهرباء والشرائح السكنية 2026: كيف تتفادى الشريحة الثانية؟',
+        excerpt: 'تعرف على الفرق بين تعرفة 18 هللة و30 هللة، وطريقة حساب ضريبة 15% ومقابل خدمة العداد.',
+        calcId: 'electricity',
+        paragraphs: [
+          'تُحسب الشريحة الأولى المدعومة بـ 18 هللة لكل كيلوواط حتى 6000 وحدة، وما زاد عنها يُحسب بـ 30 هللة لكل وحدة إضافية.',
+          'ضبط التكييف على 24 درجة مئوية وتنظيف الفلاتر دورياً يوفر حتى 35% من قيمة الفاتورة ويمنع قفز العداد للشريحة الأعلى.'
+        ]
+      },
+      {
+        id: 'art-sakani',
+        url: '/articles/sakani-guide-2026',
+        tag: 'العقار والدعم',
+        readTime: '3 دقائق قراءة',
+        title: 'الدعم السكني (سكني) 2026: مصفوفة الدعم المالي وباقة الـ 150 ألف',
+        excerpt: 'تفاصيل الدعم الفوري غير المسترد لشراء المسكن الأول وشروط استحقاق دعم أرباح التمويل العقاري.',
+        calcId: 'sakani',
+        paragraphs: [
+          'تتيح باقة الدعم الفوري مبلغاً غير مسترد يصل إلى 150 ألف ريال يُصرف كدفعة أولى لشراء المسكن الأول.',
+          'يدعم الصندوق العقاري أرباح التمويل بنسبة 100% للرواتب حتى 14 ألف ريال لمبالغ التمويل حتى 500 ألف ريال.'
+        ]
+      },
+      {
+        id: 'art-leave',
+        url: '/articles/leave-allowance-guide-2026',
+        tag: 'نظام العمل',
+        readTime: '3 دقائق قراءة',
+        title: 'بدل الإجازة السنوية في نظام العمل 2026: متى تستحق التعويض النقدي؟',
+        excerpt: 'شرح المادتين 109 و111 من نظام العمل، كيفية احتساب أجر اليوم، وتسييل رصيد الإجازات غير المستخدمة.',
+        calcId: 'leave-allowance',
+        paragraphs: [
+          'يستحق الموظف إجازة سنوية 21 يوماً ترتفع إلى 30 يوماً بعد إتمام 5 سنوات خدمة متصلة لدى نفس صاحب العمل.',
+          'عند الاستقالة أو انتهاء العقد، يُلزم النظام صاحب العمل بتعويض العامل نقدياً عن كامل رصيد إجازاته غير المستخدمة وفق راتبه الفعلي.'
         ]
       }
     ];
@@ -1818,7 +1880,18 @@
             </div>
           </div>
         `;
-        const ratesToSAR = { SAR: 1, USD: 3.75, EUR: 4.06, AED: 1.021, GBP: 4.78, KWD: 12.22 };
+        let ratesToSAR = { SAR: 1, USD: 3.75, EUR: 4.06, AED: 1.021, GBP: 4.78, KWD: 12.22 };
+        try {
+          const savedRates = localStorage.getItem('hasibha_live_rates');
+          if (savedRates) {
+            const parsed = JSON.parse(savedRates);
+            if (parsed.rates) ratesToSAR = Object.assign(ratesToSAR, parsed.rates);
+          }
+        } catch (e) {}
+        window.applyLiveRates = function(newRates) {
+          ratesToSAR = Object.assign(ratesToSAR, newRates);
+          compute();
+        };
         const compute = () => {
           const amt = Math.max(0, parseFloat(document.getElementById('curAmt').value) || 0);
           const from = document.getElementById('curFrom').value;
@@ -2753,6 +2826,132 @@
         const url = `https://wa.me/?text=${encodeURIComponent(latestShareText)}`;
         window.open(url, '_blank', 'noopener,noreferrer');
       });
+
+      
+      // Print Official PDF Report
+      const printReportBtn = document.getElementById('printReportBtn');
+      if (printReportBtn) {
+        printReportBtn.addEventListener('click', () => {
+          const calc = CALCULATORS.find(c => c.id === activeCalcId) || { title: 'حاسبة ذكية', url: '' };
+          const pLabel = document.getElementById('resultPrimaryLabel') ? document.getElementById('resultPrimaryLabel').textContent : 'النتيجة الرئيسية';
+          const pVal = document.getElementById('resultPrimaryValue') ? document.getElementById('resultPrimaryValue').textContent : '0';
+          const pHint = document.getElementById('resultPrimaryHint') ? document.getElementById('resultPrimaryHint').textContent : '';
+          const secRows = Array.from(document.querySelectorAll('#resultBreakdownList > div')).map(div => {
+            const spans = div.querySelectorAll('span');
+            return { label: spans[0] ? spans[0].textContent : '', val: spans[1] ? spans[1].textContent : '' };
+          });
+
+          const printWin = window.open('', '_blank');
+          if (!printWin) {
+            window.print();
+            return;
+          }
+
+          const now = new Date();
+          const dateStr = now.toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' });
+          const timeStr = now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
+
+          const rowsHtml = secRows.map(r => '<tr><td>' + r.label + '</td><td>' + r.val + '</td></tr>').join('');
+
+          const docContent = '<!DOCTYPE html>' +
+            '<html lang="ar" dir="rtl">' +
+            '<head>' +
+              '<meta charset="UTF-8">' +
+              '<title>تقرير حساب معتمد — ' + calc.title + ' | منصة حاسبها</title>' +
+              '<style>' +
+                'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "IBM Plex Sans Arabic", sans-serif; margin: 40px; color: #0f172a; line-height: 1.6; }' +
+                '.header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #059669; padding-bottom: 16px; margin-bottom: 24px; }' +
+                '.logo-title { font-size: 24px; font-weight: bold; color: #059669; margin: 0; }' +
+                '.subtitle { font-size: 13px; color: #64748b; margin-top: 4px; }' +
+                '.meta { text-align: left; font-size: 12px; color: #64748b; }' +
+                '.report-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; margin-bottom: 24px; }' +
+                '.primary-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 20px; }' +
+                '.primary-label { font-size: 15px; color: #065f46; font-weight: 600; margin-bottom: 6px; }' +
+                '.primary-val { font-size: 32px; font-weight: 800; color: #047857; }' +
+                '.primary-hint { font-size: 13px; color: #059669; margin-top: 6px; }' +
+                '.sec-table { width: 100%; border-collapse: collapse; margin-top: 16px; }' +
+                '.sec-table tr { border-bottom: 1px solid #e2e8f0; }' +
+                '.sec-table td { padding: 12px 6px; font-size: 14px; }' +
+                '.sec-table td:last-child { text-align: left; font-weight: 600; color: #0f172a; }' +
+                '.footer { border-top: 1px dashed #cbd5e1; padding-top: 16px; font-size: 11px; color: #94a3b8; text-align: center; }' +
+                '@media print { body { margin: 20px; } }' +
+              '</style>' +
+            '</head>' +
+            '<body>' +
+              '<div class="header">' +
+                '<div>' +
+                  '<h1 class="logo-title">حاسبها 🇸🇦</h1>' +
+                  '<div class="subtitle">تقرير رسمي — ' + calc.title + '</div>' +
+                '</div>' +
+                '<div class="meta">' +
+                  '<div><strong>تاريخ التقرير:</strong> ' + dateStr + '</div>' +
+                  '<div><strong>الوقت:</strong> ' + timeStr + '</div>' +
+                  '<div><strong>المرجع:</strong> hasibha.com/' + calc.url + '</div>' +
+                '</div>' +
+              '</div>' +
+              '<div class="report-card">' +
+                '<div class="primary-box">' +
+                  '<div class="primary-label">' + pLabel + '</div>' +
+                  '<div class="primary-val">' + pVal + '</div>' +
+                  (pHint ? '<div class="primary-hint">' + pHint + '</div>' : '') +
+                '</div>' +
+                (rowsHtml ? '<table class="sec-table">' + rowsHtml + '</table>' : '') +
+              '</div>' +
+              '<div class="footer">' +
+                '<p>هذا التقرير تم إعداده إلكترونياً وبدقة عالية عبر منصة حاسبها (hasibha.com) كأداة استرشادية معتمدة وفق أحدث الأنظمة السعودية لعام 2026.</p>' +
+                '<p>الرابط المرجعي: https://hasibha.com/' + calc.url + '</p>' +
+              '</div>' +
+            '</body>' +
+            '</html>';
+
+          printWin.document.write(docContent);
+          printWin.document.close();
+          setTimeout(() => { printWin.print(); }, 250);
+        });
+      }
+
+      // Live Exchange Rates API Background Sync (cached for 24h)
+      (function syncLiveRates() {
+        const CACHE_KEY = 'hasibha_live_rates';
+        try {
+          const cached = localStorage.getItem(CACHE_KEY);
+          if (cached) {
+            const data = JSON.parse(cached);
+            if (Date.now() - data.ts < 24 * 3600 * 1000) {
+              if (data.rates && typeof window.applyLiveRates === 'function') {
+                window.applyLiveRates(data.rates);
+              }
+              return;
+            }
+          }
+          fetch('https://open.er-api.com/v6/latest/SAR')
+            .then(res => res.json())
+            .then(res => {
+              if (res && res.result === 'success' && res.rates) {
+                const ratesToSAR = {
+                  SAR: 1,
+                  USD: parseFloat((1 / res.rates.USD).toFixed(4)) || 3.75,
+                  EUR: parseFloat((1 / res.rates.EUR).toFixed(4)) || 4.06,
+                  AED: parseFloat((1 / res.rates.AED).toFixed(4)) || 1.021,
+                  GBP: parseFloat((1 / res.rates.GBP).toFixed(4)) || 4.78,
+                  KWD: parseFloat((1 / res.rates.KWD).toFixed(4)) || 12.22
+                };
+                localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), rates: ratesToSAR }));
+                if (typeof window.applyLiveRates === 'function') {
+                  window.applyLiveRates(ratesToSAR);
+                }
+              }
+            })
+            .catch(() => {});
+        } catch (e) {}
+      })();
+
+      // PWA Service Worker Registration
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
 
       // Embed Widget Action (Generates natural DoFollow backlinks)
       const embedCalcBtn = document.getElementById('embedCalcBtn');

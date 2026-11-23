@@ -44,7 +44,7 @@ files.forEach(fpath => {
             checkPath = 'index.html';
         } else if (checkPath === 'articles' || checkPath === 'articles/') {
             checkPath = 'articles/index.html';
-        } else if (!checkPath.endsWith('.html') && !checkPath.endsWith('.png') && !checkPath.endsWith('.xml') && !checkPath.endsWith('.txt') && !checkPath.endsWith('.css')) {
+        } else if (!checkPath.endsWith('.html') && !checkPath.endsWith('.png') && !checkPath.endsWith('.xml') && !checkPath.endsWith('.txt') && !checkPath.endsWith('.css') && !checkPath.endsWith('.json')) {
             checkPath = checkPath + '.html';
         }
 

@@ -6,6 +6,11 @@
   <title>Hasibha 2026 — All-in-One Saudi Financial & Health Calculators</title>
   <meta name="description" content="20 free smart calculators compliant with 2026 Saudi regulations: Citizen Account, Social Security (Daman), Mortgage, GOSI Salary, End of Service, Zakat, 15% VAT, and BMI. Instant results without registration." />
   <meta name="robots" content="index, follow" />
+    <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#059669" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Hasibha" />
   <link rel="canonical" href="https://hasibha.com/index-en" />
   <link rel="alternate" hreflang="ar" href="https://hasibha.com/" />
   <link rel="alternate" hreflang="en" href="https://hasibha.com/index-en" />
@@ -762,6 +767,10 @@
               <i data-lucide="message-circle" class="w-4 h-4"></i>
               <span>WhatsApp</span>
             </button>
+            <button id="printReportBtn" type="button" class="col-span-2 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 bg-slate-100 hover:bg-emerald-50 dark:bg-slate-800 dark:hover:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 hover:border-emerald-500/30 transition-all shadow-xs">
+              <i data-lucide="printer" class="w-4 h-4 text-emerald-600 dark:text-emerald-400"></i>
+              <span>Print / Save Official Report (PDF)</span>
+            </button>
             <button id="embedCalcBtn" type="button" class="col-span-2 flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 bg-slate-100 hover:bg-emerald-50 dark:bg-slate-800 dark:hover:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 hover:border-emerald-500/30 transition-all">
               <i data-lucide="code-2" class="w-4 h-4 text-emerald-600 dark:text-emerald-400"></i>
               <span>Embed Calculator on Your Website / Blog</span>
@@ -920,6 +929,59 @@
         paragraphs: [
           'Under Article 84, employees with terminated contracts receive half a month wage per year for the first 5 years, and a full month wage for each year thereafter.',
           'Under Article 85 (resignation), award entitlements scale from zero (<2 years) to 1/3 (2-5 years), 2/3 (5-10 years), and full (10+ years).'
+        ]
+      }
+    ,
+      {
+        id: 'art-gpa',
+        url: '/articles/gpa-guide-2026-en',
+        tag: 'Education & Academic',
+        readTime: '3 min read',
+        title: 'Saudi GPA Calculation Guide 2026: 4.0 & 5.0 Scales & Masarat',
+        excerpt: 'How to calculate semester and cumulative GPA out of 4 and 5, credit hour weighting, and honors criteria.',
+        calcId: 'gpa',
+        paragraphs: [
+          'Semester GPA is determined by multiplying course grade points by credit hours and dividing by total semester hours.',
+          'Focusing on high-credit courses yields the most rapid improvement in cumulative academic standing.'
+        ]
+      },
+      {
+        id: 'art-electricity',
+        url: '/articles/electricity-guide-2026-en',
+        tag: 'Energy & Utilities',
+        readTime: '3 min read',
+        title: 'Saudi Residential Electricity Tariffs 2026: Tiers & Savings',
+        excerpt: 'Understand Tier 1 (18 halalas) vs Tier 2 (30 halalas), 15% VAT calculation, and summer bill reduction.',
+        calcId: 'electricity',
+        paragraphs: [
+          'Consumption up to 6,000 kWh is billed at 18 halalas per unit; consumption exceeding 6,000 kWh jumps to 30 halalas.',
+          'Setting AC thermostats to 24°C prevents high-tier spikes and reduces monthly power bills by up to 35%.'
+        ]
+      },
+      {
+        id: 'art-sakani',
+        url: '/articles/sakani-guide-2026-en',
+        tag: 'Housing & Finance',
+        readTime: '3 min read',
+        title: 'Sakani Housing Support 2026: Subsidy Matrix & 150k Grants',
+        excerpt: 'Direct non-refundable housing grants and profit subsidies for first-time Saudi home buyers.',
+        calcId: 'sakani',
+        paragraphs: [
+          'Instant grant packages offer up to SAR 150,000 non-refundable assistance deposited directly towards down payments.',
+          'Salaries up to SAR 14,000 receive 100% mortgage profit subsidy on financing up to SAR 500,000.'
+        ]
+      },
+      {
+        id: 'art-leave',
+        url: '/articles/leave-allowance-guide-2026-en',
+        tag: 'Labor Law',
+        readTime: '3 min read',
+        title: 'Saudi Annual Leave Allowance 2026: Cash Compensation & Rules',
+        excerpt: 'Articles 109 & 111 of Saudi Labor Law: calculation formulas and encashing unused vacation balances.',
+        calcId: 'leave-allowance',
+        paragraphs: [
+          'Employees receive 21 days annual leave, escalating to 30 days after 5 continuous years of service.',
+          'Upon contract conclusion, employers must compensate employees for all unused accrued leave days based on actual wages.'
         ]
       }
     ];
@@ -1767,7 +1829,18 @@
             </div>
           </div>
         `;
-        const ratesToSAR = { SAR: 1, USD: 3.75, EUR: 4.06, AED: 1.021, GBP: 4.78, KWD: 12.22 };
+        let ratesToSAR = { SAR: 1, USD: 3.75, EUR: 4.06, AED: 1.021, GBP: 4.78, KWD: 12.22 };
+        try {
+          const savedRates = localStorage.getItem('hasibha_live_rates');
+          if (savedRates) {
+            const parsed = JSON.parse(savedRates);
+            if (parsed.rates) ratesToSAR = Object.assign(ratesToSAR, parsed.rates);
+          }
+        } catch (e) {}
+        window.applyLiveRates = function(newRates) {
+          ratesToSAR = Object.assign(ratesToSAR, newRates);
+          compute();
+        };
         const compute = () => {
           const amt = Math.max(0, parseFloat(document.getElementById('curAmt').value) || 0);
           const from = document.getElementById('curFrom').value;
@@ -2690,6 +2763,132 @@
         const url = `https://wa.me/?text=${encodeURIComponent(latestShareText)}`;
         window.open(url, '_blank', 'noopener,noreferrer');
       });
+
+      
+      // Print Official PDF Report
+      const printReportBtn = document.getElementById('printReportBtn');
+      if (printReportBtn) {
+        printReportBtn.addEventListener('click', () => {
+          const calc = CALCULATORS.find(c => c.id === activeCalcId) || { title: 'Smart Calculator', url: '' };
+          const pLabel = document.getElementById('resultPrimaryLabel') ? document.getElementById('resultPrimaryLabel').textContent : 'Primary Result';
+          const pVal = document.getElementById('resultPrimaryValue') ? document.getElementById('resultPrimaryValue').textContent : '0';
+          const pHint = document.getElementById('resultPrimaryHint') ? document.getElementById('resultPrimaryHint').textContent : '';
+          const secRows = Array.from(document.querySelectorAll('#resultBreakdownList > div')).map(div => {
+            const spans = div.querySelectorAll('span');
+            return { label: spans[0] ? spans[0].textContent : '', val: spans[1] ? spans[1].textContent : '' };
+          });
+
+          const printWin = window.open('', '_blank');
+          if (!printWin) {
+            window.print();
+            return;
+          }
+
+          const now = new Date();
+          const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+          const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+          const rowsHtml = secRows.map(r => '<tr><td>' + r.label + '</td><td>' + r.val + '</td></tr>').join('');
+
+          const docContent = '<!DOCTYPE html>' +
+            '<html lang="en" dir="ltr">' +
+            '<head>' +
+              '<meta charset="UTF-8">' +
+              '<title>Official Calculation Report — ' + calc.title + ' | Hasibha</title>' +
+              '<style>' +
+                'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 40px; color: #0f172a; line-height: 1.6; }' +
+                '.header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #059669; padding-bottom: 16px; margin-bottom: 24px; }' +
+                '.logo-title { font-size: 24px; font-weight: bold; color: #059669; margin: 0; }' +
+                '.subtitle { font-size: 13px; color: #64748b; margin-top: 4px; }' +
+                '.meta { text-align: right; font-size: 12px; color: #64748b; }' +
+                '.report-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; margin-bottom: 24px; }' +
+                '.primary-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 20px; }' +
+                '.primary-label { font-size: 15px; color: #065f46; font-weight: 600; margin-bottom: 6px; }' +
+                '.primary-val { font-size: 32px; font-weight: 800; color: #047857; }' +
+                '.primary-hint { font-size: 13px; color: #059669; margin-top: 6px; }' +
+                '.sec-table { width: 100%; border-collapse: collapse; margin-top: 16px; }' +
+                '.sec-table tr { border-bottom: 1px solid #e2e8f0; }' +
+                '.sec-table td { padding: 12px 6px; font-size: 14px; }' +
+                '.sec-table td:last-child { text-align: right; font-weight: 600; color: #0f172a; }' +
+                '.footer { border-top: 1px dashed #cbd5e1; padding-top: 16px; font-size: 11px; color: #94a3b8; text-align: center; }' +
+                '@media print { body { margin: 20px; } }' +
+              '</style>' +
+            '</head>' +
+            '<body>' +
+              '<div class="header">' +
+                '<div>' +
+                  '<h1 class="logo-title">Hasibha 🇸🇦</h1>' +
+                  '<div class="subtitle">Official Calculation Report — ' + calc.title + '</div>' +
+                '</div>' +
+                '<div class="meta">' +
+                  '<div><strong>Date:</strong> ' + dateStr + '</div>' +
+                  '<div><strong>Time:</strong> ' + timeStr + '</div>' +
+                  '<div><strong>Reference:</strong> hasibha.com/' + calc.url + '</div>' +
+                '</div>' +
+              '</div>' +
+              '<div class="report-card">' +
+                '<div class="primary-box">' +
+                  '<div class="primary-label">' + pLabel + '</div>' +
+                  '<div class="primary-val">' + pVal + '</div>' +
+                  (pHint ? '<div class="primary-hint">' + pHint + '</div>' : '') +
+                '</div>' +
+                (rowsHtml ? '<table class="sec-table">' + rowsHtml + '</table>' : '') +
+              '</div>' +
+              '<div class="footer">' +
+                '<p>This report was generated electronically via Hasibha (hasibha.com) based on the latest 2026 Saudi regulations and guidelines.</p>' +
+                '<p>Reference: https://hasibha.com/' + calc.url + '</p>' +
+              '</div>' +
+            '</body>' +
+            '</html>';
+
+          printWin.document.write(docContent);
+          printWin.document.close();
+          setTimeout(() => { printWin.print(); }, 250);
+        });
+      }
+
+      // Live Exchange Rates API Background Sync (cached for 24h)
+      (function syncLiveRates() {
+        const CACHE_KEY = 'hasibha_live_rates';
+        try {
+          const cached = localStorage.getItem(CACHE_KEY);
+          if (cached) {
+            const data = JSON.parse(cached);
+            if (Date.now() - data.ts < 24 * 3600 * 1000) {
+              if (data.rates && typeof window.applyLiveRates === 'function') {
+                window.applyLiveRates(data.rates);
+              }
+              return;
+            }
+          }
+          fetch('https://open.er-api.com/v6/latest/SAR')
+            .then(res => res.json())
+            .then(res => {
+              if (res && res.result === 'success' && res.rates) {
+                const ratesToSAR = {
+                  SAR: 1,
+                  USD: parseFloat((1 / res.rates.USD).toFixed(4)) || 3.75,
+                  EUR: parseFloat((1 / res.rates.EUR).toFixed(4)) || 4.06,
+                  AED: parseFloat((1 / res.rates.AED).toFixed(4)) || 1.021,
+                  GBP: parseFloat((1 / res.rates.GBP).toFixed(4)) || 4.78,
+                  KWD: parseFloat((1 / res.rates.KWD).toFixed(4)) || 12.22
+                };
+                localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), rates: ratesToSAR }));
+                if (typeof window.applyLiveRates === 'function') {
+                  window.applyLiveRates(ratesToSAR);
+                }
+              }
+            })
+            .catch(() => {});
+        } catch (e) {}
+      })();
+
+      // PWA Service Worker Registration
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
 
       // Embed Widget Action (Generates natural DoFollow backlinks)
       const embedCalcBtn = document.getElementById('embedCalcBtn');

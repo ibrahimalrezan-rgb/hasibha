@@ -1,0 +1,52 @@
+{
+  "name": "حاسبها — منصة الحاسبات الذكية",
+  "short_name": "حاسبها",
+  "description": "24 حاسبة مالية وخدمية دقيقة ومتوافقة مع أحدث الأنظمة واللوائح السعودية لعام 2026",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#059669",
+  "orientation": "portrait-primary",
+  "lang": "ar",
+  "dir": "rtl",
+  "categories": ["finance", "utilities", "productivity", "education"],
+  "icons": [
+    {
+      "src": "/images/logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "حاسبة مكافأة نهاية الخدمة",
+      "short_name": "نهاية الخدمة",
+      "description": "حساب مكافأة نهاية الخدمة وفق المادتين 84 و85",
+      "url": "/eos.html?source=shortcut",
+      "icons": [{ "src": "/images/logo.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "حاسبة ضريبة القيمة المضافة 15%",
+      "short_name": "الضريبة 15%",
+      "description": "حساب واستخراج ضريبة القيمة المضافة",
+      "url": "/vat.html?source=shortcut",
+      "icons": [{ "src": "/images/logo.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "حاسبة حساب المواطن",
+      "short_name": "حساب المواطن",
+      "description": "حساب الدعم التقديري لرب الأسرة والتابعين",
+      "url": "/citizen-account.html?source=shortcut",
+      "icons": [{ "src": "/images/logo.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "حاسبة الراتب والتأمينات",
+      "short_name": "الراتب",
+      "description": "حساب صافي الراتب وخصم التأمينات وساند",
+      "url": "/salary.html?source=shortcut",
+      "icons": [{ "src": "/images/logo.png", "sizes": "192x192" }]
+    }
+  ]
+}

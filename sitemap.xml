@@ -361,6 +361,18 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://hasibha.com/articles/electricity-guide-2026-en</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://hasibha.com/articles/electricity-guide-2026</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://hasibha.com/articles/eos-guide-2026-en</loc>
     <lastmod>2026-11-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -373,6 +385,30 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://hasibha.com/articles/gpa-guide-2026-en</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://hasibha.com/articles/gpa-guide-2026</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hasibha.com/articles/leave-allowance-guide-2026-en</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://hasibha.com/articles/leave-allowance-guide-2026</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://hasibha.com/articles/mortgage-guide-2026-en</loc>
     <lastmod>2026-11-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -380,6 +416,18 @@
   </url>
   <url>
     <loc>https://hasibha.com/articles/mortgage-guide-2026</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hasibha.com/articles/sakani-guide-2026-en</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://hasibha.com/articles/sakani-guide-2026</loc>
     <lastmod>2026-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
