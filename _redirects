@@ -1,0 +1,46 @@
+# 301 Permanent Redirects from .net to .com
+https://hasibha.net/* https://hasibha.com/:splat 301!
+http://hasibha.net/* https://hasibha.com/:splat 301!
+https://www.hasibha.net/* https://hasibha.com/:splat 301!
+http://www.hasibha.net/* https://hasibha.com/:splat 301!
+https://www.hasibha.com/* https://hasibha.com/:splat 301!
+http://www.hasibha.com/* https://hasibha.com/:splat 301!
+
+# Clean URLs rewrites
+/mortgage /mortgage.html 200
+/personal-loan /personal-loan.html 200
+/eos /eos.html 200
+/salary /salary.html 200
+/vat /vat.html 200
+/zakat /zakat.html 200
+/bmi /bmi.html 200
+/calorie /calorie.html 200
+/age /age.html 200
+/currency /currency.html 200
+/gold-value /gold-value.html 200
+/gpa /gpa.html 200
+/citizen-account /citizen-account.html 200
+/social-security /social-security.html 200
+/sakani /sakani.html 200
+/electricity /electricity.html 200
+/water /water.html 200
+/leave-allowance /leave-allowance.html 200
+/hijri-date /hijri-date.html 200
+/date-diff /date-diff.html 200
+/discount /discount.html 200
+/length /length.html 200
+/weight /weight.html 200
+/area /area.html 200
+/about /about.html 200
+/contact /contact.html 200
+/privacy /privacy.html 200
+/ecommerce-profit /ecommerce-profit.html 200
+/ecommerce-profit-en /ecommerce-profit-en.html 200
+/import-cost /import-cost.html 200
+/import-cost-en /import-cost-en.html 200
+/pricing-calculator /pricing-calculator.html 200
+/pricing-calculator-en /pricing-calculator-en.html 200
+/roi /roi.html 200
+/roi-en /roi-en.html 200
+/shipping-weight /shipping-weight.html 200
+/shipping-weight-en /shipping-weight-en.html 200

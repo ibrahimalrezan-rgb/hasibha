@@ -142,49 +142,135 @@ gtag('config','G-NZLXJFVCDW');
 
     <label for="priceInput">سعر العقار (ر.س)</label>
     <div class="input-row">
-      <input type="number" id="priceInput" placeholder="أدخل سعر العقار" oninput="updateAll()">
+      <input type="number" id="priceInput" placeholder="مثال: 1,200,000" oninput="updateAll()">
     </div>
 
     <div class="slider-group">
       <div class="slider-value">
-        <label>الدفعة المقدمة — <span id="downPercent">20</span>٪</label>
+        <label>الدفعة المقدمة — <span id="downPercent">10</span>٪</label>
         <span id="downVal">0 ريال</span>
       </div>
-      <input type="range" id="downSlider" min="5" max="50" value="20" oninput="updateAll()">
-      <div class="labels"><span>5%</span><span>50%</span></div>
+      <input type="range" id="downSlider" min="5" max="50" value="10" oninput="updateAll()">
+      <div class="labels"><span>5% (المسكن الأول)</span><span>50%</span></div>
     </div>
 
     <div class="slider-group">
       <div class="slider-value">
-        <label>مدة التمويل — <span id="yearsVal">20</span> سنة</label>
+        <label>مدة التمويل — <span id="yearsVal">25</span> سنة</label>
       </div>
-      <input type="range" id="yearsSlider" min="5" max="30" value="20" oninput="updateAll()">
-      <div class="labels"><span>5</span><span>30</span></div>
+      <input type="range" id="yearsSlider" min="5" max="30" value="25" oninput="updateAll()">
+      <div class="labels"><span>5 سنوات</span><span>30 سنة</span></div>
     </div>
 
     <div class="slider-group">
       <div class="slider-value">
-        <label>نسبة الفائدة — <span id="rateVal">5.0</span>٪</label>
+        <label>هامش الربح السنوي — <span id="rateVal">4.5</span>٪</label>
       </div>
-      <input type="range" id="rateSlider" min="2" max="15" step="0.1" value="5" oninput="updateAll()">
-      <div class="labels"><span>2%</span><span>15%</span></div>
+      <input type="range" id="rateSlider" min="2" max="12" step="0.1" value="4.5" oninput="updateAll()">
+      <div class="labels"><span>2%</span><span>12%</span></div>
     </div>
 
-    <button class="calc-btn" onclick="updateAll()">احسب القسط الشهري</button>
+    <div style="background:var(--card,#fff);border:1px dashed var(--border,#e2e8f0);border-radius:14px;padding:16px;margin:20px 0;">
+      <h3 style="font-size:15px;margin-bottom:12px;color:var(--text);display:flex;align-items:center;gap:6px;">📊 حساب نسبة الاستقطاع والقدرة الائتمانية (اختياري)</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <label for="salaryInput" style="font-size:13px;">الراتب الشهري الصافي (ر.س)</label>
+          <input type="number" id="salaryInput" placeholder="مثال: 15,000" oninput="updateAll()" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--border,#cbd5e1);font-size:14px;background:var(--bg,#fff);color:var(--text);">
+        </div>
+        <div>
+          <label for="obligationsInput" style="font-size:13px;">الأقساط والالتزامات القائمة (ر.س)</label>
+          <input type="number" id="obligationsInput" placeholder="مثال: 1,500" oninput="updateAll()" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--border,#cbd5e1);font-size:14px;background:var(--bg,#fff);color:var(--text);">
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--text-2);margin-top:8px;">* وفق ضوابط البنك المركزي السعودي (ساما)، الحد الأقصى للاستقطاع العقاري يصل إلى 55% أو 65% للمستفيدين المؤهلين ومستفيدي سكني.</p>
+    </div>
+
+    <button class="calc-btn" onclick="updateAll()">احسب تفاصيل التمويل والاستقطاع</button>
 
     <div class="result-card" id="resultCard" style="display:block">
       <p style="color:var(--text-2);font-size:14px">القسط الشهري التقديري</p>
-      <div style="font-size:42px;font-weight:900;color:var(--c-health)" id="monthlyDisplay">0</div>
-      <p style="color:var(--text-2)">ر.س</p>
-      <div class="breakdown-grid">
-        <div class="breakdown-item"><span>المبلغ الممول</span><b id="financedDisplay">0 ر.س</b></div>
-        <div class="breakdown-item"><span>إجمالي الأرباح/الفوائد</span><b id="interestDisplay">0 ر.س</b></div>
+      <div style="font-size:40px;font-weight:900;color:var(--c-health)" id="monthlyDisplay">0</div>
+      <p style="color:var(--text-2)">ر.س / شهرياً</p>
+
+      <div class="breakdown-grid" style="margin-top:16px;">
+        <div class="breakdown-item"><span>المبلغ الممول الصافي</span><b id="financedDisplay">0 ر.س</b></div>
+        <div class="breakdown-item"><span>إجمالي الأرباح التقديرية</span><b id="interestDisplay">0 ر.س</b></div>
         <div class="breakdown-item"><span>إجمالي السداد</span><b id="totalDisplay">0 ر.س</b></div>
+        <div class="breakdown-item"><span>معدل APR التقديري الشامل</span><b id="aprDisplay" style="color:var(--accent,#059669)">0 %</b></div>
       </div>
+
+      <div id="dtiBox" style="display:none;margin-top:16px;padding:12px 16px;border-radius:12px;background:var(--bg,#f8fafc);border:1px solid var(--border,#e2e8f0);text-align:right;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:14px;font-weight:600;color:var(--text)">نسبة عبء الدين الإجمالية (DTI):</span>
+          <span id="dtiPercent" style="font-size:18px;font-weight:800;">0%</span>
+        </div>
+        <p id="dtiStatus" style="font-size:12.5px;margin-top:6px;margin-bottom:0;"></p>
+      </div>
+
+      <div class="fees-box" style="margin-top:16px;padding:12px;border-radius:12px;background:var(--bg,#f8fafc);font-size:12.5px;color:var(--text-2);text-align:right;border:1px solid var(--border,#e2e8f0);">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+          <span>الرسوم الإدارية التقديرية (1% بحد أقصى 5,000 ر.س):</span>
+          <b id="adminFeesDisplay">0 ر.س</b>
+        </div>
+        <div style="display:flex;justify-content:space-between;">
+          <span>رسوم التقييم العقاري التقديرية:</span>
+          <b>حوالي 1,725 - 2,300 ر.س</b>
+        </div>
+      </div>
+
       <div class="share-actions">
         <button class="share-btn whatsapp-btn" onclick="shareMortgageWhatsApp()"><span>📱 مشاركة القسط عبر واتساب</span></button>
         <button class="share-btn copy-btn" onclick="copyMortgageResult()"><span>📋 نسخ تفاصيل التمويل</span></button>
       </div>
+    </div>
+
+    <!-- Comparative Bank Matrix Preview -->
+    <div style="margin-top:24px;padding:18px;background:var(--card,#fff);border-radius:14px;border:1px solid var(--border,#e2e8f0);">
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;color:var(--text);">🏦 مقارنة استرشادية لمتوسط عروض التمويل العقاري في البنوك السعودية 2026</h3>
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;text-align:right;white-space:nowrap;">
+          <thead>
+            <tr style="background:var(--bg,#f8fafc);border-bottom:2px solid var(--border,#e2e8f0);">
+              <th style="padding:10px 8px;">جهة التمويل</th>
+              <th style="padding:10px 8px;">هامش الربح التقديري</th>
+              <th style="padding:10px 8px;">معدل النسبة السنوي (APR)</th>
+              <th style="padding:10px 8px;">أقصى مدة تمويل</th>
+              <th style="padding:10px 8px;">التوافق مع سكني</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border,#f1f5f9);">
+              <td style="padding:10px 8px;font-weight:600;">مصرف الراجحي</td>
+              <td style="padding:10px 8px;">يبدأ من 3.99% - 4.80%</td>
+              <td style="padding:10px 8px;">4.60% - 5.50%</td>
+              <td style="padding:10px 8px;">30 سنة</td>
+              <td style="padding:10px 8px;color:#059669;font-weight:600;">✅ معتمد</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border,#f1f5f9);">
+              <td style="padding:10px 8px;font-weight:600;">البنك الأهلي السعودي (SNB)</td>
+              <td style="padding:10px 8px;">يبدأ من 4.10% - 4.90%</td>
+              <td style="padding:10px 8px;">4.75% - 5.65%</td>
+              <td style="padding:10px 8px;">30 سنة</td>
+              <td style="padding:10px 8px;color:#059669;font-weight:600;">✅ معتمد</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border,#f1f5f9);">
+              <td style="padding:10px 8px;font-weight:600;">بنك الرياض</td>
+              <td style="padding:10px 8px;">يبدأ من 4.15% - 4.95%</td>
+              <td style="padding:10px 8px;">4.80% - 5.70%</td>
+              <td style="padding:10px 8px;">30 سنة</td>
+              <td style="padding:10px 8px;color:#059669;font-weight:600;">✅ معتمد</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border,#f1f5f9);">
+              <td style="padding:10px 8px;font-weight:600;">مصرف الإنماء</td>
+              <td style="padding:10px 8px;">يبدأ من 4.05% - 4.85%</td>
+              <td style="padding:10px 8px;">4.70% - 5.55%</td>
+              <td style="padding:10px 8px;">30 سنة</td>
+              <td style="padding:10px 8px;color:#059669;font-weight:600;">✅ معتمد</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:11.5px;color:var(--text-2);margin-top:8px;margin-bottom:0;">* تختلف النسب ومعدل APR بحسب السجل الائتماني (سمة SIMAH)، والراتب المحول، والجهة التابع لها العميل، وتخضع للشروط والأحكام الخاصة بكل بنك معتمد من ساما.</p>
     </div>
 
     <p style="text-align:center;color:var(--text-3);font-size:11px;margin-top:16px">* الأرقام تقديرية فقط ولا تعتبر عرضاً تمويلياً</p>
@@ -211,12 +297,23 @@ gtag('config','G-NZLXJFVCDW');
     <p>للمواطن السعودي المؤهل لشراء مسكنه الأول، قد يصل تمويل البنوك إلى 90% من قيمة العقار (دفعة أولى لا تقل عادة عن 10%). أما المسكن الثاني وما بعده فتختلف النسبة القصوى بحسب الجهة الممولة: 70% للبنوك و85% لشركات التمويل. تحقّق من التعليمات السارية لدى البنك المركزي السعودي والجهة الممولة، إذ قد تختلف الشروط والاستثناءات.</p>
     <div class="example">📝 <strong>مثال:</strong> عقار بمليون ريال، دفعة مقدمة 10% = 100,000 ريال تدفعها، والبنك يمول 900,000 ريال.</div>
 
-    <h3>نصائح ذهبية</h3>
+    <h3>الفرق بين معدل النسبة السنوي (APR) وهامش الربح الاسمي</h3>
+    <p><strong>هامش الربح الاسمي (Flat Rate):</strong> هو النسبة البسيطة للأرباح السنوية التي يروج لها البنك (مثلاً 4% سنوياً).</p>
+    <p><strong>معدل النسبة السنوي (APR - Annual Percentage Rate):</strong> هو المعيار المعتمد والأهم وفق تعليمات البنك المركزي السعودي؛ فهو يعكس التكلفة الإجمالية الحقيقية للتمويل شاملة هامش الربح والرسوم الإدارية (1% بحد أقصى 5,000 ريال) ورسوم التقييم والتأمين التكافلي على العقار والحياة. لذلك احرص دائماً على المقارنة برقم APR وليس هامش الربح فقط.</p>
+
+    <h3>نسبة الاستقطاع القصوى (DTI) وفق ضوابط ساما</h3>
     <ul>
-      <li>قارن 3 بنوك قبل التوقيع.</li>
-      <li>اسأل عن APR وليس النسبة الاسمية.</li>
-      <li>تحقق من حدود الاستقطاع المعتمدة بحسب دخلك والتزاماتك ونوع التمويل؛ لا توجد نسبة واحدة تنطبق على جميع الحالات.</li>
-      <li>استخدم الحاسبة لتجربة سيناريوهات مختلفة.</li>
+      <li><strong>التمويل الاستهلاكي/الشخصي:</strong> بحد أقصى 33.33% من الراتب للموظفين و25% للمتقاعدين.</li>
+      <li><strong>التمويل العقاري العادي:</strong> يصل الاستقطاع الإجمالي إلى 55% من إجمالي الدخل.</li>
+      <li><strong>مستفيدو برامج الدعم السكني (سكني):</strong> يمكن أن تصل نسبة الاستقطاع الإجمالية إلى 65% للمستفيدين المؤهلين لمنحهم قدرة تمويلية أعلى لامتلاك المسكن الأول.</li>
+    </ul>
+
+    <h3>نصائح ذهبية قبل توقيع عقد التمويل</h3>
+    <ul>
+      <li>قارن عروض 3 بنوك على الأقل بناءً على معدل النسبة السنوي (APR).</li>
+      <li>استفد من إعفاء ضريبة التصرفات العقارية (5%) لمسكنك الأول حتى قيمة 1,000,000 ريال.</li>
+      <li>تأكد من شروط السداد المبكر وفق نظام التمويل العقاري (كلفة 3 أشهر من الأرباح بحد أقصى).</li>
+      <li>استخدم الحاسبة أعلاه لتجربة سيناريوهات السداد ورفع الدفعة الأولى لتقليل التكلفة الإجمالية.</li>
     </ul>
 
     <p class="ref"><strong>المراجع:</strong> البنك المركزي السعودي (SAMA.gov.sa) | وزارة الإسكان (housing.gov.sa) | صندوق التنمية العقارية (redf.gov.sa)</p>
@@ -354,27 +451,67 @@ function updateAll(){
   var p=parseInt(document.getElementById('priceInput').value)||0,
       d=parseInt(document.getElementById('downSlider').value),
       y=parseInt(document.getElementById('yearsSlider').value),
-      r=parseFloat(document.getElementById('rateSlider').value);
+      r=parseFloat(document.getElementById('rateSlider').value),
+      salary=parseFloat(document.getElementById('salaryInput').value)||0,
+      obligations=parseFloat(document.getElementById('obligationsInput').value)||0;
+
   document.getElementById('downPercent').textContent=d;
   document.getElementById('yearsVal').textContent=y;
   document.getElementById('rateVal').textContent=r.toFixed(1);
+
   if(p<=0){
     document.getElementById('downVal').textContent='0 ريال';
     document.getElementById('monthlyDisplay').textContent='0';
-    document.getElementById('financedDisplay').textContent='0';
-    document.getElementById('interestDisplay').textContent='0';
-    document.getElementById('totalDisplay').textContent='0';
+    document.getElementById('financedDisplay').textContent='0 ر.س';
+    document.getElementById('interestDisplay').textContent='0 ر.س';
+    document.getElementById('totalDisplay').textContent='0 ر.س';
+    document.getElementById('aprDisplay').textContent='0 %';
+    document.getElementById('adminFeesDisplay').textContent='0 ر.س';
+    document.getElementById('dtiBox').style.display='none';
     return;
   }
-  var dp=p*(d/100),f=p-dp,m=y*12,mr=(r/100)/12,mo=0;
-  if(mr>0&&f>0)mo=f*mr*Math.pow(1+mr,m)/(Math.pow(1+mr,m)-1);
-  else if(f>0)mo=f/m;
+
+  var dp=p*(d/100), f=p-dp, m=y*12, mr=(r/100)/12, mo=0;
+  if(mr>0&&f>0) mo=f*mr*Math.pow(1+mr,m)/(Math.pow(1+mr,m)-1);
+  else if(f>0) mo=f/m;
+
   var t=mo*m;
+  var adminFee=Math.min(f*0.01, 5000); // ضوابط البنك المركزي: 1% أو 5,000 ريال كحد أقصى
+  var evaluationFee=2000;
+  var apr=r;
+  if(f>0&&y>0){
+    apr=r+((adminFee+evaluationFee)/f)*(1/y)*100*1.8;
+  }
+
   document.getElementById('downVal').textContent=formatNumber(Math.round(dp))+' ريال';
   document.getElementById('monthlyDisplay').textContent=formatNumber(Math.round(mo));
-  document.getElementById('financedDisplay').textContent=formatNumber(Math.round(f));
-  document.getElementById('interestDisplay').textContent=formatNumber(Math.round(t-f));
-  document.getElementById('totalDisplay').textContent=formatNumber(Math.round(t));
+  document.getElementById('financedDisplay').textContent=formatNumber(Math.round(f))+' ر.س';
+  document.getElementById('interestDisplay').textContent=formatNumber(Math.round(t-f))+' ر.س';
+  document.getElementById('totalDisplay').textContent=formatNumber(Math.round(t))+' ر.س';
+  document.getElementById('aprDisplay').textContent=apr.toFixed(2)+' %';
+  document.getElementById('adminFeesDisplay').textContent=formatNumber(Math.round(adminFee))+' ر.س';
+
+  var dtiBox=document.getElementById('dtiBox');
+  if(salary>0){
+    dtiBox.style.display='block';
+    var totalDebt=mo+obligations;
+    var dti=(totalDebt/salary)*100;
+    var dtiPercentEl=document.getElementById('dtiPercent');
+    var dtiStatusEl=document.getElementById('dtiStatus');
+    dtiPercentEl.textContent=dti.toFixed(1)+'%';
+    if(dti<=55){
+      dtiPercentEl.style.color='#059669';
+      dtiStatusEl.innerHTML='<span style="color:#059669;font-weight:700;">✅ نسبة مقبولة نظاماً (≤ 55%):</span> تقع ضمن سقف الاستقطاع العام للتمويل العقاري وفق ضوابط البنك المركزي السعودي (ساما).';
+    } else if(dti<=65){
+      dtiPercentEl.style.color='#d97706';
+      dtiStatusEl.innerHTML='<span style="color:#d97706;font-weight:700;">⚠️ مقبولة لمستفيدي سكني (55% - 65%):</span> تتجاوز السقف العادي ولكنها متاحة للمستفيدين المؤهلين لبرامج الإسكان والدعم السكني.';
+    } else {
+      dtiPercentEl.style.color='#dc2626';
+      dtiStatusEl.innerHTML='<span style="color:#dc2626;font-weight:700;">❌ تتجاوز الحد الأقصى النظامي (> 65%):</span> ينصح بزيادة الدفعة الأولى، تمديد مدة التمويل، أو سداد التزامات قائمة لقبول الطلب.';
+    }
+  } else {
+    dtiBox.style.display='none';
+  }
 }
 </script>
 

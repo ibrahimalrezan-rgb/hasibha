@@ -1,0 +1,15 @@
+RewriteEngine On
+
+# Redirect hasibha.net and any www to https://hasibha.com
+RewriteCond %{HTTP_HOST} ^(www\.)?hasibha\.net$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www\.hasibha\.com$ [NC]
+RewriteRule ^(.*)$ https://hasibha.com/$1 [R=301,L]
+
+# Enforce HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://hasibha.com/$1 [R=301,L]
+
+# Clean URLs (remove .html extension)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^([^\.]+)$ $1.html [NC,L]

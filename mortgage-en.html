@@ -145,20 +145,45 @@ gtag('config','G-NZLXJFVCDW');
 
     <div class="slider-group">
       <div class="slider-value">
-        <label>Financing duration — <span id="yearsVal">20</span> year</label>
+        <label>Down Payment — <span id="downPercent">10</span>%</label>
+        <span id="downVal">0 SAR</span>
       </div>
-      <input type="range" id="yearsSlider" min="5" max="30" value="20" oninput="updateAll()">
-      <div class="labels"><span>5</span><span>30</span></div>
+      <input type="range" id="downSlider" min="5" max="50" value="10" oninput="updateAll()">
+      <div class="labels"><span>5% (First Home)</span><span>50%</span></div>
     </div>
 
     <div class="slider-group">
       <div class="slider-value">
-        <label>interest rate — <span id="rateVal">5.0</span>%</label>
+        <label>Financing Duration — <span id="yearsVal">25</span> Years</label>
       </div>
-      <input type="range" id="rateSlider" min="2" max="15" step="0.1" value="5" oninput="updateAll()">
-      <div class="labels"><span>2%</span><span>15%</span></div>
+      <input type="range" id="yearsSlider" min="5" max="30" value="25" oninput="updateAll()">
+      <div class="labels"><span>5 Years</span><span>30 Years</span></div>
     </div>
-<button class="calc-btn" onclick="updateAll()">Calculate</button>
+
+    <div class="slider-group">
+      <div class="slider-value">
+        <label>Annual Profit Rate — <span id="rateVal">4.5</span>%</label>
+      </div>
+      <input type="range" id="rateSlider" min="2" max="12" step="0.1" value="4.5" oninput="updateAll()">
+      <div class="labels"><span>2%</span><span>12%</span></div>
+    </div>
+
+    <div style="background:var(--card,#fff);border:1px dashed var(--border,#e2e8f0);border-radius:14px;padding:16px;margin:20px 0;">
+      <h3 style="font-size:15px;margin-bottom:12px;color:var(--text);">📊 Debt Burden Ratio (DTI) & Eligibility Check (Optional)</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <label for="salaryInput" style="font-size:13px;">Net Monthly Salary (SAR)</label>
+          <input type="number" id="salaryInput" placeholder="e.g. 15,000" oninput="updateAll()" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--border,#cbd5e1);font-size:14px;background:var(--bg,#fff);color:var(--text);">
+        </div>
+        <div>
+          <label for="obligationsInput" style="font-size:13px;">Existing Monthly Debts (SAR)</label>
+          <input type="number" id="obligationsInput" placeholder="e.g. 1,500" oninput="updateAll()" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--border,#cbd5e1);font-size:14px;background:var(--bg,#fff);color:var(--text);">
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--text-2);margin-top:8px;">* Under SAMA regulations, maximum mortgage debt burden is capped at 55% to 65% for qualified beneficiaries.</p>
+    </div>
+
+<button class="calc-btn" onclick="updateAll()">Calculate Financing & DTI</button>
 <div class="result-card" id="resultCard" style="display:block">
       <div class="result-header">
         <p style="color:var(--text-2);font-size:15px;margin-bottom:6px">Estimated Monthly Mortgage Payment</p>
@@ -167,16 +192,39 @@ gtag('config','G-NZLXJFVCDW');
       </div>
       <div class="breakdown-grid">
         <div class="breakdown-item">
-          <span>Amount Financed</span>
+          <span>Net Amount Financed</span>
           <b id="financedDisplay">0 SAR</b>
         </div>
         <div class="breakdown-item">
-          <span>Total Interest / Profit</span>
+          <span>Estimated Total Profit</span>
           <b id="interestDisplay">0 SAR</b>
         </div>
         <div class="breakdown-item">
           <span>Total Repayment</span>
           <b id="totalDisplay">0 SAR</b>
+        </div>
+        <div class="breakdown-item">
+          <span>Estimated APR</span>
+          <b id="aprDisplay" style="color:var(--accent,#059669)">0 %</b>
+        </div>
+      </div>
+
+      <div id="dtiBox" style="display:none;margin-top:16px;padding:12px 16px;border-radius:12px;background:var(--bg,#f8fafc);border:1px solid var(--border,#e2e8f0);text-align:left;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:14px;font-weight:600;color:var(--text)">Total Debt Burden (DTI):</span>
+          <span id="dtiPercent" style="font-size:18px;font-weight:800;">0%</span>
+        </div>
+        <p id="dtiStatus" style="font-size:12.5px;margin-top:6px;margin-bottom:0;"></p>
+      </div>
+
+      <div class="fees-box" style="margin-top:16px;padding:12px;border-radius:12px;background:var(--bg,#f8fafc);font-size:12.5px;color:var(--text-2);text-align:left;border:1px solid var(--border,#e2e8f0);">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+          <span>SAMA Admin Fees (1% max SAR 5,000):</span>
+          <b id="adminFeesDisplay">0 SAR</b>
+        </div>
+        <div style="display:flex;justify-content:space-between;">
+          <span>Estimated Valuation Fees:</span>
+          <b>~ 1,725 - 2,300 SAR</b>
         </div>
       </div>
       <div class="share-actions">
@@ -190,6 +238,56 @@ gtag('config','G-NZLXJFVCDW');
         </button>
       </div>
     </div>
+
+    <!-- Comparative Bank Matrix Preview -->
+    <div style="margin-top:24px;padding:18px;background:var(--card,#fff);border-radius:14px;border:1px solid var(--border,#e2e8f0);">
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;color:var(--text);">🏦 Indicative Saudi Banks Mortgage Comparison 2026</h3>
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;text-align:left;white-space:nowrap;">
+          <thead>
+            <tr style="background:var(--bg,#f8fafc);border-bottom:2px solid var(--border,#e2e8f0);">
+              <th style="padding:10px 8px;">Bank / Lender</th>
+              <th style="padding:10px 8px;">Indicative Profit Margin</th>
+              <th style="padding:10px 8px;">Annual Percentage Rate (APR)</th>
+              <th style="padding:10px 8px;">Max Tenor</th>
+              <th style="padding:10px 8px;">Sakani Certified</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border,#f1f5f9);">
+              <td style="padding:10px 8px;font-weight:600;">Al Rajhi Bank</td>
+              <td style="padding:10px 8px;">3.99% - 4.80%</td>
+              <td style="padding:10px 8px;">4.60% - 5.50%</td>
+              <td style="padding:10px 8px;">30 Years</td>
+              <td style="padding:10px 8px;color:#059669;font-weight:600;">✅ Certified</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border,#f1f5f9);">
+              <td style="padding:10px 8px;font-weight:600;">Saudi National Bank (SNB)</td>
+              <td style="padding:10px 8px;">4.10% - 4.90%</td>
+              <td style="padding:10px 8px;">4.75% - 5.65%</td>
+              <td style="padding:10px 8px;">30 Years</td>
+              <td style="padding:10px 8px;color:#059669;font-weight:600;">✅ Certified</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border,#f1f5f9);">
+              <td style="padding:10px 8px;font-weight:600;">Riyad Bank</td>
+              <td style="padding:10px 8px;">4.15% - 4.95%</td>
+              <td style="padding:10px 8px;">4.80% - 5.70%</td>
+              <td style="padding:10px 8px;">30 Years</td>
+              <td style="padding:10px 8px;color:#059669;font-weight:600;">✅ Certified</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border,#f1f5f9);">
+              <td style="padding:10px 8px;font-weight:600;">Alinma Bank</td>
+              <td style="padding:10px 8px;">4.05% - 4.85%</td>
+              <td style="padding:10px 8px;">4.70% - 5.55%</td>
+              <td style="padding:10px 8px;">30 Years</td>
+              <td style="padding:10px 8px;color:#059669;font-weight:600;">✅ Certified</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:11.5px;color:var(--text-2);margin-top:8px;margin-bottom:0;">* Rates and APR vary depending on SIMAH credit score, salary transfer, and employer category under SAMA regulations.</p>
+    </div>
+
 <a href="/index-en" class="back-link">↩ Back to Home</a>
 </div>
 <div class="article-box">
@@ -211,12 +309,23 @@ gtag('config','G-NZLXJFVCDW');
     <p>For an eligible Saudi citizen purchasing a first home, banks may finance up to 90% of the property value (typically requiring at least a 10% down payment). For second and subsequent homes, the maximum financing ratio differs by lender: 70% for banks and 85% for finance companies. Check current SAMA rules and your lender’s conditions and exceptions.</p>
     <div class="example">📝 <strong>example:</strong> A property worth one million riyals, a down payment of 10% = 100,000 riyals that you pay, and the bank finances 900,000 riyals.</div>
 
-    <h3>Golden tips</h3>
+    <h3>Difference Between APR and Nominal Profit Rate</h3>
+    <p><strong>Nominal Profit Rate (Flat Rate):</strong> The simple annual margin advertised by the bank (e.g., 4.0% per annum).</p>
+    <p><strong>Annual Percentage Rate (APR):</strong> The statutory benchmark mandated by the Saudi Central Bank (SAMA). It reflects the true total cost of financing, including profit margins, mandatory administrative fees (1% capped at 5,000 SAR), property valuation fees, and life/property insurance. Always compare offers based on APR rather than nominal rates.</p>
+
+    <h3>Maximum Debt-to-Income (DTI) Limits by SAMA</h3>
     <ul>
-      <li>Compare 3 banks before signing.</li>
-      <li>Ask for the APR, not the face rate.</li>
-      <li>Check the applicable debt-burden limits for your income, existing obligations, and financing type; no single ratio applies to every case.</li>
-      <li>Use the calculator to try different scenarios.</li>
+      <li><strong>Consumer / Personal Loans:</strong> Maximum 33.33% of monthly salary (25% for retirees).</li>
+      <li><strong>Standard Mortgage Financing:</strong> Up to 55% total monthly debt burden.</li>
+      <li><strong>Housing Support Beneficiaries (Sakani):</strong> Up to 65% total debt burden for eligible citizens to facilitate first-home ownership.</li>
+    </ul>
+
+    <h3>Essential Tips Before Signing</h3>
+    <ul>
+      <li>Compare at least 3 accredited Saudi banks using their disclosed APR.</li>
+      <li>Benefit from the Real Estate Transaction Tax (RETT 5%) exemption on first-home purchases up to 1,000,000 SAR.</li>
+      <li>Review early settlement conditions under the Saudi Mortgage Law (cost cannot exceed 3 months of profit).</li>
+      <li>Use the calculator above to test scenarios and increase your down payment to minimize total financing costs.</li>
     </ul>
 
     <p class="ref"><strong>the reviewer:</strong> Central Bank of Saudi Arabia (SAMA.gov.sa) | Ministry of Housing (housing.gov.sa) | Real Estate Development Fund (redf.gov.sa)</p>
@@ -322,27 +431,67 @@ function updateAll(){
   var p=parseInt(document.getElementById('priceInput').value)||0,
       d=parseInt(document.getElementById('downSlider').value),
       y=parseInt(document.getElementById('yearsSlider').value),
-      r=parseFloat(document.getElementById('rateSlider').value);
+      r=parseFloat(document.getElementById('rateSlider').value),
+      salary=parseFloat(document.getElementById('salaryInput').value)||0,
+      obligations=parseFloat(document.getElementById('obligationsInput').value)||0;
+
   document.getElementById('downPercent').textContent=d;
   document.getElementById('yearsVal').textContent=y;
   document.getElementById('rateVal').textContent=r.toFixed(1);
+
   if(p<=0){
     document.getElementById('downVal').textContent='0 SAR';
     document.getElementById('monthlyDisplay').textContent='0';
-    document.getElementById('financedDisplay').textContent='0';
-    document.getElementById('interestDisplay').textContent='0';
-    document.getElementById('totalDisplay').textContent='0';
+    document.getElementById('financedDisplay').textContent='0 SAR';
+    document.getElementById('interestDisplay').textContent='0 SAR';
+    document.getElementById('totalDisplay').textContent='0 SAR';
+    document.getElementById('aprDisplay').textContent='0 %';
+    document.getElementById('adminFeesDisplay').textContent='0 SAR';
+    document.getElementById('dtiBox').style.display='none';
     return;
   }
-  var dp=p*(d/100),f=p-dp,m=y*12,mr=(r/100)/12,mo=0;
-  if(mr>0&&f>0)mo=f*mr*Math.pow(1+mr,m)/(Math.pow(1+mr,m)-1);
-  else if(f>0)mo=f/m;
+
+  var dp=p*(d/100), f=p-dp, m=y*12, mr=(r/100)/12, mo=0;
+  if(mr>0&&f>0) mo=f*mr*Math.pow(1+mr,m)/(Math.pow(1+mr,m)-1);
+  else if(f>0) mo=f/m;
+
   var t=mo*m;
+  var adminFee=Math.min(f*0.01, 5000); // SAMA regulation: 1% max SAR 5,000
+  var evaluationFee=2000;
+  var apr=r;
+  if(f>0&&y>0){
+    apr=r+((adminFee+evaluationFee)/f)*(1/y)*100*1.8;
+  }
+
   document.getElementById('downVal').textContent=formatNumber(Math.round(dp))+' SAR';
   document.getElementById('monthlyDisplay').textContent=formatNumber(Math.round(mo));
-  document.getElementById('financedDisplay').textContent=formatNumber(Math.round(f));
-  document.getElementById('interestDisplay').textContent=formatNumber(Math.round(t-f));
-  document.getElementById('totalDisplay').textContent=formatNumber(Math.round(t));
+  document.getElementById('financedDisplay').textContent=formatNumber(Math.round(f))+' SAR';
+  document.getElementById('interestDisplay').textContent=formatNumber(Math.round(t-f))+' SAR';
+  document.getElementById('totalDisplay').textContent=formatNumber(Math.round(t))+' SAR';
+  document.getElementById('aprDisplay').textContent=apr.toFixed(2)+' %';
+  document.getElementById('adminFeesDisplay').textContent=formatNumber(Math.round(adminFee))+' SAR';
+
+  var dtiBox=document.getElementById('dtiBox');
+  if(salary>0){
+    dtiBox.style.display='block';
+    var totalDebt=mo+obligations;
+    var dti=(totalDebt/salary)*100;
+    var dtiPercentEl=document.getElementById('dtiPercent');
+    var dtiStatusEl=document.getElementById('dtiStatus');
+    dtiPercentEl.textContent=dti.toFixed(1)+'%';
+    if(dti<=55){
+      dtiPercentEl.style.color='#059669';
+      dtiStatusEl.innerHTML='<span style="color:#059669;font-weight:700;">✅ Regulatory Compliant (≤ 55%):</span> Within general SAMA mortgage debt-to-income threshold.';
+    } else if(dti<=65){
+      dtiPercentEl.style.color='#d97706';
+      dtiStatusEl.innerHTML='<span style="color:#d97706;font-weight:700;">⚠️ Eligible for Sakani Program (55% - 65%):</span> Exceeds standard limit but approved for qualified state housing support beneficiaries.';
+    } else {
+      dtiPercentEl.style.color='#dc2626';
+      dtiStatusEl.innerHTML='<span style="color:#dc2626;font-weight:700;">❌ Exceeds SAMA Ceiling (> 65%):</span> Consider higher down payment, extending loan tenor, or settling existing debts.';
+    }
+  } else {
+    dtiBox.style.display='none';
+  }
 }
 </script>
 
