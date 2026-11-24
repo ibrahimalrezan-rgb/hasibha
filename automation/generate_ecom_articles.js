@@ -49,7 +49,7 @@ const articlesData = [
 </table>
 
 <h2>المعادلة الرياضية لصافي ربح الطلب الواحد</h2>
-<blockquote style="background:#f1f5f9;padding:16px;border-right:4px solid #059669;border-radius:8px;margin:20px 0;">
+<blockquote style="background:var(--surface);color:var(--text);padding:18px;border-inline-start:4px solid var(--accent);border-radius:12px;margin:20px 0;">
   <strong>صافي الربح = سعر البيع للعميل - (تكلفة المنتج + تكلفة الشحن + عمولة بوابة الدفع + تكلفة الإعلان لكل طلب CAC + ضريبة 15%)</strong>
 </blockquote>
 
@@ -95,7 +95,7 @@ const articlesData = [
 </table>
 
 <h2>Order Unit Economics Formula</h2>
-<blockquote style="background:#f1f5f9;padding:16px;border-left:4px solid #059669;border-radius:8px;margin:20px 0;">
+<blockquote style="background:var(--surface);color:var(--text);padding:18px;border-inline-start:4px solid var(--accent);border-radius:12px;margin:20px 0;">
   <strong>Net Profit = Retail Price - (Product Cost + Shipping + Gateway Fees + Ad CAC + 15% VAT)</strong>
 </blockquote>
 `
@@ -222,7 +222,7 @@ const articlesData = [
 </table>
 
 <h2>معادلة تسعير المنتج بناءً على هامش الربح المستهدف</h2>
-<blockquote style="background:#f1f5f9;padding:16px;border-right:4px solid #059669;border-radius:8px;margin:20px 0;">
+<blockquote style="background:var(--surface);color:var(--text);padding:18px;border-inline-start:4px solid var(--accent);border-radius:12px;margin:20px 0;">
   <strong>سعر البيع المقترح قبل الضريبة = التكلفة الإجمالية للوحدة ÷ (1 - نسبة هامش الربح المطلوب)</strong>
 </blockquote>
 <p>فإذا كانت تكلفة القطعة 80 ريالاً، وتريد تحقيق هامش ربح صافٍ قدره 35%:<br>
@@ -231,7 +231,7 @@ const articlesData = [
 
 <h2>كيف تحسب نقطة التعادل (Break-Even Point)؟</h2>
 <p>نقطة التعادل هي حجم المبيعات الذي تتساوى عنده الإيرادات مع كافة التكاليف، بحيث لا يحقق المشروع ربحاً ولا خسارة. وكل قطعة تُباع بعد هذه النقطة تمثل ربحاً صافياً خالصاً:</p>
-<blockquote style="background:#f1f5f9;padding:16px;border-right:4px solid #059669;border-radius:8px;margin:20px 0;">
+<blockquote style="background:var(--surface);color:var(--text);padding:18px;border-inline-start:4px solid var(--accent);border-radius:12px;margin:20px 0;">
   <strong>عدد قطع التعادل = المصاريف الشهرية الثابتة ÷ هامش ربح القطعة الواحدة</strong>
 </blockquote>
 `,
@@ -244,7 +244,7 @@ const articlesData = [
 </ul>
 
 <h2>Break-Even Volume Formula</h2>
-<blockquote style="background:#f1f5f9;padding:16px;border-left:4px solid #059669;border-radius:8px;margin:20px 0;">
+<blockquote style="background:var(--surface);color:var(--text);padding:18px;border-inline-start:4px solid var(--accent);border-radius:12px;margin:20px 0;">
   <strong>Break-Even Units = Total Monthly Fixed Overhead ÷ Unit Contribution Margin</strong>
 </blockquote>
 `
@@ -273,13 +273,13 @@ const articlesData = [
 <p>يُعد <strong>العائد على الاستثمار (Return on Investment - ROI)</strong> المقياس المالي العالمي الأول الذي يستخدمه المستثمرون ورواد الأعمال لتقييم كفاءة وجدوى أي مشروع تجاري أو حملة توسعية. فالربح كرقم مجرد (مثلاً 50,000 ريال) لا يعني شيئاً دون مقارنته بحجم رأس المال الذي تم توظيفه لتحقيق هذا الربح والمدة الزمنية المستغرقة.</p>
 
 <h2>المعادلة الرياضية لاحتساب ROI السنوي</h2>
-<blockquote style="background:#f1f5f9;padding:16px;border-right:4px solid #059669;border-radius:8px;margin:20px 0;">
+<blockquote style="background:var(--surface);color:var(--text);padding:18px;border-inline-start:4px solid var(--accent);border-radius:12px;margin:20px 0;">
   <strong>نسبة العائد السنوي (ROI %) = (صافي الأرباح السنوية ÷ إجمالي رأس المال المستثمر) × 100</strong>
 </blockquote>
 
 <h2>فترة استرداد رأس المال (Payback Period)</h2>
 <p>توضح المدة الزمنية اللازمة للمشروع لتغطية رأس ماله الأولي والبدء في توليد أرباح حرة إضافية:</p>
-<blockquote style="background:#f1f5f9;padding:16px;border-right:4px solid #059669;border-radius:8px;margin:20px 0;">
+<blockquote style="background:var(--surface);color:var(--text);padding:18px;border-inline-start:4px solid var(--accent);border-radius:12px;margin:20px 0;">
   <strong>فترة الاسترداد (بالأشهر) = رأس المال المستثمر ÷ صافي الربح الشهري</strong>
 </blockquote>
 
@@ -336,7 +336,7 @@ const articlesData = [
 <p>فطائرات الشحن وشاحنات النقل تمتلك مساحة شحن محدودة؛ وصندوق كبير مملوء بالقطن يزن 5 كيلوغرامات يشغل نفس الحيز الذي تشغله سبائك حديد تزن 50 كيلوغراماً. لذا وضعت المنظمات الدولية للشحن معايير موحدة للعدالة بين الحجم والوزن.</p>
 
 <h2>معادلة IATA الدولية لحساب الوزن الحجمي</h2>
-<blockquote style="background:#f1f5f9;padding:16px;border-right:4px solid #059669;border-radius:8px;margin:20px 0;">
+<blockquote style="background:var(--surface);color:var(--text);padding:18px;border-inline-start:4px solid var(--accent);border-radius:12px;margin:20px 0;">
   <strong>الوزن الحجمي (كجم) = (الطول × العرض × الارتفاع بالسنتيمتر) ÷ 5000</strong>
 </blockquote>
 <p><em>ملاحظة:</em> الرقم 5000 هو المعيار المعتمد لدى معظم شركات الشحن الجوي السريع في السعودية (أرامكس، DHL، فيديكس، سمسا، وسبل). وتستخدم بعض شركات الشحن البحري أو الاقتصادي مقسوماً قدره 6000.</p>
@@ -368,7 +368,7 @@ const articlesData = [
 <p>International courier and express air freight carriers (Aramex, DHL, FedEx, SMSA, and SPL) utilize <strong>Volumetric (Dimensional) Weight</strong> alongside scale weight to account for the physical cargo volume occupied in aircraft and transport containers.</p>
 
 <h2>The IATA International Formula</h2>
-<blockquote style="background:#f1f5f9;padding:16px;border-left:4px solid #059669;border-radius:8px;margin:20px 0;">
+<blockquote style="background:var(--surface);color:var(--text);padding:18px;border-inline-start:4px solid var(--accent);border-radius:12px;margin:20px 0;">
   <strong>Volumetric Weight (kg) = (Length × Width × Height in cm) ÷ 5000</strong>
 </blockquote>
 <p><strong>Chargeable Weight:</strong> The billing basis is always the greater of scale weight or volumetric weight.</p>
@@ -394,6 +394,27 @@ function buildArticleHtml(art, isEn = false) {
   const toggleUrl = isEn ? `/articles/${slug}` : `/articles/${slug}-en`;
   const toggleLabel = isEn ? 'AR' : 'EN';
   const authorName = isEn ? 'Hasibha Business Team' : 'فريق حاسبها للأعمال';
+
+  let h2Count = 0;
+  const tocList = [];
+  const processedContent = content.replace(/<h2>(.*?)<\/h2>/g, (match, headingText) => {
+    h2Count++;
+    const id = `section-${h2Count}`;
+    tocList.push({ id, text: headingText.replace(/<[^>]+>/g, '') });
+    return `<h2 id="${id}">${headingText}<\/h2>`;
+  });
+
+  const tocHtml = tocList.length > 0 ? `
+<div class="toc-box" style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;margin:24px 0;">
+  <div style="font-weight:700;font-size:15px;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+    <span>📌</span>
+    <span>${isEn ? 'Table of Contents' : 'جدول المحتويات'}</span>
+  </div>
+  <ul style="list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:8px;">
+    ${tocList.map(item => `<li><a href="#${item.id}" style="color:var(--accent);text-decoration:none;font-size:14px;display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:8px;background:var(--card);border:1px solid var(--border);transition:all 0.2s;"><span style="opacity:0.6;">#</span> <span>${item.text}</span></a></li>`).join('\n    ')}
+  </ul>
+</div>
+` : '';
 
   return `<!DOCTYPE html>
 <html lang="${lang}" dir="${dir}">
@@ -499,12 +520,14 @@ function buildArticleHtml(art, isEn = false) {
 <span>⏱️ ${isEn ? art.readTimeEn : art.readTimeAr}</span>
 </div>
 
-${content}
+${tocHtml}
 
-<div class="calc-box" style="margin-top:32px;background:#f8fafc;border:1px solid #e2e8f0;padding:24px;border-radius:16px;text-align:center;">
-<h3>${ctaTitle}</h3>
-<p style="color:#64748b;font-size:14px;margin-bottom:16px;">${ctaDesc}</p>
-<a href="${ctaUrl}" class="cta-btn" style="display:inline-block;background:#059669;color:#fff;padding:10px 24px;border-radius:12px;font-weight:bold;text-decoration:none;">${ctaBtn}</a>
+${processedContent}
+
+<div class="calc-box" style="margin-top:32px;background:var(--surface);border:1px solid var(--border);padding:24px;border-radius:16px;text-align:center;">
+<h3 style="color:var(--text);">${ctaTitle}</h3>
+<p style="color:var(--text-2);font-size:14px;margin-bottom:16px;">${ctaDesc}</p>
+<a href="${ctaUrl}" class="cta-btn" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 24px;border-radius:12px;font-weight:bold;text-decoration:none;">${ctaBtn}</a>
 </div>
 
 </article>
